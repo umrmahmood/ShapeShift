@@ -1,0 +1,1 @@
+// Cross-Site Request Forgery (CSRF) middleware for protecting against CSRF attacks.

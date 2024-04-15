@@ -1,0 +1,1 @@
+// Middleware file for handling authentication.

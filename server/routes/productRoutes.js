@@ -1,0 +1,1 @@
+// Route file for defining product-related endpoints.

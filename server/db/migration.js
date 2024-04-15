@@ -1,0 +1,1 @@
+// Migrations are scripts that define changes to your database schema over time. 
