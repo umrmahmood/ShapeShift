@@ -91,6 +91,7 @@ const UserSchema = new Schema(
         default: "buyer", // Default value for role field.
         enum: ["buyer", "seller", "admin"], // Enumeration for user roles.
       },
+      favorites: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       registerDate: {
         type: Date,
         default: Date.now,
