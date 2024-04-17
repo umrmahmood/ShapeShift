@@ -91,6 +91,10 @@ const UserSchema = new Schema(
         default: "buyer", // Default value for role field.
         enum: ["buyer", "seller", "admin"], // Enumeration for user roles.
       },
+      registerDate: {
+        type: Date,
+        default: Date.now,
+      },
     },
   },
   {

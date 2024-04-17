@@ -8,6 +8,7 @@ import path, { join } from "path"; // Importing path module for file path manipu
 // Importing modules
 import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
 import AdminRoutes from "./routes/adminRoutes.js"; // Importing adminRoutes.js
+import ProductRoutes from "./routes/productRoutes.js"; // Importing productRoutes.js
 
 // Initializing Express app
 const app = express(); // Creating an Express application
@@ -28,6 +29,7 @@ app.use(express.static("./public")); // Serving static files from the public dir
 // Routes
 app.use("/", UserRoutes); // Using UserRoutes for user-related routes
 app.use("/admin", AdminRoutes); // Using AdminRoutes for admin-related routes
+app.use("/", ProductRoutes); // Using ProductRoutes for product-related routes
 
 // Mongoose connection
 mongoose

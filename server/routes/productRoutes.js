@@ -17,16 +17,20 @@ router
 
 // Routes for creating, updating, and deleting products
 router
-  // Apply isLoggedIn middleware only to the routes below
-  .post("/listings", authMiddleware.isLoggedIn, ProductController.createProduct) // POST request to create a new product
+  // Apply authenticated middleware only to the routes below
+  .post(
+    "/listings",
+    authMiddleware.authenticated,
+    ProductController.createProduct
+  ) // POST request to create a new product
   .put(
     "/listings/:productId",
-    authMiddleware.isLoggedIn,
+    authMiddleware.authenticated,
     ProductController.updateProduct
   ) // PUT request to update a product
   .delete(
     "/listings/:productId",
-    authMiddleware.isLoggedIn,
+    authMiddleware.authenticated,
     ProductController.deleteProduct
   ); // DELETE request to delete a product
 
