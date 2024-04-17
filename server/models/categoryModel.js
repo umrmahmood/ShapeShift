@@ -1,1 +1,0 @@
-// Model file for defining the schema and methods related to the order model.
