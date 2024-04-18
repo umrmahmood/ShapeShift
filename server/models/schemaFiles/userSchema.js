@@ -1,3 +1,5 @@
+//  UserSchema file
+
 // Importing dependencies
 import mongoose, { Schema } from "mongoose"; // Importing mongoose and Schema from mongoose package.
 import bcrypt from "bcrypt"; // Importing bcrypt for password hashing.
@@ -88,9 +90,10 @@ const UserSchema = new Schema(
       role: {
         // User role details.
         type: String, // Data type for role field.
-        default: "buyer", // Default value for role field.
-        enum: ["buyer", "seller", "admin"], // Enumeration for user roles.
+        default: "user", // Default value for role field.
+        enum: ["user", "admin"], // Enumeration for user roles.
       },
+      haveShop: { type: Boolean, default: false },
       favorites: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       registerDate: {
         type: Date,
