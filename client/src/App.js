@@ -1,11 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import Card from './CardComponent/Card';
+import UserSellCard from './CardComponent/UserSellCard';
+
 
 function App() {
   return (
     <div className="App">
-      <Card/>
+    <UserSellCard/>
+
     </div>
   );
 }
