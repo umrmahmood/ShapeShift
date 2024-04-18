@@ -1,6 +1,8 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Navbar from "./components/Navbar";
-import Main from "./components/Main";
+import Main from "./components/Main2";
 import Features from "./components/Features";
 import Footer from "./components/Footer";
 

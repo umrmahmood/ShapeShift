@@ -1,22 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 .Logo img {
-	width: 300px;
+	width: 250px;
 }
 
 .Navbar-container {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	color: white;
+	color: rgb(0, 0, 0);
 	position: relative;
-	z-index: 1;
-  margin: 1.5em;
+	z-index: 3;
+  	margin: 1.5em;
 }
 
 .Navbar {
 	display: flex;
-	align-self: flex-start;
+	align-self: center;
 	font-size: 1.5em;
 	gap: 2em;
 }
@@ -29,6 +28,35 @@
 	vertical-align: middle;
 }
 
+.nav-icons {
+	display: flex;
+	list-style: none;
+	gap: 2rem;
+	font-size: 1.3rem;
+	align-self: center;
+	
+	
+}
+
+
+.nav-icons a{
+	color: black
+	
+}
+
+input[type="text"] {
+	padding: 6px 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 14px;
+	transition: border-color 0.3s ease;
+  }
+  
+  input[type="text"]:focus {
+	outline: none;
+	border-color: rgb(166,0,2);
+  }
+
 h1 {
 	font-family: "Bebas Neue", sans-serif;
 	font-weight: 300;
@@ -40,23 +68,25 @@ h1 {
 }
 
 .color {
-	color: #f4254e;
+	/* color: #f4254e; */
+	color: rgb(166,0,2);
 }
 
-.fullscreen-video {
+.fullscreen{
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	z-index: -1;
-	filter: blur(3px);
+
+	
 }
 
-.content {
+.content h1 {
 	position: relative;
 	z-index: 1;
+	font-size: 10em;
 }
 
 .overlay {
@@ -65,16 +95,35 @@ h1 {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(4, 10, 43, 0.8);
+
 }
 
-a {
+.main-button {
+	position: absolute;
+	background: transparent;
+	left: 900px;
+	bottom: 120px;
+	width: 8%;
+	height: 6%;
+	font-size: 0.9em;
+	border: 1px solid black;
+	z-index: 3;
+}
+
+.main-button:hover{
+	background: black;
+	color: white;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out;
+}
+
+.Navbar a,
+.footer a{
 	text-decoration: none;
 	color: inherit;
 }
 
 a:hover {
-	color: #f4254e;
+	color: rgb(166,0,2);
 }
 
 h2 {
@@ -86,17 +135,19 @@ h2 {
 }
 
 .features {
-	margin-top: 250px;
-	padding: 4em;
+	margin-top: 200px;
+	padding: 2em;
+	
 }
 
 .features h2 {
 	margin-left: 3.6em;
+	
 }
 
-h3 {
+.card h3 {
 	font-family: "Bebas Neue", sans-serif;
-	font-size: 2rem;
+	font-size: 3rem;
 	line-height: 2.4rem;
 	border-bottom: 10px solid #f0f0f0;
 	color: rgba(4, 10, 43);
@@ -106,11 +157,12 @@ h3 {
 .card-wrapper {
 	display: flex;
 	justify-content: center;
+	gap: 2em
 }
 
 .card {
 	border-radius: 8px;
-	width: 330px;
+	width: 350px;
 	padding: 1em;
 	margin: 2em;
 	border: 2px solid #f0f0f0;
@@ -130,14 +182,8 @@ p {
 	font-size: 1.1em;
 }
 
-/* button {
-  background: none;
-  border: none;
-  border-bottom: 2px solid #f4254e;
-  line-height: 1.5em;
-} */
 
-button {
+.feature-button {
 	background: none;
 	border: none;
 	border-bottom: 2px solid #f4254e;
@@ -145,13 +191,14 @@ button {
 	transition: border-bottom 0.3s ease; 
 }
 
-button:hover {
+.feature-button:hover {
 	border-bottom: 8px solid #f4254e; 
   cursor: pointer;
 }
 
 .footer {
-	background: rgba(4, 10, 43);
+	background: #f0f0f0;
+	color: black;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -176,18 +223,50 @@ button:hover {
 }
 
 .footer li {
-	color: #f0f0f0;
+	
 	list-style: none;
 }
 
 .footer div p {
-	color: #f0f0f0;
+	
 	font-size: 1em;
 	margin-left: -2em;
 	line-height: 3em;
 }
 
 .icons li {
-	color: #f4254e;
+	color: rgb(166,0,2);
 	font-size: 1.15em;
 }
+
+.img-container {
+	height: 1000px;
+}
+
+.para {
+	font-size: 3em;
+	color: rgb(34, 33, 33);
+	position: absolute;
+	top: 300px;
+	left: 400px;
+	font-family: "Bebas Neue", sans-serif;
+	line-height: 1.5em;
+	/* border: 3px solid white; */
+	padding: 1em;
+
+}
+
+.hashtag {
+	font-size: 0.4em;
+	font-family: 'proxima nova';
+}
+
+.main-border{
+	position: relative;
+	border: 5px rgb(255, 255, 255) solid;
+	height: 650px;
+	width: 1500px;
+	left: 200px;
+	z-index: 2;
+}
+
