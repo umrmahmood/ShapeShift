@@ -1,0 +1,19 @@
+{
+  "name": "shapeshift",
+  "version": "1.0.0",
+  "description": "Project Suggestion #1 : 3d Print Marketplace Introducing \"3D Print Marketplace\" – your ultimate destination for all things 3D printing. Whether you're a buyer in search of unique creations or a seller looking to showcase your designs, our platform offers an innovative space to connect, create, and collaborate. For buyers, our marketplace provides a seamless experience to purchase ready-made items, request custom designs, and receive competitive quotes from a diverse pool of talented sellers. With categories spanning from jewelry to toys, tools to custom and spare parts designs, you'll find the perfect solution for your needs. Sellers and designers alike will find a wealth of opportunities to thrive on our platform. Showcase your designs for sale, or offer them to other sellers for a commission, expanding your reach and earning potential. Sell your own products, accept custom work requests, and provide quotations on projects, all while fostering a collaborative community of creators. We prioritize safety and security, offering a range of trusted payment solutions and providing a secure environment for transactions between designers, printers, and customers. Join us at 3D Print Marketplace and unlock the endless possibilities of 3D printing innovation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umrmahmood/ShapeShift.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/umrmahmood/ShapeShift/issues"
+  },
+  "homepage": "https://github.com/umrmahmood/ShapeShift#readme"
+}
