@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"; // Added cart icon
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons"; 
 
 import logo from "../assets/SSlogo.png";
 
@@ -44,7 +44,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <a href="/">
-                            <FontAwesomeIcon icon={faShoppingCart} /> {/* Cart icon */}
+                            <FontAwesomeIcon icon={faShoppingCart} /> 
                         </a>
                     </li>
                     <li>
