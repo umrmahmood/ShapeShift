@@ -7,8 +7,8 @@ import path, { join } from "path"; // Importing path module for file path manipu
 
 // Importing modules
 import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
-import AdminRoutes from "./routes/adminRoutes.js"; // Importing adminRoutes.js
-import ProductRoutes from "./routes/productRoutes.js"; // Importing productRoutes.js
+// import AdminRoutes from "./routes/adminRoutes.js"; // Importing adminRoutes.js
+// import ProductRoutes from "./routes/productRoutes.js"; // Importing productRoutes.js
 
 // Initializing Express app
 const app = express(); // Creating an Express application
