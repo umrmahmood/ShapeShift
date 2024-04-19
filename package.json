@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/umrmahmood/ShapeShift/issues"
   },
-  "homepage": "https://github.com/umrmahmood/ShapeShift#readme"
+  "homepage": "https://github.com/umrmahmood/ShapeShift#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1"
+  }
 }
