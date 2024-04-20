@@ -1,0 +1,59 @@
+
+.wrapper-outter{
+    border: 2px solid gray;
+    margin: 2em;
+    padding: 2em;
+    width: 50%;
+}
+
+.material-container {
+    display: flex;
+    margin-top: 1em;
+}
+
+.description-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2em;
+   
+}
+
+.prosandcons{
+    display: flex;
+    gap: 2em;
+}
+
+.pros, .cons {
+    background: #f0f0f0;
+    padding: 1em;
+}
+
+h3{
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 2em;
+    
+}
+
+.material-outter select {
+    font-size: 1.20em;
+}
+
+.material-intro {
+    display: flex;
+    justify-content: space-between;
+   
+}
+
+.wrapper-outter h2 {
+    font-size: 3em;
+}
+
+.dropdown {
+    border: none;
+    padding: 0.5em;
+    font-family: 'proxima nova';
+}
+
+p, .prosandcons {
+    font-family: 'proxima nova';
+}
