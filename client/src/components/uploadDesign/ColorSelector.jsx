@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+
 import "../../styling/colorSelector.css";
 
-const ColorSelector = () => {
-    const [selectedColor, setSelectedColor] = useState("");
-
-    const handleColorSelection = (color) => {
-        setSelectedColor(color);
-    };
-
+const ColorSelector = ({selectedColor, handleColorSelection}) => {
+    
     return (
         <div className="wrapper-outter">
             <div className="material-intro">

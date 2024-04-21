@@ -1,7 +1,4 @@
 
-
-
-import React, { useState } from "react";
 import "../../styling/material.css";
 
 import ABS from "../../assets/materials/abs.jpg";
@@ -17,13 +14,8 @@ import Polypropylene from "../../assets/materials/polyprop.jpg";
 import WoodFilled from "../../assets/materials/woodfilled.jpg";
 import PVA from "../../assets/materials/PVA.jpg";
 
-const Material = () => {
-	const [selectedMaterial, setSelectedMaterial] = useState("ABS");
-
-	const handleMaterialChange = (e) => {
-		setSelectedMaterial(e.target.value);
-	};
-
+const Material = ({selectedMaterial, handleMaterialChange}) => {
+	
 	const renderMaterialDescription = () => {
 		switch (selectedMaterial) {
 			case "ABS":
