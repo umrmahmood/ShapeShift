@@ -6,7 +6,7 @@ import Main from "./components/Main2";
 import Features from "./components/Features";
 import Footer from "./components/Footer";
 
-
+import ItemPage from "./CardComponent/ItemPage";
 function App() {
 	return (
 		<div className="App">
@@ -15,6 +15,7 @@ function App() {
 			</header>
 			<Main />
 			<Features />
+      <ItemPage />
 			<Footer />
 		</div>
 	);
