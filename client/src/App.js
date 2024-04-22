@@ -16,8 +16,9 @@ function App() {
 				<Navbar />
 			</header>
 			<Main />
-			<Cart />
+			
 			<Features />
+			<Cart />
 			<Footer />
 		</div>
 	);
