@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Main from "./components/Main2";
 import Features from "./components/Features";
 import Footer from "./components/Footer";
+import UserSellCard from "./CardComponent/UserSellCard";
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 			</header>
 			<Main />
 			<Features />
+<UserSellCard/>
 			<Footer />
 		</div>
 	);

@@ -32,7 +32,7 @@ return(
 {/* search field */}
 <input
                     type="text"
-                    placeholder="Searching for"
+                    placeholder="I am searching for"
                     value={searchQuery}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}

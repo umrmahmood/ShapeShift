@@ -1,15 +1,16 @@
 import react, { useState } from 'react';
 import './Card.css'
 import Card from './Card';
-import SearchBar from './SearchBar';
-// import Navbar from './components/Navbar'
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import Categories from './Categories';
 
-const MainPage =()=>{
-    const searchData = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
+const UserSellCard =()=>{
 return(
     <div className="main-layout">
-{/* <Navbar/>    */}
-<SearchBar data={searchData}/>
+
+<Navbar/>
+<Categories/>
 <div className="item-container">
     <Card/>
     <Card/>
@@ -17,8 +18,9 @@ return(
     <Card/>
     <Card/>
 </div>
+<Footer/>
     </div>
 )
     
 }
-export default MainPage;
+export default UserSellCard;
