@@ -1,26 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import placeholder from "./placeholder.jpg";
 
 const Categories  = () =>{
     return(
         <ul className="category-grid">
-            <li><Link to="">Home Decor</Link>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} /></li>
-            <li><Link to="">Tech Gadgets</Link>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} /></li>
-            <li>
-            <Link to="">Fashion & Apparel</Link>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} /></li>
-            <li><Link to="">Kitchen & Dining</Link>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} /></li>
-            <li><Link to="">Pet Accessories</Link>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} /></li>
-            <li><Link to="">DIY & Hobby</Link>
-            <img src={placeholder} alt="Placeholder" style={{width: '50px', height: '50px' }} /></li>
-            <li><Link to="">Custom & Personalized</Link>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} /></li>
-        </ul>
+        <li>
+            <a href="#">Home Decor</a>
+            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
+        </li>
+        <li>
+            <a href="#">Tech Gadgets</a>
+            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
+        </li>
+        <li>
+            <a href="#">Fashion & Apparel</a>
+            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
+        </li>
+        <li>
+            <a href="#">Kitchen & Dining</a>
+            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
+        </li>
+        <li>
+            <a href="#">Pet Accessories</a>
+            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
+        </li>
+        <li>
+            <a href="#">DIY & Hobby</a>
+            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
+        </li>
+        <li>
+            <a href="#">Custom & Personalized</a>
+            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
+        </li>
+    </ul>
+    
     )
 }
 
