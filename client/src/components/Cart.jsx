@@ -40,7 +40,7 @@ const Cart = () => {
 
   const handleCheckout = () => {
     /*code should be entered here */
-    alert('Checkout functionality will be implemented in the future!');
+    
   };
 
   const getTotalCost = () => {
