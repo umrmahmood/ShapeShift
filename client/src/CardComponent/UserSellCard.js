@@ -8,8 +8,6 @@ import Categories from './Categories';
 const UserSellCard =()=>{
 return(
     <div className="main-layout">
-
-<Navbar/>
 <Categories/>
 <div className="item-container">
     <Card/>
@@ -18,7 +16,6 @@ return(
     <Card/>
     <Card/>
 </div>
-<Footer/>
     </div>
 )
     

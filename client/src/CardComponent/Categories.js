@@ -1,40 +1,34 @@
 import React from 'react';
 import placeholder from "./placeholder.jpg";
+import './categories.css';
 
-const Categories  = () =>{
-    return(
+const Categories = () => {
+    return (
         <ul className="category-grid">
-        <li>
-            <a href="#">Home Decor</a>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
-        </li>
-        <li>
-            <a href="#">Tech Gadgets</a>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
-        </li>
-        <li>
-            <a href="#">Fashion & Apparel</a>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
-        </li>
-        <li>
-            <a href="#">Kitchen & Dining</a>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
-        </li>
-        <li>
-            <a href="#">Pet Accessories</a>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
-        </li>
-        <li>
-            <a href="#">DIY & Hobby</a>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
-        </li>
-        <li>
-            <a href="#">Custom & Personalized</a>
-            <img src={placeholder} alt="Placeholder" style={{ width: '50px', height: '50px' }} />
-        </li>
-    </ul>
-    
-    )
+            <li className="category-item">
+                <a href="#" className="category-link">Home Decor</a>
+            </li>
+            <li className="category-item">
+                <a href="#" className="category-link">Tech Gadgets</a>
+            </li>
+            <li className="category-item">
+                <a href="#" className="category-link">Fashion & Apparel</a>
+            </li>
+            <li className="category-item">
+                <a href="#" className="category-link">Kitchen & Dining</a>
+            </li>
+            <li className="category-item">
+                <a href="#" className="category-link">Pet Accessories</a>
+            </li>
+            <li className="category-item">
+                <a href="#" className="category-link">DIY & Hobby</a>
+            </li>
+            <li className="category-item">
+                <a href="#" className="category-link">Custom & Personalized</a>
+            </li>
+        </ul>
+    );
 }
+
 
 export default Categories;
