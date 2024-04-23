@@ -28,8 +28,8 @@ app.use(express.static("./public")); // Serving static files from the public dir
 
 // Routes
 app.use("/", UserRoutes); // Using UserRoutes for user-related routes
-app.use("/admin", AdminRoutes); // Using AdminRoutes for admin-related routes
-app.use("/", ProductRoutes); // Using ProductRoutes for product-related routes
+// app.use("/admin", AdminRoutes); // Using AdminRoutes for admin-related routes
+// app.use("/", ProductRoutes); // Using ProductRoutes for product-related routes
 
 // Mongoose connection
 mongoose
