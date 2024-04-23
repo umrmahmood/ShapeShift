@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar";
 import Main from "./components/Main2";
 import Features from "./components/Features";
 import Footer from "./components/Footer";
+import Cart from "./components/Cart";
+
+
 
 function App() {
 	return (
@@ -13,7 +16,9 @@ function App() {
 				<Navbar />
 			</header>
 			<Main />
+			
 			<Features />
+			<Cart />
 			<Footer />
 		</div>
 	);
