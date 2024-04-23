@@ -4,6 +4,7 @@ import dotenv from "dotenv"; // Importing dotenv for environment variables
 import cors from "cors"; // Importing CORS middleware for cross-origin requests
 import mongoose from "mongoose"; // Importing Mongoose for MongoDB interaction
 import path, { join } from "path"; // Importing path module for file path manipulation
+import multer from "multer";
 
 // Importing modules
 import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
@@ -30,6 +31,7 @@ app.use(express.static("./public")); // Serving static files from the public dir
 // Routes
 app.use("/", UserRoutes); // Using UserRoutes for user-related routes
 app.use("/listings", ProductRoutes);
+app.use("/listings/:productId", ProductRoutes);
 // app.use("/admin", AdminRoutes); // Using AdminRoutes for admin-related routes
 // app.use("/", ProductRoutes); // Using ProductRoutes for product-related routes
 
