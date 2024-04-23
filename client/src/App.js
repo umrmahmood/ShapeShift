@@ -23,8 +23,6 @@ function App() {
       <Route path="/item" element={<ItemPage />} />
       <Route path="/home" element={<UserSellCard/>} />
       <Route path="/printers" element={<Printer/>} />
-
-
       </Routes>
 
 			<Footer />
