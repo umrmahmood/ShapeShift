@@ -3,3 +3,54 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
+.cardMain {
+    border: 1px solid rgb(166,0,2);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+}
+
+.cardMain img {
+    max-width: 100%; 
+    height: auto; 
+    height: auto;
+    border-radius: 5px;
+}
+
+.cardMain h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+.cardMain p {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.cardMain .rating {
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 5px;
+}
+
+.cardMain h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: rgb(166, 0, 2);
+    margin-top: 5px;
+}
+
+.feature-button {
+	background: none;
+	border: none;
+	border-bottom: 2px solid #f4254e;
+	line-height: 1.5em; 
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.feature-button:hover {
+	border-bottom: 8px solid #f4254e; 
+  cursor: pointer;
+}
