@@ -4,7 +4,7 @@ import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import "../../styling/uploadFile.css";
 
-const STLViewer = () => {
+const STLViewer = ({ onFileChange }) => {
 	const [stlFile, setStlFile] = useState(null);
 	const mount = useRef(null);
 
@@ -72,7 +72,9 @@ const STLViewer = () => {
 
 	const handleFileChange = (event) => {
 		const file = event.target.files[0];
+		const fileName = file.name;
 		setStlFile(file);
+		onFileChange(file, fileName);
 	};
 
 	return (

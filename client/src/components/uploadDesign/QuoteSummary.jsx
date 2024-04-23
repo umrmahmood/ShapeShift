@@ -1,15 +1,15 @@
 import "../../styling/quoteSummary.css";
-const QuoteSummary = ({ material, color, resolution, resistance }) => {
+const QuoteSummary = ({ fileName, material, color, resolution, resistance, quantity }) => {
 	return (
 		<div className="quote-container">
 			<h2>Your Quote has been sent successfully!</h2>
 			<div className="quote-item">
-				<div>File</div>
-				<div>Dummy File</div>
+				<div>File Name</div>
+				<div>{fileName}</div>
 			</div>
 			<div className="quote-item">
 				<div>Quantity</div>
-				<div>5</div>
+				<div>{quantity}</div>
 			</div>
 			<div className="quote-item">
 				<div>Material</div>

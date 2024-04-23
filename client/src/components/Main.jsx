@@ -1,106 +1,116 @@
 // import video from "../assets/3dp.mp4";
-// import lg from "../assets/SS-logo.jpg"
+import rings from "../assets/final1.jpg";
+import headphones from "../assets/final2.jpg";
+import lamp from "../assets/final6.jpg";
+import clock from "../assets/final4.jpg";
+import plants from "../assets/final7.jpg";
+import necklace from "../assets/final8.jpg";
+import lights from "../assets/final9.jpg";
+import cluchbag from "../assets/final10.jpg";
+import handbag from "../assets/final11.jpg";
+import Features from "./Features";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const Main = () => {
 	return (
 		<>
-			{/* <div className="video-container">
-			
-			<div className="fullscreen-video">
-			<img src={lg} alt="" />
-			</div>
-			
-			<div className="overlay"></div>
-		</div> */}
-
-			<div class="border-0 bd-example m-0 border-0 overlay">
-				<div id="carouselExampleIndicators" class="carousel slide" >
-					<div class="carousel-indicators">
-						<button
-							type="button"
-							data-bs-target="#carouselExampleIndicators"
-							data-bs-slide-to="0"
-							class=""
-							aria-label="Slide 1"
-						></button>
-						<button
-							type="button"
-							data-bs-target="#carouselExampleIndicators"
-							data-bs-slide-to="1"
-							aria-label="Slide 2"
-							class=""
-						></button>
-						<button
-							type="button"
-							data-bs-target="#carouselExampleIndicators"
-							data-bs-slide-to="2"
-							aria-label="Slide 3"
-							class="active"
-							aria-current="true"
-						></button>
-					</div>
+		<div className="main-border"></div>
+			<div class="m-0 border-0 bd-example m-0 border-0 overlay">
+				<div
+					id="carouselExampleAutoplaying"
+					class="carousel slide"
+					data-bs-ride="carousel"
+				>
 					<div class="carousel-inner">
-						<div class="carousel-item">
-							<svg
-								class="bd-placeholder-img bd-placeholder-img-lg d-block w-100"
-								width="800"
-								height="950"
-								xmlns="http://www.w3.org/2000/svg"
-								role="img"
-								aria-label="Placeholder: First slide"
-								preserveAspectRatio="xMidYMid slice"
-								focusable="false"
-							>
-								<title>Placeholder</title>
-								<rect width="100%" height="100%" fill="#777"></rect>
-								<text x="50%" y="50%" fill="#555" dy=".3em">
-									First slide
-								</text>
-							</svg>
+						<div class="carousel-item active img-container">
+						<p className="para">
+								Crafted in layers, <br /> perfected in detail <br />
+								<span className="color hashtag">
+									#Rings #3DPrintedWonder #MustHave #FashionFinds
+								</span>
+							</p>
+							<img class="d-block w-100" src={rings} alt="First slide" />
+						</div>
+						<div class="carousel-item img-container">
+							<p className="para">
+							From digital dreams to, <br />  tangible treasures <br />
+								<span className="color hashtag">
+									 #Handbags #Fashionista #PrintedPerfection
+								</span>
+							</p>
+							<img class="d-block w-100" src={handbag} alt="First slide" />
 						</div>
 						<div class="carousel-item">
-							<svg
-								class="bd-placeholder-img bd-placeholder-img-lg d-block w-100"
-								width="800"
-								height="950"
-								xmlns="http://www.w3.org/2000/svg"
-								role="img"
-								aria-label="Placeholder: Second slide"
-								preserveAspectRatio="xMidYMid slice"
-								focusable="false"
-							>
-								<title>Placeholder</title>
-								<rect width="100%" height="100%" fill="#666"></rect>
-								<text x="50%" y="50%" fill="#444" dy=".3em">
-									Second slide
-								</text>
-							</svg>
+							<p className="para">
+							Sculpted by technology,  <br /> admired by all. <br />
+								<span className="color hashtag">
+									#Headphones #BuyNow #TrendAlert #FutureCraft 
+								</span>
+							</p>
+							<img class="d-block w-100" src={headphones} alt="First slide" />
 						</div>
-						<div class="carousel-item active">
-							<svg
-								class="bd-placeholder-img bd-placeholder-img-lg d-block w-100"
-								width="800"
-								height="950"
-								xmlns="http://www.w3.org/2000/svg"
-								role="img"
-								aria-label="Placeholder: Third slide"
-								preserveAspectRatio="xMidYMid slice"
-								focusable="false"
-							>
-								<title>Placeholder</title>
-								<rect width="100%" height="100%" fill="#555"></rect>
-								<text x="50%" y="50%" fill="#333" dy=".3em">
-									Third slide
-								</text>
-							</svg>
+
+						<div class="carousel-item">
+							<p className="para">
+								Crafted in layers, <br /> perfected in detail <br />
+								<span className="color hashtag">
+									#Clock #StyleInsp #EveryDayMoments #BuyToday
+								</span>
+							</p>
+							<img class="d-block w-100" src={clock} alt="First slide" />
+						</div>
+						<div class="carousel-item">
+							<p className="para">
+							Precision meets creativity  <br /> in every layer.  <br />
+								<span className="color hashtag">
+									#Vases #BioMaterial #PrintedArtistry #LiveAuthentic
+								</span>
+							</p>
+							<img class="d-block w-100" src={plants} alt="First slide" />
+						</div>
+						<div class="carousel-item">
+						<p className="para">
+						Bringing imagination to life, <br /> one layer at a time.  <br />
+								<span className="color hashtag">
+									#Necklace #ShopTillYouDrop #Jewlery #PrintedMagic 
+								</span>
+							</p>
+							<img class="d-block w-100" src={necklace} alt="First slide" />
+							
+						</div>
+						<div class="carousel-item">
+						<p className="para">
+						Where imagination meets <br />craftsmanship, <br /> 3D printing shines. <br />
+								<span className="color hashtag">
+									#Lamps #LiveAuthentic #RetailLove #LifeWellLived
+								</span>
+							</p>
+							<img class="d-block w-100" src={lights} alt="First slide" />
+						</div>
+						<div class="carousel-item">
+						<p className="para">
+						Innovation etched into reality, <br /> one layer at a time. <br />
+								<span className="color hashtag">
+								#CluchBags #TreatYourself #BuyNow #FashionObsessed
+								</span>
+							</p>
+							<img class="d-block w-100" src={cluchbag} alt="First slide" />
+						</div>
+						<div class="carousel-item">
+						<p className="para">
+						Transforming concepts into, <br /> tangible marvels, effortlessly. <br />
+								<span className="color hashtag">
+								#Lighting #HomeSweetHome #PrintedElegance #SimplePleasures
+								</span>
+							</p>
+							<img class="d-block w-100" src={lamp} alt="First slide" />
 						</div>
 					</div>
 					<button
 						class="carousel-control-prev"
 						type="button"
-						data-bs-target="#carouselExampleIndicators"
+						data-bs-target="#carouselExampleAutoplaying"
 						data-bs-slide="prev"
 					>
 						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -109,7 +119,7 @@ const Main = () => {
 					<button
 						class="carousel-control-next"
 						type="button"
-						data-bs-target="#carouselExampleIndicators"
+						data-bs-target="#carouselExampleAutoplaying"
 						data-bs-slide="next"
 					>
 						<span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -117,13 +127,10 @@ const Main = () => {
 					</button>
 				</div>
 			</div>
-			<div className="content">
-				<h1>
-					Imagine <br /> <span>Create</span> <br />
-					<span className="color">Bring it to life</span>
-				</h1>
-				{/* Add Login and Guest login here*/}
-			</div>
+
+			<button className="main-button">EXPLORE NOW</button>
+
+			<Features/>
 		</>
 	);
 };
