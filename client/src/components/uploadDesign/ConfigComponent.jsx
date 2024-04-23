@@ -7,8 +7,7 @@ import ColorSelector from "./ColorSelector";
 import "../../styling/quoteSummary.css";
 import "../../styling/configComponent.css";
 import UploadFile from "./UploadFile";
-import Navbar from "../../components/Navbar.jsx";
-import Footer from "../../components/Footer.jsx";
+
 
 const Popup = ({
 	file,
