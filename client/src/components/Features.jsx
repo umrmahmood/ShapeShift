@@ -1,3 +1,5 @@
+import '../styling/features.css'
+
 import { Link } from 'react-router-dom';
 import design from '../assets/stl.jpg';
 import discover from '../assets/discover2.jpg';
@@ -9,7 +11,7 @@ const Features = () => {
 			<div className="features">
 				
 				<div className="card-wrapper">
-				<Link to="/config">
+				<Link className='features-link' to="/config">
 					<div className="card">
 						<h3>Upload & Print Your Design</h3>
 						<img src={design} alt="" height='300px'/>
