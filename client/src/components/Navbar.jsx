@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 
+
 import logo from "../assets/SSlogo.png";
 
 const Navbar = () => {
@@ -33,7 +34,7 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <div className="nav-icons">
-                <li>
+                    <li>
                         <input
                             type="text"
                             value={searchQuery}
@@ -41,6 +42,7 @@ const Navbar = () => {
                             placeholder="Search"
                         />
                     </li>
+                    
                     <li>
                         <a href="/">
                             <FontAwesomeIcon icon={faShoppingBag} />
@@ -51,7 +53,6 @@ const Navbar = () => {
                             <FontAwesomeIcon icon={faUser} />
                         </a>
                     </li>
-                   
                 </div>
             </div>
         </>
