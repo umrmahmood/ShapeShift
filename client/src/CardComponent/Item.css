@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+*{
+    font-family: 'Bebas Neue', sans-serif;
+
+}
+
+.MainContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+}
+
+.ProductContainer {
+    display: flex;
+}
+
+.ProductDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ProductInfo {
+    flex: 1;
+}
+
+.ProductImage {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.additional-images img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+.options{
+    width:60px;
+    height: 60px;
+}
+.options img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.ProductImage {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-main {
+    width: 400px;
+    height: 400px;
+}
+
+.secondary-images {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.secondary-images img {
+    width: 200px;
+    height: 200px;
+    margin-right: 10px; /* Adjust margin as needed */
+    margin-bottom: 10px; /* Adjust margin as needed */
+}

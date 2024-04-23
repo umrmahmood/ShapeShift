@@ -176,7 +176,6 @@ h2 {
 .card:hover {
 	box-shadow: 0px 0px 20px grey;
 	transition: box-shadow 0.6s ease-in;
-	cursor: pointer;
 }
 
 p {
@@ -273,3 +272,58 @@ p {
 	z-index: 2;
 }
 
+/*Shopping Cart*/
+
+.shopping-cart {
+	width: 300px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	margin: 20px;
+  }
+  
+  h2 {
+	text-align: center;
+  }
+  
+  .items-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+  }
+  
+  .cart-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+  }
+  
+  .item-image {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+  }
+  
+  .item-details {
+	flex-grow: 1;
+  }
+  
+  .quantity-controls {
+	display: flex;
+	gap: 10px;
+  }
+  
+  .remove-item,
+  .add-item {
+	background-color: green;
+	color: white;
+	border: none;
+	cursor: pointer;
+	padding: 5px 10px;
+	border-radius: 5px;
+  }
+  
+  .remove-item {
+	background-color: red;
+  }
+  
+  /*Shopping-Cart */
