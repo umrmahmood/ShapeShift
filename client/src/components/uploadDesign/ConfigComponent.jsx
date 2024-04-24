@@ -8,7 +8,6 @@ import "../../styling/quoteSummary.css";
 import "../../styling/configComponent.css";
 import UploadFile from "./UploadFile";
 
-
 const Popup = ({
 	file,
 	fileName,
@@ -32,7 +31,6 @@ const Popup = ({
 				/>
 
 				<div className="file-content">
-					
 					<div>
 						<a href={URL.createObjectURL(file)} download={fileName}>
 							Download .Stl File
@@ -120,9 +118,9 @@ const ConfigComponent = () => {
 
 	return (
 		<>
-			
-
+		<div className="config-background">
 			<div className="config-container">
+			
 				<div className="left-div">
 					<Material
 						selectedMaterial={selectedMaterial}
@@ -145,10 +143,10 @@ const ConfigComponent = () => {
 
 				<div className="right-div">
 					<div className="upload-file">
-						
+
 						<UploadFile onFileChange={handleFileChange} />
 						<div className="config-quantity">
-							Quantity 
+							Quantity
 							<input
 								type="number"
 								id="quantityInput"
@@ -157,8 +155,7 @@ const ConfigComponent = () => {
 								onChange={handleQuantityChange}
 								style={{ width: "80px" }}
 							/>
-							</div>
-						
+						</div>
 					</div>
 				</div>
 			</div>
@@ -182,7 +179,7 @@ const ConfigComponent = () => {
 				/>
 			)}
 
-		
+</div>
 		</>
 	);
 };
