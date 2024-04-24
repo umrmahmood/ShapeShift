@@ -71,7 +71,11 @@
   .quantity-select {
     padding: 5px;
   }
-  
+  .checkout-button{
+    background-color: #4681f4;
+    color: azure;
+    border: none;
+  }
   .cart-total {
     display: flex;
     justify-content: flex-end;
