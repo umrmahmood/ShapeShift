@@ -2,6 +2,23 @@
 
 //  Importing necessary dependencies
 import Product from "../models/schemaFiles/productSchema.js";
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv";
+dotenv.config({ path: "../config/.env" }); // Specifying the path to the .env file
+import path, { join } from "path"; // Importing path module for file path manipulation
+
+dotenv.config({ path: "../config/.env" }); // Specifying the path to the .env file
+
+const __dirname = path.resolve(); // Resolving the directory name
+
+// Initialize Cloudinary with your credentials
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // Loading environment variables from .env file
 //dotenv.config({ path: "../config/.env" }); // Specifying the path to the .env file
@@ -15,6 +32,23 @@ const ProductController = {
   // Method to create a new product
   createProduct: async (req, res) => {
     try {
+      console.log(req.body);
+
+      if (req.files && Array.isArray(req.files)) {
+        // Map over each file and upload to Cloudinary
+        const imageUrls = await Promise.all(
+          req.files.map(async (file) => {
+            const result = await cloudinary.uploader.upload(file.path);
+            return result.secure_url;
+          })
+        );
+        // Add imageUrls to the new product
+        req.body.images = imageUrls;
+      } else {
+        // If no files uploaded, set images field to an empty array
+        req.body.images = [];
+      }
+
       console.log("Received create product request:", req.body);
       console.log("User:", req.user);
       if (!req.user.membership?.haveShop) {
@@ -89,15 +123,41 @@ const ProductController = {
 
   // Method to update a product
   updateProduct: async (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.productId;
     const updateData = req.body;
-
+    console.log("req: +++", req);
     try {
+      if (!req.user.membership?.haveShop) {
+        console.log("User does not have permission to create products");
+        return res.status(403).json({
+          message:
+            "User does not have permission to create products. Open a shop first.",
+        });
+      }
+      // Check if files were uploaded
+      if (req.files && Array.isArray(req.files)) {
+        // Map over each file and upload to Cloudinary
+        const imageUrls = await Promise.all(
+          req.files.map(async (file) => {
+            const result = await cloudinary.uploader.upload(file.path);
+            return result.secure_url;
+          })
+        );
+        // Add imageUrls to the updateData
+        updateData.images = imageUrls;
+      }
+
+      const existingProduct = await Product.findById(productId);
+      if (!existingProduct) {
+        console.log("Product not found with ID:", productId);
+        return res.status(404).json({ message: "Product not found" });
+      }
       const updatedProduct = await Product.findByIdAndUpdate(
         productId,
         updateData,
         { new: true }
       );
+
       if (!updatedProduct) {
         return res.status(404).json({ message: "Product not found" });
       }
