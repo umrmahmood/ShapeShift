@@ -65,6 +65,6 @@
 .secondary-images img {
     width: 200px;
     height: 200px;
-    margin-right: 10px; /* Adjust margin as needed */
-    margin-bottom: 10px; /* Adjust margin as needed */
+    margin-right: 10px; 
+    margin-bottom: 10px; 
 }

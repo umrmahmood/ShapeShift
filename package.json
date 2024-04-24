@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/umrmahmood/ShapeShift/issues"
   },
-  "homepage": "https://github.com/umrmahmood/ShapeShift#readme"
+  "homepage": "https://github.com/umrmahmood/ShapeShift#readme",
+  "dependencies": {
+    "axios": "^1.6.8"
+  }
 }

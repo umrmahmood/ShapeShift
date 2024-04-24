@@ -4,17 +4,14 @@ import './Card.css';
 
 
 
-const Card = () => {
-let price = 0;
-let userRaiting = false;
-let description = "lorem ipsum dolor sit amet, consectet";
-let itemName = "card";
+const Card = ({ product }) => {
+    const { name, description, price, userRating } = product;
     return(
          <div className="cardMain">
             <img src={placeholder} alt="Placeholder" />
-            <h2>{itemName}</h2>
+            <h2>{name}</h2>
             <p>{description}</p>
-            <h3 className="rating">Rating:{userRaiting}</h3>
+            <h3 className="rating">Rating:{userRating}</h3>
             <h3>Price {price}</h3>
             <button className="feature-button">More</button>
         </div>
