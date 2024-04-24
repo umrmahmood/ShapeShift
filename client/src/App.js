@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import UserSellCard from "./CardComponent/UserSellCard";
 import ConfigComponent from "./components/uploadDesign/ConfigComponent.jsx";
 import Printer from "./components/Printer";
+import ProductForm from "./components/productReg/ProductForm";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 			{/* <Route path="/item" element={<ItemPage />} /> */}
 			<Route path="/home" element={<UserSellCard />} />
 			<Route path="/printers" element={<Printer />} />
+			<Route path="/product-forms" element={<ProductForm/>} />
 		  </Routes>
 		  <Footer />
 		</div>
