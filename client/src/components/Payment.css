@@ -4,6 +4,8 @@
   margin-left: 20px;
   border: 1px solid rgba(173, 171, 171, 0.673);
   border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .payment-options {
@@ -20,6 +22,7 @@
 .payment-option img {
   width: 50px;
   height: 50px;
+  
 }
 
 .klrna-icon {
@@ -42,19 +45,23 @@
 }
 
 .proceed-button {
-  background-color: #000000;
-  color: azure;
+  background-color: black;
+  color: #ffff;
   border: none;
   padding: 10px 20px;
   border-radius: 30px;
   cursor: pointer;
   margin-top: 20px;
   width: 100%;
+  font-weight: bold;
+  font-size: 20px;
+  
 
 }
 
 .proceed-button:hover {
   background-color: #464646;
+  transition: 0.1s ease-in-out;
 }
 
 .price {
