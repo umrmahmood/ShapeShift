@@ -1,0 +1,38 @@
+/* Payment.css */
+.payment-container {
+    width: 30%;
+    margin-left: 20px;
+  }
+  
+  .payment-options {
+    display: grid;
+    gap: 10px;
+  }
+  
+  .payment-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .payment-option img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .klrna-icon {
+
+    width: 70px;
+    height: 40px;
+    margin-left: 20px;
+  }
+
+  .paypal-icon{
+   
+   margin-left: 20px;
+  }
+
+  .radio-box{
+    transform: scale(2.0);
+    margin-right: 20px;
+  }
