@@ -169,6 +169,7 @@ const Material = ({selectedMaterial, handleMaterialChange}) => {
 
 	return (
 		<>
+		<h1>Configuration</h1> 
 			<div className="wrapper-outter">
 				<h2>Please select material</h2>
 				<div className="material-intro">
@@ -226,7 +227,7 @@ const Material = ({selectedMaterial, handleMaterialChange}) => {
 								}
 								alt=""
 								width="200"
-								height="200"
+								height="160"
 							/>
 						</div>
 

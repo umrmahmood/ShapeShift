@@ -1,0 +1,43 @@
+
+
+.uploadwindow-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dotted lightgray;
+    border-radius: 10px;
+    
+}
+
+.uploadwindow-wrapper p {
+    font-size: 1.2em;
+}
+
+.uploadwindow-wrapper :last-child {
+    color: gray;
+    margin-top: 0.3em;
+}
+
+.uploadwindow-img {
+    margin-top: 2em;
+}
+
+.button-text {
+    font-size: 1.2em;
+    padding: 0.5em 2em;
+    border-radius: 20px;
+    border: none;
+    background: rgb(166,0,2);
+    color: white;
+    cursor: pointer;
+}
+
+.file-info {
+    color: #666;
+}
+
+input[type="file"] {
+    display: none;
+}
+
