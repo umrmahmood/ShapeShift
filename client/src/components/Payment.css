@@ -1,38 +1,74 @@
-/* Payment.css */
 .payment-container {
-    width: 30%;
-    margin-left: 20px;
-  }
-  
-  .payment-options {
-    display: grid;
-    gap: 10px;
-  }
-  
-  .payment-option {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .payment-option img {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .klrna-icon {
+  padding: 30px;
+  width: 30%;
+  margin-left: 20px;
+  border: 1px solid rgba(173, 171, 171, 0.673);
+  border-radius: 20px;
+}
 
-    width: 70px;
-    height: 40px;
-    margin-left: 20px;
-  }
+.payment-options {
+  display: grid;
+  gap: 10px;
+}
 
-  .paypal-icon{
-   
-   margin-left: 20px;
-  }
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .radio-box{
-    transform: scale(2.0);
-    margin-right: 20px;
-  }
+.payment-option img {
+  width: 50px;
+  height: 50px;
+}
+
+.klrna-icon {
+  width: 70px;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.paypal-icon {
+  margin-left: 20px;
+}
+
+.radio-box {
+  transform: scale(2.0);
+  margin-right: 20px;
+}
+
+.payment-details {
+  margin-top: 20px;
+}
+
+.proceed-button {
+  background-color: #000000;
+  color: azure;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+
+}
+
+.proceed-button:hover {
+  background-color: #464646;
+}
+
+.price {
+  float: right;
+}
+
+.total-price {
+  font-weight: bold;
+  float: right;
+}
+
+.payment-head{
+  text-align: left;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 25px;
+  
+}

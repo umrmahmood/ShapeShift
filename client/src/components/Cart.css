@@ -6,20 +6,20 @@
 }
 
 .shopping-cart {
-  width: 70%; /* Adjusted width */
+  width: 70%;
   border: 1px solid #ccc;
   padding: 20px;
   background-color: rgb(224, 226, 223);
   border-radius: 10px;
-  display: flex; /* Added */
-  flex-direction: column; /* Added */
+  display: flex;
+  flex-direction: column;
 }
 
 .items-list {
   padding: 30px;
   display: grid;
   gap: 20px;
-  flex-grow: 1; /* Added */
+  flex-grow: 1;
 }
 
 .no-items {
@@ -86,10 +86,10 @@
   gap: 10px;
 }
 
+/* Payment.css */
 .payment-container {
   width: 30%;
   margin-left: 20px;
-  align-self: flex-start; /* Added */
 }
 
 .payment-options {
@@ -106,4 +106,37 @@
 .payment-option img {
   width: 50px;
   height: 50px;
+}
+
+.klrna-icon {
+  width: 70px;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.paypal-icon {
+  margin-left: 20px;
+}
+
+.radio-box {
+  transform: scale(2.0);
+  margin-right: 20px;
+}
+
+.payment-details {
+  margin-top: 20px;
+}
+
+.proceed-button {
+  background-color: #4681f4;
+  color: azure;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.proceed-button:hover {
+  background-color: #2a5d9c;
 }

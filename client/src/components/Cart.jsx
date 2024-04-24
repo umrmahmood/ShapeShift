@@ -38,9 +38,9 @@ const Cart = () => {
     }
   };
 
-  const getTotalCost = () => {
-    return cartItems.reduce((total, item) => total + parseFloat(item.totalPrice), 0).toFixed(2);
-  };
+  // const getTotalCost = () => {
+  //   return cartItems.reduce((total, item) => total + parseFloat(item.totalPrice), 0).toFixed(2);
+  // };
 
   return (
     <div className="shopping-cart-outer">
@@ -76,7 +76,7 @@ const Cart = () => {
                         ))}
                       </select>
                     </div>
-                    <p>Total: €{item.totalPrice}</p>
+                    {/* <p>Total: €{item.totalPrice}</p> */}
                   </div>
                 </div>
               </div>
@@ -84,15 +84,15 @@ const Cart = () => {
           )}
         </div>
         <div className="cart-total">
-          <p>Total: €{getTotalCost()}</p>
+          {/* <p>Total: €{getTotalCost()}</p> */}
         </div>
         <div className="cart-buttons">
-          <button className="delete-all-button" onClick={() => setCartItems([])}>Delete All</button>
+          {/* <button className="delete-all-button" onClick={() => setCartItems([])}>Delete All</button> */}
         </div>
         <button className="add-item" onClick={() => addItem({ name: 'Laptop', price: '€1000', image: 'https://via.placeholder.com/50' })}>Add Laptop</button>
         <button className="add-item" onClick={() => addItem({ name: 'Headphones', price: '€50', image: 'https://via.placeholder.com/50' })}>Add Headphones</button>
       </div>
-      <Payment />
+      <Payment cartItems={cartItems} />
     </div>
   );
 };
