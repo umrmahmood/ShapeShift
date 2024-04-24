@@ -5,7 +5,10 @@ import express from "express";
 
 // Importing controllers
 import ProductController from "../controllers/productController.js";
+import ImageController from "../controllers/imageController.js";
+
 import authMiddleware from "../middleware/authMiddleware.js";
+import Parser from "../config/multerConfig.js";
 
 // Creating an instance of Express router
 const router = express.Router();
@@ -18,10 +21,16 @@ router
 // Routes for creating, updating, and deleting products
 router
   // Apply authenticated middleware only to the routes below
-  .post("/", authMiddleware.authenticated, ProductController.createProduct) // POST request to create a new product
+  .post(
+    "/",
+    authMiddleware.authenticated,
+    Parser.array("images", 5),
+    ProductController.createProduct
+  ) // POST request to create a new product
   .put(
     "/:productId",
     authMiddleware.authenticated,
+    Parser.array("images", 5),
     ProductController.updateProduct
   ) // PUT request to update a product
   .delete(

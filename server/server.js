@@ -4,11 +4,12 @@ import dotenv from "dotenv"; // Importing dotenv for environment variables
 import cors from "cors"; // Importing CORS middleware for cross-origin requests
 import mongoose from "mongoose"; // Importing Mongoose for MongoDB interaction
 import path, { join } from "path"; // Importing path module for file path manipulation
-import multer from "multer";
 
 // Importing modules
+import ConnectDB from "./db/connect.js";
 import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
 import ProductRoutes from "./routes/productRoutes.js";
+import { error } from "console";
 // import AdminRoutes from "./routes/adminRoutes.js"; // Importing adminRoutes.js
 // import ProductRoutes from "./routes/productRoutes.js"; // Importing productRoutes.js
 
@@ -36,16 +37,12 @@ app.use("/listings/:productId", ProductRoutes);
 // app.use("/", ProductRoutes); // Using ProductRoutes for product-related routes
 
 // Mongoose connection
-mongoose
-  .connect(process.env.MONGODB_URI) // Connecting to MongoDB using the provided URI from environment variables
+ConnectDB()
   .then(() => {
-    console.log("DB connected"); // Logging successful database connection
+    app.listen(PORT, () => {
+      console.log(`The server is listening to port: ${PORT}`); // Logging that the server is listening on the specified port
+    });
   })
   .catch((error) => {
-    console.log(error); // Logging error if database connection fails
+    console.error("Error starting server:", error);
   });
-
-// Starting the server
-app.listen(PORT, () => {
-  console.log(`The server is listening to port: ${PORT}`); // Logging that the server is listening on the specified port
-});

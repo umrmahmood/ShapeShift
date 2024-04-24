@@ -30,7 +30,7 @@ const ProductSchema = new Schema(
     },
 
     // Images of the product, stored as an array of strings (URLs)
-    images: [{ type: String }],
+    images: [{ type: Schema.Types.ObjectId, ref: "ProductImages" }],
 
     // Seller reference for the product, required
     seller: {
