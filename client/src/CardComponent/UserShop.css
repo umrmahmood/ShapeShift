@@ -1,0 +1,25 @@
+.shop-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-section, .user-section {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-image, .user-image {
+    width: 100%;
+    height: 30%;
+    object-fit: cover; 
+}
+
+.logo {
+   
+}
+
+.shop-info, .user-info {
+    text-align: center;
+}
