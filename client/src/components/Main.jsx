@@ -1,4 +1,3 @@
-// import video from "../assets/3dp.mp4";
 import rings from "../assets/final1.jpg";
 import headphones from "../assets/final2.jpg";
 import lamp from "../assets/final6.jpg";
@@ -15,6 +14,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const Main = () => {
 	return (
 		<>
+	
 		<div className="main-border"></div>
 			<div class="m-0 border-0 bd-example m-0 border-0 overlay">
 				<div
@@ -128,7 +128,7 @@ const Main = () => {
 				</div>
 			</div>
 
-			<button className="main-button">EXPLORE NOW</button>
+			<button className="mainexplore-button">EXPLORE NOW</button>
 
 			<Features/>
 		</>
