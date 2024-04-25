@@ -11,11 +11,6 @@
     margin: 20px;
     padding: 20px;
 }
-
-.category-item {
-    
-}
-
 .category-link {
     color:black;
     text-decoration: none;
@@ -28,3 +23,34 @@
     width: 50px;
     height: 50px;
 }
+
+/* CSS */
+.select-container {
+    margin-bottom: 1rem;
+}
+
+.select-container select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.display-product {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filer-container{
+    display:flex;
+    justify-content: end;
+    margin-right: 20px;
+}
+/* Adjust card width for responsiveness 
+@media screen and (min-width: 768px) {
+    .display-product {
+        justify-content: center;
+    }
+}
+*/

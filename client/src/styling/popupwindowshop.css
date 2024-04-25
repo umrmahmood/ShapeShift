@@ -1,0 +1,42 @@
+
+.popup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .popup-content button {
+    padding: 7px 20px;
+	border: none;
+	border-radius: 6px;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: "proxima nova";
+	font-size: 1.2em;
+	background: rgb(166,0,2);
+    margin-top: 1em;
+  }
+  
+  .popup-content button:hover {
+    background-color: rgb(194, 41, 44);
+  }
+  
+  .regshop-popup-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 4em;
+  }

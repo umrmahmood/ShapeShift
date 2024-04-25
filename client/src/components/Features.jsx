@@ -3,7 +3,7 @@ import '../styling/features.css'
 import { Link } from 'react-router-dom';
 import design from '../assets/stl.jpg';
 import discover from '../assets/discover2.jpg';
-import printer from '../assets/printer.jpg';
+import printer from '../assets/shop.jpg';
 
 const Features = () => {
 	return (
@@ -32,8 +32,9 @@ const Features = () => {
 						</p>
 						<button className="feature-button">More</button>
 					</div>
+					<Link className='features-link' to="/openshop">
 					<div className="card">
-						<h3>Register Your 3D Printer</h3>
+						<h3>Register Your shop today</h3>
 						<img src={printer} alt="" height='300px'/>
 						<p>
 							Join our community of makers and enthusiasts by registering your
@@ -42,6 +43,7 @@ const Features = () => {
 						</p>
 						<button className="feature-button">More</button>
 					</div>
+					</Link>
 				</div>
 			</div>
 		</>

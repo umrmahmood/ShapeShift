@@ -45,7 +45,7 @@ const ProductForm = () => {
 
 	return (
 		<>
-			<Navbar />
+			{/* <Navbar /> */}
       <h1>Register & Start Selling Today</h1>
 			<form className="product-reg-form">
 				<label>
@@ -131,8 +131,8 @@ const ProductForm = () => {
 					/>
 				</label>
 
-				<div>
-					Type:
+				<div className="type-choice">
+					<div className='text'>Type:
 					<label>
 						<input
 							type="radio"
@@ -141,8 +141,8 @@ const ProductForm = () => {
 							checked={product.type === "digital"}
 							onChange={handleChange}
 						/>
-						Digital
-					</label>
+						
+					</label>Digital
 					<label>
 						<input
 							type="radio"
@@ -151,8 +151,9 @@ const ProductForm = () => {
 							checked={product.type === "physical"}
 							onChange={handleChange}
 						/>
-						Physical
-					</label>
+						
+					</label>Physical
+					</div>
 				</div>
 
 				{/* Material dropdown, displayed if product type is physical */}
@@ -247,7 +248,7 @@ const ProductForm = () => {
 
 				<button type="submit">Submit</button>
 			</form>
-			<Footer />
+			{/* <Footer /> */}
 		</>
 	);
 };

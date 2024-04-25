@@ -24,15 +24,15 @@ const authMiddleware = {
           .status(401)
           .json({ message: "Unauthorized: No token provided" });
       }
-      console.log("JWT TOKEN :", process.env.JWT_SECRET);
+      // console.log("JWT TOKEN :", process.env.JWT_SECRET);
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      console.log("Decoded token:", decoded);
+      // console.log("Decoded token:", decoded);
       if (!decoded) {
         console.log("Invalid token");
         return res.status(401).json({ message: "Unauthorized: Invalid token" });
       }
       const user = await User.findById(decoded.id);
-      console.log("Found user:", user);
+      // console.log("Found user:", user);
       if (!user) {
         console.log("User not found");
         res.status(404).json({ message: "User not found" });

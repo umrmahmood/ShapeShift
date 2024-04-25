@@ -4,6 +4,7 @@ import price from './Card';
 import itemName from './Card';
 import './Item.css'
 
+
 <script src="https://kit.fontawesome.com/18c16054bb.js" crossorigin="anonymous"></script>
 
 
