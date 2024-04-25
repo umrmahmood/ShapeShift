@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import UserSellCard from "./CardComponent/UserSellCard";
 import ConfigComponent from "./components/uploadDesign/ConfigComponent.jsx";
 import Printer from "./components/Printer";
+import OpenShop from "./components/openShop/OpenShop.jsx";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 			{/* <Route path="/item" element={<ItemPage />} /> */}
 			<Route path="/home" element={<UserSellCard />} />
 			<Route path="/printers" element={<Printer />} />
+			<Route path="/openshop" element={<OpenShop/>} />
 		  </Routes>
 		  <Footer />
 		</div>
