@@ -32,7 +32,7 @@ function App() {
 
 			<Route path="/printers" element={<Printer />} />
 			<Route path="/openshop" element={<OpenShop/>} />
-			<Route path="/product-forms" element={<ProductForm/>} />
+			<Route path="/product-form" element={<ProductForm/>} />
 		  </Routes>
 		  <Footer />
 		</div>

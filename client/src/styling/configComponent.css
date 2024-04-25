@@ -1,8 +1,7 @@
 .config-background {
-  /* background: rgb(224,226,223); */
-  background: white;
+	/* background: rgb(224,226,223); */
+	background: white;
 }
-
 
 .config-container {
 	display: flex;
@@ -21,11 +20,9 @@
 	height: 60vh;
 	overflow-y: auto;
 	margin-top: 11em;
-  
-
 }
 
-.popup-container {
+.quote-popup-container {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -37,21 +34,22 @@
 	align-items: center;
 }
 
-.popup {
+.quote-popup {
 	background: white;
-	padding: 20px;
+	padding-bottom: 20px;
+	border-radius: 10px;
 }
 
-.popupwindow-button {
+.quote-popupwindow-button {
 	margin-top: 20px;
 	text-align: center;
 }
 
-.close-btn {
+.quote-popup-close-btn {
 	padding: 10px 20px;
-	color: rgb(0, 0, 0);
 	border: none;
 	cursor: pointer;
+	border-radius: 10px;
 }
 
 .upload-file {
@@ -65,13 +63,14 @@
 
 .button-quote button {
 	padding: 7px 20px;
-	border: 1px solid rgba(27, 31, 35, 0.15);
-	border-radius: 6px;
-	color: #24292e;
+	border: none;
+	border-radius: 10px;
+	color: #ffffff;
 	cursor: pointer;
 	font-family: "proxima nova";
 	font-size: 1.2em;
-  background: rgb(224,226,223);
+	background: rgb(166,0,2);
+    margin-top: 1em;
 }
 
 .config-quantity {
@@ -100,4 +99,3 @@
 	text-decoration: none;
 	color: black;
 }
-

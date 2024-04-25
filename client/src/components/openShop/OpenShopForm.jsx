@@ -12,10 +12,6 @@ const OpenShopForm = () => {
     location: "",
     taxId: "",
     active: false,
-    profilePicture: null,
-    bannerPicture: null,
-    profilePicturePreview: null,
-    bannerPicturePreview: null,
   });
 
   const [showPopup, setShowPopup] = useState(false); 
@@ -120,7 +116,9 @@ const OpenShopForm = () => {
 								/>
 							</label>
 						</div>
-
+					
+					{/* this should go in shop settings */}
+{/* 
 						<label className="regshop-field">
 							Upload Profile Picture
 							<input
@@ -157,7 +155,7 @@ const OpenShopForm = () => {
 									/>
 								)}
 							</div>
-						</label>
+						</label> */}
 						<div className="regshop-submit">
 							<button type="submit">Submit</button>
 						</div>
@@ -175,12 +173,12 @@ const OpenShopForm = () => {
 
     
       {showPopup && (
-        <div className="popup">
-          <div className="popup-content">
+        <div className="reg-popup">
+          <div className="reg-popup-content">
             <h2>Your shop has been registered successfully!</h2>
-			<div className="regshop-popup-buttons">
+			<div className="reg-regshop-popup-buttons">
 			<button onClick={handlePopupClose}>Close</button>
-			<button>My Shop</button>
+			<button>Go to My Shop</button>
 			</div>
             
           </div>
