@@ -1,18 +1,18 @@
 import mongoose, { Schema } from "mongoose";
 
-const ItemImageSchema = new Schema(
+const ProductImageSchema = new Schema(
   {
-    url: {
-      type: String,
-      required: true,
-    },
+    url: [
+      {
+        type: String,
+        //required: true,
+      },
+    ],
     productId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Product",
-      required: true,
+      //required: true,
     },
-    caption: String,
-    tags: [String],
   },
   { timestamps: true }
 );
@@ -24,7 +24,7 @@ const ProfileImageSchema = new Schema(
       required: true,
     },
     ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
@@ -39,7 +39,7 @@ const ShopImageSchema = new Schema(
       required: true,
     },
     ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Shop",
       required: true,
     },
@@ -52,7 +52,7 @@ const ShopImageSchema = new Schema(
   { timestamps: true }
 );
 
-const ProductImages = mongoose.model("ProductImages", ItemImageSchema);
+const ProductImages = mongoose.model("ProductImages", ProductImageSchema);
 const ProfileImage = mongoose.model("ProfileImage", ProfileImageSchema);
 const ShopImages = mongoose.model("ShopImages", ShopImageSchema);
 
