@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Cart.css';
 import Payment from './Payment';
+import lapTop from "../assets/laptop.jpg";
+import emptyCart from "../assets/empty_cart.jpg";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(
@@ -48,19 +50,20 @@ const Cart = () => {
         <div className="items-list">
           {cartItems.length === 0 ? (
             <div className="no-items">
-              <p>Your cart is empty</p>
+              <p>Your Cart is <span>Empty !</span></p>
+              <img className="emptyCart" src={emptyCart} alt="laptop" />
             </div>
           ) : (
             cartItems.map((item, index) => (
               <div key={index} className="cart-item">
-                <img src={item.image} alt={item.name} className="item-image" />
+                <img  src={lapTop} alt={item.name} className="item-image" />
                 <div className="item-details">
                   <h5>{item.name}</h5>
                   <p>{item.price}</p>
                   <div className="quantity-controls">
                     <div className="quantity-options">
-                      <button className="delete-button" onClick={() => removeItem(item.name)}>Delete</button>
-                      <label htmlFor={`quantity-${index}`}>Qty:</label>
+                      <button className="delete-button" onClick={() => removeItem(item.name)}>Remove</button>
+                      <label htmlFor={`quantity-${index}`}></label>
                       <select 
                         id={`quantity-${index}`}
                         className="quantity-select" 
@@ -71,7 +74,7 @@ const Cart = () => {
                           setCartItems(updatedItems);
                         }}
                       >
-                        {[...Array(10)].map((_, i) => (
+                        {[...Array(200)].map((_, i) => (
                           <option key={i} value={i + 1}>{i + 1}</option>
                         ))}
                       </select>
