@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Cart.css';              
-
+import './Cart.css';
+import Payment from './Payment';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(
@@ -38,25 +38,18 @@ const Cart = () => {
     }
   };
 
-  const handleCheckout = () => {
-    /*code should be entered here */
-    
-  };
-
-  const getTotalCost = () => {
-    return cartItems.reduce((total, item) => total + parseFloat(item.totalPrice), 0).toFixed(2);
-  };
-  
+  // const getTotalCost = () => {
+  //   return cartItems.reduce((total, item) => total + parseFloat(item.totalPrice), 0).toFixed(2);
+  // };
 
   return (
-    
     <div className="shopping-cart-outer">
       <div className="shopping-cart">
-        {/* <h2>Shopping Cart</h2> */}
         <div className="items-list">
           {cartItems.length === 0 ? (
             <div className="no-items">
-            <p>Your cart is empty</p></div>
+              <p>Your cart is empty</p>
+            </div>
           ) : (
             cartItems.map((item, index) => (
               <div key={index} className="cart-item">
@@ -67,7 +60,7 @@ const Cart = () => {
                   <div className="quantity-controls">
                     <div className="quantity-options">
                       <button className="delete-button" onClick={() => removeItem(item.name)}>Delete</button>
-                      <label htmlFor={`quantity-${index}`}></label>
+                      <label htmlFor={`quantity-${index}`}>Qty:</label>
                       <select 
                         id={`quantity-${index}`}
                         className="quantity-select" 
@@ -79,11 +72,11 @@ const Cart = () => {
                         }}
                       >
                         {[...Array(10)].map((_, i) => (
-                          <option key={i} value={i + 1}>Qty: {i + 1}</option>
+                          <option key={i} value={i + 1}>{i + 1}</option>
                         ))}
                       </select>
                     </div>
-                    <p>Total: €{item.totalPrice}</p>
+                    {/* <p>Total: €{item.totalPrice}</p> */}
                   </div>
                 </div>
               </div>
@@ -91,15 +84,15 @@ const Cart = () => {
           )}
         </div>
         <div className="cart-total">
-          <p>Total: €{getTotalCost()}</p>
+          {/* <p>Total: €{getTotalCost()}</p> */}
         </div>
         <div className="cart-buttons">
-          <button className="checkout-button" onClick={handleCheckout}>Checkout</button>
-          <button className="delete-all-button" onClick={() => setCartItems([])}>Delete All</button>
+          {/* <button className="delete-all-button" onClick={() => setCartItems([])}>Delete All</button> */}
         </div>
         <button className="add-item" onClick={() => addItem({ name: 'Laptop', price: '€1000', image: 'https://via.placeholder.com/50' })}>Add Laptop</button>
         <button className="add-item" onClick={() => addItem({ name: 'Headphones', price: '€50', image: 'https://via.placeholder.com/50' })}>Add Headphones</button>
       </div>
+      <Payment cartItems={cartItems} />
     </div>
   );
 };
