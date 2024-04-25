@@ -12,11 +12,11 @@ const ProductSchema = new Schema(
     // Product description, optional with a maximum length of 500 characters
     description: {
       type: String,
-      maxlength: [500, "Description cannot exceed 500 characters"],
+      maxlength: [1000, "Description cannot exceed 500 characters"],
     },
 
     // Category reference for the product
-    category: { type: Schema.Types.ObjectId, ref: "Category" },
+    // category: { type: Schema.Types.ObjectId, ref: "Category" },
 
     // Price of the product, required and must be a non-negative number
     price: { type: Number, required: true, min: 0 },

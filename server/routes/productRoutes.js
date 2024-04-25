@@ -12,24 +12,20 @@ const router = express.Router();
 
 // Route for fetching all products and by ID
 router
-  .get("/listings", ProductController.getAllProducts) // GET request to fetch all products
-  .get("/listings/:productId", ProductController.getProductById); // GET request to fetch a specific product by ID
+  .get("/", ProductController.getAllProducts) // GET request to fetch all products
+  .get("/:productId", ProductController.getProductById); // GET request to fetch a specific product by ID
 
 // Routes for creating, updating, and deleting products
 router
   // Apply authenticated middleware only to the routes below
-  .post(
-    "/listings",
-    authMiddleware.authenticated,
-    ProductController.createProduct
-  ) // POST request to create a new product
+  .post("/", authMiddleware.authenticated, ProductController.createProduct) // POST request to create a new product
   .put(
-    "/listings/:productId",
+    "/:productId",
     authMiddleware.authenticated,
     ProductController.updateProduct
   ) // PUT request to update a product
   .delete(
-    "/listings/:productId",
+    "/:productId",
     authMiddleware.authenticated,
     ProductController.deleteProduct
   ); // DELETE request to delete a product

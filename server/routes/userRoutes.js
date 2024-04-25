@@ -20,7 +20,7 @@ router.post("/login", UserController.login);
 router.get("/profile/:id", UserController.getProfileById);
 
 // User profile updating route
-router.put("/profile", UserController.updateProfile);
+router.put("/profile/:id", UserController.updateProfile);
 
 // User logout route
 router.post("/logout", UserController.logout);

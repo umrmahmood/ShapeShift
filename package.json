@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/umrmahmood/ShapeShift#readme",
   "dependencies": {
-    "bcrypt": "^5.1.1"
+    "axios": "^1.6.8"
   }
 }

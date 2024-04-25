@@ -1,0 +1,103 @@
+.config-background {
+  /* background: rgb(224,226,223); */
+  background: white;
+}
+
+
+.config-container {
+	display: flex;
+	margin: 0em 3em;
+}
+
+.left-div {
+	flex: 1;
+	overflow-y: auto;
+}
+
+.right-div {
+	flex: 1;
+	position: sticky;
+	top: 2em;
+	height: 60vh;
+	overflow-y: auto;
+	margin-top: 11em;
+  
+
+}
+
+.popup-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup {
+	background: white;
+	padding: 20px;
+}
+
+.popupwindow-button {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.close-btn {
+	padding: 10px 20px;
+	color: rgb(0, 0, 0);
+	border: none;
+	cursor: pointer;
+}
+
+.upload-file {
+	padding: 20px;
+}
+
+.button-quote {
+	display: flex;
+	justify-content: center;
+}
+
+.button-quote button {
+	padding: 7px 20px;
+	border: 1px solid rgba(27, 31, 35, 0.15);
+	border-radius: 6px;
+	color: #24292e;
+	cursor: pointer;
+	font-family: "proxima nova";
+	font-size: 1.2em;
+  background: rgb(224,226,223);
+}
+
+.config-quantity {
+	display: flex;
+	gap: 0.7em;
+	margin-top: 1em;
+	font-size: 1.2em;
+	font-family: "proxima nova";
+}
+
+.config-quantity input {
+	font-family: "proxima nova";
+	border: 1px solid lightgray;
+	font-size: 0.8em;
+}
+
+.file-content {
+	font-family: "proxima nova";
+	font-size: 1.2em;
+	display: flex;
+	justify-content: center;
+	gap: 3em;
+}
+
+.file-content a {
+	text-decoration: none;
+	color: black;
+}
+

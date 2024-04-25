@@ -1,0 +1,78 @@
+.swatches {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1em; 
+    
+}
+
+.color-swatch{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    
+}
+
+.swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.selected-swatch {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.5rem;
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.black {
+    background-color: black;
+}
+
+.red {
+    background-color: red;
+}
+
+.white {
+    background-color: white;
+    border: 1px solid black;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.blue {
+    background-color: blue;
+    color: white;
+}
+
+.green {
+    background-color: green;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.purple {
+    background-color: purple;
+    color: white;
+}
+
+.silver {
+    background-color: silver;
+}
+
+.violet {
+    background-color: violet;
+    color: black;
+}

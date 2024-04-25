@@ -2,7 +2,7 @@
 
 // Importing dependencies
 import mongoose, { Schema } from "mongoose"; // Importing mongoose and Schema from mongoose package.
-import bcrypt from "bcrypt"; // Importing bcrypt for password hashing.
+import bcryptjs from "bcryptjs"; // Importing bcryptjs for password hashing.
 
 // Defining the user schema using the Schema constructor.
 const UserSchema = new Schema(
@@ -113,7 +113,7 @@ UserSchema.pre("save", async function (next) {
     return next();
   }
   try {
-    const hashedPassword = await bcrypt.hash(this.password, 10); // Hashing the password using bcrypt.
+    const hashedPassword = await bcryptjs.hash(this.password, 10); // Hashing the password using bcryptjs.
     this.password = hashedPassword; // Assigning the hashed password to the password field.
     next(); // Proceed to the next middleware.
   } catch (error) {
