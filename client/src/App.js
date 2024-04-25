@@ -10,6 +10,7 @@ import ItemPage from "./CardComponent/ItemPage";
 import UserSellCard from "./CardComponent/UserSellCard";
 import ConfigComponent from "./components/uploadDesign/ConfigComponent.jsx";
 import Printer from "./components/Printer";
+import OpenShop from "./components/openShop/OpenShop.jsx";
 
 import ProductForm from "./components/productReg/ProductForm";
 import UserShop from "./CardComponent/UserShop";
@@ -30,6 +31,7 @@ function App() {
 			<Route path="/user-shop" element={<UserShop/>} />
 
 			<Route path="/printers" element={<Printer />} />
+			<Route path="/openshop" element={<OpenShop/>} />
 			<Route path="/product-forms" element={<ProductForm/>} />
 		  </Routes>
 		  <Footer />
