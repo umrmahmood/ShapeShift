@@ -20,45 +20,40 @@ const ProductController = {
         return res.status(400).json({ message: "No files uploaded" });
       }
 
-      const productImagesIds = [];
+      const existingImageUrls = [];
 
       for (const file of req.files) {
+        const nameWithDashes = file.originalname.replace(/\s+/g, "-");
+
         const searchResult = await cloudinary.search
-          .expression(`filename:${file.originalname}`)
+          .expression(`tags:${nameWithDashes}`)
           .execute();
 
-        if (searchResult.total_count > 0) {
-          // Image exists on Cloudinary
-          const imageUrl = searchResult.resources[0].secure_url;
-
-          // Check if the image exists in your database with the exact URL
-          const existingImage = await ProductImages.findOne({ url: imageUrl });
-
-          if (existingImage) {
-            // Use the existing image's _id
-            productImagesIds.push(existingImage._id);
-          } else {
-            // Image exists on Cloudinary but not in the database
-            console.log("Image exists on Cloudinary but not in the database");
-
-            // Upload a new image to Cloudinary
-            const result = await cloudinary.uploader.upload(file.path);
-
-            // Create a new image in the database with the exact Cloudinary URL
-            const newProductImage = await ProductImages.create({
-              url: imageUrl, // Use the exact URL from Cloudinary search result
-              productId: null,
-            });
-            productImagesIds.push(newProductImage._id);
-          }
+        if (searchResult.resources.length > 0) {
+          // File with the same tag already exists on Cloudinary
+          console.log(
+            `File with tag '${nameWithDashes}' already exists on Cloudinary.`
+          );
+          // Collect the URLs of the found images
+          existingImageUrls.push(searchResult.resources[0].secure_url); // Assuming you want to use the URL of the first found image
         } else {
-          // Image does not exist on Cloudinary, so upload it
-          const result = await cloudinary.uploader.upload(file.path);
-          const productImage = await ProductImages.create({
+          // File with the same tag doesn't exist on Cloudinary, proceed with uploading
+          const result = await cloudinary.uploader.upload(file.path, {
+            use_filename: true,
+            tags: file.originalname,
+            unique_filename: false,
+            transformation: [
+              { width: 1000, crop: "scale" },
+              { quality: "auto" },
+              { fetch_format: "auto" },
+            ],
+          });
+
+          const newProductImage = await ProductImages.create({
             url: result.secure_url,
             productId: null,
           });
-          productImagesIds.push(productImage._id);
+          productImagesIds.push(newProductImage._id);
         }
       }
 
@@ -74,13 +69,15 @@ const ProductController = {
         tags,
       } = req.body;
 
+      // Create the product using existing image URLs if any
       const newProduct = new Product({
         name,
         description,
         category,
         price,
         currency,
-        images: productImagesIds,
+        images:
+          existingImageUrls.length > 0 ? existingImageUrls : productImagesIds,
         seller: req.user._id,
         type,
         material,
@@ -125,59 +122,49 @@ const ProductController = {
 
   // Method to update a product
   updateProduct: async (req, res) => {
-    const productId = req.params.productId;
-    const updateData = req.body;
-
-    try {
-      if (!req.user.membership?.haveShop) {
-        return res.status(403).json({
-          message:
-            "User does not have permission to create products. Open a shop first.",
-        });
-      }
-
-      if (req.files && Array.isArray(req.files)) {
-        const imageUrls = await Promise.all(
-          req.files.map(async (file) => {
-            const result = await cloudinary.uploader.upload(file.path);
-            return result.secure_url;
-          })
-        );
-
-        const productImagesIds = [];
-
-        for (const url of imageUrls) {
-          const productImage = await ProductImages.create({
-            url,
-            productId: null,
-          });
-          productImagesIds.push(productImage._id);
-        }
-
-        updateData.images = productImagesIds;
-      }
-
-      const existingProduct = await Product.findById(productId);
-
-      if (!existingProduct) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-
-      const updatedProduct = await Product.findByIdAndUpdate(
-        productId,
-        updateData,
-        { new: true }
-      );
-
-      if (!updatedProduct) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-
-      return res.status(200).json(updatedProduct);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Internal server error" });
-    }
+    //   const productId = req.params.productId;
+    //   const updateData = req.body;
+    //   try {
+    //     if (!req.user.membership?.haveShop) {
+    //       return res.status(403).json({
+    //         message:
+    //           "User does not have permission to create products. Open a shop first.",
+    //       });
+    //     }
+    //     if (req.files && Array.isArray(req.files)) {
+    //       const imageUrls = await Promise.all(
+    //         req.files.map(async (file) => {
+    //           const result = await cloudinary.uploader.upload(file.path);
+    //           return result.secure_url;
+    //         })
+    //       );
+    //       const productImagesIds = [];
+    //       for (const url of imageUrls) {
+    //         const productImage = await ProductImages.create({
+    //           url,
+    //           productId: null,
+    //         });
+    //         productImagesIds.push(productImage._id);
+    //       }
+    //       updateData.images = productImagesIds;
+    //     }
+    //     const existingProduct = await Product.findById(productId);
+    //     if (!existingProduct) {
+    //       return res.status(404).json({ message: "Product not found" });
+    //     }
+    //     const updatedProduct = await Product.findByIdAndUpdate(
+    //       productId,
+    //       updateData,
+    //       { new: true }
+    //     );
+    //     if (!updatedProduct) {
+    //       return res.status(404).json({ message: "Product not found" });
+    //     }
+    //     return res.status(200).json(updatedProduct);
+    //   } catch (error) {
+    //     console.error(error);
+    //     return res.status(500).json({ message: "Internal server error" });
+    //   }
   },
 
   // Method to delete a product
