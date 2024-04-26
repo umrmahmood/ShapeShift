@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './styling/Cart.css';
+import '../styling/Cart.css';
 import Payment from './Payment';
 import lapTop from "../assets/laptop.jpg";
 import emptyCart from "../assets/empty_cart.png";
