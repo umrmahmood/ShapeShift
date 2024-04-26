@@ -1,14 +1,14 @@
 // Controller file for handling product-related logic.
 
-//  Importing necessary dependencies
+// Importing necessary dependencies
 import Product from "../models/schemaFiles/productSchema.js";
-import { ProductImages } from "../models/schemaFiles/imagesSchema.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const ProductController = {
   // Method to create a new product
   createProduct: async (req, res) => {
     try {
+      // Check if the user has permission to create products
       if (!req.user.membership?.haveShop) {
         return res.status(403).json({
           message:
@@ -16,47 +16,47 @@ const ProductController = {
         });
       }
 
+      // Check if files were uploaded
       if (!req.files || !Array.isArray(req.files)) {
         return res.status(400).json({ message: "No files uploaded" });
       }
 
-      const existingImageUrls = [];
+      // Array to store product images data
+      const productImages = [];
 
+      // Loop through each uploaded file
       for (const file of req.files) {
-        const nameWithDashes = file.originalname.replace(/\s+/g, "-");
+        // Upload file to Cloudinary
+        const result = await cloudinary.uploader.upload(file.path, {
+          use_filename: true,
+          tags: file.originalname,
+          unique_filename: false,
+          transformation: [
+            { width: 1000, crop: "scale" },
+            { quality: "auto" },
+            { fetch_format: "auto" },
+          ],
+        });
 
-        const searchResult = await cloudinary.search
-          .expression(`tags:${nameWithDashes}`)
-          .execute();
+        // Filtered result containing selected keys
+        const filteredResult = {
+          public_id: result.public_id,
+          version_id: result.version_id,
+          signature: result.signature,
+          width: result.width,
+          height: result.height,
+          format: result.format,
+          resource_type: result.resource_type,
+          tags: result.tags,
+          url: result.url,
+          created_at: result.created_at,
+        };
 
-        if (searchResult.resources.length > 0) {
-          // File with the same tag already exists on Cloudinary
-          console.log(
-            `File with tag '${nameWithDashes}' already exists on Cloudinary.`
-          );
-          // Collect the URLs of the found images
-          existingImageUrls.push(searchResult.resources[0].secure_url); // Assuming you want to use the URL of the first found image
-        } else {
-          // File with the same tag doesn't exist on Cloudinary, proceed with uploading
-          const result = await cloudinary.uploader.upload(file.path, {
-            use_filename: true,
-            tags: file.originalname,
-            unique_filename: false,
-            transformation: [
-              { width: 1000, crop: "scale" },
-              { quality: "auto" },
-              { fetch_format: "auto" },
-            ],
-          });
-
-          const newProductImage = await ProductImages.create({
-            url: result.secure_url,
-            productId: null,
-          });
-          productImagesIds.push(newProductImage._id);
-        }
+        // Push filtered result to productImages array
+        productImages.push(filteredResult);
       }
 
+      // Destructure request body
       const {
         name,
         description,
@@ -69,15 +69,14 @@ const ProductController = {
         tags,
       } = req.body;
 
-      // Create the product using existing image URLs if any
+      // Create a new product instance
       const newProduct = new Product({
         name,
         description,
         category,
         price,
         currency,
-        images:
-          existingImageUrls.length > 0 ? existingImageUrls : productImagesIds,
+        images: productImages,
         seller: req.user._id,
         type,
         material,
@@ -85,9 +84,11 @@ const ProductController = {
         tags,
       });
 
+      // Save the new product
       const savedProduct = await newProduct.save();
       return res.status(201).json(savedProduct);
     } catch (error) {
+      // Handle errors
       console.error(error);
       return res.status(500).json({ message: "Internal server error" });
     }
@@ -96,9 +97,11 @@ const ProductController = {
   // Method to fetch all products
   getAllProducts: async (req, res) => {
     try {
+      // Find all products
       const products = await Product.find();
       res.status(200).json(products);
     } catch (error) {
+      // Handle errors
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
     }
@@ -109,12 +112,14 @@ const ProductController = {
     const productId = req.params.id;
 
     try {
+      // Find product by ID
       const product = await Product.findById(productId);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
       res.status(200).json(product);
     } catch (error) {
+      // Handle errors
       console.error(error);
       res.status(500).json({ message: "Product not found" });
     }
@@ -122,55 +127,49 @@ const ProductController = {
 
   // Method to update a product
   updateProduct: async (req, res) => {
-    //   const productId = req.params.productId;
-    //   const updateData = req.body;
-    //   try {
-    //     if (!req.user.membership?.haveShop) {
-    //       return res.status(403).json({
-    //         message:
-    //           "User does not have permission to create products. Open a shop first.",
-    //       });
-    //     }
-    //     if (req.files && Array.isArray(req.files)) {
-    //       const imageUrls = await Promise.all(
-    //         req.files.map(async (file) => {
-    //           const result = await cloudinary.uploader.upload(file.path);
-    //           return result.secure_url;
-    //         })
-    //       );
-    //       const productImagesIds = [];
-    //       for (const url of imageUrls) {
-    //         const productImage = await ProductImages.create({
-    //           url,
-    //           productId: null,
-    //         });
-    //         productImagesIds.push(productImage._id);
-    //       }
-    //       updateData.images = productImagesIds;
-    //     }
-    //     const existingProduct = await Product.findById(productId);
-    //     if (!existingProduct) {
-    //       return res.status(404).json({ message: "Product not found" });
-    //     }
-    //     const updatedProduct = await Product.findByIdAndUpdate(
-    //       productId,
-    //       updateData,
-    //       { new: true }
-    //     );
-    //     if (!updatedProduct) {
-    //       return res.status(404).json({ message: "Product not found" });
-    //     }
-    //     return res.status(200).json(updatedProduct);
-    //   } catch (error) {
-    //     console.error(error);
-    //     return res.status(500).json({ message: "Internal server error" });
-    //   }
+    const productId = req.params.productId;
+    const updateData = req.body;
+
+    try {
+      // Check if the user has permission to update products
+      if (!req.user.membership?.haveShop) {
+        return res.status(403).json({
+          message:
+            "User does not have permission to update products. Open a shop first.",
+        });
+      }
+
+      // Update product data
+      const existingProduct = await Product.findById(productId);
+      if (!existingProduct) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      // Update only non-empty fields
+      for (const [key, value] of Object.entries(updateData)) {
+        if (
+          value !== undefined &&
+          value !== null &&
+          value !== "" &&
+          existingProduct[key] !== value
+        ) {
+          existingProduct[key] = value;
+        }
+      }
+
+      const updatedProduct = await existingProduct.save();
+      return res.status(200).json(updatedProduct);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
   },
 
   // Method to delete a product
   deleteProduct: async (req, res) => {
     const productId = req.params.id;
     try {
+      // Find and delete product by ID
       const deleteProduct = await Product.findByIdAndDelete(productId);
 
       if (!deleteProduct) {
@@ -178,6 +177,7 @@ const ProductController = {
       }
       res.status(200).json(deleteProduct);
     } catch (error) {
+      // Handle errors
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
     }

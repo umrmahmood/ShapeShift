@@ -5,7 +5,7 @@ import express from "express";
 
 // Importing controllers
 import ProductController from "../controllers/productController.js";
-import ImageController from "../controllers/imageController.js";
+import UpdateImageController from "../controllers/imageController.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
 import Parser from "../config/multerConfig.js";
@@ -33,6 +33,12 @@ router
     Parser.array("images", 5),
     ProductController.updateProduct
   ) // PUT request to update a product
+  .post(
+    "/products/:productId/images/:imageIndex",
+    authMiddleware.authenticated,
+    Parser.array("images", 5),
+    UpdateImageController.updateImage
+  )
   .delete(
     "/:productId",
     authMiddleware.authenticated,
