@@ -1,7 +1,7 @@
 .regshop-container {
 	display: flex;
 	margin: 4em 10em;
-	gap: 7em;
+	gap: 7em; 
 }
 
 /* .regprinter-sidepanel {
@@ -22,11 +22,13 @@
 .regshop-field input {
 	border: none;
 	font-size: 1.1em;
+	border-radius: 10px
 }
 
 .regshop-field textarea {
 	width: 500px;
 	border: none;
+	border-radius: 10px
 }
 
 .description:focus {
@@ -56,13 +58,13 @@
 .regshop-submit button {
 	padding: 7px 20px;
 	border: none;
-	border-radius: 6px;
+	border-radius: 10px;
 	color: #ffffff;
 	cursor: pointer;
 	font-family: "proxima nova";
 	font-size: 1.2em;
 	background: rgb(166,0,2);
-    margin-top: 1em;
+    margin-top: 2em;
 }
 
 .regshop-submit button:hover {
