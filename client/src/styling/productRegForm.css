@@ -1,0 +1,135 @@
+/* *{
+    font-family: 'Bebas Neue', sans-serif;
+    box-shadow: none;
+} */
+
+.product-reg-form-outter {
+	background: #f0f0f0;
+
+}
+
+.product-reg-form-outter h1 {
+font-size: 4em;
+  margin: 0em;
+  padding: 1em 0em 0em 4em;
+}
+
+.product-reg-form {
+	display: flex;
+	margin: 2em 15em;
+	flex-direction: column;
+	font-family: "proxima nova";
+	font-size: 1.5em;
+	background: white;
+	border-radius: 10px;
+	padding: 1em 0em;
+}
+.product-reg-form label {
+	border-radius: 8px;
+	padding: 1em;
+	margin: 0.5em 2em;
+	/* border: 1px solid #f0f0f0; */
+	/* transition: box-shadow 0.6s ease-out; */
+	/* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06); */
+}
+
+.product-reg-form label {
+	margin-bottom: 10px;
+}
+
+.product-reg-form input,
+.product-reg-form select,
+.product-reg-form textarea {
+	width: 100%;
+	padding: 8px;
+	margin-top: 4px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 0.8em;
+}
+
+.product-reg-form input[type="file"] {
+	margin-top: 10px;
+}
+
+.product-reg-form textarea {
+	resize: vertical;
+	height: 100px;
+}
+
+.product-reg-submit {
+	display: flex;
+	justify-content: center;
+}
+.product-reg-submit button {
+	padding: 7px 20px;
+	border: none;
+	border-radius: 10px;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: "proxima nova";
+	font-size: 1.2em;
+	background: rgb(166, 0, 2);
+	margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+.product-reg-submit button:hover {
+	background-color: rgb(194, 41, 44);
+}
+
+.text {
+	padding: 1em;
+	margin: 1em 2em;
+	margin-top: 0%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.type-choice {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.type-choice label {
+	margin: 0;
+	box-shadow: none;
+	border: none !important;
+}
+
+.product-reg-type {
+	display: flex;
+	justify-content: space-around;
+}
+
+.product-reg-tags {
+	display: flex;
+	gap: 1em;
+	margin-top: 0.3em;
+}
+.product-reg-tags li {
+	list-style: none;
+	font-size: 0.8em;
+	background: #f0f0f0;
+	padding: 0.5em;
+	border-radius: 10px;
+}
+
+.product-reg-remove-btn {
+	background: red;
+	color: white;
+	border: none;
+	border-radius: 50%;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-size: 12px;
+	margin-left: 5px;
+}
+
+.product-reg-remove-btn:hover {
+	background-color: rgb(166, 0, 2);
+}
+
+.product-reg-img-type {
+	margin-top: 1em;
+}

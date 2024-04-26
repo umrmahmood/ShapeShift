@@ -1,0 +1,76 @@
+.regshop-container {
+	display: flex;
+	margin: 4em 10em;
+	gap: 7em; 
+}
+
+/* .regprinter-sidepanel {
+    background: rgb(224,226,223);
+    border-radius: 10px;
+} */
+
+.regshop-field {
+	font-family: "proxima nova";
+	font-size: 1.2em;
+	margin: 1em;
+	border-radius: 10px;
+	padding: 1em;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.regshop-field input {
+	border: none;
+	font-size: 1.1em;
+	border-radius: 10px
+}
+
+.regshop-field textarea {
+	width: 500px;
+	border: none;
+	border-radius: 10px
+}
+
+.description:focus {
+	outline: none !important;
+}
+
+.regprinter-materials label {
+	display: block;
+}
+
+/* .regshop-field input[type="checkbox"] {
+    margin-right: 0.3em;
+} */
+
+.regshop-image {
+	align-self: start;
+}
+
+.regshop-image img {
+	width: 500px;
+}
+
+.regshop-submit {
+	display: flex;
+	justify-content: right;
+}
+.regshop-submit button {
+	padding: 7px 20px;
+	border: none;
+	border-radius: 10px;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: "proxima nova";
+	font-size: 1.2em;
+	background: rgb(166,0,2);
+    margin-top: 2em;
+}
+
+.regshop-submit button:hover {
+    background-color: rgb(194, 41, 44);
+  }
+
+  .heading-regshop{
+    padding-left: 2em;
+  }

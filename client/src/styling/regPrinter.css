@@ -1,0 +1,89 @@
+.regprinter-container {
+    display: flex;
+    margin: 2em 8em;
+    gap: 5em;
+   
+}
+
+.regprinter-sidepanel ul {
+    list-style: none;
+    /* line-height: 3em; */
+    font-size: 2em;
+    font-family: "proxima nova";
+    padding: 1em;
+    
+}
+
+.regprinter-sidepanel ul li {
+   cursor: pointer;
+}
+
+.regprinter-sidepanel ul li:nth-child(-n+2) {
+    margin-bottom: 2em;
+  }
+
+.regprinter-sidepanel {
+    background: rgb(224,226,223);
+    border-radius: 10px;
+}
+
+.regprinter-main h2 {
+    font-size: 3em;
+}
+
+.regprinter-field{
+    font-family: "proxima nova";
+    font-size: 1.2em;
+    margin: 1em;
+    border-radius: 10px;
+	padding: 1em;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+}
+
+.regprinter-field input {
+    border: none;
+    font-size: 1.1em;
+}
+
+.regprinter-field select{
+    border-radius: 10px;
+	border: none;
+	padding: 0.5em;
+	font-family: "proxima nova";
+    background: rgb(224,226,223);
+}
+
+.regprinter-field textarea {
+    width: 500px;
+    border: none;
+}
+
+#description:focus {
+    outline: none !important;
+}
+
+.regprinter-quality {
+    display: flex;
+    gap: 4em;
+    margin-top: 1em;
+}
+
+.regprinter-quality input[type="checkbox"] {
+    margin-right: 0.3em;
+}
+
+.regprinter-materials {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 5px;
+    margin-top: 1em;
+}
+
+.regprinter-materials label {
+    display: block;
+}
+
+.regprinter-materials input[type="checkbox"] {
+    margin-right: 0.3em;
+}

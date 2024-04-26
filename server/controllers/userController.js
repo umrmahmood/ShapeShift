@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import path, { join } from "path"; // Importing path module for file path manipulation
 
 // Loading environment variables from .env file
-dotenv.config({ path: "../config/.env" }); // Specifying the path to the .env file
+dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
 
 // Setting __dirname
 const __dirname = path.resolve(); // Resolving the directory name
