@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Cart.css';
 import Payment from './Payment';
 import lapTop from "../assets/laptop.jpg";
-import emptyCart from "../assets/empty_cart.jpg";
+import emptyCart from "../assets/empty_cart.png";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState(

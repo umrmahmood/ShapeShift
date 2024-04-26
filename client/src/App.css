@@ -40,6 +40,7 @@
 
 .nav-icons a {
 	color: black;
+	
 }
 
 input[type="text"] {
@@ -204,4 +205,9 @@ p {
 	width: 1500px;
 	left: 200px;
 	z-index: 2;
+}
+
+.shoppingbag{
+
+	cursor: pointer;
 }
