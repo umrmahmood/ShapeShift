@@ -264,3 +264,8 @@
 	flex-grow: 1;
 	text-align: center;
   }
+
+  .login-wrongcredentials{
+	color: rgb(166, 0, 2);
+	font-size: 14px;
+  }
