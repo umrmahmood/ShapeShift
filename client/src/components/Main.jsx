@@ -10,11 +10,12 @@ import handbag from "../assets/final11.jpg";
 import Features from "./Features";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import '../styling/main.css';
+
 
 const Main = () => {
 	return (
 		<>
-	
 		<div className="main-border"></div>
 			<div class="m-0 border-0 bd-example m-0 border-0 overlay">
 				<div

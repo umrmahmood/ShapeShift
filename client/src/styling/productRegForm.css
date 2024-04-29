@@ -5,13 +5,12 @@
 
 .product-reg-form-outter {
 	background: #f0f0f0;
-
 }
 
 .product-reg-form-outter h1 {
-font-size: 4em;
-  margin: 0em;
-  padding: 1em 0em 0em 4em;
+	font-size: 4em;
+	margin: 0em;
+	padding: 1em 0em 0em 4em;
 }
 
 .product-reg-form {
@@ -42,12 +41,12 @@ font-size: 4em;
 .product-reg-form select,
 .product-reg-form textarea {
 	width: 100%;
-	padding: 8px;
+	padding: 4px;
 	margin-top: 4px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
-	font-size: 0.8em;
+	font-size: 0.7em;
 }
 
 .product-reg-form input[type="file"] {
@@ -73,7 +72,7 @@ font-size: 4em;
 	font-size: 1.2em;
 	background: rgb(166, 0, 2);
 	margin-top: 1em;
-  margin-bottom: 2em;
+	margin-bottom: 2em;
 }
 
 .product-reg-submit button:hover {
@@ -132,4 +131,29 @@ font-size: 4em;
 
 .product-reg-img-type {
 	margin-top: 1em;
+}
+
+.product-reg-form-image-container {
+	display: flex;
+	gap: 2em;
+	flex-wrap: wrap;
+	padding: 0em 2em;
+	margin: 0em 1em;
+	justify-content: center;
+}
+
+.product-reg-form-image {
+	width: 150px;
+	height: 150px;
+	border: 1px solid #ccc;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	position: relative;
+}
+
+.product-reg-form-image-container img{
+	object-fit: cover; 
+	/* object-fit: contain;  */
 }
