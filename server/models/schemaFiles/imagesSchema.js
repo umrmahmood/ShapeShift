@@ -2,17 +2,16 @@ import mongoose, { Schema } from "mongoose";
 
 const ProductImageSchema = new Schema(
   {
-    url: [
-      {
-        type: String,
-        //required: true,
-      },
-    ],
-    productId: {
-      type: Schema.Types.ObjectId,
-      ref: "Product",
-      //required: true,
-    },
+    public_id: { type: String },
+    version_id: { type: String },
+    signature: { type: String },
+    width: { type: Number },
+    height: { type: Number },
+    format: { type: String },
+    resource_type: { type: String },
+    tags: [{ type: String }],
+    url: { type: String },
+    created_at: { type: String },
   },
   { timestamps: true }
 );
