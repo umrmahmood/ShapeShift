@@ -63,7 +63,7 @@ const UserController = {
       };
       console.log("payload:", payload);
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "3h",
       });
 
       res.status(200).json({ token });
@@ -73,7 +73,7 @@ const UserController = {
     }
   },
 
-  // Get user profile
+  // Get user profile by Email ?
   getProfileById: async (req, res) => {},
 
   // Update user profile

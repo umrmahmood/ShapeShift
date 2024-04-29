@@ -1,23 +1,14 @@
 import react, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './Card.css';
 
 
 
-const Card = ({ product }) => {
-    const { name, description, price, ratings } = product;
-    const [products, setProducts] = useState([]);
+const Card = (props) => {
+    console.log(props.product);
+    const { name, description, price, ratings, images } = props.product;
  
 //Fetching data from db
-    useEffect(() => {
-        axios.get('/api/products')
-            .then(response => {
-                setProducts(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching product:', error);
-            });
-    }, []);     
+    
 
     const calculateAverageRating = (rating) =>{
         if (!rating || rating.length === 0){
@@ -27,13 +18,13 @@ const Card = ({ product }) => {
     }
     return(
          <div className="cardMain">
-            <img src={product.images[0]} alt={name} />
-
-            <h2>{name}</h2>
+        {images && <img src={images[0]} alt={name} />}
+            <h2>{name}</h2> 
             <p>{description}</p>
             <h3 className="rating">Rating:{calculateAverageRating(ratings)}</h3>
             <h3>Price {price}</h3> 
-            <button className="feature-button">More</button>
+            <button className="feature-button">More</button> 
+            
         </div>
     )
 }

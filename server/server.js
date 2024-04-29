@@ -15,7 +15,7 @@ import { error } from "console";
 
 // Initializing Express app
 const app = express(); // Creating an Express application
-const PORT = process.env.PORT || 5001; // Setting the port for the server to listen on, using environment variable or default 5001
+const PORT = 5001; // Setting the port for the server to listen on, using environment variable or default 5001
 
 // Loading environment variables from .env file
 dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
@@ -31,6 +31,7 @@ app.use(express.static("./public")); // Serving static files from the public dir
 
 // Routes
 app.use("/", UserRoutes); // Using UserRoutes for user-related routes
+app.use("/products", ProductRoutes);
 app.use("/listings", ProductRoutes);
 app.use("/listings/:productId", ProductRoutes);
 app.use("/products/:productId/images/:imageIndex", ProductRoutes);

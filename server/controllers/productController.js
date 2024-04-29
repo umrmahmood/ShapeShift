@@ -109,7 +109,7 @@ const ProductController = {
 
   // Method to fetch a product by ID
   getProductById: async (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.productId;
 
     try {
       // Find product by ID
