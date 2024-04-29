@@ -2,6 +2,7 @@
 
 // Importing necessary dependencies
 import Product from "../models/schemaFiles/productSchema.js";
+import { ProductImages } from "../models/schemaFiles/imagesSchema.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const ProductController = {
@@ -17,12 +18,12 @@ const ProductController = {
       }
 
       // Check if files were uploaded
-      if (!req.files || !Array.isArray(req.files)) {
+      if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
         return res.status(400).json({ message: "No files uploaded" });
       }
 
-      // Array to store product images data
-      const productImages = [];
+      // Array to store IDs of the newly created image objects
+      const productImagesIds = [];
 
       // Loop through each uploaded file
       for (const file of req.files) {
@@ -38,8 +39,8 @@ const ProductController = {
           ],
         });
 
-        // Filtered result containing selected keys
-        const filteredResult = {
+        // Create a new image object and store its ID
+        const newProductImage = await ProductImages.create({
           public_id: result.public_id,
           version_id: result.version_id,
           signature: result.signature,
@@ -49,11 +50,9 @@ const ProductController = {
           resource_type: result.resource_type,
           tags: result.tags,
           url: result.url,
-          created_at: result.created_at,
-        };
-
-        // Push filtered result to productImages array
-        productImages.push(filteredResult);
+          productId: null,
+        });
+        productImagesIds.push(newProductImage._id);
       }
 
       // Destructure request body
@@ -69,14 +68,14 @@ const ProductController = {
         tags,
       } = req.body;
 
-      // Create a new product instance
+      // Create a new product instance with the IDs of the image objects
       const newProduct = new Product({
         name,
         description,
         category,
         price,
         currency,
-        images: productImages,
+        images: productImagesIds, // Assign the IDs of the image objects
         seller: req.user._id,
         type,
         material,
@@ -86,6 +85,16 @@ const ProductController = {
 
       // Save the new product
       const savedProduct = await newProduct.save();
+
+      // Update the productId for each image object with the ID of the newly created product
+      for (const imageId of productImagesIds) {
+        await ProductImages.findByIdAndUpdate(
+          imageId,
+          { $set: { productId: savedProduct._id } },
+          { new: true }
+        );
+      }
+
       return res.status(201).json(savedProduct);
     } catch (error) {
       // Handle errors
@@ -93,7 +102,6 @@ const ProductController = {
       return res.status(500).json({ message: "Internal server error" });
     }
   },
-
   // Method to fetch all products
   getAllProducts: async (req, res) => {
     try {
@@ -158,6 +166,31 @@ const ProductController = {
       }
 
       const updatedProduct = await existingProduct.save();
+      return res.status(200).json(updatedProduct);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
+  addImagesToProduct: async (req, res) => {
+    try {
+      // Extract product ID and image IDs from the request
+      const { productId } = req.params;
+      const { imageIds } = req.body;
+
+      // Find the product by ID
+      const product = await Product.findById(productId);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      // Add the image IDs to the product's images array
+      product.images.push(...imageIds);
+
+      // Save the updated product
+      const updatedProduct = await product.save();
+
       return res.status(200).json(updatedProduct);
     } catch (error) {
       console.error(error);

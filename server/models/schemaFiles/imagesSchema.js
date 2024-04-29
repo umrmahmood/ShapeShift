@@ -11,7 +11,7 @@ const ProductImageSchema = new Schema(
     resource_type: { type: String },
     tags: [{ type: String }],
     url: { type: String },
-    created_at: { type: String },
+    productId: { type: String },
   },
   { timestamps: true }
 );
