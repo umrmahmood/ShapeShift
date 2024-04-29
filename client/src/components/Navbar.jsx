@@ -4,7 +4,7 @@ import { faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import logo from "../assets/SSlogo.png";
 
-const Navbar = () => {
+const Navbar = ({ onLoginClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();  // Initialize useNavigate
 
@@ -31,9 +31,9 @@ const Navbar = () => {
                     </li>
                     <li>
                         <a href="#">CONTACT US</a>
-                    </li>
+                    </li>          
                     <li>
-                        <a href="#">MENU</a>
+                        <a href="#">Sell</a>
                     </li>
                 </ul>
                 <div className="nav-icons">
@@ -53,6 +53,9 @@ const Navbar = () => {
                         <a href="/">
                             <FontAwesomeIcon icon={faUser} />
                         </a>
+                    </li>
+                    <li className='navbar-login-btn'>
+                        <button onClick={onLoginClick}>Login</button>
                     </li>
                 </div>
             </div>

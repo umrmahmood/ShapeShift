@@ -144,6 +144,7 @@ p {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	font-family: 'proxima nova';
 }
 
 .footer {
@@ -205,9 +206,4 @@ p {
 	width: 1500px;
 	left: 200px;
 	z-index: 2;
-}
-
-.shoppingbag{
-
-	cursor: pointer;
 }
