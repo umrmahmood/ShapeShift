@@ -207,3 +207,18 @@ p {
 	left: 200px;
 	z-index: 2;
 }
+
+/* please dont change the following */
+.navbar-login-btn button{
+	font-family: "proxoma nova";
+	background: transparent;
+	padding: 3px 6px;
+	font-size: 0.9em;
+	border: 1px solid black;
+}
+
+.navbar-login-btn button:hover{
+	color: white;
+	background: black;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
