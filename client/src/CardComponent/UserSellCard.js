@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Card.css'
 import Card from './Card';
 import Categories from './Categories';
+import TopButton from './TopButton';
 
 const MainPage =()=>{
     const cardInfo = [
@@ -23,6 +24,7 @@ return(
     />
     ))}
 </div>
+<TopButton/>
     </div>
 )
 }
