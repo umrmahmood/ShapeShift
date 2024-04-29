@@ -22,7 +22,7 @@ router
 router
   // Apply authenticated middleware only to the routes below
   .post(
-    "/",
+    "/create",
     authMiddleware.authenticated,
     Parser.array("images", 5),
     ProductController.createProduct
@@ -34,7 +34,7 @@ router
     ProductController.updateProduct
   ) // PUT request to update a product
   .post(
-    "/products/:productId/images/:imageIndex",
+    "/:productId/images/",
     authMiddleware.authenticated,
     Parser.array("images", 5),
     UpdateImageController.updateImage

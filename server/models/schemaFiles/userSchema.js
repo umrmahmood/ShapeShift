@@ -22,7 +22,6 @@ const UserSchema = new Schema(
         type: String, // Data type for username field.
         lowercase: true, // Username will be stored in lowercase.
         unique: true, // Username must be unique.
-        required: [true, "can't be blank"], // Username is required.
         match: [/^[a-zA-Z0-9]+$/, "is invalid"], // Validation for username format.
         index: true, // Indexing for quicker queries.
       },
