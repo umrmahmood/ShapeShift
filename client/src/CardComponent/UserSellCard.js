@@ -3,6 +3,7 @@ import './Card.css'
 import Card from './Card';
 import Categories from './Categories';
 import TopButton from './TopButton';
+import axios from 'axios';
 
 const MainPage =()=>{
     const cardInfo = [
@@ -12,18 +13,31 @@ const MainPage =()=>{
         { id: 4, title: 'Card 4', description: 'Description for Card 4' },
         // { id: 5, title: 'Card 5', description: 'Description for Card 5' }
     ];
+
+    const [products, setProducts] = useState([]);
+ 
+    useEffect(() => {
+        axios.get('/products')
+            .then(response => {
+                // console.log(response.data);
+                setProducts(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching product:', error);
+            });
+    }, []);     
 return(
     <div className="main-layout">
 <Categories/>
-<div className="item-container">
-    {cardInfo.map(card =>(
+ {products && <div className="item-container">
+    {products.map((product, index) =>(
         <Card 
-    key={card.id}
-    title={card.title}
-    description={card.description}
+        product={product}
+    key={product.id + "_" + index}
+
     />
     ))}
-</div>
+</div>}
 <TopButton/>
     </div>
 )
