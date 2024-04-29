@@ -145,6 +145,7 @@ p {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	font-family: 'proxima nova';
 }
 
 .footer {
@@ -206,6 +207,22 @@ p {
 	width: 1500px;
 	left: 200px;
 	z-index: 2;
+}
+
+.navbar-login-btn button {
+	font-size: 0.9em;
+	padding: 2px 6px;
+	font-family: "proxima nova";
+	background-color: transparent;
+	border: 1px solid black;
+	border-radius: 5px;
+
+}
+
+.navbar-login-btn button:hover {
+	background: black;
+	color: white;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
 /*Shopping Cart*/

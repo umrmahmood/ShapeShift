@@ -1,3 +1,53 @@
 .features-link {
-    text-decoration: none;
+	text-decoration: none;
 }
+
+
+.features {
+	margin-top: 200px;
+}
+
+
+.feat-card h3 {
+	font-family: "Bebas Neue", sans-serif;
+	font-size: 3rem;
+	line-height: 2.5rem;
+	border-bottom: 10px solid #f0f0f0;
+	color: rgba(4, 10, 43);
+	font-weight: 100;
+}
+
+.feat-card-wrapper {
+	display: flex;
+	justify-content: center;
+	gap: 2em
+}
+
+.feat-card {
+	border-radius: 8px;
+	width: 400px;
+	padding: 1em;
+	margin: 2em;
+	border: 2px solid #f0f0f0;
+	transition: box-shadow 0.6s ease-out;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+}
+
+.feat-card:hover {
+	box-shadow: 0px 0px 20px grey;
+	transition: box-shadow 0.6s ease-in;
+}
+
+.feat-card img{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.feat-card-inner {
+	display: flex;
+	flex-direction: column;
+}
+
+	

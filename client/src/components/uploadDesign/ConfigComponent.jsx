@@ -19,8 +19,8 @@ const Popup = ({
 	onClose,
 }) => {
 	return (
-		<div className="popup-container">
-			<div className="popup" onClick={(e) => e.stopPropagation()}>
+		<div className="quote-popup-container">
+			<div className="quote-popup" onClick={(e) => e.stopPropagation()}>
 				<QuoteSummary
 					fileName={fileName}
 					quantity={quantity}
@@ -37,8 +37,8 @@ const Popup = ({
 						</a>
 					</div>
 				</div>
-				<div className="popupwindow-button">
-					<button className="close-btn" onClick={onClose}>
+				<div className="quote-popupwindow-button">
+					<button className="quote-popup-close-btn" onClick={onClose}>
 						Close
 					</button>
 				</div>
@@ -162,7 +162,7 @@ const ConfigComponent = () => {
 
 			<div className="button-quote">
 				{!showPopup ? (
-					<button onClick={handleSendQuote}>Send Quote</button>
+					<button onClick={handleSendQuote}>Request Quote</button>
 				) : null}
 			</div>
 
