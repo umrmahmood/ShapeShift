@@ -1,0 +1,266 @@
+.login-outter {
+	/* --accent: rgba(0, 0, 0, 0.479);
+    width: 100vw;
+    height: 100vh;
+    background: var(--accent);
+    overflow: hidden;
+    padding: 0;
+    margin: 0; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+   
+} 
+
+.login-window {
+	width: 800px;
+	height: 600px;
+	border-radius: 10px;
+	background: #d35e5e;
+	overflow: hidden;
+	box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+		0 2px 2px hsl(0deg 0% 0% / 0.075), 0 4px 4px hsl(0deg 0% 0% / 0.075),
+		0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
+	display: flex;
+	flex-direction: column;
+	background-image: url("../assets/login4.jpg");
+	/* background-size: 50%; */
+	background-position: left;
+	z-index: 4;
+}
+
+.login-nav {
+	padding: 5px 5px 0;
+	border-radius: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	/* border-bottom: 1px solid #eeeeee; */
+	height: 44px;
+}
+
+/* .tabs {
+	flex-grow: 1;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-end;
+	flex-wrap: nowrap;
+	width: 100%;
+} */
+
+/* main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	flex-grow: 1;
+	user-select: none;
+	font-size: 1.5em;
+} */
+
+.login-main {
+	display: flex;
+	justify-content: center;
+	margin-left: 25em;
+	align-items: center;
+	font-size: 30px;
+	flex-grow: 1;
+	user-select: none;
+	font-size: 1em;
+}
+
+.credentials-form h2 {
+	font-size: 2em;
+	text-align: center;
+}
+
+.ul-login,
+.ul-login li {
+	list-style: none;
+	padding: 0em;
+	margin: 0;
+	font-family: "Proxima nova";
+	font-size: 16px;
+}
+
+.ul-login {
+	display: flex;
+	width: 100%;
+}
+
+.ul-login li {
+	border-radius: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	width: 100%;
+	padding: 10px 15px;
+	position: relative;
+	background: white;
+	cursor: pointer;
+	height: 24px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex: 1;
+	min-width: 0;
+	position: relative;
+	user-select: none;
+}
+
+.underline {
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: rgb(166, 0, 2);
+}
+
+.ul-login li.selected {
+	background: #eee;
+	padding: 1em;
+}
+
+/* .ul-login li button {
+	width: 20px;
+	height: 20px;
+	border: 0;
+	background: #fff;
+	border-radius: 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	stroke: #000;
+	margin-left: 10px;
+	cursor: pointer;
+	flex-shrink: 0;
+} */
+
+/* not being used */
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 300px;
+	background: #fff;
+}
+
+/* .add-item {
+	width: 30px;
+	height: 30px;
+	background: #eee;
+	border-radius: 50%;
+	border: 0;
+	cursor: pointer;
+	align-self: center;
+} */
+
+/* .add-item:disabled {
+	opacity: 0.4;
+	cursor: default;
+	pointer-events: none;
+} */
+
+.credentials-form {
+	width: 300px;
+	line-height: 2em;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	font-family: "Proxima nova";
+}
+
+.login-para {
+	color: lightgray;
+	/* width: 300px; */
+	margin-left: 34em;
+	margin-bottom: 2em;
+	line-height: 1.2em;
+	font-size: 12px;
+	padding: 0.5em;
+	font-family: "proxima-nova";
+}
+
+
+
+.login-form input[type='text'] {
+	border: 1px solid rgb(224, 223, 226);
+	padding: 4px 4px 4px 4px;
+	border-radius: 5px;
+	font-size: 16px;
+}
+
+.login-form input[type='text']:hover {
+    border-color: gray
+}
+
+.login-form input[type=text]:focus {
+	outline: none;
+	border-color: none;
+    border: 1px solid gray; 
+}
+
+/* class when button is active */
+ .login-form-btn {
+	border: 1px solid rgb(224, 223, 226);
+	border-radius: 5px;
+	margin-top: 2em;
+	padding: 5px;
+	font-family: "proxima-nova";
+	font-size: 14px;
+	cursor: pointer;
+	line-height: 1.5em;
+} 
+
+.login-form-btn:hover {
+	color: white;
+	background: #000;
+}
+
+/* class when button is inactive */
+/* .login-form-btn-inactive {
+	background: #f0f0f0;
+	color: lightgray;
+	border-radius: 5px;
+	margin-top: 2em;
+	padding: 5px;
+	font-family: "proxima-nova";
+	font-size: 14px;
+	border: none;
+	line-height: 1.5em;
+} */
+
+
+.google-login-form-btn {
+	width: 300px;
+	border: 1px solid rgb(224, 223, 226);
+	border-radius: 5px;
+	margin-top: 2em;
+	padding: 5px;
+	font-family: "proxima-nova";
+	font-size: 14px;
+	cursor: pointer;
+	line-height: 1.5em;
+}
+
+.google-login-form-btn:hover {
+	background: rgb(224, 223, 226);
+}
+
+.google-login-form-btn {
+	display: flex;
+	align-items: center;
+  }
+  
+  .google-login-form-btn svg {
+	margin-left: 3px; 
+	
+  }
+  
+  .google-login-btn-text {
+	flex-grow: 1;
+	text-align: center;
+  }

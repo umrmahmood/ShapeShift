@@ -33,6 +33,7 @@ app.use(express.static("./public")); // Serving static files from the public dir
 app.use("/", UserRoutes); // Using UserRoutes for user-related routes
 app.use("/listings", ProductRoutes);
 app.use("/listings/:productId", ProductRoutes);
+app.use("/products/:productId/images/:imageIndex", ProductRoutes);
 // app.use("/admin", AdminRoutes); // Using AdminRoutes for admin-related routes
 // app.use("/", ProductRoutes); // Using ProductRoutes for product-related routes
 
