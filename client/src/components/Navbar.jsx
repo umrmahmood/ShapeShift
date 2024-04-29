@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-
-
+import { faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 import logo from "../assets/SSlogo.png";
 
 const Navbar = ({ onLoginClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();  // Initialize useNavigate
 
     const handleSearchInputChange = (event) => {
         setSearchQuery(event.target.value);
+    };
+
+    const handleShoppingBagClick = () => {
+        navigate('/cart');  // Navigate to the cart component
     };
 
     return (
@@ -43,10 +46,8 @@ const Navbar = ({ onLoginClick }) => {
                         />
                     </li>
                     
-                    <li>
-                        <a href="/">
-                            <FontAwesomeIcon icon={faShoppingBag} />
-                        </a>
+                    <li className="shoppingbag" onClick={handleShoppingBagClick}>  {/* Add onClick event */}
+                        < FontAwesomeIcon icon={faShoppingBag} />
                     </li>
                     <li>
                         <a href="/">

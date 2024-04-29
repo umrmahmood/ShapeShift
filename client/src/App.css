@@ -12,9 +12,7 @@
 	z-index: 3;
 	padding: 1.7em;
 	background: rgb(224, 226, 223);
-	/* position: fixed;
-	top: 0;
-	width: 100%; */
+
 }
 
 .Navbar {
@@ -42,6 +40,7 @@
 
 .nav-icons a {
 	color: black;
+	
 }
 
 input[type="text"] {
@@ -208,75 +207,3 @@ p {
 	left: 200px;
 	z-index: 2;
 }
-
-.navbar-login-btn button {
-	font-size: 0.9em;
-	padding: 2px 6px;
-	font-family: "proxima nova";
-	background-color: transparent;
-	border: 1px solid black;
-	border-radius: 5px;
-
-}
-
-.navbar-login-btn button:hover {
-	background: black;
-	color: white;
-	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-}
-
-/*Shopping Cart*/
-
-.shopping-cart {
-	width: 300px;
-	border: 1px solid #ccc;
-	padding: 20px;
-	margin: 20px;
-}
-
-h2 {
-	text-align: center;
-}
-
-.items-list {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-.cart-item {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-
-.item-image {
-	width: 50px;
-	height: 50px;
-	object-fit: cover;
-}
-
-.item-details {
-	flex-grow: 1;
-}
-
-.quantity-controls {
-	display: flex;
-	gap: 10px;
-}
-
-.remove-item,
-.add-item {
-	background-color: green;
-	color: white;
-	border: none;
-	cursor: pointer;
-	padding: 5px 10px;
-	border-radius: 5px;
-}
-
-.remove-item {
-	background-color: red;
-}
-
-/*Shopping-Cart */
