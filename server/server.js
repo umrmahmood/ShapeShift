@@ -2,14 +2,13 @@
 import express from "express"; // Importing Express framework
 import dotenv from "dotenv"; // Importing dotenv for environment variables
 import cors from "cors"; // Importing CORS middleware for cross-origin requests
-import mongoose from "mongoose"; // Importing Mongoose for MongoDB interaction
 import path, { join } from "path"; // Importing path module for file path manipulation
 
 // Importing modules
 import ConnectDB from "./db/connect.js";
 import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
 import ProductRoutes from "./routes/productRoutes.js";
-import { error } from "console";
+import ImageRoutes from "./routes/imageRoutes.js";
 // import AdminRoutes from "./routes/adminRoutes.js"; // Importing adminRoutes.js
 // import ProductRoutes from "./routes/productRoutes.js"; // Importing productRoutes.js
 
@@ -30,13 +29,9 @@ app.use(express.json()); // Parsing JSON bodies
 app.use(express.static("./public")); // Serving static files from the public directory
 
 // Routes
-app.use("/", UserRoutes); // Using UserRoutes for user-related routes
-app.use("/products", ProductRoutes);
-app.use("/listings", ProductRoutes);
-app.use("/listings/:productId", ProductRoutes);
-app.use("/products/:productId/images/:imageIndex", ProductRoutes);
-// app.use("/admin", AdminRoutes); // Using AdminRoutes for admin-related routes
-// app.use("/", ProductRoutes); // Using ProductRoutes for product-related routes
+app.use("/api/users", UserRoutes); // Using UserRoutes for user-related routes
+app.use("/api/products", ProductRoutes);
+app.use("/api/images", ImageRoutes);
 
 // Mongoose connection
 ConnectDB()
