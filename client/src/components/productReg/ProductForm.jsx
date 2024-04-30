@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../styling/productRegForm.css";
 import physical from "../../assets/package1.png";
 import digital from "../../assets/stl.png";
-// import axios from "axios";
+import axios from "axios";
 
 const ProductForm = () => {
 	const [product, setProduct] = useState({
@@ -18,29 +18,18 @@ const ProductForm = () => {
 		tags: [],
 	});
 
-	//get the post end and fill it in
-	// const onClickHandler = async (event) => {
-	// 	event.preventDefault();
-	// 	//send the form data to backend POST request
-	// 	try {
-	// 		const formData = { product};
-	// 		//axios.post(backend end point(in this case signup), data)
-	// 		const response = await axios.post(
-	// 			"http://localhost:5002/user/signup",
-	// 			formData
-	// 		);
-	// 		console.log(response);
-	// 		setProduct("");
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
-
-	const onClickHandler = (event) => {
+	
+	const onClickHandler = async (event) => {
 		event.preventDefault();
-		console.log(product);
-
-		setProduct({
+		
+		try {
+			const formData = { product};
+			const response = await axios.post(
+				"http://localhost:5000/api/products/create",
+				formData
+			);
+			console.log(response);
+			setProduct({
 			name: "",
 			description: "",
 			category: "",
@@ -51,8 +40,29 @@ const ProductForm = () => {
 			type: "digital",
 			material: "",
 			tags: [],
-		});
+		})
+		} catch (err) {
+			console.log(err);
+		}
 	};
+
+	// const onClickHandler = (event) => {
+	// 	event.preventDefault();
+	// 	console.log(product);
+
+	// 	setProduct({
+	// 		name: "",
+	// 		description: "",
+	// 		category: "",
+	// 		price: 0,
+	// 		currency: "USD",
+	// 		images: [],
+	// 		quantity: 0,
+	// 		type: "digital",
+	// 		material: "",
+	// 		tags: [],
+	// 	});
+	// };
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
