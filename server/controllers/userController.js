@@ -1,10 +1,10 @@
 // Controller file for handling user-related logic.
 
 //  Importing necessary dependencies
-import User from "../models/schemaFiles/userSchema.js";
-import jwt from "jsonwebtoken";
-import bcryptjs from "bcryptjs";
-import dotenv from "dotenv";
+import User from "../models/schemaFiles/userSchema.js"; // Importing the user model
+import jwt from "jsonwebtoken"; // Importing JWT for token generation and verification
+import bcryptjs from "bcryptjs"; // Importing bcryptjs for password hashing and comparison
+import dotenv from "dotenv"; // Importing dotenv for environment variables
 import path, { join } from "path"; // Importing path module for file path manipulation
 
 // Loading environment variables from .env file
@@ -56,16 +56,20 @@ const UserController = {
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
+      // Create payload for JWT token
       const payload = {
         id: user._id,
         role: user.membership.role,
         membership: user.membership,
       };
       console.log("payload:", payload);
+
+      // Generate JWT token with payload
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "3h",
       });
 
+      // Send token in response
       res.status(200).json({ token });
     } catch (error) {
       console.error(error);
@@ -73,8 +77,24 @@ const UserController = {
     }
   },
 
-  // Get user profile by Email ?
-  getProfileById: async (req, res) => {},
+  // Get user profile by ID
+  getProfileById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await User.findById(id);
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      // Send user profile in response
+      res.status(200).json({ user });
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      res
+        .status(500)
+        .json({ message: "An error occurred while fetching the user profile" });
+    }
+  },
 
   // Update user profile
   updateProfile: async (req, res) => {
@@ -90,6 +110,7 @@ const UserController = {
         return res.status(404).json({ message: "User not found" });
       }
 
+      // Send updated user profile in response
       res.status(200).json({
         message: "User profile updated successfully",
         user: updatedUser,
@@ -103,7 +124,24 @@ const UserController = {
   },
 
   // Logout user
-  logout: async (req, res) => {},
+  logout: async (req, res) => {
+    /*try {
+      // Clear the token from the client's cookies or local storage
+      // based on where it's stored
+
+      // Example for clearing token from cookies
+      res.clearCookie('token');
+
+      // Example for clearing token from local storage
+      // localStorage.removeItem('token');
+
+      // Send a response indicating successful logout
+      res.status(200).json({ message: "Logout successful" });
+    } catch (error) {
+      console.error("Error during logout:", error);
+      res.status(500).json({ message: "An error occurred during logout" });
+    */
+  },
 };
 
 export default UserController;

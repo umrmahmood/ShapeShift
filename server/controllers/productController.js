@@ -102,6 +102,7 @@ const ProductController = {
       return res.status(500).json({ message: "Internal server error" });
     }
   },
+
   // Method to fetch all products
   getAllProducts: async (req, res) => {
     try {
@@ -173,6 +174,7 @@ const ProductController = {
     }
   },
 
+  // Method to add images to a product
   addImagesToProduct: async (req, res) => {
     try {
       // Extract product ID and image IDs from the request
@@ -200,15 +202,32 @@ const ProductController = {
 
   // Method to delete a product
   deleteProduct: async (req, res) => {
-    const productId = req.params.id;
+    const productId = req.params.productId;
     try {
       // Find and delete product by ID
+      const product = await Product.findById(productId);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      // Loop through product images
+      for (const imageId of product.images) {
+        const image = await ProductImages.findById(imageId);
+        if (image) {
+          // Delete image from Cloudinary
+          await cloudinary.uploader.destroy(image.public_id);
+          // Delete image from database
+          await ProductImages.findByIdAndDelete(imageId);
+        }
+      }
+
+      // Delete product from database
       const deleteProduct = await Product.findByIdAndDelete(productId);
 
       if (!deleteProduct) {
         return res.status(404).json({ message: "Product not found" });
       }
-      res.status(200).json(deleteProduct);
+      res.status(200).json({ message: "Product deleted", productId });
     } catch (error) {
       // Handle errors
       console.error(error);

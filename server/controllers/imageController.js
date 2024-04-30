@@ -9,7 +9,7 @@ const ImageController = {
   // Method to upload a new image
   uploadImage: async (req, res) => {
     try {
-      const { productId } = req.params; // Extract the product ID from the request parameters
+      const productId = req.params.productId; // Extract the product ID from the request parameters
 
       const files = req.files; // Get the uploaded files from the request
       if (!files) {
@@ -70,18 +70,26 @@ const ImageController = {
     }
   },
 
+  // Method to update an image
   updateImage: async (req, res) => {
-    // Extract relevant data from the request
-    const { imageId } = req.params; // Extract the image ID from the request parameters
-    const file = req.file; // Get the uploaded file from the request
-
     try {
-      // Check if file exists
+      // Extract relevant data from the request
+      const imageId = req.params.imageId; // Extract the image ID from the request parameters
+      const file = req.file; // Get the uploaded file from the request
+
       if (!file) {
         return res.status(400).json({ message: "No file uploaded" }); // Return error if no file was uploaded
       }
 
-      // Upload the updated image to Cloudinary
+      const oldImage = await ProductImages.findById(imageId); // Find the existing image by ID
+      if (!oldImage) {
+        return res.status(404).json({ message: "Image not found" }); // Return error if the image doesn't exist
+      }
+
+      // Delete the old image from Cloudinary
+      await cloudinary.uploader.destroy(oldImage.public_id);
+
+      // Upload the new file to Cloudinary
       const result = await cloudinary.uploader.upload(file.path, {
         use_filename: true,
         tags: file.originalname,
@@ -120,6 +128,36 @@ const ImageController = {
       return res.status(200).json(updatedImage); // Return the updated image object
     } catch (error) {
       console.error(error); // Log any errors that occur during image update
+      return res.status(500).json({ message: "Internal server error" }); // Return error message for internal server error
+    }
+  },
+
+  // Method to delete an image
+  deleteImage: async (req, res) => {
+    try {
+      const imageId = req.params.imageId; // Extract the image ID from the request parameters
+
+      const image = await ProductImages.findById(imageId); // Find the image by ID
+      if (!image) {
+        return res.status(404).json({ message: "Image not found" }); // Return error if the image doesn't exist
+      }
+
+      // Delete the image from Cloudinary
+      await cloudinary.uploader.destroy(image.public_id);
+
+      // Delete the image document from the database
+      await ProductImages.findByIdAndDelete(imageId);
+
+      // Remove the image ID from the product's images array
+      await Product.findByIdAndUpdate(
+        image.productId,
+        { $pull: { images: imageId } },
+        { new: true }
+      );
+
+      return res.status(200).json({ message: "Image deleted successfully" }); // Return success message after deleting the image
+    } catch (error) {
+      console.error(error); // Log any errors that occur during image deletion
       return res.status(500).json({ message: "Internal server error" }); // Return error message for internal server error
     }
   },
