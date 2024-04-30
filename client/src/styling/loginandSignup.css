@@ -1,11 +1,4 @@
 .login-outter {
-	/* --accent: rgba(0, 0, 0, 0.479);
-    width: 100vw;
-    height: 100vh;
-    background: var(--accent);
-    overflow: hidden;
-    padding: 0;
-    margin: 0; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -35,28 +28,9 @@
 	border-radius: 10px;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
-	/* border-bottom: 1px solid #eeeeee; */
 	height: 44px;
 }
 
-/* .tabs {
-	flex-grow: 1;
-	display: flex;
-	justify-content: flex-start;
-	align-items: flex-end;
-	flex-wrap: nowrap;
-	width: 100%;
-} */
-
-/* main {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 30px;
-	flex-grow: 1;
-	user-select: none;
-	font-size: 1.5em;
-} */
 
 .login-main {
 	display: flex;
@@ -121,20 +95,6 @@
 	padding: 1em;
 }
 
-/* .ul-login li button {
-	width: 20px;
-	height: 20px;
-	border: 0;
-	background: #fff;
-	border-radius: 3px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	stroke: #000;
-	margin-left: 10px;
-	cursor: pointer;
-	flex-shrink: 0;
-} */
 
 /* not being used */
 .background {
@@ -146,21 +106,6 @@
 	background: #fff;
 }
 
-/* .add-item {
-	width: 30px;
-	height: 30px;
-	background: #eee;
-	border-radius: 50%;
-	border: 0;
-	cursor: pointer;
-	align-self: center;
-} */
-
-/* .add-item:disabled {
-	opacity: 0.4;
-	cursor: default;
-	pointer-events: none;
-} */
 
 .credentials-form {
 	width: 300px;
@@ -174,7 +119,7 @@
 }
 
 .login-para {
-	color: lightgray;
+	color: rgb(190, 190, 190);
 	/* width: 300px; */
 	margin-left: 34em;
 	margin-bottom: 2em;
@@ -185,19 +130,21 @@
 }
 
 
-
-.login-form input[type='text'] {
+.login-form input[type='email'],
+.login-form input[type='password'] {
 	border: 1px solid rgb(224, 223, 226);
 	padding: 4px 4px 4px 4px;
 	border-radius: 5px;
 	font-size: 16px;
 }
 
-.login-form input[type='text']:hover {
+.login-form input[type='email']:hover,
+.login-form input[type='password']:hover {
     border-color: gray
 }
 
-.login-form input[type=text]:focus {
+.login-form input[type='email']:focus,
+.login-form input[type='password']:focus {
 	outline: none;
 	border-color: none;
     border: 1px solid gray; 
@@ -211,17 +158,17 @@
 	padding: 5px;
 	font-family: "proxima-nova";
 	font-size: 14px;
-	cursor: pointer;
 	line-height: 1.5em;
 } 
 
 .login-form-btn:hover {
 	color: white;
 	background: #000;
+	cursor: pointer;
 }
 
 /* class when button is inactive */
-/* .login-form-btn-inactive {
+.login-form-btn-inactive {
 	background: #f0f0f0;
 	color: lightgray;
 	border-radius: 5px;
@@ -231,8 +178,7 @@
 	font-size: 14px;
 	border: none;
 	line-height: 1.5em;
-} */
-
+}
 
 .google-login-form-btn {
 	width: 300px;
@@ -269,3 +215,31 @@
 	color: rgb(166, 0, 2);
 	font-size: 14px;
   }
+
+  .signup-email-message{
+	color: gray;
+	text-align: center;
+	line-height: 20px;
+  }
+
+  .signup-success{
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+  }
+
+
+  .signup-email-message-btn{
+	width: 300px;
+	border: 1px solid rgb(224, 223, 226);
+	border-radius: 5px;
+	padding: 5px;
+	font-family: "proxima-nova";
+	font-size: 14px;
+	cursor: pointer;
+	line-height: 1.5em;
+  }
+
+  .signup-email-message-btn:hover {
+	background: rgb(224, 223, 226);
+}

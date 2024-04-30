@@ -15,7 +15,7 @@ const LoginForm = ({onLoginSuccess }) => {
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await axios.post("/login", {
+			const response = await axios.post("http://localhost:5000/api/users/login", {
 				email,
 				password,
 			});
@@ -44,10 +44,11 @@ const LoginForm = ({onLoginSuccess }) => {
 						<label htmlFor="">Email </label>
 
 						<input
-							type="text"
+							type="email"
 							id="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
+							required
 						/>
 
 						<label htmlFor="">Password</label>
@@ -57,9 +58,10 @@ const LoginForm = ({onLoginSuccess }) => {
 							id="password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
+							required
 						/>
 						<p className="login-wrongcredentials">{wrongCredential}</p>
-						<button onClick={handleLogin} className="login-form-btn ">
+						<button onClick={email && password !== '' ? handleLogin : null} className={email && password !== '' ? 'login-form-btn' : 'login-form-btn-inactive'}>
 							Continue
 						</button>
 					</form>
