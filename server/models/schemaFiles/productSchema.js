@@ -12,7 +12,7 @@ const ProductSchema = new Schema(
     // Product description, optional with a maximum length of 500 characters
     description: {
       type: String,
-      maxlength: [1000, "Description cannot exceed 500 characters"],
+      maxlength: [1000, "Description cannot exceed 1000 characters"],
     },
 
     // Category reference for the product
