@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './TopButton.css'; 
+import React, { useState } from "react";
+import "./TopButton.css";
 
 const TopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -8,7 +8,7 @@ const TopButton = () => {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' 
+      behavior: "smooth",
     });
   };
 
@@ -22,7 +22,7 @@ const TopButton = () => {
 
   return (
     <button
-      className={`scroll-to-top-button ${isVisible ? 'visible' : 'hidden'}`}
+      className={`scroll-to-top-button ${isVisible ? "visible" : "hidden"}`}
       onClick={scrollToTop}
     >
       Top

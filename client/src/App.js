@@ -7,13 +7,13 @@ import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 import ItemPage from "./CardComponent/ItemPage";
-import UserSellCard from "./CardComponent/UserSellCard";
 import ConfigComponent from "./components/uploadDesign/ConfigComponent.jsx";
 import Printer from "./components/Printer";
 import OpenShop from "./components/openShop/OpenShop.jsx";
 import Login from "../src/components/loginandSignup/Login.jsx";
 import ProductForm from "./components/productReg/ProductForm";
 import UserShop from "./CardComponent/UserShop";
+import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 
 
@@ -40,6 +40,10 @@ function App() {
 			<Route path="/" element={<Main />} />
 			<Route path="/config" element={<ConfigComponent />} />
 		    <Route path="/item" element={<ItemPage />} /> 
+
+			<Route path="/home" element={<MainPage />} />
+			<Route path="/user-shop" element={<UserShop/>} />
+			<Route path="/item/:productId" element={<ItemPage />} />
             <Route path="/Cart" element={<Cart />} />
 			<Route path="/home" element={<UserSellCard />} />
 			<Route path="/user-shop" element={<UserShop/>} />
