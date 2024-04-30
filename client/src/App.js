@@ -76,7 +76,7 @@ import OpenShop from "./components/openShop/OpenShop.jsx";
 import Login from "../src/components/loginandSignup/Login.jsx";
 import ProductForm from "./components/productReg/ProductForm";
 import UserShop from "./CardComponent/UserShop";
-
+import Cart from "./components/Cart.jsx";
 
 
 
@@ -102,7 +102,7 @@ function App() {
 			<Route path="/" element={<Main />} />
 			<Route path="/config" element={<ConfigComponent />} />
 		    <Route path="/item" element={<ItemPage />} /> 
-
+            <Route path="/Cart" element={<Cart />} />
 			<Route path="/home" element={<UserSellCard />} />
 			<Route path="/user-shop" element={<UserShop/>} />
 
