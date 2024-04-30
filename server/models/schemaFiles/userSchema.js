@@ -120,7 +120,9 @@ UserSchema.pre("save", async function (next) {
   }
 });
 
+
 // Middleware to automatically set username from email
+
 UserSchema.pre("save", function (next) {
   if (!this.profile.username) {
     // Extracting username from email
@@ -130,6 +132,7 @@ UserSchema.pre("save", function (next) {
   }
   next();
 });
+
 
 // Creating the User model using the schema.
 const User = mongoose.model("User", UserSchema);
