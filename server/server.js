@@ -14,7 +14,7 @@ import ImageRoutes from "./routes/imageRoutes.js";
 
 // Initializing Express app
 const app = express(); // Creating an Express application
-const PORT = 5001; // Setting the port for the server to listen on, using environment variable or default 5001
+const PORT = 5000; // Setting the port for the server to listen on, using environment variable or default 5001
 
 // Loading environment variables from .env file
 dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
