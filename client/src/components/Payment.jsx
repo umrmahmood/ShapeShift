@@ -1,16 +1,22 @@
-import React from 'react';
-import './Payment.css';
+import React, {useState} from 'react';
+import "../styling/Payment.css";
 import visa from "../assets/visa1.png"; 
 import mastercard from "../assets/master-card.png";
 import americanExpress from "../assets/american-express.png";
 import paymentKlarna from "../assets/klarna1.png";
 import payPal from "../assets/paypal.png";
 
+
+
 const Payment = ({ cartItems }) => {
+  const [paymentmethod, setpaymentmethod]=  useState()
   const getItemTotal = () => {
+
     return cartItems.reduce((total, item) => total + parseFloat(item.totalPrice), 0).toFixed(2);
   };
-
+const proceedhandler = ()=>{
+  console.log(paymentmethod);
+};
   const getShippingCost = () => {
     return '10.00'; // €10.00 as an example
   };
@@ -34,19 +40,19 @@ const Payment = ({ cartItems }) => {
       <h2 className="payment-head">How you'll pay</h2>
       <div className="payment-options">
         <div className="payment-option">
-          <input className="radio-box" type="radio" id="bank1" name="payment" value="bank1" />
+          <input className="radio-box" type="radio" id="bank1" name="payment" value="bank1" onClick={(e)=> setpaymentmethod("Bank1")} />
           <label htmlFor="bank1">
             <img src={visa} alt="Visa" /> <img src={mastercard} alt="mastercard" /> <img src={americanExpress} alt="American-express" /> 
           </label>
         </div>
         <div className="payment-option-klarna">
-          <input className="radio-box" type="radio" id="bank2" name="payment" value="bank2" />
+          <input className="radio-box" type="radio" id="bank2" name="payment" value="bank2" onClick={(e)=> setpaymentmethod("Bank2")} />
           <label htmlFor="bank2">
             <img className="klrna-icon" src={paymentKlarna} alt="mastercard" />
           </label>
         </div>
         <div className="payment-option">
-          <input className="radio-box" type="radio" id="bank3" name="payment" value="bank3" />
+          <input className="radio-box" type="radio" id="bank3" name="payment" value="bank3" onClick={(e)=> setpaymentmethod("Bank3")} />
           <label htmlFor="bank3">
             <img className="paypal-icon" src={payPal} alt="Bank 3" />
           </label>
@@ -59,7 +65,7 @@ const Payment = ({ cartItems }) => {
         <p>Tax (20%): <span className="price">€{getTax()}</span></p>
         <hr />
         <p>Total ({cartItems.length} items): <span className="total-price">€{getTotalPrice()}</span></p>
-        <button className="proceed-button">Proceed to Checkout</button>
+        <button className="proceed-button" disabled={paymentmethod? false : true} onClick={proceedhandler} > Proceed to Checkout </button>
       </div>
     </div>
   );
