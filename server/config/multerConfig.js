@@ -18,7 +18,7 @@ cloudinary.config({
 var storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    allowedFormats: ["jpeg", "jpg", "png", "gif"],
+    allowedFormats: ["jpeg", "jpg", "png", "gif", "avif", "webp"],
     public_id: (req, file) => {
       return `${Date.now()}-${file.originalname}`;
     },
