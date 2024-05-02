@@ -125,22 +125,14 @@ const UserController = {
 
   // Logout user
   logout: async (req, res) => {
-    /*try {
-      // Clear the token from the client's cookies or local storage
-      // based on where it's stored
+    try {
+      localStorage.removeItem("shapeshiftkey");
 
-      // Example for clearing token from cookies
-      res.clearCookie('token');
-
-      // Example for clearing token from local storage
-      // localStorage.removeItem('token');
-
-      // Send a response indicating successful logout
       res.status(200).json({ message: "Logout successful" });
     } catch (error) {
-      console.error("Error during logout:", error);
+      console.error("Error during logout", error);
       res.status(500).json({ message: "An error occurred during logout" });
-    */
+    }
   },
 };
 
