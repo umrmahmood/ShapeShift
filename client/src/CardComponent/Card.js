@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 const Card = (props) => {
   const navigate = useNavigate();
   console.log(props.product);
-  const { id, name, description, price, ratings, images } = props.product;
+  const { _id, name, description, price, ratings, images } = props.product;
  
   const handleMoreClick = () => {
-    navigate(`/item/${id}`);
+    navigate(`/item/${_id}`);
   };
   
   // const calculateAverageRating = (rating) => {

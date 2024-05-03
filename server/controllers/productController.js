@@ -64,7 +64,6 @@ const ProductController = {
         currency,
         type,
         material,
-        quantity,
         dimensions,
         tags,
       } = req.body;
@@ -79,7 +78,6 @@ const ProductController = {
         images: productImagesIds, // Assign the IDs of the image objects
         seller: req.user._id,
         type,
-        quantity,
         material,
         dimensions,
         tags,
@@ -121,10 +119,12 @@ const ProductController = {
   // Method to fetch a product by ID
   getProductById: async (req, res) => {
     const productId = req.params.productId;
+    console.log(productId);
 
     try {
       // Find product by ID
       const product = await Product.findById(productId);
+      console.log(product);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
