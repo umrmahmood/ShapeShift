@@ -64,6 +64,7 @@ const ProductController = {
         currency,
         type,
         material,
+        quantity,
         dimensions,
         tags,
       } = req.body;
@@ -78,6 +79,7 @@ const ProductController = {
         images: productImagesIds, // Assign the IDs of the image objects
         seller: req.user._id,
         type,
+        quantity,
         material,
         dimensions,
         tags,
