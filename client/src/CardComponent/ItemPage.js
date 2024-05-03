@@ -4,11 +4,11 @@ import "./Item.css";
 import axios from "axios";
 
 
-const ItemPage = ({ product }) => {
+const ItemPage = ({ productId }) => {
   const [mainImage, setMainImage] = useState(null);
 //   const [reviews, setReviews] = useState([]);
 //   const [averageRating, setAverageRating] = useState(0);
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState([]);
 
   const {
     name,
@@ -35,15 +35,15 @@ const ItemPage = ({ product }) => {
 
 
   useEffect(() => {
-    axios.get(`/api/product/${productId}`)
+    axios.get(`/api/:productId`)
       .then((response) => {
         console.log(response.data);
-        setProducts(response.data);
+        setProduct(response.data);
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
       });
-  }, []);
+  }, [productId]);
 
 // Calculating reviews from DB
 // useEffect(() => {
@@ -55,22 +55,32 @@ const ItemPage = ({ product }) => {
 //     }
 // }, [reviews]);
 
-const handleImageClick = (image) => {
-    setMainImage(image);
-};
+useEffect(() => {
+    if (product && product.images && product.images.length > 0) {
+      setMainImage(product.images[0]);
+    }
+  }, [product]);
 
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="MainContainer">
         <div className="ImagesContainer">
-            <div className="MainImageContainer">
-                <img className="main-image" src={mainImage} alt={name} />
-            </div>
-            <div className="ThumbnailImagesContainer">
-                {images.map((image, index) => (
-                    <img key={index} className="thumbnail-image" src={image} alt={name} onClick={() => handleImageClick(image)} />
-                ))}
-            </div>
+        <div className="MainImageContainer">
+          <img className="main-image" src={mainImage || placeholder} alt={name} style={{ maxWidth: "200px", maxHeight: "200px" }} />
+        </div>
+        {/* <div className="ThumbnailImagesContainer">
+          {images.slice(1).map((image, index) => (
+            <img
+              key={index}
+              className="thumbnail-image"
+              src={image}
+              alt={name}
+            />
+          ))}
+        </div> */}
         </div>
         <div className="DescriptionContainer">
             <h2>{name}</h2>
@@ -80,9 +90,8 @@ const handleImageClick = (image) => {
             <p>Seller: {seller}</p>
             <p>Designer: {designer}</p>
             <p>Quantity: {quantity}</p>
-            <p>Dimensions: {dimensions.width} x {dimensions.height} x {dimensions.depth}</p>
             <p>Material: {material}</p>
-            <p>Tags: {tags.join(', ')}</p>
+            {/* <p>Tags: {tags.join(', ')}</p> */}
             <p>Created At: {createdAt}</p>
             <p>Updated At: {updatedAt}</p>
           
