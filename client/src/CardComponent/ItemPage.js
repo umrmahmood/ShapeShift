@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import placeholder from "./placeholder.jpg";
 import "./Item.css";
 import axios from "axios";
+import { useParams} from 'react-router-dom'
 
 
-const ItemPage = ({ productId }) => {
+const ItemPage = ({  }) => {
   const [mainImage, setMainImage] = useState(null);
 //   const [reviews, setReviews] = useState([]);
 //   const [averageRating, setAverageRating] = useState(0);
   const [product, setProduct] = useState([]);
+  const { productId} = useParams();
 
   const {
     name,
@@ -35,7 +37,7 @@ const ItemPage = ({ productId }) => {
 
 
   useEffect(() => {
-    axios.get(`/api/:productId`)
+    axios.get(`http://localhost:5001/api/products/${productId}`)
       .then((response) => {
         console.log(response.data);
         setProduct(response.data);

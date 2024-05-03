@@ -24,8 +24,8 @@ const MainPage = () => {
       });
   }, []);
 
-  const handleMoreClick =(id) => {
-    navigate(`/item/${id}`);
+  const handleMoreClick =(_id) => {
+    navigate(`/item/${_id}`);
 };
 
 const renderCardBlock = (startIndex) => {
@@ -33,9 +33,9 @@ const renderCardBlock = (startIndex) => {
         <div className="card-block">
             {products.slice(startIndex, startIndex + 4).map((product) => (
           <Card
-            key={product.id}
+            key={product._id}
             product={product}
-            onMoreClick={() => handleMoreClick(product.id)} 
+            onMoreClick={() => handleMoreClick(product._id)} 
             />
             ))}
         </div>
