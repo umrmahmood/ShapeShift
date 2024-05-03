@@ -1,7 +1,8 @@
+
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
@@ -15,44 +16,46 @@ import UserShop from "./CardComponent/UserShop";
 import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 
+
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
+	const [showLogin, setShowLogin] = useState(false);
 
-  const toggleLogin = () => {
-    setShowLogin(!showLogin);
-  };
+    const toggleLogin = () => {
+        setShowLogin(!showLogin);
+	};
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Navbar onLoginClick={toggleLogin} />
-        {showLogin && (
-          <div className="main-overlay" onClick={toggleLogin}></div>
-        )}
-        {showLogin && (
-          <div className="login-popup">
-            <Login toggleLogin={toggleLogin} />
-          </div>
-        )}
-      </header>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/config" element={<ConfigComponent />} />
-        <Route path="/item" element={<ItemPage />} />
+	return (
+		<div className="App">
+			
+		  <header className="App-header">
+			<Navbar onLoginClick={toggleLogin}/>
+			{showLogin && <div className="main-overlay" onClick={toggleLogin}></div>}
+            {showLogin && (
+                <div className="login-popup">
+                    <Login toggleLogin={toggleLogin}/>
+                </div>
+            )}
+		  </header>
+		  <Routes>
+			<Route path="/" element={<Main />} />
+			<Route path="/config" element={<ConfigComponent />} />
+		    <Route path="/item" element={<ItemPage />} /> 
 
-        <Route path="/home" element={<MainPage />} />
-        <Route path="/user-shop" element={<UserShop />} />
-        <Route path="/item/:productId" element={<ItemPage />} />
-        <Route path="/Cart" element={<Cart />} />
-        {/* <Route path="/home" element={<UserSellCard />} /> */}
-        <Route path="/user-shop" element={<UserShop />} />
-
-        <Route path="/printers" element={<Printer />} />
-        <Route path="/openshop" element={<OpenShop />} />
-        <Route path="/product-form" element={<ProductForm />} />
-      </Routes>
-      <Footer />
-    </div>
-  );
-}
+			<Route path="/home" element={<MainPage />} />
+			<Route path="/user-shop" element={<UserShop/>} />
+			<Route path="/item/:productId" element={<ItemPage />} />
+            <Route path="/Cart" element={<Cart />} />
+			<Route path="/home" element={<MainPage />} />
+			<Route path="/user-shop" element={<UserShop/>} />
+			
+			<Route path="/printers" element={<Printer />} />
+			<Route path="/openshop" element={<OpenShop/>} />
+			<Route path="/product-form" element={<ProductForm/>} />
+			
+			
+		  </Routes>
+		  <Footer />
+		</div>
+	);
+  }
 export default App;
