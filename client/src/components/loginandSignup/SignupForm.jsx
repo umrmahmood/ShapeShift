@@ -20,7 +20,7 @@ const SignupForm = ({ onClose }) => {
 				password,
 			};
 			const response = await axios.post(
-				"http://localhost:5000/api/users/register",
+				"http://localhost:5001/api/users/register",
 				newUser
 			);
 			console.log(response.data);

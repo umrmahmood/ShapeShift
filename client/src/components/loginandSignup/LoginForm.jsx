@@ -24,6 +24,29 @@ const firebaseConfig = {
   measurementId: "G-HL7Q4KHP3M",
 };
 
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await axios.post("http://localhost:5001/api/users/login", {
+				email,
+				password,
+			});
+			const { token } = response.data;
+
+			localStorage.setItem("shapeshiftkey", token);
+			// localStorage.setItem("role", user.role);
+			// localStorage.setItem("userId", user._id);
+			// setIsLoggedIn(true);
+			// setUserRole(localStorage.getItem("role"));
+			onLoginSuccess();
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+			setWrongCredential("incorrect email or password.");
+		}
+	};
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -35,6 +58,7 @@ const LoginForm = ({ onLoginSuccess }) => {
   const [wrongCredential, setWrongCredential] = useState("");
   const navigate = useNavigate();
   const auth = getAuth(); // Get Firebase authentication instance
+
 
   const handleLogin = async (e) => {
     e.preventDefault();

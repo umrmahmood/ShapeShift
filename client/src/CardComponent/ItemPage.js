@@ -36,6 +36,18 @@ const ItemPage = ({  }) => {
   }, [images]);
 
 
+
+   useEffect(() => {
+     axios.get(`/api/product/${productId}`)
+       .then((response) => {
+         console.log(response.data);
+         setProducts(response.data);
+       })
+       .catch((error) => {
+         console.error("Error fetching product:", error);
+       });
+   }, []);
+
   useEffect(() => {
     axios.get(`http://localhost:5001/api/products/${productId}`)
       .then((response) => {
@@ -46,6 +58,7 @@ const ItemPage = ({  }) => {
         console.error("Error fetching product:", error);
       });
   }, [productId]);
+
 
 // Calculating reviews from DB
 // useEffect(() => {
