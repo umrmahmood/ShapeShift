@@ -56,7 +56,11 @@ function App() {
 			<Route path="/user-shop" element={<UserShop/>} />
 			<Route path="/item/:productId" element={<ItemPage />} />
             <Route path="/Cart" element={<Cart />} />
+
 			{/* <Route path="/home" element={<UserSellCard />} /> */}
+
+			<Route path="/home" element={<MainPage />} />
+
 			<Route path="/user-shop" element={<UserShop/>} />
 			
 			<Route path="/printers" element={<Printer />} />
