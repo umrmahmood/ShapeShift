@@ -5,66 +5,44 @@ import axios from "axios";
 import "../../styling/loginandSignup.css";
 import { useState } from "react";
 
-// firebase
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// // firebase
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCnYIO4ar5V7mDIj9fq1Y0gA0VzrpFgHSM",
-  authDomain: "shapeshift-8732c.firebaseapp.com",
-  projectId: "shapeshift-8732c",
-  storageBucket: "shapeshift-8732c.appspot.com",
-  messagingSenderId: "602731506848",
-  appId: "1:602731506848:web:b27120d7a7a82def20adc5",
-  measurementId: "G-HL7Q4KHP3M",
-};
+// // Your web app's Firebase configuration
+// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCnYIO4ar5V7mDIj9fq1Y0gA0VzrpFgHSM",
+//   authDomain: "shapeshift-8732c.firebaseapp.com",
+//   projectId: "shapeshift-8732c",
+//   storageBucket: "shapeshift-8732c.appspot.com",
+//   messagingSenderId: "602731506848",
+//   appId: "1:602731506848:web:b27120d7a7a82def20adc5",
+//   measurementId: "G-HL7Q4KHP3M",
+// };
 
 
-	const handleLogin = async (e) => {
-		e.preventDefault();
-		try {
-			const response = await axios.post("http://localhost:5001/api/users/login", {
-				email,
-				password,
-			});
-			const { token } = response.data;
-
-			localStorage.setItem("shapeshiftkey", token);
-			// localStorage.setItem("role", user.role);
-			// localStorage.setItem("userId", user._id);
-			// setIsLoggedIn(true);
-			// setUserRole(localStorage.getItem("role"));
-			onLoginSuccess();
-			navigate("/");
-		} catch (error) {
-			console.log(error);
-			setWrongCredential("incorrect email or password.");
-		}
-	};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth"; // Import Firebase authentication functions
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+// import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth"; // Import Firebase authentication functions
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongCredential, setWrongCredential] = useState("");
   const navigate = useNavigate();
-  const auth = getAuth(); // Get Firebase authentication instance
+//   const auth = getAuth(); // Get Firebase authentication instance
 
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "http://localhost:5001/api/users/login",
         {
           email,
           password,
@@ -89,10 +67,10 @@ const LoginForm = ({ onLoginSuccess }) => {
   // Function to handle Google login
   const handleGoogleLogin = async () => {
     try {
-      const provider = new GoogleAuthProvider(); // Create GoogleAuthProvider instance
-      const result = await signInWithPopup(auth, provider); // Initiate Google sign-in popup
-      const user = result.user;
-      console.log(user);
+    //   const provider = new GoogleAuthProvider(); // Create GoogleAuthProvider instance
+    //   const result = await signInWithPopup(auth, provider); // Initiate Google sign-in popup
+    //   const user = result.user;
+    //   console.log(user);
       // Handle successful Google sign-in (you can also perform additional actions here if needed)
       navigate("/"); // Redirect to homepage or any other route
     } catch (error) {
