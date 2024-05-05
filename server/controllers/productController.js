@@ -16,12 +16,10 @@ const ProductController = {
             "User does not have permission to create products. Open a shop first.",
         });
       }
-
       // Check if files were uploaded
       if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
         return res.status(400).json({ message: "No files uploaded" });
       }
-
       // Array to store IDs of the newly created image objects
       const productImagesIds = [];
 
@@ -38,7 +36,6 @@ const ProductController = {
             { fetch_format: "auto" },
           ],
         });
-
         // Create a new image object and store its ID
         const newProductImage = await ProductImages.create({
           public_id: result.public_id,
@@ -66,6 +63,7 @@ const ProductController = {
         material,
         dimensions,
         tags,
+        quantity,
       } = req.body;
 
       // Create a new product instance with the IDs of the image objects
@@ -81,6 +79,7 @@ const ProductController = {
         material,
         dimensions,
         tags,
+        quantity,
       });
 
       // Save the new product
@@ -232,6 +231,16 @@ const ProductController = {
       // Handle errors
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
+    }
+  },
+  logout: async (req, res) => {
+    try {
+      localStorage.removeItem("shapeshiftkey");
+
+      res.status(200).json({ message: "Logout successful" });
+    } catch (error) {
+      console.error("Error during logout", error);
+      res.status(500).json({ message: "An error occurred during logout" });
     }
   },
 };

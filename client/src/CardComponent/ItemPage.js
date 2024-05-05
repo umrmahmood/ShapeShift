@@ -34,16 +34,16 @@ const ItemPage = ({ product }) => {
   }, [images]);
 
 
-  useEffect(() => {
-    axios.get(`/api/product/${productId}`)
-      .then((response) => {
-        console.log(response.data);
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching product:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`/api/product/${productId}`)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setProducts(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching product:", error);
+  //     });
+  // }, []);
 
 // Calculating reviews from DB
 // useEffect(() => {

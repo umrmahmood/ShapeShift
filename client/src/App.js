@@ -1,8 +1,8 @@
 
 import "./App.css";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
@@ -15,6 +15,16 @@ import ProductForm from "./components/productReg/ProductForm";
 import UserShop from "./CardComponent/UserShop";
 import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
+
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+	window.scrollTo({top:0, behavior: "instant"})
+  }, [pathname])
+  return null;
+}
 
 
 function App() {
@@ -36,6 +46,7 @@ function App() {
                 </div>
             )}
 		  </header>
+		  <ScrollToTop />
 		  <Routes>
 			<Route path="/" element={<Main />} />
 			<Route path="/config" element={<ConfigComponent />} />
@@ -45,7 +56,7 @@ function App() {
 			<Route path="/user-shop" element={<UserShop/>} />
 			<Route path="/item/:productId" element={<ItemPage />} />
             <Route path="/Cart" element={<Cart />} />
-			<Route path="/home" element={<UserSellCard />} />
+			{/* <Route path="/home" element={<UserSellCard />} /> */}
 			<Route path="/user-shop" element={<UserShop/>} />
 			
 			<Route path="/printers" element={<Printer />} />

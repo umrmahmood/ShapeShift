@@ -15,14 +15,13 @@ const LoginForm = ({onLoginSuccess }) => {
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await axios.post("http://localhost:5000/api/users/login", {
+			const response = await axios.post("http://localhost:5001/api/users/login", {
 				email,
 				password,
 			});
-			console.log(response);
 			const { token } = response.data;
 
-			localStorage.setItem("token", token);
+			localStorage.setItem("shapeshiftkey", token);
 			// localStorage.setItem("role", user.role);
 			// localStorage.setItem("userId", user._id);
 			// setIsLoggedIn(true);
