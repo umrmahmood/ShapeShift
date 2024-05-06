@@ -18,7 +18,9 @@ const authMiddleware = {
   authenticated: async (req, res, next) => {
     try {
       // Extract token from the request header
+
       const token = req.header("Authorization").split(" ")[1];
+      
       console.log("Received token:", token);
 
       // Check if token is missing

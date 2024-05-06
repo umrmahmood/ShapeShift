@@ -1,4 +1,3 @@
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faFacebook,
@@ -13,7 +12,9 @@ const Footer = () => {
 		<>
 			<div className="footer">
 				<div>
-					<img src={blogo} alt="logo" />
+					<a href="/">
+						<img src={blogo} alt="logo" />
+					</a>
 					<p>Copyright Shapeshift 2024</p>
 				</div>
 				<div>
