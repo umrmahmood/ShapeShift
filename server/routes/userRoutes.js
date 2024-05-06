@@ -16,6 +16,9 @@ router.post("/register", UserController.register);
 // User login route
 router.post("/login", UserController.login);
 
+// Firebase login route
+router.post("/firelogin", UserController.fireLogin);
+
 //  Get user profile
 router.get("/profile/:id", UserController.getProfileById);
 

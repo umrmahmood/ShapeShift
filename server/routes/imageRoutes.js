@@ -5,6 +5,7 @@ import express from "express";
 
 // Importing controllers
 import ImageController from "../controllers/imageController.js"; // Import the ImageController for handling image-related logic
+import UserController from "../controllers/userController.js";
 import authMiddleware from "../middleware/authMiddleware.js"; // Import the authentication middleware
 import Parser from "../config/multerConfig.js"; // Import the Multer configuration for handling file uploads
 
@@ -40,7 +41,7 @@ router.post(
   "/upload/profile/:userId", // Define the route path with a parameter for the product ID
   authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
   Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
-  ImageController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
+  UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
 );
 
 export default router; // Export the router instance

@@ -13,7 +13,15 @@ const UserSchema = new Schema(
       required: true, // Email field is required.
       unique: true, // Email field must be unique.
     },
-    password: { type: String, required: true }, // Data type and requirement for password field.
+    password: { type: String },
+
+    // authentications passes
+    googleUid: { type: String },
+    facebookUid: { type: String },
+    twitterUid: { type: String },
+    appleUid: { type: String },
+    microsoftUid: { type: String },
+    githubUid: { type: String },
 
     profile: {
       // Sub-document for user profile details.
@@ -107,19 +115,47 @@ const UserSchema = new Schema(
 
 // Middleware function to hash the user's password before saving it to the database.
 UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    // If password is not modified, skip hashing.
-    return next();
-  }
   try {
-    const hashedPassword = await bcryptjs.hash(this.password, 10); // Hashing the password using bcryptjs.
-    this.password = hashedPassword; // Assigning the hashed password to the password field.
-    next(); // Proceed to the next middleware.
+    // Hashing Password
+    if (this.isModified("password")) {
+      const hashedPassword = await bcryptjs.hash(this.password, 10); // Hashing the password using bcryptjs.
+      this.password = hashedPassword; // Assigning the hashed password to the password field.
+    }
+
+    // Hashing provider Uid's
+    const providerFields = [
+      "googleUid",
+      "facebookUid",
+      "twitterUid",
+      "appleUid",
+      "microsoftUid",
+      "githubUid",
+    ];
+    for (const field of providerFields) {
+      if (this.isModified(field)) {
+        const hashedUid = await bcryptjs.hash(this[field], 10);
+        this[field] = hashedUid;
+      }
+    }
+    next();
   } catch (error) {
-    next(error); // Handling any errors that occur during hashing.
+    next(error);
   }
 });
 
+// UserSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) {
+//     // If password is not modified, skip hashing.
+//     return next();
+//   }
+//   try {
+//     const hashedPassword = await bcryptjs.hash(this.password, 10); // Hashing the password using bcryptjs.
+//     this.password = hashedPassword; // Assigning the hashed password to the password field.
+//     next(); // Proceed to the next middleware.
+//   } catch (error) {
+//     next(error); // Handling any errors that occur during hashing.
+//   }
+// });
 
 // Middleware to automatically set username from email
 
@@ -132,7 +168,6 @@ UserSchema.pre("save", function (next) {
   }
   next();
 });
-
 
 // Creating the User model using the schema.
 const User = mongoose.model("User", UserSchema);

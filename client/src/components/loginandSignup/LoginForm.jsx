@@ -4,6 +4,7 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import "../../styling/loginandSignup.css";
 import { useState } from "react";
+import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth"; // Import Firebase authentication functions
 
 // firebase
 // Import the functions you need from the SDKs you need
@@ -50,7 +51,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth"; // Import Firebase authentication functions
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState("");
@@ -64,7 +64,7 @@ const LoginForm = ({ onLoginSuccess }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "http://localhost:5001/api/users/login",
         {
           email,
           password,
@@ -92,9 +92,22 @@ const LoginForm = ({ onLoginSuccess }) => {
       const provider = new GoogleAuthProvider(); // Create GoogleAuthProvider instance
       const result = await signInWithPopup(auth, provider); // Initiate Google sign-in popup
       const user = result.user;
-      console.log(user);
-      // Handle successful Google sign-in (you can also perform additional actions here if needed)
-      navigate("/"); // Redirect to homepage or any other route
+
+      // Data for the backend
+      const userData = { email: user.email, googleUserId: user.uid };
+      const response = await axios.post(
+        "http://localhost:5001/api/users/firelogin",
+        userData // Send userData directly without wrapping it
+      );
+
+      if (response.status === 200) {
+        const { token } = response.data;
+        localStorage.setItem("shapeshiftkey", token);
+        onLoginSuccess();
+        navigate("/"); // Redirect to homepage or any other route
+      } else {
+        console.error("Error:", response.data.message);
+      }
     } catch (error) {
       console.log(error);
       // Handle errors if any
