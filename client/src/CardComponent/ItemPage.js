@@ -3,15 +3,12 @@ import placeholder from "./placeholder.jpg";
 import "./Item.css";
 import axios from "axios";
 import { useParams} from 'react-router-dom'
-
-
 const ItemPage = ({  }) => {
   const [mainImage, setMainImage] = useState(null);
 //   const [reviews, setReviews] = useState([]);
 //   const [averageRating, setAverageRating] = useState(0);
   const [product, setProduct] = useState([]);
   const { productId} = useParams();
-
   const {
     name,
     description,
@@ -28,15 +25,11 @@ const ItemPage = ({  }) => {
     createdAt,
     updatedAt,
   } = product;
-
   useEffect(() => {
     if (images && images.length > 0) {
       setMainImage(images[0]);
     }
   }, [images]);
-
-
-
    useEffect(() => {
      axios.get(`/api/product/${productId}`)
        .then((response) => {
@@ -47,7 +40,6 @@ const ItemPage = ({  }) => {
          console.error("Error fetching product:", error);
        });
    }, []);
-
   useEffect(() => {
     axios.get(`http://localhost:5001/api/products/${productId}`)
       .then((response) => {
@@ -58,8 +50,6 @@ const ItemPage = ({  }) => {
         console.error("Error fetching product:", error);
       });
   }, [productId]);
-
-
 // Calculating reviews from DB
 // useEffect(() => {
 //     // Calculate average rating from the reviews
@@ -69,17 +59,14 @@ const ItemPage = ({  }) => {
 //         setAverageRating(average);
 //     }
 // }, [reviews]);
-
 useEffect(() => {
     if (product && product.images && product.images.length > 0) {
       setMainImage(product.images[0]);
     }
   }, [product]);
-
   if (!product) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="MainContainer">
         <div className="ImagesContainer">
@@ -109,7 +96,6 @@ useEffect(() => {
             {/* <p>Tags: {tags.join(', ')}</p> */}
             <p>Created At: {createdAt}</p>
             <p>Updated At: {updatedAt}</p>
-          
         </div>
     </div>
 );
