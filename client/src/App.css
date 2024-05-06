@@ -1,47 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-.Logo img {
-	width: 250px;
-}
 
-.Navbar-container {
-	display: flex;
-	justify-content: space-between;
-	color: rgb(0, 0, 0);
-	position: relative;
-	z-index: 3;
-	padding: 1.7em;
-	background: rgb(224, 226, 223);
-
-}
-
-.Navbar {
-	display: flex;
-	align-self: center;
-	font-size: 1.5em;
-	gap: 2em;
-}
-
-.Navbar li {
-	list-style: none;
-	font-family: "Bebas Neue", sans-serif;
-	letter-spacing: 0.2rem;
-	font-size: 1.25rem;
-	vertical-align: middle;
-}
-
-.nav-icons {
-	display: flex;
-	list-style: none;
-	gap: 2rem;
-	font-size: 1.3rem;
-	align-self: center;
-}
-
-.nav-icons a {
-	color: black;
-	
-}
 
 input[type="text"] {
 	padding: 6px 10px;
@@ -99,7 +58,7 @@ h1 {
 	position: absolute;
 	background: transparent;
 	left: 900px;
-	bottom: 130px;
+	bottom: 150px;
 	width: 8%;
 	height: 6%;
 	font-size: 0.9em;
@@ -114,7 +73,6 @@ h1 {
 	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
-.Navbar a,
 .footer a {
 	text-decoration: none;
 	color: inherit;
@@ -153,7 +111,7 @@ p {
 }
 
 .footer img {
-	width: 130px;
+	width: 100px;
 }
 
 .footer li {
@@ -208,17 +166,3 @@ p {
 	z-index: 2;
 }
 
-/* please dont change the following */
-.navbar-login-btn button{
-	font-family: "proxoma nova";
-	background: transparent;
-	padding: 2px 7px;
-	font-size: 0.8em;
-	border: 1px solid black;
-}
-
-.navbar-login-btn button:hover{
-	color: white;
-	background: black;
-	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
-}
