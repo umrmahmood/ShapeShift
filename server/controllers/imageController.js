@@ -1,12 +1,8 @@
 // Controller file for handling image-related logic.
 
 // Importing necessary dependencies
-import {
-  ProductImages,
-  ProfileImage,
-} from "../models/schemaFiles/imagesSchema.js"; // Import the ProductImages model for interacting with image data
+import { ProductImages } from "../models/schemaFiles/imagesSchema.js"; // Import the ProductImages model for interacting with image data
 import Product from "../models/schemaFiles/productSchema.js"; // Import the Product model for interacting with product data
-import User from "../models/schemaFiles/userSchema.js";
 import { v2 as cloudinary } from "cloudinary"; // Import the Cloudinary library for image upload
 
 // Product Images
@@ -167,104 +163,6 @@ const ImageController = {
       return res.status(500).json({ message: "Internal server error" }); // Return error message for internal server error
     }
   },
-
-  uploadProfileImage: async (req, res) => {
-    try {
-      const userId = req.params.userId;
-      const file = req.file; // Get the uploaded file from the request
-
-      if (!file) {
-        return res.status(400).json({ message: "No file uploaded" });
-      }
-
-      // Fetch the user document by its ID
-      const user = await User.findById(userId);
-
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      // Check if the user already has a profile image
-      if (user.profile.avatar) {
-        // Find the existing profile image in the database
-        const existingProfileImage = await ProfileImage.findById(
-          user.profile.avatar
-        );
-
-        if (existingProfileImage) {
-          // Delete the existing profile image from Cloudinary
-          await cloudinary.uploader.destroy(existingProfileImage.public_id);
-
-          // Upload the new file to Cloudinary
-          const result = await cloudinary.uploader.upload(file.path, {
-            use_filename: true,
-            tags: file.originalname,
-            unique_filename: false,
-            transformation: [
-              { width: 1000, crop: "scale" },
-              { quality: "auto" },
-              { fetch_format: "auto" },
-            ],
-          });
-
-          // Update the existing profile image with the new information
-          Object.assign(existingProfileImage, {
-            public_id: result.public_id,
-            version_id: result.version_id,
-            signature: result.signature,
-            width: result.width,
-            height: result.height,
-            format: result.format,
-            resource_type: result.resource_type,
-            tags: result.tags,
-            url: result.url,
-          });
-
-          // Save the updated profile image
-          await existingProfileImage.save();
-        }
-      } else {
-        // If the user doesn't have a profile image, create a new one
-        const result = await cloudinary.uploader.upload(file.path, {
-          use_filename: true,
-          tags: file.originalname,
-          unique_filename: false,
-          transformation: [
-            { width: 1000, crop: "scale" },
-            { quality: "auto" },
-            { fetch_format: "auto" },
-          ],
-        });
-
-        // Create a new profile image object and associate it with the user
-        const newProfileImage = await ProfileImage.create({
-          public_id: result.public_id,
-          version_id: result.version_id,
-          signature: result.signature,
-          width: result.width,
-          height: result.height,
-          format: result.format,
-          resource_type: result.resource_type,
-          tags: result.tags,
-          url: result.url,
-          userId: userId, // Associate the image with the user
-        });
-
-        // Update the user's profile avatar
-        user.profile.avatar = newProfileImage._id;
-
-        // Save the updated user
-        await user.save();
-      }
-
-      return res.status(201).json({ message: "Image uploaded successfully" });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Internal server error" });
-    }
-  },
 };
-
-const ProfileImageController = {};
 
 export default ImageController; // Export the ImageController object

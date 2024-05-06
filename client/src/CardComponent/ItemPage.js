@@ -3,11 +3,10 @@ import placeholder from "./placeholder.jpg";
 import "./Item.css";
 import axios from "axios";
 
-
 const ItemPage = ({ productId }) => {
   const [mainImage, setMainImage] = useState(null);
-//   const [reviews, setReviews] = useState([]);
-//   const [averageRating, setAverageRating] = useState(0);
+  //   const [reviews, setReviews] = useState([]);
+  //   const [averageRating, setAverageRating] = useState(0);
   const [product, setProduct] = useState([]);
 
   const {
@@ -33,9 +32,9 @@ const ItemPage = ({ productId }) => {
     }
   }, [images]);
 
-
   useEffect(() => {
-    axios.get(`/api/:productId`)
+    axios
+      .get(`/api/products/:productId`)
       .then((response) => {
         console.log(response.data);
         setProduct(response.data);
@@ -45,17 +44,17 @@ const ItemPage = ({ productId }) => {
       });
   }, [productId]);
 
-// Calculating reviews from DB
-// useEffect(() => {
-//     // Calculate average rating from the reviews
-//     if (reviews.length > 0) {
-//         const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-//         const average = totalRating / reviews.length;
-//         setAverageRating(average);
-//     }
-// }, [reviews]);
+  // Calculating reviews from DB
+  // useEffect(() => {
+  //     // Calculate average rating from the reviews
+  //     if (reviews.length > 0) {
+  //         const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+  //         const average = totalRating / reviews.length;
+  //         setAverageRating(average);
+  //     }
+  // }, [reviews]);
 
-useEffect(() => {
+  useEffect(() => {
     if (product && product.images && product.images.length > 0) {
       setMainImage(product.images[0]);
     }
@@ -67,9 +66,14 @@ useEffect(() => {
 
   return (
     <div className="MainContainer">
-        <div className="ImagesContainer">
+      <div className="ImagesContainer">
         <div className="MainImageContainer">
-          <img className="main-image" src={mainImage || placeholder} alt={name} style={{ maxWidth: "200px", maxHeight: "200px" }} />
+          <img
+            className="main-image"
+            src={mainImage || placeholder}
+            alt={name}
+            style={{ maxWidth: "200px", maxHeight: "200px" }}
+          />
         </div>
         {/* <div className="ThumbnailImagesContainer">
           {images.slice(1).map((image, index) => (
@@ -81,22 +85,21 @@ useEffect(() => {
             />
           ))}
         </div> */}
-        </div>
-        <div className="DescriptionContainer">
-            <h2>{name}</h2>
-            <p>{description}</p>
-            <p>Category: {category}</p>
-            <p>Price: ${price}</p>
-            <p>Seller: {seller}</p>
-            <p>Designer: {designer}</p>
-            <p>Quantity: {quantity}</p>
-            <p>Material: {material}</p>
-            {/* <p>Tags: {tags.join(', ')}</p> */}
-            <p>Created At: {createdAt}</p>
-            <p>Updated At: {updatedAt}</p>
-          
-        </div>
+      </div>
+      <div className="DescriptionContainer">
+        <h2>{name}</h2>
+        <p>{description}</p>
+        <p>Category: {category}</p>
+        <p>Price: ${price}</p>
+        <p>Seller: {seller}</p>
+        <p>Designer: {designer}</p>
+        <p>Quantity: {quantity}</p>
+        <p>Material: {material}</p>
+        {/* <p>Tags: {tags.join(', ')}</p> */}
+        <p>Created At: {createdAt}</p>
+        <p>Updated At: {updatedAt}</p>
+      </div>
     </div>
-);
+  );
 };
 export default ItemPage;
