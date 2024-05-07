@@ -32,7 +32,7 @@
 	list-style: none;
 	gap: 2rem;
 	font-size: 1.3rem;
-	align-self: center;
+	align-items: center;
 }
 
 .nav-icons a {
@@ -61,6 +61,16 @@ a:hover {
 	color: white;
 	background: black;
 	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.navbar-conditional-icon {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+}
+
+.nav-sell-btn {
+	margin-bottom: 5px;
 }
 
 .nav-search {
