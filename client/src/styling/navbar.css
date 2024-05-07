@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+
+
+.nav-logo img {
+	width: 250px;
+}
+
+.Navbar-container {
+	display: flex;
+	/* justify-content: space-around; */
+	justify-content: space-between;
+	color: rgb(0, 0, 0);
+	position: relative;
+	z-index: 3;
+	padding: 2em;
+	background: rgb(224, 226, 223);
+    
+}
+
+
+.Navbar li {
+	list-style: none;
+	font-family: "Bebas Neue", sans-serif;
+	letter-spacing: 0.2rem;
+	font-size: 1.25rem;
+	vertical-align: middle;
+}
+
+.nav-icons {
+	display: flex;
+	list-style: none;
+	gap: 2rem;
+	font-size: 1.3rem;
+	align-self: center;
+}
+
+.nav-icons a {
+	color: black;
+}
+
+.Navbar a {
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover {
+	color: rgb(166, 0, 2);
+}
+
+.navbar-login-btn button {
+	font-family: "proxoma nova";
+	background: transparent;
+	padding: 1px 7px;
+	font-size: 0.8em;
+	/* border: none; */
+	border: 1px solid black;
+}
+
+.navbar-login-btn button:hover {
+	color: white;
+	background: black;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.nav-search {
+    align-self: center;
+}
+
+.nav-search input {
+    width: 600px;
+	font-size: 16px;
+	border-radius: 0px;
+}
+/* 
+.nav-search-btn{
+    border: none;
+    padding: 0.3em;
+    background: lightgray;
+    border-radius: 10px;
+} 
+
+.nav-search {
+    position: relative;
+}
+
+.nav-search input {
+    width: 600px;
+    padding-right: 30px;
+}
+
+.nav-search::before {
+    content: "\f002"; 
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999; 
+    font-size: 18px;
+    pointer-events: none;
+} */
