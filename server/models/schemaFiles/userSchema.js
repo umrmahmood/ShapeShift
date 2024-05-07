@@ -17,10 +17,7 @@ const UserSchema = new Schema(
 
     // authentications passes
     googleUid: { type: String },
-    facebookUid: { type: String },
     twitterUid: { type: String },
-    appleUid: { type: String },
-    microsoftUid: { type: String },
     githubUid: { type: String },
 
     profile: {
@@ -91,8 +88,14 @@ const UserSchema = new Schema(
       // Membership details.
       active: {
         // Membership activation status.
-        type: Boolean, // Data type for active field.
-        default: true, // Default value for active field.
+        status: {
+          type: Boolean, // Data type for active field.
+          default: true, // Default value for active field.
+        },
+        lastActiveAt: {
+          type: Date, // Data type for storing the last active timestamp.
+          default: Date.now, // Default value for last active timestamp (current time).
+        },
       },
       role: {
         // User role details.
@@ -101,6 +104,7 @@ const UserSchema = new Schema(
         enum: ["user", "admin"], // Enumeration for user roles.
       },
       haveShop: { type: Boolean, default: false },
+      shopId: { type: String },
       favorites: [{ type: Schema.Types.ObjectId, ref: "Product" }],
       registerDate: {
         type: Date,
@@ -121,41 +125,11 @@ UserSchema.pre("save", async function (next) {
       const hashedPassword = await bcryptjs.hash(this.password, 10); // Hashing the password using bcryptjs.
       this.password = hashedPassword; // Assigning the hashed password to the password field.
     }
-
-    // Hashing provider Uid's
-    const providerFields = [
-      "googleUid",
-      "facebookUid",
-      "twitterUid",
-      "appleUid",
-      "microsoftUid",
-      "githubUid",
-    ];
-    for (const field of providerFields) {
-      if (this.isModified(field)) {
-        const hashedUid = await bcryptjs.hash(this[field], 10);
-        this[field] = hashedUid;
-      }
-    }
     next();
   } catch (error) {
     next(error);
   }
 });
-
-// UserSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     // If password is not modified, skip hashing.
-//     return next();
-//   }
-//   try {
-//     const hashedPassword = await bcryptjs.hash(this.password, 10); // Hashing the password using bcryptjs.
-//     this.password = hashedPassword; // Assigning the hashed password to the password field.
-//     next(); // Proceed to the next middleware.
-//   } catch (error) {
-//     next(error); // Handling any errors that occur during hashing.
-//   }
-// });
 
 // Middleware to automatically set username from email
 

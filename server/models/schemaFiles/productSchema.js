@@ -2,6 +2,7 @@
 
 // Importing dependencies
 import mongoose, { Schema } from "mongoose";
+import { type } from "os";
 
 // Defining the Product Schema
 const ProductSchema = new Schema(
@@ -33,11 +34,7 @@ const ProductSchema = new Schema(
     images: [{ type: Schema.Types.ObjectId, ref: "ProductImages" }],
 
     // Seller reference for the product, required
-    seller: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    seller: { type: String, required: true },
 
     // Quantity of the product available, defaults to 0
     quantity: { type: Number, default: 0 },
@@ -46,32 +43,33 @@ const ProductSchema = new Schema(
     type: { type: String, enum: ["digital", "physical"] },
 
     // Material of the product, selected from a predefined list of options
-    material: {
-      type: String,
-      enum: [
-        "PLA",
-        "ABS",
-        "PETG",
-        "TPU",
-        "TPE",
-        "TPC",
-        "Nylon",
-        "ASA",
-        "PVB",
-        "HIPS",
-        "PVA",
-        "PC",
-        "PEI",
-        "PEEK",
-        "PEKK",
-        "PVDF",
-        "PPSU",
-        "Resins",
-        "Ceramics",
-        "Silicone",
-        "Metals",
-      ],
-    },
+    material: [{ type: String }],
+    // {
+    //   type: String,
+    //   enum: [
+    //     "PLA",
+    //     "ABS",
+    //     "PETG",
+    //     "TPU",
+    //     "TPE",
+    //     "TPC",
+    //     "Nylon",
+    //     "ASA",
+    //     "PVB",
+    //     "HIPS",
+    //     "PVA",
+    //     "PC",
+    //     "PEI",
+    //     "PEEK",
+    //     "PEKK",
+    //     "PVDF",
+    //     "PPSU",
+    //     "Resins",
+    //     "Ceramics",
+    //     "Silicone",
+    //     "Metals",
+    //   ],
+    // },
 
     // Dimensions of the product (width, height, depth), each with a value and unit
     dimensions: {
@@ -107,6 +105,17 @@ const ProductSchema = new Schema(
     // Timestamps for when the product was created and last updated
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
+    active: {
+      // Membership activation status.
+      status: {
+        type: Boolean, // Data type for active field.
+        default: true, // Default value for active field.
+      },
+      lastActiveAt: {
+        type: Date, // Data type for storing the last active timestamp.
+        default: Date.now, // Default value for last active timestamp (current time).
+      },
+    },
   },
   {
     timestamps: true, // Automatically manage createdAt and updatedAt fields
