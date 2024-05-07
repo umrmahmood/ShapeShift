@@ -37,11 +37,11 @@ const UserShop = () => {
             </div>
           </div>
           <div className="user-section">
-            <img
+            {/* <img
               src={shopData.userImage}
               alt="User Image"
               className="user-image"
-            />
+            /> */}
             <div className="user-info">
               <h3>{shopData.ownerName}</h3>
               <button>Contact</button>
