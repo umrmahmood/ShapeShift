@@ -4,9 +4,31 @@ import { useNavigate } from "react-router-dom";
 
 const Card = (props) => {
   const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState(null);
   console.log(props.product);
   const { _id, name, description, price, ratings, images } = props.product;
  
+  useEffect(() => {
+    if (images && images.length > 0) {
+      const fetchingImage = async () => {
+        const imageUrl = `http://localhost:5001/api/images/${images[0]}`; // Assuming images is an array of image IDs
+        try {
+          const response = await fetch(imageUrl);
+          if (response.ok) {
+            const data = await response.json();
+            setImageUrl(data.imageUrl);
+          } else {
+            throw new Error("Failed to fetch image");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchingImage();
+    }
+  }, [images]);
+
   const handleMoreClick = () => {
     navigate(`/item/${_id}`);
   };
@@ -18,9 +40,9 @@ const Card = (props) => {
   // };
   return (
     <div className="cardMain">
-      {images && <img src={images[0]} alt={name} />}
+      {imageUrl && <img src={imageUrl[0]} alt={name} />}
       <h2>{name}</h2>
-      <p>{description}</p>
+      {/* <p>{description}</p> */}
       {/* <h3 className="rating">Rating:{calculateAverageRating(ratings)}</h3> */}
       <h3>Price {price}</h3>
       <button className="feature-button" onClick={handleMoreClick}>More</button> 

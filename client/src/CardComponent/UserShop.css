@@ -1,25 +1,62 @@
+/* Container for the entire shop layout */
 .shop-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+  }
+  
+  /* Banner image */
+  .banner-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  /* Shop info container */
+  .shop-info-container {
     display: flex;
     justify-content: space-between;
-}
+    margin-top: 20px;
+  }
+  
+  /* User shop and owner shop containers */
+  .user-shop, .owner-shop {
+    background-color: #ffffff;
+    width: 150px;
+    padding: 10px;
+    border-radius: 5px;
 
-.main-section, .user-section {
-    width: 45%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.main-image, .user-image {
+  }
+  
+  /* Shop image */
+  .shop-image img {
     width: 100%;
-    height: 30%;
-    object-fit: cover; 
-}
-
-.logo {
-   
-}
-
-.shop-info, .user-info {
-    text-align: center;
-}
+    border-radius: 5px;
+  }
+  
+  /* Shop details */
+  .shop-details{
+    padding: 5px;
+  }
+  .shop-details h2 {
+    color: #333333;
+  }
+  
+  .shop-details p {
+    color: #666666;
+  }
+  
+  /* Additional information */
+  .additional-info {
+    margin-top: 20px;
+  }
+  
+  .additional-info h2 {
+    color: #333333;
+  }
+  
+  .additional-info ul {
+    color: #666666;
+    list-style-type: none;
+    padding: 0;
+  }
+  
