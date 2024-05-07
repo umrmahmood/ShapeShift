@@ -4,6 +4,7 @@
 import Product from "../models/schemaFiles/productSchema.js";
 import { ProductImages } from "../models/schemaFiles/imagesSchema.js";
 import { v2 as cloudinary } from "cloudinary";
+import Shop from "../models/schemaFiles/shopSchema.js";
 
 const ProductController = {
   // Method to create a new product
@@ -74,7 +75,7 @@ const ProductController = {
         price,
         currency,
         images: productImagesIds, // Assign the IDs of the image objects
-        seller: req.user._id,
+        seller: req.user.membership.shopId,
         type,
         material,
         dimensions,
@@ -93,6 +94,13 @@ const ProductController = {
           { new: true }
         );
       }
+
+      // Add ID to the Shop
+      await Shop.findByIdAndUpdate(
+        req.user.membership.shopId,
+        { $push: { products: savedProduct._id } },
+        { new: true }
+      );
 
       return res.status(201).json(savedProduct);
     } catch (error) {
@@ -233,16 +241,6 @@ const ProductController = {
       // Handle errors
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
-    }
-  },
-  logout: async (req, res) => {
-    try {
-      localStorage.removeItem("shapeshiftkey");
-
-      res.status(200).json({ message: "Logout successful" });
-    } catch (error) {
-      console.error("Error during logout", error);
-      res.status(500).json({ message: "An error occurred during logout" });
     }
   },
 };

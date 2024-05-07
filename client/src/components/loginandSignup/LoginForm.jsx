@@ -1,18 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGoogle,
-  faMicrosoft,
-  faFacebook,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import "../../styling/loginandSignup.css";
 import { useState } from "react";
 import {
   signInWithPopup,
   GoogleAuthProvider,
-  FacebookAuthProvider,
-  OAuthProvider,
+  GithubAuthProvider,
   getAuth,
 } from "firebase/auth"; // Import Firebase authentication functions
 
@@ -101,42 +96,16 @@ const LoginForm = ({ onLoginSuccess }) => {
   };
 
   // Function to handle Facebook login
-  const handleFacebookLogin = async () => {
+  const handleGithubLogin = async () => {
     try {
-      const provider = new FacebookAuthProvider(); // Create FacebookAuthProvider instance
+      const provider = new GithubAuthProvider(); // Create FacebookAuthProvider instance
       const result = await signInWithPopup(auth, provider); // Initiate Facebook sign-in popup
       const user = result.user;
+      console.log(user);
 
       // Data for the backend
-      const userData = { email: user.email, facebookUserId: user.uid }; // Assuming you have a field named 'facebookUserId' in your backend
-      const response = await axios.post(
-        "http://localhost:5001/api/users/firelogin",
-        userData // Send userData directly without wrapping it
-      );
-
-      if (response.status === 200) {
-        const { token } = response.data;
-        localStorage.setItem("shapeshiftkey", token);
-        onLoginSuccess();
-        navigate("/"); // Redirect to homepage or any other route
-      } else {
-        console.error("Error:", response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      // Handle errors if any
-    }
-  };
-
-  // Function to handle Facebook login
-  const handleMicrosoftLogin = async () => {
-    try {
-      const provider = new OAuthProvider("microsoft.com"); // Create FacebookAuthProvider instance
-      const result = await signInWithPopup(auth, provider); // Initiate Facebook sign-in popup
-      const user = result.user;
-
-      // Data for the backend
-      const userData = { email: user.email, microsoftUserId: user.uid }; // Assuming you have a field named 'facebookUserId' in your backend
+      const userData = { email: user.email, githubUserId: user.uid }; // Assuming you have a field named 'facebookUserId' in your backend
+      console.log(userData);
       const response = await axios.post(
         "http://localhost:5001/api/users/firelogin",
         userData // Send userData directly without wrapping it
@@ -199,16 +168,9 @@ const LoginForm = ({ onLoginSuccess }) => {
           <FontAwesomeIcon icon={faGoogle} />
           <span className="google-login-btn-text">Continue with Google</span>
         </button>
-        <button onClick={handleFacebookLogin} className="google-login-form-btn">
-          <FontAwesomeIcon icon={faFacebook} />
-          <span className="google-login-btn-text">Continue with Facebook</span>
-        </button>
-        <button
-          onClick={handleMicrosoftLogin}
-          className="google-login-form-btn"
-        >
-          <FontAwesomeIcon icon={faMicrosoft} />
-          <span className="google-login-btn-text">Continue with Facebook</span>
+        <button onClick={handleGithubLogin} className="google-login-form-btn">
+          <FontAwesomeIcon icon={faGithub} />
+          <span className="google-login-btn-text">Continue with GitHub</span>
         </button>
       </div>
     </>

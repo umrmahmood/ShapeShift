@@ -44,4 +44,20 @@ router.post(
   UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
 );
 
+// Shop Image
+router.post(
+  "/upload/shop/:shopId", // Define the route path with a parameter for the product ID
+  authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
+  Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
+  UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
+);
+
+// Shop Banner
+router.post(
+  "/upload/shop/:shopId", // Define the route path with a parameter for the product ID
+  authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
+  Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
+  UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
+);
+
 export default router; // Export the router instance

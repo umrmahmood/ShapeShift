@@ -7,13 +7,15 @@ import mongoose, { Schema } from "mongoose"; // Importing mongoose and Schema fr
 const ShopSchema = new Schema(
   {
     name: { type: String, required: true, unique: true }, // Name of the shop, required and must be unique.
-    owner: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Reference to the owner (user), required.
+    owner: { type: String, unique: true }, // Reference to the owner (user), required.
+    avatar: { type: String },
+    banner: { type: String },
     description: {
       type: String,
       maxlength: [300, "Description cannot exceed 300 characters"], // Description of the shop with character limit.
     },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }], // Array of category references.
-    products: [{ type: Schema.Types.ObjectId, ref: "Product" }], // Array of product references.
+    products: [{ type: String }], // Array of product references.
     ratings: [
       {
         user: { type: Schema.Types.ObjectId, ref: "User" }, // Reference to the user who rated the shop.
@@ -22,7 +24,17 @@ const ShopSchema = new Schema(
     ],
     location: { type: String, required: true }, // Location of the shop, required.
     taxId: String, // Tax identification number for taxation purposes.
-    active: { type: Boolean, default: false }, // Indicates if the shop is active, defaulted to false.
+    active: {
+      // Membership activation status.
+      status: {
+        type: Boolean, // Data type for active field.
+        default: true, // Default value for active field.
+      },
+      lastActiveAt: {
+        type: Date, // Data type for storing the last active timestamp.
+        default: Date.now, // Default value for last active timestamp (current time).
+      },
+    },
   },
   { timestamps: true }
 );
