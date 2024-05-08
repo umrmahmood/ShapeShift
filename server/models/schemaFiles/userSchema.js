@@ -92,10 +92,10 @@ const UserSchema = new Schema(
           type: Boolean, // Data type for active field.
           default: true, // Default value for active field.
         },
-        // lastActiveAt: {
-        //   type: Date, // Data type for storing the last active timestamp.
-        //   default: Date.now, // Default value for last active timestamp (current time).
-        // },
+        lastActiveAt: {
+          type: Date, // Data type for storing the last active timestamp.
+          default: null, // Default value for last active timestamp (current time).
+        },
       },
       role: {
         // User role details.

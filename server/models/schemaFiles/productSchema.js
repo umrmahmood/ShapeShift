@@ -31,10 +31,10 @@ const ProductSchema = new Schema(
     },
 
     // Images of the product, stored as an array of strings (URLs)
-    images: [{ type: Schema.Types.ObjectId, ref: "ProductImages" }],
+    images: [{ type: String }],
 
     // Seller reference for the product, required
-    seller: { type: String, required: true },
+    seller: { type: String },
 
     // Quantity of the product available, defaults to 0
     quantity: { type: Number, default: 0 },
