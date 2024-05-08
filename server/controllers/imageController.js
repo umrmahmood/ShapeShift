@@ -7,6 +7,25 @@ import { v2 as cloudinary } from "cloudinary"; // Import the Cloudinary library 
 
 // Product Images
 const ImageController = {
+  // Method to fetch a Image Info by ID
+  getProductImageById: async (req, res) => {
+    const imageId = req.params.imageId;
+    console.log(imageId);
+
+    try {
+      // Find product by ID
+      const image = await ProductImages.findById(imageId);
+      console.log(image);
+      if (!image) {
+        return res.status(404).json({ message: "Image not found" });
+      }
+      res.status(200).json(image);
+    } catch (error) {
+      // Handle errors
+      console.error(error);
+      res.status(500).json({ message: "Image not found" });
+    }
+  },
   // Method to upload a new Product image
   uploadProductImage: async (req, res) => {
     Product;

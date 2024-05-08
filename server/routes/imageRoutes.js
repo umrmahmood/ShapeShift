@@ -14,6 +14,7 @@ const router = express.Router(); // Create a new router instance
 // Product Images Router
 router
   // Route for uploading images for a specific product
+  .get("/:imageId", ImageController.getProductImageById)
   .post(
     "/upload/product/:productId", // Define the route path with a parameter for the product ID
     authMiddleware.authenticated, // Apply authentication middleware to authenticate the user

@@ -36,13 +36,16 @@
   /* Shop details */
   .shop-details{
     padding: 5px;
+    margin: 0;
   }
   .shop-details h2 {
-    color: #333333;
+    color: #333333; 
+    margin: 5px 0;
   }
   
   .shop-details p {
     color: #666666;
+    margin: 5px 0;
   }
   
   /* Additional information */
