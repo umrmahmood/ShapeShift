@@ -16,7 +16,6 @@ const MainPage = () => {
     axios
       .get("/api/products")
       .then((response) => {
-        // console.log(response.data);
         setProducts(response.data);
       })
       .catch((error) => {

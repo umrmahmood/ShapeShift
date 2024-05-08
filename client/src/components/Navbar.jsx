@@ -1,4 +1,3 @@
-
 import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,6 +55,11 @@ const Navbar = ({ onLoginClick }) => {
 		navigate("/cart");
 	};
 
+	const handleLogout = () => {
+		localStorage.removeItem("shapeshiftkey");
+		setIsLoggedIn(false);
+	};
+
 	return (
 		<>
 			<div className="Navbar-container">
@@ -85,29 +89,32 @@ const Navbar = ({ onLoginClick }) => {
 
 					{isLoggedIn && (
 						<>
-						<div className="navbar-conditional-icon">
-							<div className="navbar-login-btn nav-sell-btn">
-								<button onClick={onSellClick}>Sell</button>
-							</div>
-							<li>
-								<a href="/">
-									<FontAwesomeIcon icon={faBell} />
-								</a>
-							</li>
-							<li>
-								<a href="/">
-									<FontAwesomeIcon icon={faUser} />
-								</a>
-							</li>
-							{haveShop ? (
+							<div className="navbar-conditional-icon">
+								<div className="navbar-login-btn nav-sell-btn">
+									<button onClick={handleLogout}>Logout</button>
+								</div>
+								<div className="navbar-login-btn nav-sell-btn">
+									<button onClick={onSellClick}>Sell</button>
+								</div>
 								<li>
 									<a href="/">
-										<FontAwesomeIcon icon={faShop} />
+										<FontAwesomeIcon icon={faBell} />
 									</a>
 								</li>
-							) : (
-								""
-							)}
+								<li>
+									<a href="/">
+										<FontAwesomeIcon icon={faUser} />
+									</a>
+								</li>
+								{haveShop ? (
+									<li>
+										<a href="/user-shop">
+											<FontAwesomeIcon icon={faShop} />
+										</a>
+									</li>
+								) : (
+									""
+								)}
 							</div>
 						</>
 					)}
