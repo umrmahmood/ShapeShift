@@ -27,10 +27,7 @@ const ImageController = {
       res.status(500).json({ message: "Image not found" });
     }
   },
-<<<<<<< HEAD
-=======
 
->>>>>>> 02f06322547460b4f330b6cbb6ab66f8cb1464aa
   // Method to upload a new Product image
   uploadProductImage: async (req, res) => {
     Product;
