@@ -81,16 +81,18 @@ const UserController = {
 
   // Firebase Login controller
   fireLogin: async (req, res) => {
-    const { email, googleUserId, ...otherData } = req.body;
-
+    const { email, googleUserId, githubUserId, ...otherData } = req.body;
+    console.log(req.body);
     try {
       let user = await User.findOne({ email });
+      console.log(user);
 
       if (!user) {
         // If the user doesn't exist, create a new user
         const newUser = new User({
           email,
           googleUid: googleUserId,
+          githubUid: githubUserId,
           ...otherData,
         });
         user = await newUser.save();

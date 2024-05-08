@@ -9,6 +9,7 @@ import ConnectDB from "./db/connect.js";
 import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
 import ProductRoutes from "./routes/productRoutes.js";
 import ImageRoutes from "./routes/imageRoutes.js";
+import ShopRoutes from "./routes/shopRoutes.js";
 // import AdminRoutes from "./routes/adminRoutes.js"; // Importing adminRoutes.js
 // import ProductRoutes from "./routes/productRoutes.js"; // Importing productRoutes.js
 
@@ -18,7 +19,6 @@ const app = express(); // Creating an Express application
 const PORT = 5001; // Setting the port for the server to listen on, using environment variable or default 5001
 
 //const PORT = process.env.PORT || 5001; // Setting the port for the server to listen on, using environment variable or default 5001
-
 
 // Loading environment variables from .env file
 dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
@@ -36,6 +36,7 @@ app.use(express.static("./public")); // Serving static files from the public dir
 app.use("/api/users", UserRoutes); // Using UserRoutes for user-related routes
 app.use("/api/products", ProductRoutes);
 app.use("/api/images", ImageRoutes);
+app.use("/api/shop", ShopRoutes);
 
 // Mongoose connection
 ConnectDB()

@@ -1,10 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import "../../styling/loginandSignup.css";
 import { useState } from "react";
-import { signInWithPopup, GoogleAuthProvider, getAuth } from "firebase/auth"; // Import Firebase authentication functions
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  getAuth,
+} from "firebase/auth"; // Import Firebase authentication functions
 
 // firebase
 // Import the functions you need from the SDKs you need
@@ -90,6 +95,36 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
   };
 
+  // Function to handle Facebook login
+  const handleGithubLogin = async () => {
+    try {
+      const provider = new GithubAuthProvider(); // Create FacebookAuthProvider instance
+      const result = await signInWithPopup(auth, provider); // Initiate Facebook sign-in popup
+      const user = result.user;
+      console.log(user);
+
+      // Data for the backend
+      const userData = { email: user.email, githubUserId: user.uid }; // Assuming you have a field named 'facebookUserId' in your backend
+      console.log(userData);
+      const response = await axios.post(
+        "http://localhost:5001/api/users/firelogin",
+        userData // Send userData directly without wrapping it
+      );
+
+      if (response.status === 200) {
+        const { token } = response.data;
+        localStorage.setItem("shapeshiftkey", token);
+        onLoginSuccess();
+        navigate("/"); // Redirect to homepage or any other route
+      } else {
+        console.error("Error:", response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      // Handle errors if any
+    }
+  };
+
   return (
     <>
       <div className="credentials-form">
@@ -132,6 +167,10 @@ const LoginForm = ({ onLoginSuccess }) => {
         <button onClick={handleGoogleLogin} className="google-login-form-btn">
           <FontAwesomeIcon icon={faGoogle} />
           <span className="google-login-btn-text">Continue with Google</span>
+        </button>
+        <button onClick={handleGithubLogin} className="google-login-form-btn">
+          <FontAwesomeIcon icon={faGithub} />
+          <span className="google-login-btn-text">Continue with GitHub</span>
         </button>
       </div>
     </>
