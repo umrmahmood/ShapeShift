@@ -48,7 +48,7 @@ const Navbar = ({ onLoginClick }) => {
 
   // PopUp logic
   const toggleMyProfile = () => {
-    setIsMyProfileOpen((prev) => !prev);
+    setIsMyProfileOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
   };
 
   useEffect(() => {
@@ -111,14 +111,15 @@ const Navbar = ({ onLoginClick }) => {
                   </a>
                 </li>
                 <li>
-                  <button onClick={toggleMyProfile}>
+                  <div className="profile-icon" onClick={toggleMyProfile}>
                     <FontAwesomeIcon icon={faUser} />
-                  </button>
+                  </div>
                   <MyProfile
                     isOpen={isMyProfileOpen}
                     onClose={toggleMyProfile}
                   />
                 </li>
+
                 {haveShop ? (
                   <li>
                     <a href="/user-shop">
