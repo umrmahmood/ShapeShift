@@ -13,6 +13,8 @@ const router = express.Router(); // Create a new router instance
 
 // Product Images Router
 router
+
+  .get("/:imageId", ImageController.getProductImageById)
   // Route for uploading images for a specific product
   .post(
     "/upload/product/:productId", // Define the route path with a parameter for the product ID

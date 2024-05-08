@@ -1,35 +1,28 @@
+// React and related imports
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import React, { useState, useEffect, useRef } from "react";
+
+// Component-specific imports
+import MyProfile from "../popups/MyProfile.jsx";
+import logo from "../assets/SSlogo.png";
+
+// Font Awesome icon imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingBag,
   faEarth,
   faShop,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faUser,
-  faBell,
-  // faSearch,
-} from "@fortawesome/free-regular-svg-icons";
-import PopoverMenu from "./PopMenu.jsx";
-import { useNavigate } from "react-router-dom";
-import logo from "../assets/SSlogo.png";
+import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
+
+// CSS import
 import "../styling/navbar.css";
 
 const Navbar = ({ onLoginClick }) => {
-  // Popper
-  const [isMyProfilePopOpen, setIsMyProfilePopOpen] = useState(false);
-  const [isCartPopOpen, setIsCartPopOpen] = useState(false);
-  const [isLanguagePopOpen, setIsLanguagePopOpen] = useState(false);
-  const [isShopPopOpen, setIsShopPopOpen] = useState(false);
-  const [isNotificationPopOpen, setIsNotificationPopOpen] = useState(false);
-  const [isProfileInfoPopOpen, setIsProfileInfoPopOpen] = useState(false);
-
-  const myProfilePopRef = useRef(null);
-  const cartPopRef = useRef(null);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
   const navigate = useNavigate();
 
   const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
@@ -53,6 +46,11 @@ const Navbar = ({ onLoginClick }) => {
     }
   };
 
+  // PopUp logic
+  const toggleMyProfile = () => {
+    setIsMyProfileOpen((prev) => !prev);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("shapeshiftkey");
     setIsLoggedIn(!!token);
@@ -66,55 +64,9 @@ const Navbar = ({ onLoginClick }) => {
     navigate("/cart");
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        myProfilePopRef.current &&
-        !myProfilePopRef.current.contains(event.target) &&
-        isMyProfilePopOpen
-      ) {
-        setIsMyProfilePopOpen(false);
-      }
-      if (
-        cartPopRef.current &&
-        !cartPopRef.current.contains(event.target) &&
-        isCartPopOpen
-      ) {
-        setIsCartPopOpen(false);
-      }
-      // Add similar conditions for other popover menus
-    };
-
-    window.addEventListener("click", handleClickOutside);
-    return () => {
-      window.removeEventListener("click", handleClickOutside);
-    };
-  }, [isMyProfilePopOpen, isCartPopOpen]);
-  // Add dependencies for other popover menus if needed
-
-  const togglePopover = (popoverType) => {
-    switch (popoverType) {
-      case "myProfilePop":
-        setIsMyProfilePopOpen(!isMyProfilePopOpen);
-        break;
-      case "cartPop":
-        setIsCartPopOpen(!isCartPopOpen);
-        break;
-      case "languagePop":
-        setIsLanguagePopOpen(!isLanguagePopOpen);
-        break;
-      case "shopPop":
-        setIsShopPopOpen(!isShopPopOpen);
-        break;
-      case "notificationPop":
-        setIsNotificationPopOpen(!isNotificationPopOpen);
-        break;
-      case "profileInfoPop":
-        setIsProfileInfoPopOpen(!isProfileInfoPopOpen);
-        break;
-      default:
-        break;
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("shapeshiftkey");
+    setIsLoggedIn(false);
   };
 
   return (
@@ -148,23 +100,30 @@ const Navbar = ({ onLoginClick }) => {
             <>
               <div className="navbar-conditional-icon">
                 <div className="navbar-login-btn nav-sell-btn">
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
+                <div className="navbar-login-btn nav-sell-btn">
                   <button onClick={onSellClick}>Sell</button>
                 </div>
                 <li>
-                  <button onClick={() => togglePopover("notificationPop")}>
+                  <a href="/">
                     <FontAwesomeIcon icon={faBell} />
-                  </button>
+                  </a>
                 </li>
                 <li>
-                  <button onClick={() => togglePopover("myProfilePop")}>
+                  <button onClick={toggleMyProfile}>
                     <FontAwesomeIcon icon={faUser} />
                   </button>
+                  <MyProfile
+                    isOpen={isMyProfileOpen}
+                    onClose={toggleMyProfile}
+                  />
                 </li>
                 {haveShop ? (
                   <li>
-                    <button onClick={() => togglePopover("shopPop")}>
+                    <a href="/user-shop">
                       <FontAwesomeIcon icon={faShop} />
-                    </button>
+                    </a>
                   </li>
                 ) : (
                   ""
@@ -173,29 +132,15 @@ const Navbar = ({ onLoginClick }) => {
             </>
           )}
 
-          <button onClick={() => togglePopover("cartPop")}>
+          <li className="shoppingbag" onClick={handleShoppingBagClick}>
             <FontAwesomeIcon icon={faShoppingBag} />
-          </button>
+          </li>
           <li>
-            <button onClick={() => togglePopover("languagePop")}>
+            <a href="/">
               <FontAwesomeIcon icon={faEarth} />
-            </button>
+            </a>
           </li>
         </div>
-        <div ref={myProfilePopRef}>
-          {" "}
-          <PopoverMenu menuType="myProfilePop" isOpen={isMyProfilePopOpen} />
-        </div>
-        <div ref={cartPopRef}>
-          {" "}
-          <PopoverMenu menuType="cartPop" isOpen={isCartPopOpen} />
-        </div>
-        <PopoverMenu menuType="languagePop" isOpen={isLanguagePopOpen} />
-        <PopoverMenu menuType="shopPop" isOpen={isShopPopOpen} />
-        <PopoverMenu
-          menuType="notificationPop"
-          isOpen={isNotificationPopOpen}
-        />
       </div>
     </>
   );
