@@ -2,6 +2,7 @@
 
 // Importing necessary dependencies
 import { ProductImages } from "../models/schemaFiles/imagesSchema.js"; // Import the ProductImages model for interacting with image data
+
 import Product from "../models/schemaFiles/productSchema.js"; // Import the Product model for interacting with product data
 import { v2 as cloudinary } from "cloudinary"; // Import the Cloudinary library for image upload
 
@@ -26,6 +27,7 @@ const ImageController = {
       res.status(500).json({ message: "Image not found" });
     }
   },
+
   // Method to upload a new Product image
   uploadProductImage: async (req, res) => {
     Product;

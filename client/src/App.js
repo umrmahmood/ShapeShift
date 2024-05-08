@@ -8,13 +8,14 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import ItemPage from "./CardComponent/ItemPage";
 import ConfigComponent from "./components/uploadDesign/ConfigComponent.jsx";
-import Printer from "./components/Printer";
+// import Printer from "./components/Printer";
 import OpenShop from "./components/openShop/OpenShop.jsx";
 import Login from "../src/components/loginandSignup/Login.jsx";
 import ProductForm from "./components/productReg/ProductForm";
 import UserShop from "./CardComponent/UserShop";
 import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
+import ShopListing from "./components/ShopPage/ShopListing.jsx";
 
 
 function ScrollToTop() {
@@ -63,7 +64,7 @@ function App() {
 
 			<Route path="/user-shop" element={<UserShop/>} />
 			
-			<Route path="/printers" element={<Printer />} />
+			<Route path="/shoplisting" element={<ShopListing />} />
 			<Route path="/openshop" element={<OpenShop/>} />
 			<Route path="/product-form" element={<ProductForm/>} />
 			

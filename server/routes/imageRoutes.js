@@ -13,6 +13,8 @@ const router = express.Router(); // Create a new router instance
 
 // Product Images Router
 router
+
+  .get("/:imageId", ImageController.getProductImageById)
   // Route for uploading images for a specific product
   .get("/:imageId", ImageController.getProductImageById)
   .post(
@@ -40,6 +42,22 @@ router
 // Profile Image Router
 router.post(
   "/upload/profile/:userId", // Define the route path with a parameter for the product ID
+  authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
+  Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
+  UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
+);
+
+// Shop Image
+router.post(
+  "/upload/shop/:shopId", // Define the route path with a parameter for the product ID
+  authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
+  Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
+  UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
+);
+
+// Shop Banner
+router.post(
+  "/upload/shop/:shopId", // Define the route path with a parameter for the product ID
   authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
   Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
   UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
