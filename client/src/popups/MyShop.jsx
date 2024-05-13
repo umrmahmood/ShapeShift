@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 // CSS import
 import "./PopMenu.css"; // Import the CSS file for styling
@@ -18,10 +18,9 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-const MyProfile = ({ isOpen, onClose }) => {
+const MyShop = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
-  const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [shop, setShop] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,12 +30,12 @@ const MyProfile = ({ isOpen, onClose }) => {
       const decodedToken = jwtDecode(tokenFromLocalStorage);
 
       // Access the payload to see if the member has a shop
-      const userId = decodedToken.id;
+      const shopId = decodedToken.shopId;
 
       axios
-        .get(`/api/users/profile/${userId}`)
+        .get(`/api/shop/${shopId}`)
         .then((response) => {
-          setUser(response.data.user);
+          setShop(response.data.shop);
         })
         .catch((error) => {
           console.error("Error fetching user information:", error);
@@ -45,12 +44,6 @@ const MyProfile = ({ isOpen, onClose }) => {
       console.log("Token not found in localStorage");
     }
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("shapeshiftkey");
-    setIsLoggedIn(false);
-    navigate("/");
-  };
 
   // Close the popup when clicking outside of it
   useEffect(() => {
@@ -75,27 +68,26 @@ const MyProfile = ({ isOpen, onClose }) => {
           &times;
         </button>
         {/* Content for the profile popup */}
-        <h2>{user.email}</h2>
         <div className="popup-avatar-container">
           <img
             className="popup-avatar"
-            src={user.profile.avatarUrl}
+            src={shop.avatarUrl}
             alt="users avatar"
           />
         </div>
-        <h2>Welcome, {user.profile.username}!</h2>
+        <h2>{shop.name}</h2>
         <ul>
           <li>
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
             </div>
-            <div className="text-wrapper">View Profile</div>
+            <div className="text-wrapper">View Shop</div>
           </li>
           <li>
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faStar} />
             </div>
-            <div className="text-wrapper">Favorites</div>
+            <div className="text-wrapper">Listings</div>
           </li>
           <li>
             <div className="icon-wrapper">
@@ -113,14 +105,8 @@ const MyProfile = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faGear} />
             </div>
-            <div className="text-wrapper">Settings</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faRightFromBracket} />
-            </div>
-            <div className="text-wrapper">
-              <button onClick={handleLogout}>Sign Out</button>
+            <div className="text-wrapper" onClick={navigate("/home")}>
+              Settings
             </div>
           </li>
         </ul>
@@ -129,9 +115,9 @@ const MyProfile = ({ isOpen, onClose }) => {
   );
 };
 
-MyProfile.propTypes = {
+MyShop.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default MyProfile;
+export default MyShop;

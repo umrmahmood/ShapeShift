@@ -1,30 +1,73 @@
+/* PopMenu.css */
+
 .custom-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Ensure it appears on top of other content */
-  }
-  
-  .custom-popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .custom-popup-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimming effect */
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+.custom-popup-content {
+  position: absolute;
+  top: 100px; /* Adjust this value according to your navbar height */
+  right: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure the popup is above other elements */
+}
+
+
+
+.custom-popup-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.custom-popup-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-popup-content li {
+  display: flex; /* Use flexbox to make icon and text inline */
+  align-items: center; /* Align items vertically */
+  margin-bottom: 16px;
+}
+
+.popup-avatar-container {
+  display: flex;
+  justify-content: center; /* Horizontally center the image */
+  align-items: center; /* Vertically center the image */
+  width: 100%; /* Ensure the container takes full width */
+  height: 100%; /* Ensure the container takes full height */
+}
+
+.popup-avatar {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center icon horizontally */
+  width: 30px; /* Adjust the width of the icon container */
+}
+
+.text-wrapper {
+  padding-left: 10px;
+  margin-left: 10px; /* Add some space between the icon and text */
+}

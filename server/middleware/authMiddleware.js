@@ -20,7 +20,7 @@ const authMiddleware = {
       // Extract token from the request header
 
       const token = req.header("Authorization").split(" ")[1];
-      
+
       console.log("Received token:", token);
 
       // Check if token is missing

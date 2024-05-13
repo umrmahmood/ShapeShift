@@ -11,11 +11,12 @@ import authMiddleware from "../middleware/authMiddleware.js"; // Importing authM
 const router = express.Router(); // Creating a router instance using Express
 
 // Protected routes requiring authentication
-router.use(authMiddleware.authenticated); // Applying the authMiddleware to protect routes from unauthorized access
+// router.use(authMiddleware.authenticated); // Applying the authMiddleware to protect routes from unauthorized access
 
 // Routes for managing shop information
-router.post("/register", ShopController.register)
-.get("/:shopId", ShopController.getShopInfo) // GET route to fetch shop information
+router
+  .post("/register", authMiddleware.authenticated, ShopController.register)
+  .get("/:shopId", ShopController.getShopInfo); // GET route to fetch shop information
 //   .post("/register", ShopController.register) // POST route to create a new shop
 //   .put("/:shopId", ShopController.updateShop); // PUT route to update shop information
 
