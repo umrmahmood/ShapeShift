@@ -3,8 +3,14 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-// Component-specific imports
+// Nav Icon Popup's
 import MyProfile from "../popups/MyProfile.jsx";
+import MyShop from "../popups/MyShop.jsx";
+import Language from "../popups/Language.jsx";
+import ShoppingCart from "../popups/CartPop.jsx";
+import Notifications from "../popups/Notifications.jsx";
+
+// Component-specific imports
 import logo from "../assets/SSlogo.png";
 
 // Font Awesome icon imports
@@ -22,7 +28,14 @@ import "../styling/navbar.css";
 const Navbar = ({ onLoginClick }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Popup states
   const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
+  const [isMyShopOpen, setIsMyShopOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
@@ -49,6 +62,18 @@ const Navbar = ({ onLoginClick }) => {
   // PopUp logic
   const toggleMyProfile = () => {
     setIsMyProfileOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+  };
+  const toggleMyShop = () => {
+    setIsMyShopOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+  };
+  const toggleLanguage = () => {
+    setIsLanguageOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+  };
+  const toggleShoppingCart = () => {
+    setIsShoppingCartOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+  };
+  const toggleNotifications = () => {
+    setIsNotificationsOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
   };
 
   useEffect(() => {
@@ -100,15 +125,19 @@ const Navbar = ({ onLoginClick }) => {
             <>
               <div className="navbar-conditional-icon">
                 <div className="navbar-login-btn nav-sell-btn">
-                  <button onClick={handleLogout}>Logout</button>
-                </div>
-                <div className="navbar-login-btn nav-sell-btn">
                   <button onClick={onSellClick}>Sell</button>
                 </div>
                 <li>
-                  <a href="/">
+                  <div
+                    className="notifications-icon"
+                    onClick={toggleNotifications}
+                  >
                     <FontAwesomeIcon icon={faBell} />
-                  </a>
+                  </div>
+                  <Notifications
+                    isOpen={isNotificationsOpen}
+                    onClose={toggleNotifications}
+                  />
                 </li>
                 <li>
                   <div className="profile-icon" onClick={toggleMyProfile}>
@@ -122,9 +151,10 @@ const Navbar = ({ onLoginClick }) => {
 
                 {haveShop ? (
                   <li>
-                    <a href="/user-shop">
+                    <div className="shop-icon" onClick={toggleMyShop}>
                       <FontAwesomeIcon icon={faShop} />
-                    </a>
+                    </div>
+                    <MyShop isOpen={isMyShopOpen} onClose={toggleMyShop} />
                   </li>
                 ) : (
                   ""
@@ -133,13 +163,20 @@ const Navbar = ({ onLoginClick }) => {
             </>
           )}
 
-          <li className="shoppingbag" onClick={handleShoppingBagClick}>
-            <FontAwesomeIcon icon={faShoppingBag} />
+          <li>
+            <div className="shopping-icon" onClick={toggleShoppingCart}>
+              <FontAwesomeIcon icon={faShoppingBag} />
+            </div>
+            <ShoppingCart
+              isOpen={isShoppingCartOpen}
+              onClose={toggleShoppingCart}
+            />
           </li>
           <li>
-            <a href="/">
+            <div className="language-icon" onClick={toggleLanguage}>
               <FontAwesomeIcon icon={faEarth} />
-            </a>
+            </div>
+            <Language isOpen={isLanguageOpen} onClose={toggleLanguage} />
           </li>
         </div>
       </div>
