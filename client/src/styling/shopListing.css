@@ -1,9 +1,7 @@
-.shoplisting-container {
-    margin: 10em 16em;
-}
+
 
 .shoplisting-container h2{
-    font-size: 3.5em;
+    font-size: 2.5em;
     border-bottom: 3px solid rgb(224, 223, 226);
 }
 
@@ -42,7 +40,6 @@
 .shoplisting-btns button {
 	padding: 4px 12px;
 	border: 1px solid rgb(224, 223, 226);
-	
 	color: black;
 	cursor: pointer;
 	font-family: "proxima nova";
@@ -52,4 +49,22 @@
 
 .shoplisting-btns button:hover {
 	background: rgb(224, 223, 226);
+}
+
+
+
+.shoplisting-card-container{
+	display: flex;
+	gap: 5em;
+	margin-top: 4em;
+}
+
+.shoplisting-card{
+	width: 300px;
+	border: 1px solid gray;
+	padding: 1em;
+}
+
+.shoplisting-card img {
+	width: 250px;
 }

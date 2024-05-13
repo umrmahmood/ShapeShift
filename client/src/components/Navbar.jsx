@@ -48,7 +48,7 @@ const Navbar = ({ onLoginClick }) => {
     // Access the payload to see if the member has a shop
     haveShop = decodedToken.membership.haveShop;
   } else {
-    console.log("Token not found in localStorage");
+    // console.log("Token not found in localStorage");
   }
 
   const onSellClick = () => {

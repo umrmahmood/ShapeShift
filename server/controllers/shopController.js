@@ -88,13 +88,14 @@ const ShopController = {
   getShopInfo: async (req, res) => {
     try {
       const shopId = req.params.shopId; // Get the shop ID from request parameters
-
+  
       // Find the shop by its ID
       const shop = await Shop.findById(shopId);
-
+  
       if (!shop) {
         return res.status(404).json({ message: "Shop not found" });
       }
+  
 
       // Return the shop information
       res.status(200).json({ shop });
