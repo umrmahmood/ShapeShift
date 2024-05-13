@@ -87,6 +87,25 @@ const ShopController = {
         .json({ message: "An error occurred while registering this Shop" });
     }
   },
+  getShopInfo: async (req, res) => {
+    try {
+      const shopId = req.params.shopId; // Get the shop ID from request parameters
+  
+      // Find the shop by its ID
+      const shop = await Shop.findById(shopId);
+  
+      if (!shop) {
+        return res.status(404).json({ message: "Shop not found" });
+      }
+  
+      // Return the shop information
+      res.status(200).json({ shop });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+  
   // Update Shop
   // Get Shop by ID
   // Get Shops by Owner
@@ -115,7 +134,7 @@ const ShopController = {
       // Check if the shop already has a profile image
       if (shop.avatar) {
         // Find the existing profile image in the database
-        const existingShopImage = await ShopImages.findById(shop.avatar);
+        const existingShopImage = await ShopImage.findById(shop.avatar);
 
         if (existingShopImage) {
           // Delete the existing profile image from Cloudinary

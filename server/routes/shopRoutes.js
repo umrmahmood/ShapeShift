@@ -14,8 +14,8 @@ const router = express.Router(); // Creating a router instance using Express
 router.use(authMiddleware.authenticated); // Applying the authMiddleware to protect routes from unauthorized access
 
 // Routes for managing shop information
-router.post("/register", ShopController.register);
-//   .get("/:shopId", ShopController.getShopInfo) // GET route to fetch shop information
+router.post("/register", ShopController.register)
+.get("/:shopId", ShopController.getShopInfo) // GET route to fetch shop information
 //   .post("/register", ShopController.register) // POST route to create a new shop
 //   .put("/:shopId", ShopController.updateShop); // PUT route to update shop information
 
