@@ -63,6 +63,7 @@ const UserController = {
         id: user._id,
         role: user.membership.role,
         membership: user.membership,
+        shopId: user.membership.shopId,
       };
       console.log("payload:", payload);
 
@@ -103,6 +104,7 @@ const UserController = {
         id: user._id,
         role: user.membership.role,
         membership: user.membership,
+        shopId: user.membership.shopId,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "3h",

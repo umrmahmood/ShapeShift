@@ -47,6 +47,7 @@ const UserSchema = new Schema(
         enum: ["he/him/his", "she/her/hers", "they/them/theirs"], // Enumeration for pronouns.
       },
       avatar: String, // Data type for avatar field.
+      avatarUrl: String,
       socials: {
         // Social media details.
         facebook: String,

@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 // CSS import
@@ -18,11 +17,9 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-const MyProfile = ({ isOpen, onClose }) => {
+const Notifications = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
   const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
@@ -32,7 +29,6 @@ const MyProfile = ({ isOpen, onClose }) => {
 
       // Access the payload to see if the member has a shop
       const userId = decodedToken.id;
-
       axios
         .get(`/api/users/profile/${userId}`)
         .then((response) => {
@@ -45,12 +41,6 @@ const MyProfile = ({ isOpen, onClose }) => {
       console.log("Token not found in localStorage");
     }
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("shapeshiftkey");
-    setIsLoggedIn(false);
-    navigate("/");
-  };
 
   // Close the popup when clicking outside of it
   useEffect(() => {
@@ -119,9 +109,7 @@ const MyProfile = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
-            <div className="text-wrapper">
-              <button onClick={handleLogout}>Sign Out</button>
-            </div>
+            <div className="text-wrapper">Sign Out</div>
           </li>
         </ul>
       </div>
@@ -129,9 +117,9 @@ const MyProfile = ({ isOpen, onClose }) => {
   );
 };
 
-MyProfile.propTypes = {
+Notifications.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default MyProfile;
+export default Notifications;
