@@ -75,15 +75,21 @@ const MyProfile = ({ isOpen, onClose }) => {
           &times;
         </button>
         {/* Content for the profile popup */}
-        <h2>{user.email}</h2>
-        <div className="popup-avatar-container">
-          <img
-            className="popup-avatar"
-            src={user.profile.avatarUrl}
-            alt="users avatar"
-          />
-        </div>
-        <h2>Welcome, {user.profile.username}!</h2>
+
+        {user && (
+          <>
+            <h2>{user.email}</h2>
+            <div className="popup-avatar-container">
+              <img
+                className="popup-avatar"
+                src={user.profile.avatarUrl}
+                alt="users avatar"
+              />
+            </div>
+            <h2>Welcome, {user.profile.username}!</h2>
+          </>
+        )}
+
         <ul>
           <li>
             <div className="icon-wrapper">
