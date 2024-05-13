@@ -9,7 +9,7 @@ import UserController from "../controllers/userController.js";
 import ShopController from "../controllers/shopController.js"; // Importing the ShopController to handle shop-related logic
 import authMiddleware from "../middleware/authMiddleware.js"; // Import the authentication middleware
 import Parser from "../config/multerConfig.js"; // Import the Multer configuration for handling file uploads
-import ShopController from "../controllers/shopController.js";
+
 
 const router = express.Router(); // Create a new router instance
 
@@ -53,7 +53,7 @@ router.post(
 router.post(
   "/upload/shop/:shopId", // Define the route path with a parameter for the product ID
   authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
-  Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
+  Parser.single("image"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
   ShopController.uploadShopImage // Call the uploadImage method from the ImageController to handle the request
 );
 

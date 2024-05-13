@@ -214,7 +214,6 @@ const ShopController = {
     try {
       const shopId = req.params.shopId;
       const file = req.file; // Get the uploaded file from the request
-
       if (!file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
