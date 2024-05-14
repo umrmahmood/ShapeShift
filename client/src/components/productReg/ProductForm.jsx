@@ -3,10 +3,11 @@ import "../../styling/productRegForm.css";
 import physical from "../../assets/package1.png";
 import digital from "../../assets/stl.png";
 import axios from "axios";
-import '../../styling/popupwindowshop.css'
+import "../../styling/popupwindowshop.css";
+import { useNavigate } from "react-router-dom";
 
 const ProductForm = () => {
-
+	const navigate = useNavigate();
 	const [product, setProduct] = useState({
 		name: "",
 		description: "",
@@ -21,7 +22,7 @@ const ProductForm = () => {
 		tags: [],
 	});
 
-    const [showPopup, setShowPopup] = useState(false); 
+	const [showPopup, setShowPopup] = useState(false);
 
 	const onClickHandler = async (event) => {
 		event.preventDefault();
@@ -65,7 +66,7 @@ const ProductForm = () => {
 				material: "",
 				tags: [],
 			});
-            setShowPopup(true); 
+			setShowPopup(true);
 		} catch (err) {
 			console.log(err);
 		}
@@ -109,9 +110,13 @@ const ProductForm = () => {
 		setProduct({ ...product, tags: updatedTags });
 	};
 
-    const handlePopupClose = () => {
-        setShowPopup(false); 
-      };
+	const handlePopupClose = () => {
+		setShowPopup(false);
+	};
+
+	const handleClick = () => {
+		navigate("/user-shop");
+	};
 	return (
 		<>
 			<div className="product-reg-form-outter">
@@ -199,7 +204,9 @@ const ProductForm = () => {
 								value={product.material}
 								onChange={handleChange}
 							>
-                                <option value="" disabled hidden>Please Select</option>
+								<option value="" disabled hidden>
+									Please Select
+								</option>
 								{[
 									"PLA",
 									"ABS",
@@ -339,21 +346,19 @@ const ProductForm = () => {
 				</div>
 			</div>
 
-            {showPopup && (
-        <div className="reg-popup">
-          <div className="reg-popup-content">
-            <h2>Item successfully listed!</h2>
-			<div className="reg-regshop-popup-buttons">
-			<button onClick={handlePopupClose}>Add More Items</button>
-			<button>Go to My Shop</button>
-			</div>
-            
-          </div>
-        </div>
-      )}
+			{showPopup && (
+				<div className="reg-popup">
+					<div className="reg-popup-content">
+						<h2>Item successfully listed!</h2>
+						<div className="reg-regshop-popup-buttons">
+							<button onClick={handlePopupClose}>Add More Items</button>
+							<button onClick={handleClick}>Go to My Shop</button>
+						</div>
+					</div>
+				</div>
+			)}
 		</>
 	);
-
 };
 
-export default ProductForm
+export default ProductForm;
