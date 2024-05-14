@@ -63,3 +63,10 @@
 	text-decoration: none;
 	transition-duration: 0.1s;
 }
+
+.userShop-uploaded{
+	color: rgb(166, 0, 2);
+	font-size: 14px;
+	text-align: center;
+	margin-top: 10px;
+}

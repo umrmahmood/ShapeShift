@@ -93,6 +93,8 @@ const UserShopSettings = ({ shopId, setShopAvatar, setShopBanner }) => {
 							accept="image/*"
 							onChange={handleAvatarChange}
 						/>
+						{avatar && <div className="userShop-uploaded"> File uploaded</div>}
+						
 					</div>
 					<div className="shop-banner">
 						<label htmlFor="banner">Change Banner</label>
@@ -102,6 +104,7 @@ const UserShopSettings = ({ shopId, setShopAvatar, setShopBanner }) => {
 							accept="image/*"
 							onChange={handleBannerChange}
 						/>
+						{banner && <div className="userShop-uploaded">File uploaded</div>}
 					</div>
 				</div>
 				<div className="shop-images-submit">

@@ -10,6 +10,7 @@ import ShopController from "../controllers/shopController.js"; // Importing the 
 import authMiddleware from "../middleware/authMiddleware.js"; // Import the authentication middleware
 import Parser from "../config/multerConfig.js"; // Import the Multer configuration for handling file uploads
 
+
 const router = express.Router(); // Create a new router instance
 
 // Product Images Router
