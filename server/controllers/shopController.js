@@ -88,14 +88,13 @@ const ShopController = {
   getShopInfo: async (req, res) => {
     try {
       const shopId = req.params.shopId; // Get the shop ID from request parameters
-  
+
       // Find the shop by its ID
       const shop = await Shop.findById(shopId);
-  
+
       if (!shop) {
         return res.status(404).json({ message: "Shop not found" });
       }
-  
 
       // Return the shop information
       res.status(200).json({ shop });
@@ -145,7 +144,8 @@ const ShopController = {
             tags: file.originalname,
             unique_filename: false,
             transformation: [
-              { width: 1000, crop: "scale" },
+              { gravity: "auto", height: 1000, width: 1000, crop: "fill" },
+              { effect: "sharpen" },
               { quality: "auto" },
               { fetch_format: "auto" },
             ],
@@ -166,40 +166,12 @@ const ShopController = {
 
           // Save the updated profile image
           await existingShopImage.save();
+          // Update the user's profile avatar
+          shop.avatarUrl = existingShopImage.url;
+
+          // Save the updated user
+          await shop.save();
         }
-      } else {
-        // If the user doesn't have a profile image, create a new one
-        const result = await cloudinary.uploader.upload(file.path, {
-          use_filename: true,
-          tags: file.originalname,
-          unique_filename: false,
-          transformation: [
-            { width: 1000, crop: "scale" },
-            { quality: "auto" },
-            { fetch_format: "auto" },
-          ],
-        });
-
-        // Create a new profile image object and associate it with the user
-        const newShopImage = await ShopImage.create({
-          public_id: result.public_id,
-          version_id: result.version_id,
-          signature: result.signature,
-          width: result.width,
-          height: result.height,
-          format: result.format,
-          resource_type: result.resource_type,
-          tags: result.tags,
-          url: result.url,
-          shopId: shopId, // Associate the image with the user
-        });
-
-        // Update the user's profile avatar
-        shop.avatar = newShopImage._id;
-        shop.avatarUrl = newShopImage.url;
-
-        // Save the updated user
-        await shop.save();
       }
 
       return res.status(201).json({ message: "Image uploaded successfully" });
@@ -220,7 +192,7 @@ const ShopController = {
 
       // Fetch the user document by its ID
       const shop = await Shop.findById(shopId);
-
+      console.log("before:", shop.bannerUrl);
       if (!shop) {
         return res.status(404).json({ message: "Shop not found" });
       }
@@ -240,7 +212,8 @@ const ShopController = {
             tags: file.originalname,
             unique_filename: false,
             transformation: [
-              { width: 1900, height: 300, crop: "scale" },
+              { gravity: "auto", height: 300, width: 1900, crop: "auto_pad" },
+              { effect: "sharpen" },
               { quality: "auto" },
               { fetch_format: "auto" },
             ],
@@ -261,42 +234,15 @@ const ShopController = {
 
           // Save the updated profile Banner
           await existingShopBanner.save();
+
+          // Update the shop's banner and bannerUrl fields
+          shop.bannerUrl = existingShopBanner.url;
+
+          // Save the updated shop
+          await shop.save();
         }
-      } else {
-        // If the user doesn't have a profile Banner, create a new one
-        const result = await cloudinary.uploader.upload(file.path, {
-          use_filename: true,
-          tags: file.originalname,
-          unique_filename: false,
-          transformation: [
-            { width: 1000, crop: "scale" },
-            { quality: "auto" },
-            { fetch_format: "auto" },
-          ],
-        });
-
-        // Create a new profile Banner object and associate it with the user
-        const newShopBanner = await ShopBanner.create({
-          public_id: result.public_id,
-          version_id: result.version_id,
-          signature: result.signature,
-          width: result.width,
-          height: result.height,
-          format: result.format,
-          resource_type: result.resource_type,
-          tags: result.tags,
-          url: result.url,
-          shopId: shopId, // Associate the Banner with the user
-        });
-
-        // Update the user's profile avatar
-        shop.banner = newShopBanner._id;
-        shop.bannerUrl = newShopBanner.url;
-
-        // Save the updated user
-        await shop.save();
       }
-
+      console.log("after:", shop.bannerUrl);
       return res.status(201).json({ message: "Banner uploaded successfully" });
     } catch (error) {
       console.error(error);

@@ -210,7 +210,8 @@ const UserController = {
             tags: file.originalname,
             unique_filename: false,
             transformation: [
-              { width: 1000, crop: "scale" },
+              { gravity: "auto", height: 1000, width: 1000, crop: "fill" },
+              { effect: "sharpen" },
               { quality: "auto" },
               { fetch_format: "auto" },
             ],
@@ -231,39 +232,12 @@ const UserController = {
 
           // Save the updated profile image
           await existingProfileImage.save();
+          // Update the user's profile avatar
+          user.profile.avatarUrl = existingProfileImage.url;
+
+          // Save the updated user
+          await user.save();
         }
-      } else {
-        // If the user doesn't have a profile image, create a new one
-        const result = await cloudinary.uploader.upload(file.path, {
-          use_filename: true,
-          tags: file.originalname,
-          unique_filename: false,
-          transformation: [
-            { width: 1000, crop: "scale" },
-            { quality: "auto" },
-            { fetch_format: "auto" },
-          ],
-        });
-
-        // Create a new profile image object and associate it with the user
-        const newProfileImage = await ProfileImage.create({
-          public_id: result.public_id,
-          version_id: result.version_id,
-          signature: result.signature,
-          width: result.width,
-          height: result.height,
-          format: result.format,
-          resource_type: result.resource_type,
-          tags: result.tags,
-          url: result.url,
-          userId: userId, // Associate the image with the user
-        });
-
-        // Update the user's profile avatar
-        user.profile.avatar = newProfileImage._id;
-
-        // Save the updated user
-        await user.save();
       }
 
       return res.status(201).json({ message: "Image uploaded successfully" });
@@ -272,6 +246,7 @@ const UserController = {
       return res.status(500).json({ message: "Internal server error" });
     }
   },
+
   getProfileImage: async (req, res) => {},
 };
 

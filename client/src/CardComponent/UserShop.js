@@ -7,7 +7,7 @@ import "./UserShop.css";
 import usericon from "../assets/usericon.png";
 import UserShopSettings from "./UserShopSettings";
 import ShopListing from "../components/ShopPage/ShopListing";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UserShop = () => {
   const [name, setName] = useState("");
@@ -58,6 +58,8 @@ const UserShop = () => {
             setLocation(response.data.shop.location);
             setOwnerId(response.data.shop.owner);
             setShopId(shopIdFromToken);
+            setShopBanner(response.data.shop.bannerUrl);
+            setShopAvatar(response.data.shop.avatarUrl);
           } catch (error) {
             console.error("Error fetching shop data:", error);
           }
@@ -67,34 +69,6 @@ const UserShop = () => {
 
     fetchData();
   }, []);
-
-  //setting Avatar and Banner
-  useEffect(() => {
-    const fetchData = async (url) => {
-      const token = localStorage.getItem("shapeshiftkey");
-      if (token) {
-        try {
-          const response = await axios.get(url, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          console.log("Data:", response);
-          if (url.includes("avatar")) {
-            setShopAvatar(response.data.url);
-          }
-          if (url.includes("banner")) {
-            setShopBanner(response.data.url);
-          }
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      }
-    };
-
-    fetchData(`http://localhost:5001/api/images/shop/avatar/${shopId}`);
-    fetchData(`http://localhost:5001/api/images/shop/banner/${shopId}`);
-  }, [shopId]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,11 +99,6 @@ const UserShop = () => {
   }, [ownerId]);
 
   const handleSectionClick = (section) => {
-    // React.useMemo(() => new URLSearchParams(search), [search]).set(
-    //   "active",
-    //   section
-    // );
-
     setSelectedSection(section);
     navigate("/user-shop?active=" + section);
   };
@@ -180,7 +149,7 @@ const UserShop = () => {
                 Description
               </li>
               <li onClick={() => handleSectionClick("Listings")}>Listings</li>
-              <li onClick={() => handleSectionClick("Orders & Shipping")}>
+              <li onClick={() => handleSectionClick("Orders")}>
                 Orders & Shipping
               </li>
               <li onClick={() => handleSectionClick("Settings")}>Settings</li>
@@ -191,7 +160,7 @@ const UserShop = () => {
               <UserShopSettings shopId={shopId} />
             )}
             {selectedSection === "Description" && <p>{description}</p>}
-            {selectedSection === "Orders & Shipping" && (
+            {selectedSection === "Orders" && (
               <p>
                 Order will be delivered within 24hrs after the confirmation.
               </p>

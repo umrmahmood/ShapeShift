@@ -4,6 +4,9 @@ import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 import "../../styling/loginandSignup.css";
 import { useState } from "react";
+
+// Firebase Sign-in
+import firebaseApp from "../Firebase.jsx";
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -11,35 +14,12 @@ import {
   getAuth,
 } from "firebase/auth"; // Import Firebase authentication functions
 
-// firebase
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
 const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongCredential, setWrongCredential] = useState("");
   const navigate = useNavigate();
-  const auth = getAuth(); // Get Firebase authentication instance
+  const auth = getAuth(firebaseApp); // Get Firebase authentication instance
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -95,17 +75,15 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
   };
 
-  // Function to handle Facebook login
+  // Function to handle Github login
   const handleGithubLogin = async () => {
     try {
       const provider = new GithubAuthProvider(); // Create FacebookAuthProvider instance
       const result = await signInWithPopup(auth, provider); // Initiate Facebook sign-in popup
       const user = result.user;
-      console.log(user);
 
       // Data for the backend
       const userData = { email: user.email, githubUserId: user.uid }; // Assuming you have a field named 'facebookUserId' in your backend
-      console.log(userData);
       const response = await axios.post(
         "http://localhost:5001/api/users/firelogin",
         userData // Send userData directly without wrapping it

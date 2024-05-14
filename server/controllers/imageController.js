@@ -2,7 +2,7 @@
 
 // Importing necessary dependencies
 import { ProductImages } from "../models/schemaFiles/imagesSchema.js"; // Import the ProductImages model for interacting with image data
-import { ShopImage, ShopBanner} from "../models/schemaFiles/imagesSchema.js";
+import { ShopImage, ShopBanner } from "../models/schemaFiles/imagesSchema.js";
 import Product from "../models/schemaFiles/productSchema.js"; // Import the Product model for interacting with product data
 import { v2 as cloudinary } from "cloudinary"; // Import the Cloudinary library for image upload
 
@@ -31,39 +31,42 @@ const ImageController = {
   //get shop Avatar
   getShopAvatar: async (req, res) => {
     const shopId = req.params.shopId;
+
     try {
-        // Find shop avatar by shopId
-        const image = await ShopImage.findOne({ shopId: shopId });
-     
-        if (!image) {
-            return res.status(404).json({ message: "Image not found" });
-        }
-        res.status(200).json(image);
+      // Find shop avatar by shopId
+      const image = await ShopImage.findOne({ shopId: shopId });
+      console.log(image);
+
+      if (!image) {
+        return res.status(404).json({ message: "Image not found" });
+      }
+      res.status(200).json(image);
+      
     } catch (error) {
-        // Handle errors
-        console.error(error);
-        res.status(500).json({ message: "Internal server error" });
+      // Handle errors
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
     }
-},
+  },
+
 
 //get shop banner
 getShopBanner: async (req, res) => {
   const shopId = req.params.shopId;
 
-  try {
+    try {
       // Find shop avatar by shopId
       const image = await ShopBanner.findOne({ shopId: shopId });
-   
       if (!image) {
-          return res.status(404).json({ message: "Image not found" });
+        return res.status(404).json({ message: "Image not found" });
       }
       res.status(200).json(image);
-  } catch (error) {
+    } catch (error) {
       // Handle errors
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
-  }
-},
+    }
+  },
 
   // Method to upload a new Product image
   uploadProductImage: async (req, res) => {

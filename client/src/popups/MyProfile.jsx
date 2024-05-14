@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 // CSS import
@@ -125,9 +125,19 @@ const MyProfile = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
-            <div className="text-wrapper">
+            {/* <div className="text-wrapper">
               <button onClick={handleLogout}>Sign Out</button>
-            </div>
+            </div> */}
+            <Link
+              className="text-wrapper"
+              to="/"
+              onClick={(e) => {
+                handleLogout();
+                onClose();
+              }}
+            >
+              Sign Out
+            </Link>
           </li>
         </ul>
       </div>
