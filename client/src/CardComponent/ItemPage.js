@@ -3,6 +3,7 @@ import placeholder from "./placeholder.jpg";
 import "./Item.css";
 import axios from "axios";
 import { useParams} from 'react-router-dom'
+
 const ItemPage = ({  }) => {
   const [mainImage, setMainImage] = useState(null);
   const [secondaryImage, setSecondaryImage] = useState([]);
@@ -58,15 +59,29 @@ const ItemPage = ({  }) => {
         setProduct(response.data);
         if (response.data && response.data.images && response.data.images.length > 0) {
           setMainImage(response.data.images[0]);
-          setImageUrl(response.data.images[0]);
-          setSecondaryImage(response.data.images.slice(1)); // Set secondary images here
+          const secondaryImages = response.data.images.slice(1);
+          const secondaryImageUrls = await Promise.all(secondaryImages.map(async (imageUrl) => {
+            try {
+              const response = await fetch(`/api/images/${imageUrl}`);
+              if (response.ok) {
+                const data = await response.json();
+                return data.url;
+              } else {
+                throw new Error("Failed to fetch image");
+              }
+            } catch (error) {
+              console.error(error);
+              return null;
+            }
+          }));
+          setSecondaryImage(secondaryImageUrls.filter(url => url !== null)); // Filter out null values
         }
       } catch (error) {
         console.error("Error fetching product:", error);
       }
     };
     fetchData();
-}, [productId]);
+  }, [productId]);
 // useEffect(() => {
 //     if (product && product.images && product.images.length > 0) {
 //       setMainImage(product.images[0]);
