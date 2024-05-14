@@ -46,8 +46,12 @@ const UserSchema = new Schema(
         type: String, // Data type for pronouns field.
         enum: ["he/him/his", "she/her/hers", "they/them/theirs"], // Enumeration for pronouns.
       },
-      avatar: String, // Data type for avatar field.
-      avatarUrl: String,
+      avatarUrl: {
+        type: String,
+        default:
+          "https://res.cloudinary.com/dryyvdzip/image/upload/v1715686705/DefaultImage_jdjlu6.png",
+      }, // Data type for avatar field.
+      avatar: String,
       socials: {
         // Social media details.
         facebook: String,
