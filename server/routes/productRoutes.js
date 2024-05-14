@@ -14,7 +14,8 @@ const router = express.Router(); // Create a new router instance
 // Route for fetching all products and by ID
 router
   .get("/", ProductController.getAllProducts) // Define a GET request to fetch all products
-  .get("/:productId", ProductController.getProductById); // Define a GET request to fetch a specific product by ID
+  .get("/:productId", ProductController.getProductById) // Define a GET request to fetch a specific product by ID
+  .get("/listings/:sellerId", ProductController.getProductsBySellerId) //get request for All the products by a specific seller.
 
 // Routes for creating, updating, and deleting products
 router

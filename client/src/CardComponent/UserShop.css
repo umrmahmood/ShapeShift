@@ -1,65 +1,107 @@
-/* Container for the entire shop layout */
-.shop-container {
-    background-color: #f0f0f0;
-    padding: 20px;
-  }
-  
-  /* Banner image */
-  .banner-container img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  /* Shop info container */
-  .shop-info-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  /* User shop and owner shop containers */
-  .user-shop, .owner-shop {
-    background-color: #ffffff;
-    width: 150px;
-    padding: 10px;
-    border-radius: 5px;
 
-  }
+.user-shop-container {
+}
+
+.user-shop-banner-container img {
+	object-fit: cover;
+	width: 100%;
+	height: 300px;
+}
+
+/* Shop info container */
+.shop-info-container {
+	display: flex;
+	justify-content: space-between;
+	margin: 1em 10em;
+}
+
+.owner-shop {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.user-shop-image-container {
+	display: flex;
+}
+
+/* Shop image */
+.shop-image img {
+	width: 200px;
+	border-radius: 5px;
+}
+
+/* Shop details */
+.shop-details {
+	margin-left: 1em;
+}
+
+.shop-details h3 {
+	font-size: 3.5em;
+}
+
+.user-shop-location {
+	margin-right: 5px;
+}
+
+.shop-detail-owner {
+	text-align: center;
+}
+
+.shop-detail-owner p {
+	line-height: 26px;
+	font-size: 16px;
+}
+
+.shop-image-owner {
+	align-self: center;
+}
+
+.shop-image-owner img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+  border: 1px solid gray;
+}
+
+.user-shop-envelope{
+  color: gray;
+  margin-right: 5px;
+}
+
+
+
+
+/* Additional information */
+.user-shop-additional-info {
+  display: flex;
+	margin: 2em 10em;
+  flex-direction: column;
   
-  /* Shop image */
-  .shop-image img {
-    width: 100%;
-    border-radius: 5px;
+}
+
+.shop-additional-info-section{
+display: flex;
+gap: 1em;
+}
+
+.rendered-sects{
+  margin-top: 2em;
+}
+
+.user-shop-additional-info ul {
+	color: #666666;
+	list-style-type: none;
+  border-right: 2px solid lightgrey; 
+  padding-right: 1em; 
+  font-family: 'proxima-nova';
+}
+
+.user-shop-additional-info li {
+cursor: pointer;
+margin-top: 2.5em;
+}
+
+.user-shop-additional-info li:hover {
+ color: darkgrey;
   }
-  
-  /* Shop details */
-  .shop-details{
-    padding: 5px;
-    margin: 0;
-  }
-  .shop-details h2 {
-    color: #333333; 
-    margin: 5px 0;
-  }
-  
-  .shop-details p {
-    color: #666666;
-    margin: 5px 0;
-  }
-  
-  /* Additional information */
-  .additional-info {
-    margin-top: 20px;
-  }
-  
-  .additional-info h2 {
-    color: #333333;
-  }
-  
-  .additional-info ul {
-    color: #666666;
-    list-style-type: none;
-    padding: 0;
-  }
-  

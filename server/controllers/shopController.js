@@ -1,6 +1,3 @@
-// Controller file for handling user-related logic.
-
-//  Importing necessary dependencies
 import Shop from "../models/schemaFiles/shopSchema.js"; // Importing the user model
 import User from "../models/schemaFiles/userSchema.js";
 import jwt from "jsonwebtoken"; // Importing JWT for token generation and verification
@@ -87,6 +84,27 @@ const ShopController = {
         .json({ message: "An error occurred while registering this Shop" });
     }
   },
+
+  getShopInfo: async (req, res) => {
+    try {
+      const shopId = req.params.shopId; // Get the shop ID from request parameters
+  
+      // Find the shop by its ID
+      const shop = await Shop.findById(shopId);
+  
+      if (!shop) {
+        return res.status(404).json({ message: "Shop not found" });
+      }
+  
+
+      // Return the shop information
+      res.status(200).json({ shop });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
   // Update Shop
   // Get Shop by ID
   // Get Shops by Owner
@@ -115,7 +133,7 @@ const ShopController = {
       // Check if the shop already has a profile image
       if (shop.avatar) {
         // Find the existing profile image in the database
-        const existingShopImage = await ShopImages.findById(shop.avatar);
+        const existingShopImage = await ShopImage.findById(shop.avatar);
 
         if (existingShopImage) {
           // Delete the existing profile image from Cloudinary
@@ -178,6 +196,7 @@ const ShopController = {
 
         // Update the user's profile avatar
         shop.avatar = newShopImage._id;
+        shop.avatarUrl = newShopImage.url;
 
         // Save the updated user
         await shop.save();
@@ -195,7 +214,6 @@ const ShopController = {
     try {
       const shopId = req.params.shopId;
       const file = req.file; // Get the uploaded file from the request
-
       if (!file) {
         return res.status(400).json({ message: "No file uploaded" });
       }
@@ -222,7 +240,7 @@ const ShopController = {
             tags: file.originalname,
             unique_filename: false,
             transformation: [
-              { width: 1000, crop: "scale" },
+              { width: 1900, height: 300, crop: "scale" },
               { quality: "auto" },
               { fetch_format: "auto" },
             ],
@@ -273,6 +291,7 @@ const ShopController = {
 
         // Update the user's profile avatar
         shop.banner = newShopBanner._id;
+        shop.bannerUrl = newShopBanner.url;
 
         // Save the updated user
         await shop.save();

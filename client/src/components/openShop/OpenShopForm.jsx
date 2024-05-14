@@ -16,6 +16,8 @@ const OpenShopForm = () => {
 	const [userHasShop, setUserHasShop] = useState(false);
 	const [showPopupAlready, setShowPopupAlready] = useState(true);
 
+	const handleGoToShop = () => {};
+
 	useEffect(() => {
 		// Decode token and check if user has a shop
 		const token = localStorage.getItem("shapeshiftkey");
@@ -43,16 +45,20 @@ const OpenShopForm = () => {
 				location: formData.location,
 				taxId: formData.taxId,
 			};
-			console.log('the data to send is:', dataToSend);
+			console.log(dataToSend);
+			const response = await axios.post(
+				"http://localhost:5001/api/shop/register",
+				formData,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
 
-			await axios.post("http://localhost:5001/api/shop/register", formData, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			});
+			console.log("The response from backend is", response);
 
 			setShowPopup(true);
-			setUserHasShop(true);
 			setFormData({
 				name: "",
 				description: "",
@@ -81,7 +87,7 @@ const OpenShopForm = () => {
 							<h2>Your already have a shop!</h2>
 							<div className="reg-regshop-popup-buttons">
 								<button onClick={handlePopupCloseAlready}>Close</button>
-								<button>Go to My Shop</button>
+								<button onClick={handleGoToShop}>Go to My Shop</button>
 							</div>
 						</div>
 					</div>
@@ -153,14 +159,13 @@ const OpenShopForm = () => {
 					</div>
 				</div>
 			)}
-
 			{showPopup && (
 				<div className="reg-popup">
 					<div className="reg-popup-content">
 						<h2>Your shop has been registered successfully!</h2>
 						<div className="reg-regshop-popup-buttons">
 							<button onClick={handlePopupClose}>Close</button>
-							<button>Go to My Shop</button>
+							<button onClick={handleGoToShop}>Go to My Shop</button>
 						</div>
 					</div>
 				</div>

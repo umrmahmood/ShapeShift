@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 // CSS import
@@ -18,39 +17,8 @@ import {
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
-const MyProfile = ({ isOpen, onClose }) => {
+const ShoppingCart = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
-  const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
-
-    if (tokenFromLocalStorage) {
-      const decodedToken = jwtDecode(tokenFromLocalStorage);
-
-      // Access the payload to see if the member has a shop
-      const userId = decodedToken.id;
-
-      axios
-        .get(`/api/users/profile/${userId}`)
-        .then((response) => {
-          setUser(response.data.user);
-        })
-        .catch((error) => {
-          console.error("Error fetching user information:", error);
-        });
-    } else {
-      console.log("Token not found in localStorage");
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("shapeshiftkey");
-    setIsLoggedIn(false);
-    navigate("/");
-  };
 
   // Close the popup when clicking outside of it
   useEffect(() => {
@@ -75,21 +43,6 @@ const MyProfile = ({ isOpen, onClose }) => {
           &times;
         </button>
         {/* Content for the profile popup */}
-
-        {user && (
-          <>
-            <h2>{user.email}</h2>
-            <div className="popup-avatar-container">
-              <img
-                className="popup-avatar"
-                src={user.profile.avatarUrl}
-                alt="users avatar"
-              />
-            </div>
-            <h2>Welcome, {user.profile.username}!</h2>
-          </>
-        )}
-
         <ul>
           <li>
             <div className="icon-wrapper">
@@ -125,9 +78,7 @@ const MyProfile = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
-            <div className="text-wrapper">
-              <button onClick={handleLogout}>Sign Out</button>
-            </div>
+            <div className="text-wrapper">Sign Out</div>
           </li>
         </ul>
       </div>
@@ -135,9 +86,9 @@ const MyProfile = ({ isOpen, onClose }) => {
   );
 };
 
-MyProfile.propTypes = {
+ShoppingCart.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default MyProfile;
+export default ShoppingCart;

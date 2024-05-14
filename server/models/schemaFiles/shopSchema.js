@@ -9,7 +9,9 @@ const ShopSchema = new Schema(
     name: { type: String, required: true, unique: true }, // Name of the shop, required and must be unique.
     owner: { type: String, unique: true }, // Reference to the owner (user), required.
     avatar: { type: String },
+    avatarUrl: { type: String },
     banner: { type: String },
+    bannerUrl: { type: String },
     description: {
       type: String,
       maxlength: [300, "Description cannot exceed 300 characters"], // Description of the shop with character limit.
