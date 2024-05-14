@@ -1,8 +1,7 @@
-
 import "./App.css";
-import { Routes, Route, useLocation } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
@@ -13,65 +12,64 @@ import OpenShop from "./components/openShop/OpenShop.jsx";
 import Login from "../src/components/loginandSignup/Login.jsx";
 import ProductForm from "./components/productReg/ProductForm";
 import UserShop from "./CardComponent/UserShop";
+import SellerShop from "./components/SellerShop.jsx";
 import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
-
 
 function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-	window.scrollTo({top:0, behavior: "instant"})
-  }, [pathname])
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [pathname]);
   return null;
 }
 
-
 function App() {
-	const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
-    const toggleLogin = () => {
-        setShowLogin(!showLogin);
-	};
+  const toggleLogin = () => {
+    setShowLogin(!showLogin);
+  };
 
-	return (
-		<div className="App">
-			
-		  <header className="App-header">
-			<Navbar onLoginClick={toggleLogin}/>
-			{showLogin && <div className="main-overlay" onClick={toggleLogin}></div>}
-            {showLogin && (
-                <div className="login-popup">
-                    <Login toggleLogin={toggleLogin}/>
-                </div>
-            )}
-		  </header>
-		  <ScrollToTop />
-		  <Routes>
-			<Route path="/" element={<Main />} />
-			<Route path="/config" element={<ConfigComponent />} />
-		    <Route path="/item" element={<ItemPage />} /> 
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Navbar onLoginClick={toggleLogin} />
+        {showLogin && (
+          <div className="main-overlay" onClick={toggleLogin}></div>
+        )}
+        {showLogin && (
+          <div className="login-popup">
+            <Login toggleLogin={toggleLogin} />
+          </div>
+        )}
+      </header>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/config" element={<ConfigComponent />} />
+        <Route path="/item" element={<ItemPage />} />
+        <Route path="/shop/:shopId" element={<SellerShop />} />
 
-			<Route path="/home" element={<MainPage />} />
-			<Route path="/user-shop" element={<UserShop/>} />
-			<Route path="/item/:productId" element={<ItemPage />} />
-            <Route path="/Cart" element={<Cart />} />
+        <Route path="/home" element={<MainPage />} />
+        <Route path="/user-shop" element={<UserShop />} />
+        <Route path="/item/:productId" element={<ItemPage />} />
+        <Route path="/Cart" element={<Cart />} />
 
-			{/* <Route path="/home" element={<UserSellCard />} /> */}
+        {/* <Route path="/home" element={<UserSellCard />} /> */}
 
-			<Route path="/home" element={<MainPage />} />
+        <Route path="/home" element={<MainPage />} />
 
-			<Route path="/user-shop" element={<UserShop/>} />
-			
-			<Route path="/shoplisting" element={<ShopListing />} />
-			<Route path="/openshop" element={<OpenShop/>} />
-			<Route path="/product-form" element={<ProductForm/>} />
-			
-			
-		  </Routes>
-		  <Footer />
-		</div>
-	);
-  }
+        <Route path="/user-shop" element={<UserShop />} />
+
+        <Route path="/shoplisting" element={<ShopListing />} />
+        <Route path="/openshop" element={<OpenShop />} />
+        <Route path="/product-form" element={<ProductForm />} />
+      </Routes>
+      <Footer />
+    </div>
+  );
+}
 export default App;
