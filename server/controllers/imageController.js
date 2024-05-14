@@ -30,13 +30,10 @@ const ImageController = {
 
   //get shop Avatar
   getShopAvatar: async (req, res) => {
-    const shopId = req.params.id;
-    console.log(shopId);
-
+    const shopId = req.params.shopId;
     try {
         // Find shop avatar by shopId
         const image = await ShopImage.findOne({ shopId: shopId });
-        console.log(image);
      
         if (!image) {
             return res.status(404).json({ message: "Image not found" });
@@ -51,13 +48,11 @@ const ImageController = {
 
 //get shop banner
 getShopBanner: async (req, res) => {
-  const shopId = req.params.id;
-  console.log(shopId);
+  const shopId = req.params.shopId;
 
   try {
       // Find shop avatar by shopId
       const image = await ShopBanner.findOne({ shopId: shopId });
-      console.log(image);
    
       if (!image) {
           return res.status(404).json({ message: "Image not found" });

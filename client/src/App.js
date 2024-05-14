@@ -16,6 +16,7 @@ import UserShop from "./CardComponent/UserShop";
 import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
+import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
 
 function ScrollToTop() {
@@ -67,6 +68,7 @@ function App() {
 			<Route path="/shoplisting" element={<ShopListing />} />
 			<Route path="/openshop" element={<OpenShop/>} />
 			<Route path="/product-form" element={<ProductForm/>} />
+			<Route path="/myprofile" element={<UserProfile/>} />
 			
 			
 		  </Routes>
