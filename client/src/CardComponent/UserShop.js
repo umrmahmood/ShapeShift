@@ -365,7 +365,7 @@ import "./UserShop.css";
 import usericon from "../assets/usericon.png";
 import UserShopSettings from "./UserShopSettings";
 import ShopListing from "../components/ShopPage/ShopListing";
-import { useSearchParams, useLocation, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const UserShop = () => {
   const [name, setName] = useState("");
@@ -381,6 +381,7 @@ const UserShop = () => {
   const [selectedSection, setSelectedSection] = useState("Description");
 
   // component change dor popup buttons
+  const navigate = useNavigate();
   const { search } = useLocation();
   const active = React.useMemo(() => new URLSearchParams(search), [search]).get(
     "active"
@@ -486,7 +487,9 @@ const UserShop = () => {
     //   "active",
     //   section
     // );
+
     setSelectedSection(section);
+    navigate("/user-shop?active=" + section);
   };
 
   return (

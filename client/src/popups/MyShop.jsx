@@ -105,7 +105,11 @@ const MyShop = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faGear} />
             </div>
-            <Link className="text-wrapper" to="/user-shop?active=Settings">
+            <Link
+              className="text-wrapper"
+              to="/user-shop?active=Settings"
+              onClick={(e) => onClose()}
+            >
               Settings
             </Link>
             {/* <div className="text-wrapper">Settings</div> */}
