@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 // CSS import
 import "./PopMenu.css"; // Import the CSS file for styling
@@ -61,6 +61,7 @@ const MyShop = ({ isOpen, onClose }) => {
 
 	if (!isOpen) return null; // Don't render if isOpen is false
 
+
 	return (
 		<div className="custom-popup-overlay">
 			<div ref={popupRef} className="custom-popup-content">
@@ -111,6 +112,65 @@ const MyShop = ({ isOpen, onClose }) => {
 			</div>
 		</div>
 	);
+
+  return (
+    <div className="custom-popup-overlay">
+      <div ref={popupRef} className="custom-popup-content">
+        <button className="custom-popup-close-btn" onClick={onClose}>
+          &times;
+        </button>
+        {/* Content for the profile popup */}
+        <div className="popup-avatar-container">
+          <img
+            className="popup-avatar"
+            src={shop.avatarUrl}
+            alt="users avatar"
+          />
+        </div>
+        <h2>{shop.name}</h2>
+        <ul>
+          <li>
+            <div className="icon-wrapper">
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </div>
+            <div className="text-wrapper">View Shop</div>
+          </li>
+          <li>
+            <div className="icon-wrapper">
+              <FontAwesomeIcon icon={faStar} />
+            </div>
+            <div className="text-wrapper">Listings</div>
+          </li>
+          <li>
+            <div className="icon-wrapper">
+              <FontAwesomeIcon icon={faMoneyBillTransfer} />
+            </div>
+            <div className="text-wrapper">Purchases</div>
+          </li>
+          <li>
+            <div className="icon-wrapper">
+              <FontAwesomeIcon icon={faEnvelope} />
+            </div>
+            <div className="text-wrapper">Messages</div>
+          </li>
+          <li>
+            <div className="icon-wrapper">
+              <FontAwesomeIcon icon={faGear} />
+            </div>
+            <Link
+              className="text-wrapper"
+              to="/user-shop?active=Settings"
+              onClick={(e) => onClose()}
+            >
+              Settings
+            </Link>
+            {/* <div className="text-wrapper">Settings</div> */}
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+
 };
 
 MyShop.propTypes = {

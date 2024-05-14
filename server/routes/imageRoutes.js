@@ -19,6 +19,7 @@ router
   .get("/:imageId", ImageController.getProductImageById)
   // Route for uploading images for a specific product
   .get("/:imageId", ImageController.getProductImageById)
+
   .post(
     "/upload/product/:productId", // Define the route path with a parameter for the product ID
     authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
@@ -57,9 +58,6 @@ router.post(
   ShopController.uploadShopImage // Call the uploadImage method from the ImageController to handle the request
 );
 
-//get Shop Avatar
-router.get("/shop/avatar/:id", ImageController.getShopAvatar)
-
 // Shop Banner
 router.post(
   "/upload/shopbanner/:shopId", // Define the route path with a parameter for the product ID
@@ -67,8 +65,5 @@ router.post(
   Parser.single("image"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
   ShopController.uploadBannerImage // Call the uploadImage method from the ImageController to handle the request
 );
-
-//get Shop Banner
-router.get("/shop/banner/:id", ImageController.getShopBanner)
 
 export default router; // Export the router instance
