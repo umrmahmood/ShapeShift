@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 // CSS import
 import "./PopMenu.css"; // Import the CSS file for styling
@@ -105,9 +105,14 @@ const MyShop = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faGear} />
             </div>
-            <div className="text-wrapper" onClick={navigate("/home")}>
+            <Link
+              className="text-wrapper"
+              to="/user-shop?active=Settings"
+              onClick={(e) => onClose()}
+            >
               Settings
-            </div>
+            </Link>
+            {/* <div className="text-wrapper">Settings</div> */}
           </li>
         </ul>
       </div>
