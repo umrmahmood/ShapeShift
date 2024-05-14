@@ -9,9 +9,17 @@ const ShopSchema = new Schema(
     name: { type: String, required: true, unique: true }, // Name of the shop, required and must be unique.
     owner: { type: String, unique: true }, // Reference to the owner (user), required.
     avatar: { type: String },
-    avatarUrl: { type: String },
+    avatarUrl: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dryyvdzip/image/upload/v1715686705/DefaultImage_jdjlu6.png",
+    },
     banner: { type: String },
-    bannerUrl: { type: String },
+    bannerUrl: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dryyvdzip/image/upload/v1715686714/DefaultBanner_alhvnu.png",
+    },
     description: {
       type: String,
       maxlength: [300, "Description cannot exceed 300 characters"], // Description of the shop with character limit.
