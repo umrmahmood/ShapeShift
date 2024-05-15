@@ -90,3 +90,31 @@ h2 {
 p {
     margin-bottom: 10px;
 }
+.secondary-image img {
+    max-width: 200px;
+    max-height: 200px;
+    transition: max-width 0.3s, max-height 0.3s; 
+  }
+  
+  .secondary-image img:hover {
+    max-width: 600px; 
+    max-height: 600px; 
+  }
+  .DescriptionContainer {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .DescriptionContainer h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .DescriptionContainer p {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .DescriptionContainer p:last-child {
+    margin-bottom: 0;
+  }
