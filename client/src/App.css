@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-
+.pagemargin{
+	margin: 2em 14em;
+}
 
 input[type="text"] {
 	padding: 6px 10px;

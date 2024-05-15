@@ -16,7 +16,7 @@ import SellerShop from "./components/SellerShop.jsx";
 import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
-//import UserProfile from "./components/UserProfile/UserProfile.jsx";
+import UserProfile from "./components/UserProfile/UserProfile.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -61,7 +61,7 @@ function App() {
         <Route path="/shoplisting" element={<ShopListing />} />
         <Route path="/openshop" element={<OpenShop />} />
         <Route path="/product-form" element={<ProductForm />} />
-        {/* <Route path="/myprofile" element={<UserProfile />} /> */}
+        <Route path="/myprofile" element={<UserProfile />} />
       </Routes>
       <Footer />
     </div>
