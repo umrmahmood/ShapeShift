@@ -19,7 +19,7 @@ const ShopListing = () => {
 				const shopIdFromToken = decodedToken?.membership?.shopId;
 				try {
 					const response = await axios.get(
-						`http://localhost:5001/api/products/listings/${shopIdFromToken}`
+						`/api/products/listings/${shopIdFromToken}`
 					);
 					setListings(response.data);
 
@@ -44,7 +44,7 @@ const ShopListing = () => {
 					const imageUrls = [];
 					for (const id of imageId) {
 						const response = await axios.get(
-							`http://localhost:5001/api/images/${id}`
+							`/api/images/${id}`
 						);
 						imageUrls.push(response.data.url);
 					}
@@ -56,6 +56,45 @@ const ShopListing = () => {
 		};
 		fetchImages();
 	}, [imageId]);
+
+
+	//delete
+	const deleteProduct = async (productId, imageIds) => {
+		const token = localStorage.getItem("shapeshiftkey");
+			if (token) {
+				const decodedToken = jwtDecode(token);
+				const shopIdFromToken = decodedToken?.membership?.shopId;
+	
+        try {
+			
+            await axios.delete(`http://localhost:5001/api/products/${productId}`,{
+                headers: {
+                    Authorization: `Bearer ${token}` // Include the Authorization header with the token
+                }
+            });
+            // Delete images associated with the product
+            // for (const imageId of imageIds) {
+            //     await axios.delete(`http://localhost:5001/api/images/${imageId}`);
+            // }
+		
+            // Refresh listings after deletion
+            const response = await axios.get(`http://localhost:5001/api/products/listings/${shopIdFromToken}`, {
+                headers: {
+                    Authorization: `Bearer ${token}` // Include the Authorization header with the token
+                }
+            });
+            setListings(response.data);
+        } catch (error) {
+            console.error("Error deleting product:", error);
+        }
+	}
+    };
+
+	const onDeleteListing = async (productId, imageIds) => {
+        if (window.confirm("Are you sure you want to delete this product?")) {
+            await deleteProduct(productId, imageIds);
+        }
+    };
 
 	const onAddListing = () => {
 		Navigate("/product-form");
@@ -89,7 +128,7 @@ const ShopListing = () => {
 							<p>Material: {listing.material.join(", ")}</p>
 							<div className="shoplisting-btns">
 								<button>Edit</button>
-								<button>Delete</button>
+								<button onClick={() => onDeleteListing(listing._id, listing.images.map(img => img._id))} >Delete</button>
 							</div>
 						</div>
 					))}
