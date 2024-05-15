@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import placeholder from "./placeholder.jpg";
 import "./Item.css";
 import axios from "axios";
-import { useParams} from 'react-router-dom'
+import { useParams} from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 const ItemPage = ({  }) => {
   const [mainImage, setMainImage] = useState(null);
@@ -32,11 +33,7 @@ const ItemPage = ({  }) => {
     createdAt,
     updatedAt,
   } = product;
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
-    const options = { year: "numeric", month: "short", day: "2-digit" };
-    return date.toLocaleDateString("en-US", options);
-  };
+
  useEffect(() => {
   if (images && images.length > 0) {
       const fetchingImage = async () => {
@@ -123,14 +120,14 @@ const ItemPage = ({  }) => {
       }
     }
   };
+  const decodedToken = jwtDecode(token);
+
   const handleEdit = async () => {
     try {
       const response = await axios.put(`http://localhost:5001/api/products/${productId}`, editedProduct);
-      console.log(response.data); // Log the updated product details
-      // Optionally, you can update the UI or show a success message
+      console.log(response.data); 
     } catch (error) {
       console.error('Error updating product:', error);
-      // Handle error: show error message or log it
     }
   };
 
@@ -141,6 +138,8 @@ const ItemPage = ({  }) => {
       [name]: value
     }));
   };
+
+  let shop = 
 // useEffect(() => {
 //     if (product && product.images && product.images.length > 0) {
 //       setMainImage(product.images[0]);
@@ -159,7 +158,7 @@ const ItemPage = ({  }) => {
 //         setAverageRating(average);
 //     }
 // }, [reviews]);
-console.log(currentUser)
+console.log("decoded token is : " , decodedToken)
   return (
     <div className="MainContainer">
         <div className="ImagesContainer">
@@ -197,13 +196,11 @@ console.log(currentUser)
   {product.designer && <p>Designer: {product.designer}</p>}
   {product.quantity !== undefined && <p>Quantity: {product.quantity}</p>}
   {product.material && <p>Material: {product.material}</p>}
-  {product.createdAt && <p>Created At: {formatDate(product.createdAt)}</p>}
-  {product.updatedAt && <p>Updated At: {formatDate(product.updatedAt)}</p>}
 </div>
 <div className="shop-owner">
-{currentUser && product.seller === currentUser._id && (
+{ decodedToken.membership.shopId === product.seller && (
             <div>
-              <button onClick={handleEdit}>Edit</button>
+              <button onClick={handleChange}>Edit</button>
               <button onClick={handleDelete}>Delete</button>
             </div>
           )}
