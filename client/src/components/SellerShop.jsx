@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styling/sellerShop.css";
 import usericon from "../assets/usericon.png";
-//import ShopItems from "../components/ShopItems.jsx";
+import ShopItems from "./ShopItems.jsx";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 const SellerShop = () => {
@@ -97,7 +97,7 @@ const SellerShop = () => {
               </div>
               <div className="rendered-sects">
                 {/* Render sections based on selectedSection */}
-                {/* {selectedSection === "Items" && <ShopItems />} */}
+                {selectedSection === "Items" && <ShopItems shopId={shopId} />}
                 {/* Add rendering for other sections */}
               </div>
             </div>

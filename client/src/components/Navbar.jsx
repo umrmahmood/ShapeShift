@@ -85,15 +85,6 @@ const Navbar = ({ onLoginClick }) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleShoppingBagClick = () => {
-    navigate("/cart");
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("shapeshiftkey");
-    setIsLoggedIn(false);
-  };
-
   return (
     <>
       <div className="Navbar-container">
