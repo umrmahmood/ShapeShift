@@ -124,7 +124,8 @@ const Navbar = ({ onLoginClick }) => {
           {isLoggedIn && (
             <>
               <div className="navbar-conditional-icon">
-                <div className="navbar-login-btn nav-sell-btn">
+                {/* <div className="navbar-login-btn nav-sell-btn"> */}
+                <div className="navbar-sell-btn nav-sell-btn">
                   <button onClick={onSellClick}>Sell</button>
                 </div>
                 <li>
