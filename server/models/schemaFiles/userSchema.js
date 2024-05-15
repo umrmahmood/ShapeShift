@@ -34,50 +34,99 @@ const UserSchema = new Schema(
         // First name details.
         type: String, // Data type for first name field.
         match: [/^[a-zA-Z]+(?:-[a-zA-Z]+)*$/, "is invalid"], // Validation for first name format.
+        default: "",
       },
       lastName: {
         // Last name details.
         type: String, // Data type for last name field.
         match: [/^[a-zA-Z]+(?:-[a-zA-Z]+)*$/, "is invalid"], // Validation for last name format.
+        default: "",
       },
       birthday: Date, // Data type for birthday field.
       pronouns: {
         // Pronouns details.
         type: String, // Data type for pronouns field.
-        enum: ["he/him/his", "she/her/hers", "they/them/theirs"], // Enumeration for pronouns.
+        enum: ["he/him/his", "she/her/hers", "they/them/theirs", ""], // Enumeration for pronouns.
+        default: "",
       },
       avatarUrl: {
         type: String,
         default:
-          "https://res.cloudinary.com/dryyvdzip/image/upload/v1715686705/DefaultImage_jdjlu6.png",
+          "https://res.cloudinary.com/dryyvdzip/image/upload/v1715767119/DefaultImage.png",
       }, // Data type for avatar field.
-      avatar: String,
+      avatar: { type: String, default: "66448d9c21f44c996153d41e" },
       socials: {
         // Social media details.
-        facebook: String,
-        twitter: String,
-        instagram: String,
-        pinterest: String,
-        tiktok: String,
-        youtube: String,
-        reddit: String,
-        discord: String,
-        medium: String,
-        github: String,
+        facebook: {
+          type: String,
+          default: "",
+        },
+        twitter: {
+          type: String,
+          default: "",
+        },
+        instagram: {
+          type: String,
+          default: "",
+        },
+        pinterest: {
+          type: String,
+          default: "",
+        },
+        tiktok: {
+          type: String,
+          default: "",
+        },
+        youtube: {
+          type: String,
+          default: "",
+        },
+        reddit: {
+          type: String,
+          default: "",
+        },
+        discord: {
+          type: String,
+          default: "",
+        },
+        medium: {
+          type: String,
+          default: "",
+        },
+        github: {
+          type: String,
+          default: "",
+        },
       },
       bio: {
         // Biography details.
         type: String, // Data type for bio field.
         maxlength: [300, "Bio cannot exceed 300 characters"], // Maximum length for bio.
+        default: "",
       },
     },
     address: {
       // Address details.
-      street1: String, // Data type for street1 field.
-      street2: String, // Data type for street2 field.
-      city: String, // Data type for city field.
-      country: String, // Data type for country field.
-      zip: String, // Data type for zip field.
+      street1: {
+        type: String,
+        default: "",
+      }, // Data type for street1 field.
+      street2: {
+        type: String,
+        default: "",
+      }, // Data type for street2 field.
+      city: {
+        type: String,
+        default: "",
+      }, // Data type for city field.
+      country: {
+        type: String,
+        default: "",
+      }, // Data type for country field.
+      zip: {
+        type: String,
+        default: "",
+      }, // Data type for zip field.
     },
     history: [
       // User history details.

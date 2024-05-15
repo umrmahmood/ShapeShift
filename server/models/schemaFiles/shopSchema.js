@@ -8,21 +8,22 @@ const ShopSchema = new Schema(
   {
     name: { type: String, required: true, unique: true }, // Name of the shop, required and must be unique.
     owner: { type: String, unique: true }, // Reference to the owner (user), required.
-    avatar: { type: String },
+    avatar: { type: String, default: "6644919621f44c996153d424" },
     avatarUrl: {
       type: String,
       default:
-        "https://res.cloudinary.com/dryyvdzip/image/upload/v1715686705/DefaultImage_jdjlu6.png",
+        "https://res.cloudinary.com/dryyvdzip/image/upload/v1715767119/DefaultImage.png",
     },
-    banner: { type: String },
+    banner: { type: String, default: "6644933621f44c996153d426" },
     bannerUrl: {
       type: String,
       default:
-        "https://res.cloudinary.com/dryyvdzip/image/upload/v1715686714/DefaultBanner_alhvnu.png",
+        "https://res.cloudinary.com/dryyvdzip/image/upload/v1715686714/DefaultBanner.png",
     },
     description: {
       type: String,
       maxlength: [300, "Description cannot exceed 300 characters"], // Description of the shop with character limit.
+      default: "",
     },
     categories: [{ type: Schema.Types.ObjectId, ref: "Category" }], // Array of category references.
     products: [{ type: String }], // Array of product references.
@@ -33,7 +34,7 @@ const ShopSchema = new Schema(
       },
     ],
     location: { type: String, required: true }, // Location of the shop, required.
-    taxId: String, // Tax identification number for taxation purposes.
+    taxId: { type: String, required: true }, // Tax identification number for taxation purposes.
     active: {
       // Membership activation status.
       status: {
