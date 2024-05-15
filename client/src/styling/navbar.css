@@ -70,8 +70,20 @@ a:hover {
 	align-items: center;
 }
 
-.nav-sell-btn {
-	margin-bottom: 5px;
+.navbar-sell-btn button{ 
+	border: none;
+	/* background: rgb(166, 0, 2);
+	color: white;
+	border-radius: 5px;
+	padding: 1px 8px; */
+	color: rgb(166, 0, 2);
+	background: none;
+	font-family: "proxoma nova";
+	
+}
+
+.navbar-sell-btn button:hover{ 
+	font-weight: 700;
 }
 
 .nav-search {
@@ -80,7 +92,7 @@ a:hover {
 
 .nav-search input {
     width: 600px;
-	font-size: 16px;
+	font-size: 18px;
 	border-radius: 0px;
 }
 /* 
