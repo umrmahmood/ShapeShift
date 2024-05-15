@@ -193,16 +193,50 @@ const UserController = {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // Check if the user already has a profile image
-      if (user.profile.avatar) {
-        // Find the existing profile image in the database
-        const existingProfileImage = await ProfileImage.findById(
-          user.profile.avatar
-        );
+      // Find the existing profile image in the database
+      const existingProfileImage = user.profile.avatar;
 
-        if (existingProfileImage) {
+      if (existingProfileImage) {
+        if (existingProfileImage === "66448d9c21f44c996153d41e") {
+          const newProfileImage = new ProfileImage();
+
+          // Upload the new file to Cloudinary
+          const result = await cloudinary.uploader.upload(file.path, {
+            use_filename: true,
+            tags: file.originalname,
+            unique_filename: false,
+            transformation: [
+              { gravity: "auto", height: 1000, width: 1000, crop: "fill" },
+              { effect: "sharpen" },
+              { quality: "auto" },
+              { fetch_format: "auto" },
+            ],
+          });
+
+          // Populate the new profile image object with information from Cloudinary
+          newProfileImage.public_id = result.public_id;
+          newProfileImage.version_id = result.version_id;
+          newProfileImage.signature = result.signature;
+          newProfileImage.width = result.width;
+          newProfileImage.height = result.height;
+          newProfileImage.format = result.format;
+          newProfileImage.resource_type = result.resource_type;
+          newProfileImage.tags = result.tags;
+          newProfileImage.url = result.url;
+
+          // Save the new profile image
+          await newProfileImage.save();
+
+          // Update the user's profile avatar
+          user.profile.avatar = newProfileImage._id;
+          user.profile.avatarUrl = newProfileImage.url;
+          await user.save();
+        } else {
+          const oldProfileImage = await ProfileImage.findById(
+            existingProfileImage
+          );
           // Delete the existing profile image from Cloudinary
-          await cloudinary.uploader.destroy(existingProfileImage.public_id);
+          await cloudinary.uploader.destroy(oldProfileImage.public_id);
 
           // Upload the new file to Cloudinary
           const result = await cloudinary.uploader.upload(file.path, {
@@ -218,7 +252,7 @@ const UserController = {
           });
 
           // Update the existing profile image with the new information
-          Object.assign(existingProfileImage, {
+          Object.assign(oldProfileImage, {
             public_id: result.public_id,
             version_id: result.version_id,
             signature: result.signature,
@@ -231,9 +265,9 @@ const UserController = {
           });
 
           // Save the updated profile image
-          await existingProfileImage.save();
+          await oldProfileImage.save();
           // Update the user's profile avatar
-          user.profile.avatarUrl = existingProfileImage.url;
+          user.profile.avatarUrl = oldProfileImage.url;
 
           // Save the updated user
           await user.save();
