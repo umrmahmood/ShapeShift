@@ -52,21 +52,15 @@ function App() {
         <Route path="/config" element={<ConfigComponent />} />
         <Route path="/item" element={<ItemPage />} />
         <Route path="/shop/:shopId" element={<SellerShop />} />
-
-        <Route path="/home" element={<MainPage />} />
         <Route path="/user-shop" element={<UserShop />} />
+        <Route path="/home" element={<MainPage />} />
         <Route path="/item/:productId" element={<ItemPage />} />
         <Route path="/Cart" element={<Cart />} />
-
-        {/* <Route path="/home" element={<UserSellCard />} /> */}
-
         <Route path="/home" element={<MainPage />} />
-
-        <Route path="/user-shop" element={<UserShop />} />
-
         <Route path="/shoplisting" element={<ShopListing />} />
         <Route path="/openshop" element={<OpenShop />} />
         <Route path="/product-form" element={<ProductForm />} />
+        <Route path="/myprofile" element={<UserProfile />} />
       </Routes>
       <Footer />
     </div>

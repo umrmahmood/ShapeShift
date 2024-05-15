@@ -31,7 +31,6 @@ const ImageController = {
   //get shop Avatar
   getShopAvatar: async (req, res) => {
     const shopId = req.params.shopId;
-    console.log(shopId);
 
     try {
       // Find shop avatar by shopId
@@ -42,6 +41,7 @@ const ImageController = {
         return res.status(404).json({ message: "Image not found" });
       }
       res.status(200).json(image);
+      
     } catch (error) {
       // Handle errors
       console.error(error);
@@ -49,16 +49,14 @@ const ImageController = {
     }
   },
 
-  //get shop banner
-  getShopBanner: async (req, res) => {
-    const shopId = req.params.shopId;
-    console.log(shopId);
+
+//get shop banner
+getShopBanner: async (req, res) => {
+  const shopId = req.params.shopId;
 
     try {
       // Find shop avatar by shopId
       const image = await ShopBanner.findOne({ shopId: shopId });
-      console.log(image);
-
       if (!image) {
         return res.status(404).json({ message: "Image not found" });
       }
