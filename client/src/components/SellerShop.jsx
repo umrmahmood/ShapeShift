@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styling/sellerShop.css";
 import usericon from "../assets/usericon.png";
-import ShopListing from "../components/ShopPage/ShopListing";
+//import ShopItems from "../components/ShopItems.jsx";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 const SellerShop = () => {
@@ -22,34 +22,21 @@ const SellerShop = () => {
         );
         setShop(response.data.shop);
         // Fetch owner's information
-        fetchOwner(response.data.shop.owner);
+        const ownerId = response.data.shop.owner;
+        const ownerResponse = await axios.get(
+          `http://localhost:5001/api/users/profile/${ownerId}`
+        );
+        setOwner(ownerResponse.data.user);
       } catch (error) {
         console.error("Error fetching shop data:", error);
-      }
-    };
-
-    const fetchOwner = async (ownerId) => {
-      try {
-        const token = localStorage.getItem("shapeshiftkey");
-        if (token) {
-          const response = await axios.get(
-            `http://localhost:5001/api/users/profile/${ownerId}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setOwner(response.data.user);
-        }
-      } catch (error) {
-        console.error("Error fetching owner data:", error);
+        // Handle error or set a loading state
       }
     };
 
     fetchShop();
   }, [shopId]);
 
+  //console.log("avatar", owner.profile.avatarUrl);
   const handleSectionClick = (section) => {
     setSelectedSection(section);
     navigate(`/shop/${shopId}?active=${section}`);
@@ -57,6 +44,7 @@ const SellerShop = () => {
 
   return (
     <div className="seller-shop-container">
+      {console.log("profile", owner)}{" "}
       {shop && owner && (
         <>
           <div className="seller-shop-banner-container">
@@ -79,7 +67,7 @@ const SellerShop = () => {
             </div>
             <div className="owner-shop">
               <div className="shop-image-owner">
-                <img src={usericon} alt="Owner" />
+                <img src={owner.profile.avatarUrl} alt="Owner" />
               </div>
               <div className="shop-detail-owner">
                 <h3>{owner.profile.username}</h3>
@@ -109,7 +97,7 @@ const SellerShop = () => {
               </div>
               <div className="rendered-sects">
                 {/* Render sections based on selectedSection */}
-                {selectedSection === "Items" && <ShopListing />}
+                {/* {selectedSection === "Items" && <ShopItems />} */}
                 {/* Add rendering for other sections */}
               </div>
             </div>
