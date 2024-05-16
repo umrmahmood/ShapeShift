@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate, Link } from "react-router-dom";
 
 // CSS import
 import "./PopMenu.css"; // Import the CSS file for styling
@@ -78,7 +79,15 @@ const ShoppingCart = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
-            <div className="text-wrapper">Sign Out</div>
+            <Link
+              className="text-wrapper"
+              to="/cart"
+              onClick={(e) => {
+                onClose();
+              }}
+            >
+              Check Out
+            </Link>
           </li>
         </ul>
       </div>

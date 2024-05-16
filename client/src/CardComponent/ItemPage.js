@@ -100,6 +100,7 @@ const ItemPage = ({  }) => {
 
     fetchCurrentUser();
   }, []);
+
   const handleDelete = async () => {
     const confirmDelete = window.confirm(
       "Item will be deleted. Are you sure?"
@@ -139,16 +140,6 @@ const ItemPage = ({  }) => {
     }));
   };
 
-  let shop = 
-// useEffect(() => {
-//     if (product && product.images && product.images.length > 0) {
-//       setMainImage(product.images[0]);
-//       setSecondaryImage(response.data.images.slice(1));
-//     }
-//   }, [product]);
-//   if (!product) {
-//     return <div>Loading...</div>;
-//   }
   // Calculating reviews from DB
 // useEffect(() => {
 //     // Calculate average rating from the reviews

@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styling/shopListing.css";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 
-const ShopListing = () => {
+const ShopItems = ({ shopId }) => {
   const Navigate = useNavigate();
 
   const [listings, setListings] = useState([]);
@@ -13,29 +11,25 @@ const ShopListing = () => {
 
   useEffect(() => {
     const fetchListings = async () => {
-      const token = localStorage.getItem("shapeshiftkey");
-      if (token) {
-        const decodedToken = jwtDecode(token);
-        const shopIdFromToken = decodedToken?.membership?.shopId;
-        try {
-          const response = await axios.get(
-            `http://localhost:5001/api/products/listings/${shopIdFromToken}`
-          );
-          setListings(response.data);
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/products/listings/${shopId}`
+        );
+        setListings(response.data);
 
-          const imageIdsArray = [];
-          for (const listing of response.data) {
-            imageIdsArray.push(listing.images[0]);
-          }
-
-          setImageId(imageIdsArray);
-        } catch (error) {
-          console.error("Error fetching listings:", error);
+        const imageIdsArray = [];
+        for (const listing of response.data) {
+          imageIdsArray.push(listing.images[0]);
         }
+
+        setImageId(imageIdsArray);
+      } catch (error) {
+        console.error("Error fetching listings:", error);
       }
     };
-    fetchListings();
-  }, []);
+
+    fetchListings(); // No need to pass shopId here, it's already available as a prop
+  }, [shopId]); // Dependency added to re-fetch listings when shopId changes
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -63,19 +57,7 @@ const ShopListing = () => {
   return (
     <>
       <div className="shoplisting-container">
-        <h2>Listings</h2>
-        <div className="shoplisting-bar">
-          <div className="shoplisting-btns">
-            <button>Renew</button>
-            <button>Deactivate</button>
-            <button>Delete</button>
-          </div>
-          <div className="shoplisting-addlisting-btn">
-            <button onClick={onAddListing}>
-              <span className="shoplist-plus">+</span> Add a listing
-            </button>
-          </div>
-        </div>
+        <h2>Shop Items</h2>
         <div className="shoplisting-card-container">
           {listings.map((listing, index) => (
             <div key={listing._id} className="shoplisting-card">
@@ -101,4 +83,4 @@ const ShopListing = () => {
   );
 };
 
-export default ShopListing;
+export default ShopItems;
