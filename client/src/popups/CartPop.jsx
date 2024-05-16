@@ -47,36 +47,6 @@ const ShoppingCart = ({ isOpen, onClose }) => {
         <ul>
           <li>
             <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-            </div>
-            <div className="text-wrapper">View Profile</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faStar} />
-            </div>
-            <div className="text-wrapper">Favorites</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faMoneyBillTransfer} />
-            </div>
-            <div className="text-wrapper">Purchases</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faEnvelope} />
-            </div>
-            <div className="text-wrapper">Messages</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faGear} />
-            </div>
-            <div className="text-wrapper">Settings</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
             <Link
