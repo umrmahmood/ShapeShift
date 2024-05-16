@@ -3,6 +3,7 @@ import express from "express"; // Importing Express framework
 import dotenv from "dotenv"; // Importing dotenv for environment variables
 import cors from "cors"; // Importing CORS middleware for cross-origin requests
 import path, { join } from "path"; // Importing path module for file path manipulation
+import admin from "firebase-admin";
 
 // Importing modules
 import ConnectDB from "./db/connect.js";
@@ -31,6 +32,13 @@ app.use(cors()); // Enabling CORS middleware for cross-origin requests
 app.use(express.urlencoded({ extended: true })); // Parsing URL-encoded bodies
 app.use(express.json()); // Parsing JSON bodies
 app.use(express.static("./public")); // Serving static files from the public directory
+
+// Initialize Firebase Admin SDK
+import serviceAccount from "./config/firebaseAdminsdk.json";
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "YOUR_DATABASE_URL", // This is optional if you're using Firebase Realtime Database or Firestore
+});
 
 // Routes
 app.use("/api/users", UserRoutes); // Using UserRoutes for user-related routes

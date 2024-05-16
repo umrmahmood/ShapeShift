@@ -55,7 +55,7 @@ const LoginForm = ({ onLoginSuccess }) => {
       const user = result.user;
 
       // Data for the backend
-      const userData = { email: user.email, googleUserId: user.uid };
+      const userData = { email: user.email, uid: user.uid };
       const response = await axios.post(
         "http://localhost:5001/api/users/firelogin",
         userData // Send userData directly without wrapping it
@@ -83,7 +83,7 @@ const LoginForm = ({ onLoginSuccess }) => {
       const user = result.user;
 
       // Data for the backend
-      const userData = { email: user.email, githubUserId: user.uid }; // Assuming you have a field named 'facebookUserId' in your backend
+      const userData = { email: user.email, uid: user.uid }; // Assuming you have a field named 'facebookUserId' in your backend
       const response = await axios.post(
         "http://localhost:5001/api/users/firelogin",
         userData // Send userData directly without wrapping it

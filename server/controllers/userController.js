@@ -8,6 +8,7 @@ import dotenv from "dotenv"; // Importing dotenv for environment variables
 import path, { join } from "path"; // Importing path module for file path manipulation
 import { ProfileImage } from "../models/schemaFiles/imagesSchema.js"; // Import the ProductImages model for interacting with image data
 import { v2 as cloudinary } from "cloudinary"; // Import the Cloudinary library for image upload
+import firebase from "../config/firebase.js";
 
 // Loading environment variables from .env file
 dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
@@ -28,9 +29,18 @@ const UserController = {
           .status(400)
           .json({ message: "This email is already registered" });
       }
+      // create new user in mongodb
       const newUser = new User(userData);
-
       const savedUser = await newUser.save();
+
+      // create corresponding user in firebase
+      const firebaseUserInfo = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(userData.email, userData.password);
+      const firebaseId = firebaseUserInfo.user.uid;
+
+      savedUser.firebaseId = firebaseId;
+      await savedUser.save();
 
       res
         .status(201)
@@ -58,12 +68,20 @@ const UserController = {
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
+      if (!user.firebaseId) {
+        const firebaseUser = await getFirebaseUserId();
+        const newFirebaseUserId = firebaseUser.uid;
+
+        user.firebaseId = newFirebaseUserId;
+        await user.save();
+      }
       // Create payload for JWT token
       const payload = {
         id: user._id,
         role: user.membership.role,
         membership: user.membership,
         shopId: user.membership.shopId,
+        firebaseId: user.firebaseId,
       };
       console.log("payload:", payload);
 
@@ -82,7 +100,7 @@ const UserController = {
 
   // Firebase Login controller
   fireLogin: async (req, res) => {
-    const { email, googleUserId, githubUserId, ...otherData } = req.body;
+    const { email, uid, ...otherData } = req.body;
     console.log(req.body);
     try {
       let user = await User.findOne({ email });
@@ -92,8 +110,7 @@ const UserController = {
         // If the user doesn't exist, create a new user
         const newUser = new User({
           email,
-          googleUid: googleUserId,
-          githubUid: githubUserId,
+          firebaseId: uid,
           ...otherData,
         });
         user = await newUser.save();
@@ -105,6 +122,7 @@ const UserController = {
         role: user.membership.role,
         membership: user.membership,
         shopId: user.membership.shopId,
+        firebaseId: user.firebaseId,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "3h",

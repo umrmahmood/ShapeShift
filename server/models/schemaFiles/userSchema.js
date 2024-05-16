@@ -16,9 +16,7 @@ const UserSchema = new Schema(
     password: { type: String },
 
     // authentications passes
-    googleUid: { type: String },
-    twitterUid: { type: String },
-    githubUid: { type: String },
+    firebaseId: { type: String },
 
     profile: {
       // Sub-document for user profile details.
