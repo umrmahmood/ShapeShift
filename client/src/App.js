@@ -17,6 +17,7 @@ import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
+import ShoppingCartProvider from "./context/ShoppingCartProvider.js";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
