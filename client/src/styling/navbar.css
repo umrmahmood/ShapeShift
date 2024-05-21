@@ -1,24 +1,47 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-
-
 .nav-logo img {
 	width: 250px;
+	padding-top: 6px;
 }
+
+.nav-logo {
+	position: relative;
+	display: flex;
+	align-items: center;
+  }
+
+  .logo-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transition: opacity 0.3s ease-in-out;
+  }
+  
+  .logo-img.hidden {
+	opacity: 0;
+  }
+  
+  .logo-img.visible {
+	opacity: 1;
+  }
 
 .Navbar-container {
 	height: 200px;
 	display: flex;
-	/* justify-content: space-around; */
 	justify-content: space-between;
 	color: rgb(0, 0, 0);
-	position: relative;
+	/* position: relative; */
 	z-index: 3;
 	padding: 2em;
 	background: rgb(224, 226, 223);
-    
+	/* align-items: center; */
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	transition: height 0.3s, background-color 0.3s;
 }
-
 
 .Navbar li {
 	list-style: none;
@@ -70,7 +93,15 @@ a:hover {
 	align-items: center;
 }
 
-.navbar-sell-btn button{ 
+.icon-pointer{
+	cursor: pointer;
+}
+
+.icon-pointer:hover{
+	color: rgb(166, 0, 2);
+}
+
+.navbar-sell-btn button {
 	border: none;
 	/* background: rgb(166, 0, 2);
 	color: white;
@@ -79,22 +110,32 @@ a:hover {
 	color: rgb(166, 0, 2);
 	background: none;
 	font-family: "proxoma nova";
-	
+	/* font-family: "Bebas Neue", sans-serif; */
+	font-size: 22px; 
+	font-weight: bold;
 }
 
-.navbar-sell-btn button:hover{ 
+/* .navbar-sell-btn button:hover {
 	font-weight: 700;
-}
+} */
 
 .nav-search {
-    align-self: center;
+	align-self: center;
+	margin-left: 18em;
 }
 
 .nav-search input {
-    width: 600px;
+	width: 600px;
 	font-size: 18px;
 	border-radius: 0px;
 }
+
+
+.Navbar-container.small {
+	height: 100px;
+}
+
+/* search button for search bar */
 /* 
 .nav-search-btn{
     border: none;
