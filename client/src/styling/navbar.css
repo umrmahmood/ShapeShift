@@ -164,3 +164,50 @@ a:hover {
     font-size: 18px;
     pointer-events: none;
 } */
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .Navbar-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 1em;
+    }
+
+    .nav-logo img {
+        width: 150px;
+    }
+
+    .nav-search {
+        margin: 2em 0;
+        width: 100%;
+    }
+
+    .nav-search input {
+        width: 100%;
+        padding: 0.5em;
+    }
+
+    .nav-icons {
+        display: none;
+        flex-direction: column;
+        gap: 1em;
+        width: 100%;
+    }
+
+    .nav-icons.show {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .menu-toggle button {
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+}

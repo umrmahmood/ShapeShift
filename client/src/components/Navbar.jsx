@@ -30,6 +30,7 @@ const Navbar = ({ onLoginClick }) => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isScrolled, setIsScrolled] = useState(false);
+	// const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	// Popup states
 	const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
@@ -104,6 +105,10 @@ const Navbar = ({ onLoginClick }) => {
 		setSearchQuery(event.target.value);
 	};
 
+	// const toggleMenu = () => {
+    //     setIsMenuOpen(!isMenuOpen);
+    // };
+
 	return (
 		<>
 			<div className={`Navbar-container ${isScrolled ? "small" : ""}`}>
@@ -138,7 +143,13 @@ const Navbar = ({ onLoginClick }) => {
 						placeholder="Search for anything"
 					/>
 				</div>
+				
+				{/* responsive menu
+				<div className="menu-toggle">
+                    <button onClick={toggleMenu}>☰</button>
+                </div>
 
+                <div className={`nav-icons ${isMenuOpen ? "show" : ""}`}> */}
 				<div className="nav-icons">
 					<li className="navbar-login-btn">
 						<button
