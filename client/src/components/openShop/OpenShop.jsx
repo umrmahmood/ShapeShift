@@ -5,6 +5,9 @@ const OpenShop = () => {
 
     return (
         <>
+        <div className='open-shop-wrapper'>
+
+        
         <h1 className='heading-regshop'>Register your shop</h1>
         <div className="regshop-container">
 
@@ -13,6 +16,7 @@ const OpenShop = () => {
             <OpenShopForm/>
 
             </div>
+        </div>
         </div>
         </>
     )

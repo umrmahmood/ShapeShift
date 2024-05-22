@@ -6,6 +6,7 @@ const UserShopSettings = ({ shopId, setShopAvatar, setShopBanner }) => {
 	const [avatar, setAvatar] = useState(null);
 	const [banner, setBanner] = useState(null);
 	const [uploadStatus, setUploadStatus] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const handleAvatarChange = (event) => {
 		setAvatar(event.target.files[0]);
@@ -17,6 +18,7 @@ const UserShopSettings = ({ shopId, setShopAvatar, setShopBanner }) => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setLoading(true); 
 
 		try {
 			const token = localStorage.getItem("shapeshiftkey");
@@ -57,23 +59,23 @@ const UserShopSettings = ({ shopId, setShopAvatar, setShopBanner }) => {
 				setUploadStatus("Banner uploaded successfully!");
 			}
 
-			// Optionally, you can add a success message or redirect the user
 		} catch (error) {
 			console.error("Error uploading images:", error);
+			setUploadStatus("Error uploading images.");
+		} finally {
+			setLoading(false); 
 		}
 	};
 
-
 	useEffect(() => {
 		if (uploadStatus) {
-			alert("upload successful, Please refresh the page to see changes");
-			// window.location.reload();
+			alert(uploadStatus)
 		}
 	}, [uploadStatus]);
 
 	return (
 		<div>
-			<p>Change Images</p>
+			<h3>Update Images</h3>
 			<form className="userShop-settings-form" onSubmit={handleSubmit}>
 				<div className="userShop-settings-images">
 					<div className="shop-avatar">
@@ -85,7 +87,6 @@ const UserShopSettings = ({ shopId, setShopAvatar, setShopBanner }) => {
 							onChange={handleAvatarChange}
 						/>
 						{avatar && <div className="userShop-uploaded"> File uploaded</div>}
-						
 					</div>
 					<div className="shop-banner">
 						<label htmlFor="banner">Change Banner</label>
@@ -99,8 +100,9 @@ const UserShopSettings = ({ shopId, setShopAvatar, setShopBanner }) => {
 					</div>
 				</div>
 				<div className="shop-images-submit">
-					<button type="submit">Save Changes</button>
+					<button type="submit" disabled={loading}>Save Changes</button>
 				</div>
+				{loading && <div className="loader">Upload in progress...</div>} 
 			</form>
 		</div>
 	);

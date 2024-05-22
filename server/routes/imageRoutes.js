@@ -46,8 +46,8 @@ router
   // Profile Image Router
   .post(
     "/upload/profile/:userId", // Define the route path with a parameter for the product ID
-    authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
-    Parser.single("images"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
+    //authMiddleware.authenticated, // Apply authentication middleware to authenticate the user
+    Parser.single("image"), // Use Multer middleware to parse multipart form data with file field name "images" and limit to 5 files
     UserController.uploadProfileImage // Call the uploadImage method from the ImageController to handle the request
   )
 
