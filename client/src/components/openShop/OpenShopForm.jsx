@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import shop from "../../assets/shop_icon.png";
 import "../../styling/popupwindowshop.css";
+import "../../styling/regShop.css";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
@@ -79,7 +80,7 @@ const OpenShopForm = () => {
 	};
 
 	return (
-		<div>
+		<div className="exp">
 			{userHasShop ? (
 				showPopupAlready && (
 					<div className="reg-popup">
@@ -94,7 +95,7 @@ const OpenShopForm = () => {
 				)
 			) : (
 				<div className="regshop-container">
-					<div>
+					
 						<form onSubmit={handleSubmit}>
 							<div className="regshop-field">
 								<label>Name</label>
@@ -119,6 +120,7 @@ const OpenShopForm = () => {
 										value={formData.description}
 										onChange={handleChange}
 										maxLength={300}
+										placeholder="max 300 characters"
 									/>
 								</div>
 							</div>
@@ -148,12 +150,10 @@ const OpenShopForm = () => {
 									/>
 								</div>
 							</div>
-
 							<div className="regshop-submit">
 								<button type="submit">Submit</button>
 							</div>
 						</form>
-					</div>
 					<div className="regshop-image">
 						<img src={shop} alt="shopping" />
 					</div>

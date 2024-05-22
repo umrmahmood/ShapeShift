@@ -1,3 +1,8 @@
+.landing-wrapper{
+	padding-top: 200px;
+}
+
+
 .main-overlay {
     position: fixed;
     top: 0;
@@ -15,19 +20,177 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1001; 
-   
 }
 
-.carousel-item img {
-    width: 100%;
-    height: auto;
+.main-border {
+	position: relative;
+	border: 5px solid rgb(255, 255, 255); 
+	height: 70vh;
+	width: 80vw;
+	left: 10vw;
+	z-index: 1;
+	/* overflow: hidden;   */	
+}
+
+.overlay {
+	position: absolute;
+	top: 20px;
+	left: 0; 
+	width: 100%;
+	height: 100%;
+	overflow: hidden; 
+	background: rgb(224, 226, 223);
+} 
+
+
+.mainexplore-button {
+	position: absolute;
+	background: transparent;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 15%;
+	width: 7vw;
+	height: 5vh;
+	font-size: 14px;
+	border: 1px solid black;
+	z-index: 2;
+	font-family: "proxima nova";
+	cursor: pointer;
+}
+
+.mainexplore-button:hover {
+	background: black;
+	color: white;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.para {
+    font-size: 2.3vw; 
+    color: black;
+    position: absolute;
+    top: 40%; 
+    left: 20%; 
+    font-family: "Bebas Neue", sans-serif;
+    line-height: 1.5em;
+    padding: 1em;
+    max-width: 80%; 
+    box-sizing: border-box; 
+}
+
+.hashtag {
+    font-size: 1vw; 
+    font-family: "proxima nova";
+}
+
+
+/* Media queries  */
+@media (max-width: 1600px) {
+	.main-border{
+		height: 60vh;
+	}
+
+	.overlay{
+		height: 90%
+	}
+}
+
+@media (max-width: 1400px) {
+	.main-border{
+		height: 50vh;
+	}
+
+	.overlay{
+		height: 80%;
+		top:6%
+	}
+}
+
+@media (max-width: 1200px) {
+	.mainexplore-button {
+		width: 5vw;
+		height: 3vh;
+		font-size: 0.7vw;
+	}
+
+	.main-border{
+		height: 40vh;
+	}
+
+	.overlay{
+		height: 60%;
+		top:8%
+		
+	}
 }
 
 @media (max-width: 768px) {
+
+	.main-border{
+		height: 40vh;
+		width: 85vw;
+
+	}
+
+	.overlay{
+		height: 60%;
+		top:20%;
+		width:700px;
+	}
+
+	.para {
+        font-size: 4vw; 
+        top: 35%; 
+        left: 9%; 
+    }
+
+    .hashtag {
+        font-size: 2vw; 
+    }
+
+	.mainexplore-button {
+		top:90%;
+		width: 15vw;
+		height: 4vh;
+		font-size: 8px;
+	}
+}
+
+@media (max-width: 480px) {
+
+	.main-border{
+		height: 40vh;
+		width: 80vw;
+
+	}
+
+	.overlay{
+		height: 60%;
+		top:30%;
+		width:500px;
+	}
+
+	.para {
+        font-size: 4vw; 
+        top: 35%; 
+        left: 9%; 
+    }
+
+    .hashtag {
+        font-size: 2vw; 
+    }
+
+	.mainexplore-button {
+		top:90%;
+		width: 15vw;
+		height: 4vh;
+		font-size: 8px;
+	}
+}
+
+
+/* @media (max-width: 768px) {
     .carousel-item img {
         max-width: 100%;
         height: auto;
     }
-}
-
-
+} */

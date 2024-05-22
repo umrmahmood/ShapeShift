@@ -105,6 +105,32 @@ const ShopController = {
   },
 
   // Update Shop
+  updateShop: async (req, res) => {
+    try {
+      const shopId = req.params.shopId; 
+      const { name, description, location, categories } = req.body; 
+  
+     
+      const shop = await Shop.findByIdAndUpdate(
+        shopId,
+        { name, description, location, categories },
+        { new: true, runValidators: true } // Return the updated document and run validation
+      );
+  
+      if (!shop) {
+        return res.status(404).json({ message: "Shop not found" });
+      }
+  
+      
+      res.status(200).json({ shop });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
+
+
   // Get Shop by ID
   // Get Shops by Owner
   // Search Shops
