@@ -1,8 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-/* *{
-    font-family: 'Bebas Neue', sans-serif;
-
-} */
+.ImagesContainer {
+    width: 45%;}
 
 .MainContainer {
     display: flex;
@@ -10,6 +7,7 @@
     margin: 20px;
     padding: 20px;
     padding-top: 200px;
+    width: 100%;
 }
 
 .ProductContainer {
@@ -57,15 +55,67 @@
     width: 400px;
     height: 400px;
 }
+.MainImageContainer {
+    margin-bottom: 20px;
+}
+
+.main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
 
 .secondary-images {
     display: flex;
     flex-wrap: wrap;
+    gap: 10px; 
 }
 
 .secondary-images img {
-    width: 200px;
-    height: 200px;
-    margin-right: 10px; 
-    margin-bottom: 10px; 
+    width: calc(33.33% - 5px); 
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
+
+.DescriptionContainer {
+    width: 45%; 
+}
+
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+.secondary-image img {
+    max-width: 200px;
+    max-height: 200px;
+    transition: max-width 0.3s, max-height 0.3s; 
+  }
+  
+  .secondary-image img:hover {
+    max-width: 600px; 
+    max-height: 600px; 
+  }
+  .DescriptionContainer {
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .DescriptionContainer h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .DescriptionContainer p {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .DescriptionContainer p:last-child {
+    margin-bottom: 0;
+  }

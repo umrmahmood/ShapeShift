@@ -4,30 +4,55 @@ import { useNavigate } from "react-router-dom";
 
 const Card = (props) => {
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState([]);
   console.log(props.product);
   const { _id, name, description, price, ratings, images } = props.product;
 
+  // useEffect(() => {
+  //   if (images && images.length > 0) {
+  //     const fetchingImage = async () => {
+  //       const imageUrl = images[0]; 
+
+  //       try {
+  //         const response = await fetch(`/api/images/${imageUrl}`);
+  //         if (response.ok) {
+  //           const data = await response.json();
+  //           setImageUrl(data.url);
+  //           console.log("IMAGEURL:", data);
+  //         } else {
+  //           throw new Error("Failed to fetch image");
+  //         }
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     };
+
+  //     fetchingImage();
+  //   }
+  // }, [images]);
+
   useEffect(() => {
     if (images && images.length > 0) {
-      const fetchingImage = async () => {
-        const imageUrl = images[0]; // Assuming images is an array of image IDs
-
+      const fetchingImages = async () => {
         try {
-          const response = await fetch(`/api/images/${imageUrl}`);
-          if (response.ok) {
-            const data = await response.json();
-            setImageUrl(data.url);
-            console.log("IMAGEURL:", data);
-          } else {
-            throw new Error("Failed to fetch image");
-          }
+          const promises = images.map(async (imageUrl) => {
+            const response = await fetch(`/api/images/${imageUrl}`);
+            if (response.ok) {
+              const data = await response.json();
+              return data.url;
+            } else {
+              throw new Error("Failed to fetch image");
+            }
+          });
+          const urls = await Promise.all(promises);
+          setImageUrl(urls);
+          console.log("IMAGEURLS:", urls);
         } catch (error) {
           console.error(error);
         }
       };
 
-      fetchingImage();
+      fetchingImages();
     }
   }, [images]);
 
@@ -42,7 +67,7 @@ const Card = (props) => {
   // };
   return (
     <div className="cardMain">
-      {imageUrl && <img src={imageUrl} alt={name} />}
+      {imageUrl && <img src={imageUrl[0]} alt={name} />}
       <h2>{name}</h2>
       {/* <p>{description}</p> */}
       {/* <h3 className="rating">Rating:{calculateAverageRating(ratings)}</h3> */}

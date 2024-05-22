@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate, Link } from "react-router-dom";
 
 // CSS import
 import "./PopMenu.css"; // Import the CSS file for styling
@@ -62,39 +63,17 @@ const ShoppingCart = ({ isOpen, onClose }) => {
         <ul>
           <li>
             <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-            </div>
-            <div className="text-wrapper">View Profile</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faStar} />
-            </div>
-            <div className="text-wrapper">Favorites</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faMoneyBillTransfer} />
-            </div>
-            <div className="text-wrapper">Purchases</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faEnvelope} />
-            </div>
-            <div className="text-wrapper">Messages</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faGear} />
-            </div>
-            <div className="text-wrapper">Settings</div>
-          </li>
-          <li>
-            <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
-            <div className="text-wrapper">Sign Out</div>
+            <Link
+              className="text-wrapper"
+              to="/cart"
+              onClick={(e) => {
+                onClose();
+              }}
+            >
+              Check Out
+            </Link>
           </li>
         </ul>
       </div>

@@ -1,10 +1,11 @@
+import PublicProfile from "../popups/PublicProfile.jsx"; // Import the PublicProfile component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styling/sellerShop.css";
 import usericon from "../assets/usericon.png";
-//import ShopItems from "../components/ShopItems.jsx";
+import ShopItems from "./ShopItems.jsx";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 const SellerShop = () => {
@@ -13,6 +14,9 @@ const SellerShop = () => {
   const [owner, setOwner] = useState(null); // State to hold owner data
   const navigate = useNavigate();
   const [selectedSection, setSelectedSection] = useState("Items");
+
+  // Popup state for owner's profile
+  const [showOwnerProfile, setShowOwnerProfile] = useState(false);
 
   useEffect(() => {
     const fetchShop = async () => {
@@ -35,6 +39,10 @@ const SellerShop = () => {
 
     fetchShop();
   }, [shopId]);
+
+  const handleOwnerAvatarClick = () => {
+    setShowOwnerProfile(true); // Open owner profile popup when owner's avatar is clicked
+  };
 
   //console.log("avatar", owner.profile.avatarUrl);
   const handleSectionClick = (section) => {
@@ -66,18 +74,26 @@ const SellerShop = () => {
               </div>
             </div>
             <div className="owner-shop">
-              <div className="shop-image-owner">
+              <div
+                className="shop-image-owner"
+                onClick={handleOwnerAvatarClick}
+              >
                 <img src={owner.profile.avatarUrl} alt="Owner" />
               </div>
+
               <div className="shop-detail-owner">
-                <h3>{owner.profile.username}</h3>
-                <p>
-                  <span className="seller-shop-envelope">
-                    <FontAwesomeIcon icon={faEnvelope} />{" "}
-                  </span>
-                  {owner.email} <br />
-                  Registered since: {owner.membership.registerDate}
-                </p>
+                <h4>
+                  {owner.profile.username.charAt(0).toUpperCase() +
+                    owner.profile.username.slice(1)}
+                </h4>
+              </div>
+
+              <div className="message-button">
+                <button>
+                  Message{" "}
+                  {owner.profile.username.charAt(0).toUpperCase() +
+                    owner.profile.username.slice(1)}
+                </button>
               </div>
             </div>
           </div>
@@ -97,12 +113,20 @@ const SellerShop = () => {
               </div>
               <div className="rendered-sects">
                 {/* Render sections based on selectedSection */}
-                {/* {selectedSection === "Items" && <ShopItems />} */}
+                {selectedSection === "Items" && <ShopItems shopId={shopId} />}
                 {/* Add rendering for other sections */}
               </div>
             </div>
           </div>
         </>
+      )}
+      {/* Render owner profile popup */}
+      {showOwnerProfile && owner && (
+        <PublicProfile
+          isOpen={true}
+          onClose={() => setShowOwnerProfile(false)}
+          userId={owner._id}
+        />
       )}
     </div>
   );
