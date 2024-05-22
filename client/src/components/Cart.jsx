@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../styling/Cart.css';
 import Payment from './Payment';
 import lapTop from "../assets/laptop.jpg";
@@ -6,10 +6,7 @@ import emptyCart from "../assets/empty_cart.png";
 import useShoppingCart from '../hooks/useShoppingCart';
 
 const Cart = () => {
-
-  // const [cartItems, setCartItems] = useState([]);
-  const {addItem, subtractItem, removeItem, editItem, items: cartItems} = useShoppingCart();
-
+  const { addItem, subtractItem, removeItem, editItem, items: cartItems } = useShoppingCart();
 
   return (
     <div className="shopping-cart-outer">
@@ -18,36 +15,34 @@ const Cart = () => {
           {cartItems.length === 0 ? (
             <div className="no-items">
               <p>Your Cart is <span>Empty !</span></p>
-              <img className="emptyCart" src={emptyCart} alt="laptop" />
+              <img className="emptyCart" src={emptyCart} alt="empty cart" />
             </div>
           ) : (
             cartItems.map((item, index) => (
               <div key={index} className="cart-item">
-                <>{console.log(" the item is ",item)}</>
-                <img  src={lapTop} alt={item.name} className="item-image" />
+                <img src={lapTop} alt={item.name} className="item-image" />
                 <div className="item-details">
                   <h5>{item.name}</h5>
-                  <p>{item.quantity}</p>
+                  <h5>Price {item.price * item.quantity}</h5>
+                  <p>Quantity: {item.quantity}</p>
                   <div className="quantity-controls">
                     <div className="quantity-options">
                       <button className="delete-button" onClick={() => removeItem(item.id)}>Remove</button>
-                      <label htmlFor={`quantity-${cartItems.quantity}`}></label>
-                      {/* <select 
+                      <label htmlFor={`quantity-${index}`}>Quantity:</label>
+                      <select
                         id={`quantity-${index}`}
-                        className="quantity-select" 
-                        value={item.quantity} 
+                        className="quantity-select"
+                        value={item.quantity}
                         onChange={(e) => {
-                          const newQuantity = parseInt(e.target.value);
-                          const updatedItems = cartItems.map(cartItem => cartItem.name === item.name ? { ...cartItem, quantity: newQuantity, totalPrice: (parseFloat(cartItem.price.slice(1)) * newQuantity).toFixed(2) } : cartItem);
-                          setCartItems(updatedItems);
+                          const newQuantity = parseInt(e.target.value, 10);
+                          editItem(item.id, newQuantity);
                         }}
                       >
                         {[...Array(200)].map((_, i) => (
                           <option key={i} value={i + 1}>{i + 1}</option>
                         ))}
-                      </select> */}
+                      </select>
                     </div>
-                    {/* <p>Total: €{item.totalPrice}</p> */}
                   </div>
                 </div>
               </div>
@@ -55,13 +50,11 @@ const Cart = () => {
           )}
         </div>
         <div className="cart-total">
-          {/* <p>Total: €{getTotalCost()}</p> */}
+          {/* Calculate and display total cost if needed */}
         </div>
         <div className="cart-buttons">
-          {/* <button className="delete-all-button" onClick={() => setCartItems([])}>Delete All</button> */}
+          {/* Add any additional buttons if needed */}
         </div>
-        {/* <button className="add-item" onClick={() => addItem({ name: 'Laptop', price: '€1000', image: 'https://via.placeholder.com/50' })}>Add Laptop</button>
-        <button className="add-item" onClick={() => addItem({ name: 'Headphones', price: '€50', image: 'https://via.placeholder.com/50' })}>Add Headphones</button> */}
       </div>
       <Payment cartItems={cartItems} />
     </div>
