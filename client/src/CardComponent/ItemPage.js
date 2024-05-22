@@ -151,6 +151,7 @@ const ItemPage = ({  }) => {
 // }, [reviews]);
 console.log("decoded token is : " , decodedToken)
   return (
+   <>
     <div className="MainContainer">
         <div className="ImagesContainer">
         <div className="MainImageContainer">
@@ -188,15 +189,17 @@ console.log("decoded token is : " , decodedToken)
   {product.quantity !== undefined && <p>Quantity: {product.quantity}</p>}
   {product.material && <p>Material: {product.material}</p>}
 </div>
-<div className="shop-owner">
-{ decodedToken.membership.shopId === product.seller && (
-            <div>
-              <button onClick={handleChange}>Edit</button>
-              <button onClick={handleDelete}>Delete</button>
-            </div>
-          )}
-</div>
+
     </div>
+    <div className="shop-owner">
+
+    {decodedToken.membership.shopId === product.seller && (
+      <div className="admin-buttons-container">
+        <button className="admin-buttons" onClick={handleEdit}>Edit</button>
+        <button className="admin-buttons" onClick={handleDelete}>Delete</button>
+      </div>
+    )}</div>
+          </>
 );
 };
 export default ItemPage;

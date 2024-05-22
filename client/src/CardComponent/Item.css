@@ -118,3 +118,36 @@ p {
   .DescriptionContainer p:last-child {
     margin-bottom: 0;
   }
+  .image-container {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+  }
+  
+  
+.admin-buttons-container {
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    max-height: 600px;
+    justify-content: space-evenly;
+}
+
+.admin-buttons {
+    font-family: "proxoma nova";
+    background: transparent;
+    padding: 5px 20px;
+    font-size: 1em;
+    border-radius: 5px; 
+    width:80px;
+    border:1px, rgb(166, 0, 2);
+    border-color:  rgb(166, 0, 2);
+}
+
+
+
+.admin-buttons:hover {
+    color: white;
+    background: rgb(166, 0, 2);
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
