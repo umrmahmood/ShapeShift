@@ -1,7 +1,5 @@
 import Shop from "../models/schemaFiles/shopSchema.js"; // Importing the user model
 import User from "../models/schemaFiles/userSchema.js";
-import jwt from "jsonwebtoken"; // Importing JWT for token generation and verification
-import bcryptjs from "bcryptjs"; // Importing bcryptjs for password hashing and comparison
 import dotenv from "dotenv"; // Importing dotenv for environment variables
 import path, { join } from "path"; // Importing path module for file path manipulation
 import { ShopImage, ShopBanner } from "../models/schemaFiles/imagesSchema.js"; // Import the ProductImages model for interacting with image data
@@ -18,7 +16,7 @@ const ShopController = {
   register: async (req, res) => {
     try {
       const userId = req.user._id; // Extract the product ID from the request parameters
-      console.log("UserID:", userId);
+
       if (req.user.membership?.haveShop) {
         return res.status(403).json({
           message: "You already operate a Shop",
@@ -107,29 +105,25 @@ const ShopController = {
   // Update Shop
   updateShop: async (req, res) => {
     try {
-      const shopId = req.params.shopId; 
-      const { name, description, location, categories } = req.body; 
-  
-     
+      const shopId = req.params.shopId;
+      const { name, description, location, categories } = req.body;
+
       const shop = await Shop.findByIdAndUpdate(
         shopId,
         { name, description, location, categories },
         { new: true, runValidators: true } // Return the updated document and run validation
       );
-  
+
       if (!shop) {
         return res.status(404).json({ message: "Shop not found" });
       }
-  
-      
+
       res.status(200).json({ shop });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
     }
   },
-
-
 
   // Get Shop by ID
   // Get Shops by Owner
@@ -172,7 +166,6 @@ const ShopController = {
             { fetch_format: "auto" },
           ],
         });
-        console.log("publicId", result);
 
         newShopImage.public_id = result.public_id;
         newShopImage.version_id = result.version_id;
@@ -266,13 +259,12 @@ const ShopController = {
           tags: file.originalname,
           unique_filename: false,
           transformation: [
-            { gravity: "auto", height: 300, width: 1900, crop: "auto_pad" },
+            { gravity: "auto", height: 300, width: 1900, crop: "fill" },
             { effect: "sharpen" },
             { quality: "auto" },
             { fetch_format: "auto" },
           ],
         });
-        console.log("publicId", result);
 
         newShopBanner.public_id = result.public_id;
         newShopBanner.version_id = result.version_id;

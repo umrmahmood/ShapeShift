@@ -25,6 +25,7 @@
 /* CSS */
 .select-container {
     margin-bottom: 1rem;
+    margin: 2em 14em;
 }
 
 .select-container select {
@@ -55,6 +56,7 @@
 .category-grid-container {
     display: flex;
     align-items: center;
+    margin: 2em 14em;
   }
   
   .category-grid {
@@ -63,6 +65,7 @@
     padding: 0;
     margin: 0;
     overflow-x: auto;
+    
   }
   
   .category-item {
@@ -94,7 +97,7 @@
     overflow-x: hidden;
     width: 100%;
     margin: 0 auto;
-    transition: transform 0.5s ease; /* Smooth transition */
+    transition: transform 0.5s ease;
   }
   
   .category-grid {
@@ -109,7 +112,7 @@
   }
   
   .category-scroll-button {
-    flex: 0 0 30px; /* Set a fixed width for scroll buttons */
+    flex: 0 0 30px; 
     cursor: pointer;
   }
   
@@ -121,7 +124,7 @@
     background-color: #f9f9f9;
     min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 5000;
   }
   
   .dropdown-content a {
@@ -183,4 +186,38 @@
   
   .category-item.dropdown:hover .category-dropdown-container {
     display: block;
+  }
+  .category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 20px;  
+    margin: 20px;   
+  }
+  
+  .category-item {
+    margin: 10px; 
+  }
+  
+  .category-link {
+    display: block;
+    padding: 10px 15px; 
+    text-decoration: none;
+    color: black;
+   
+  }
+  
+  .category-link.active {
+    background-color: black;
+    color: white;
+  }
+  
+  .dropdown-container {
+    position: absolute; /* Position the dropdown container */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Add some shadow for better visibility */
+    z-index: 1; /* Ensure it appears above other content */
   }

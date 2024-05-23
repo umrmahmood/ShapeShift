@@ -78,9 +78,12 @@ const MyShop = ({ isOpen, onClose }) => {
 
   return (
     <div className="custom-popup-overlay">
-      <div ref={popupRef} className={`custom-popup-content ${isOpen ? "open" : ""}`}
-       style={{ top: isNavbarSmall ? "70px" : "120px" }}>
-      <h2 className="popup-title">{shop.name}</h2>
+      <div
+        ref={popupRef}
+        className={`custom-popup-content ${isOpen ? "open" : ""}`}
+        style={{ top: isNavbarSmall ? "70px" : "120px" }}
+      >
+        <h2 className="popup-title">{shop.name}</h2>
         {/* Content for the profile popup */}
         <div className="popup-avatar-container">
           <img
@@ -89,7 +92,7 @@ const MyShop = ({ isOpen, onClose }) => {
             alt="users avatar"
           />
         </div>
-        
+
         <ul>
           <li>
             <div className="icon-wrapper">
@@ -128,20 +131,12 @@ const MyShop = ({ isOpen, onClose }) => {
             </Link>
           </li>
           <li>
-            <div className="icon-wrapper ">
-              <FontAwesomeIcon icon={faEnvelope} />
-            </div>
-            <Link className="text-wrapper profile-links" to="/" onClick={(e) => onClose()}>
-              Messages
-            </Link>
-          </li>
-          <li>
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faGear} />
             </div>
             <Link
               className="text-wrapper profile-links"
-              to="/user-shop?active=Settings"
+              to="/user-shop?active=UpdateShop"
               onClick={(e) => onClose()}
             >
               Settings

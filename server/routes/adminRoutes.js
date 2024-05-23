@@ -9,7 +9,7 @@ import authMiddleware from "../middleware/authMiddleware.js"; // Importing the a
 const router = express.Router(); // Creating an Express router instance
 
 // Middleware to ensure routes are only accessible to admin users
-router.use(authMiddleware.isAdmin);
+router.use(authMiddleware.isAdmin); // Applying the isAdmin middleware to all routes in this router
 
 // Route for managing users
 router
@@ -33,7 +33,5 @@ router
   .put("/orders/:orderId", AdminController.updateOrderStatus) // PUT route to update the status of a specific order by ID
   .delete("/orders/:orderId", AdminController.deleteOrder); // DELETE route to delete a specific order by ID
 
-// Add more routes as needed for managing other resources
-// Example: categories, payments, etc.
-
-export default router; // Exporting the router for use in other parts of the application
+// Exporting the router for use in other parts of the application
+export default router;

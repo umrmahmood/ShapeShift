@@ -5,7 +5,6 @@ import express from "express"; // Importing Express framework
 import dotenv from "dotenv"; // Importing dotenv for environment variables
 import cors from "cors"; // Importing CORS middleware for cross-origin requests
 import path, { join } from "path"; // Importing path module for file path manipulation
-import { admin } from "./config/firebase.js";
 
 // Importing modules
 import MongoDB from "./db/connect.js";
@@ -13,7 +12,7 @@ import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
 import ProductRoutes from "./routes/productRoutes.js";
 import ImageRoutes from "./routes/imageRoutes.js";
 import ShopRoutes from "./routes/shopRoutes.js";
-// import MessageRoutes from "./routes/messageRoutes.js";
+import DigitalsRoutes from "./routes/digitalsRoutes.js";
 
 // Loading environment variables from .env file
 dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
@@ -38,7 +37,7 @@ app.use("/api/users", UserRoutes); // Using UserRoutes for user-related routes
 app.use("/api/products", ProductRoutes);
 app.use("/api/images", ImageRoutes);
 app.use("/api/shop", ShopRoutes);
-// app.use("/api/messages", MessageRoutes);
+app.use("/api/digitals", DigitalsRoutes);
 
 // Mongoose connection
 MongoDB()

@@ -27,7 +27,7 @@
   }
 
 .Navbar-container {
-	height: 200px;
+	height: 150px;
 	display: flex;
 	justify-content: space-between;
 	color: rgb(0, 0, 0);
@@ -132,7 +132,7 @@ a:hover {
 
 
 .Navbar-container.small {
-	height: 100px;
+	height: 70px;
 }
 
 /* search button for search bar */

@@ -11,12 +11,11 @@ const ImageController = {
   // Method to fetch a Image Info by ID
   getProductImageById: async (req, res) => {
     const imageId = req.params.imageId;
-    console.log(imageId);
 
     try {
       // Find product by ID
       const image = await ProductImages.findById(imageId);
-      console.log(image);
+
       if (!image) {
         return res.status(404).json({ message: "Image not found" });
       }
@@ -35,13 +34,11 @@ const ImageController = {
     try {
       // Find shop avatar by shopId
       const image = await ShopImage.findOne({ shopId: shopId });
-      console.log(image);
 
       if (!image) {
         return res.status(404).json({ message: "Image not found" });
       }
       res.status(200).json(image);
-      
     } catch (error) {
       // Handle errors
       console.error(error);
@@ -49,10 +46,9 @@ const ImageController = {
     }
   },
 
-
-//get shop banner
-getShopBanner: async (req, res) => {
-  const shopId = req.params.shopId;
+  //get shop banner
+  getShopBanner: async (req, res) => {
+    const shopId = req.params.shopId;
 
     try {
       // Find shop avatar by shopId
