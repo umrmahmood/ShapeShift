@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 // CSS import
 import "./PopMenu.css"; // Import the CSS file for styling
 
+import { auth } from "../components/Firebase.jsx";
 // Font Awesome icon imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -48,6 +49,7 @@ const MyProfile = ({ isOpen, onClose }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("shapeshiftkey");
+    auth.signOut();
     setIsLoggedIn(false);
     navigate("/");
   };

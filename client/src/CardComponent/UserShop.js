@@ -1,12 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import "./UserShop.css";
 import usericon from "../assets/usericon.png";
 import UserShopSettings from "./UserShopSettings";
 import ShopListing from "../components/ShopPage/ShopListing";
+import ChatBox from "../components/chat/ChatBox.jsx";
+//import MessageApp from "../components/MessageApp.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const UserShop = () => {
@@ -21,6 +23,8 @@ const UserShop = () => {
   const [shopAvatar, setShopAvatar] = useState("");
   const [shopBanner, setShopBanner] = useState("");
   const [selectedSection, setSelectedSection] = useState("Description");
+  const [recipientId, setRecipientId] = useState("");
+  const scroll = React.useRef();
 
   // component change dor popup buttons
   const navigate = useNavigate();
@@ -70,34 +74,6 @@ const UserShop = () => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const token = localStorage.getItem("shapeshiftkey");
-  //     if (token) {
-  //       try {
-  //         const response = await axios.get(
-  //           `http://localhost:5001/api/users/profile/${ownerId}`,
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
-  //         console.log("the user side response is", response);
-  //         setUserName(response.data.user.profile.username);
-  //         setUserEmail(response.data.user.email);
-  //         const registeredDate = response.data.user.membership.registerDate;
-  //         const regDateFormated = registeredDate.split("T")[0];
-  //         setShopRegDate(regDateFormated);
-  //       } catch (error) {
-  //         console.error("Error fetching user data:", error);
-  //       }
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [ownerId]);
-
   const handleSectionClick = (section) => {
     setSelectedSection(section);
     navigate("/user-shop?active=" + section);
@@ -123,21 +99,6 @@ const UserShop = () => {
             </p>
           </div>
         </div>
-        {/* <div className="owner-shop">
-          <div className="shop-image-owner">
-            <img src={usericon} alt="Owner" />
-          </div>
-          <div className="shop-detail-owner">
-            <h3>{userName}</h3>
-            <p>
-              <span className="user-shop-envelope">
-                <FontAwesomeIcon icon={faEnvelope} />{" "}
-              </span>
-              {userEmail} <br />
-              Registerd since: {shopRegDate}
-            </p>
-          </div>
-        </div> */}
       </div>
       <div className="user-shop-additional-info">
         <h2>Additional Information</h2>
@@ -153,6 +114,7 @@ const UserShop = () => {
                 Orders & Shipping
               </li>
               <li onClick={() => handleSectionClick("Settings")}>Settings</li>
+              <li onClick={() => handleSectionClick("Messages")}>Messages</li>
             </ul>
           </div>
           <div className="rendered-sects">
@@ -166,6 +128,7 @@ const UserShop = () => {
               </p>
             )}
             {selectedSection === "Listings" && <ShopListing />}
+            {selectedSection === "Messages" && <ChatBox />}
           </div>
         </div>
       </div>

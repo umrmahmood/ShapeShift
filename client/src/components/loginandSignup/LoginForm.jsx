@@ -6,20 +6,21 @@ import "../../styling/loginandSignup.css";
 import { useState } from "react";
 
 // Firebase Sign-in
-import firebaseApp from "../Firebase.jsx";
+import { auth } from "../Firebase.jsx";
+import { useAuthState } from "react-firebase-hooks/auth";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
-  getAuth,
 } from "firebase/auth"; // Import Firebase authentication functions
 
 const LoginForm = ({ onLoginSuccess }) => {
+  const [fireUser] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [wrongCredential, setWrongCredential] = useState("");
   const navigate = useNavigate();
-  const auth = getAuth(firebaseApp); // Get Firebase authentication instance
+  // const auth = getAuth({auth}); // Get Firebase authentication instance
 
   const handleLogin = async (e) => {
     e.preventDefault();

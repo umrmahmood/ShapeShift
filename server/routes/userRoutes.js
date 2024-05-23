@@ -1,4 +1,4 @@
-//  Route file for defining user-related endpoints.
+// userRoutes.js
 
 // Importing dependencies
 

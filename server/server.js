@@ -1,28 +1,28 @@
+// server.js
+
 // Importing dependencies
 import express from "express"; // Importing Express framework
 import dotenv from "dotenv"; // Importing dotenv for environment variables
 import cors from "cors"; // Importing CORS middleware for cross-origin requests
 import path, { join } from "path"; // Importing path module for file path manipulation
-import admin from "firebase-admin";
+import { admin } from "./config/firebase.js";
 
 // Importing modules
-import ConnectDB from "./db/connect.js";
+import MongoDB from "./db/connect.js";
 import UserRoutes from "./routes/userRoutes.js"; // Importing userRoutes.js
 import ProductRoutes from "./routes/productRoutes.js";
 import ImageRoutes from "./routes/imageRoutes.js";
 import ShopRoutes from "./routes/shopRoutes.js";
-// import AdminRoutes from "./routes/adminRoutes.js"; // Importing adminRoutes.js
-// import ProductRoutes from "./routes/productRoutes.js"; // Importing productRoutes.js
+// import MessageRoutes from "./routes/messageRoutes.js";
+
+// Loading environment variables from .env file
+dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
 
 // Initializing Express app
 const app = express(); // Creating an Express application
 
 const PORT = 5001; // Setting the port for the server to listen on, using environment variable or default 5001
-
 //const PORT = process.env.PORT || 5001; // Setting the port for the server to listen on, using environment variable or default 5001
-
-// Loading environment variables from .env file
-dotenv.config({ path: "./config/.env" }); // Specifying the path to the .env file
 
 // Setting __dirname
 const __dirname = path.resolve(); // Resolving the directory name
@@ -33,21 +33,15 @@ app.use(express.urlencoded({ extended: true })); // Parsing URL-encoded bodies
 app.use(express.json()); // Parsing JSON bodies
 app.use(express.static("./public")); // Serving static files from the public directory
 
-// Initialize Firebase Admin SDK
-import serviceAccount from "./config/firebaseAdminsdk.json";
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "YOUR_DATABASE_URL", // This is optional if you're using Firebase Realtime Database or Firestore
-});
-
 // Routes
 app.use("/api/users", UserRoutes); // Using UserRoutes for user-related routes
 app.use("/api/products", ProductRoutes);
 app.use("/api/images", ImageRoutes);
 app.use("/api/shop", ShopRoutes);
+// app.use("/api/messages", MessageRoutes);
 
 // Mongoose connection
-ConnectDB()
+MongoDB()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`The server is listening to port: ${PORT}`); // Logging that the server is listening on the specified port
