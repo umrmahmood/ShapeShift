@@ -1,26 +1,27 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import { useNavigate, Link } from "react-router-dom";
-
-// CSS import
-import "./PopMenu.css"; // Import the CSS file for styling
-
-// Font Awesome icon imports
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faArrowUpRightFromSquare,
-  faMoneyBillTransfer,
-  faGear,
-  faRightFromBracket,
-  faStar,
-} from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket, faTrash } from "@fortawesome/free-solid-svg-icons";
+import "./CartStyle.css";
+import useShoppingCart from "../hooks/useShoppingCart";
 
 const ShoppingCart = ({ isOpen, onClose }) => {
+  const { removeItem } = useShoppingCart();
+
   const popupRef = useRef(null);
   const [isNavbarSmall, setIsNavbarSmall] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+
+  // Load cart items from local storage
+  useEffect(() => {
+    const storedCartItems = JSON.parse(
+      localStorage.getItem("shoppingCartItems")
+    );
+    if (storedCartItems && Array.isArray(storedCartItems)) {
+      setCartItems(storedCartItems);
+    }
+  }, []);
 
   // Close the popup when clicking outside of it
   useEffect(() => {
@@ -39,11 +40,7 @@ const ShoppingCart = ({ isOpen, onClose }) => {
   // Track scroll position to adjust navbar and popup position
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsNavbarSmall(true);
-      } else {
-        setIsNavbarSmall(false);
-      }
+      setIsNavbarSmall(window.scrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -52,15 +49,40 @@ const ShoppingCart = ({ isOpen, onClose }) => {
     };
   }, []);
 
+  // Function to remove an item from the cart
+  const handleRemoveItem = (itemId) => {
+    // Remove the item from localStorage
+    removeItem(itemId);
+
+    // Update cartItems state to remove the deleted item
+    setCartItems(cartItems.filter((item) => item.id !== itemId));
+  };
+
   if (!isOpen) return null; // Don't render if isOpen is false
 
   return (
     <div className="custom-popup-overlay">
-      <div ref={popupRef} className={`custom-popup-content ${isOpen ? "open" : ""}`}
-       style={{ top: isNavbarSmall ? "70px" : "120px" }}>
-      
+      <div
+        ref={popupRef}
+        className={`custom-popup-content ${isOpen ? "open" : ""}`}
+        style={{ top: isNavbarSmall ? "70px" : "120px" }}
+      >
         {/* Content for the profile popup */}
         <ul>
+          {cartItems.map((item, index) => (
+            <li key={index}>
+              <span className="qty-wrapper">{item.quantity}</span>
+              <span className="name-wrapper">
+                {item.name.split(" ").slice(0, 2).join(" ")}
+              </span>
+              <span className="currency-wrapper">{item.currency}</span>
+              <span className="price-wrapper">{item.price.toFixed(2)}</span>
+              <FontAwesomeIcon
+                icon={faTrash}
+                onClick={() => handleRemoveItem(item.id)} // Call handleRemoveItem instead of removeItem directly
+              />
+            </li>
+          ))}
           <li>
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />

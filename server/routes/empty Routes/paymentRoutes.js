@@ -1,1 +1,0 @@
-// Route file for defining payment-related endpoints.
