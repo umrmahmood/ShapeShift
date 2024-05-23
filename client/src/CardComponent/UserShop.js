@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -155,6 +155,16 @@ const UserShop = () => {
                 <FontAwesomeIcon icon={faLocationDot} /> {location}
               </span>
             </p>
+            <div className="message-seller-btn">
+              <button>
+                <Link
+                  className="text-wrapper profile-links"
+                  to={`/shop/${shopId}`}
+                >
+                  View Public Profile
+                </Link>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -162,9 +172,6 @@ const UserShop = () => {
         <h2>Additional Information</h2>
         <div className="shop-additional-info-section">
           <ul>
-            <li onClick={() => handleSectionClick("Description")}>
-              Description
-            </li>
             <li onClick={() => handleSectionClick("Listings")}>Listings</li>
             <li onClick={() => handleSectionClick("Orders")}>
               Orders & Shipping
@@ -180,7 +187,6 @@ const UserShop = () => {
             {selectedSection === "UpdateImages" && (
               <UserShopSettings shopId={shopId} />
             )}
-            {selectedSection === "Description" && <p>{description}</p>}
             {selectedSection === "Orders" && (
               <p>
                 Order will be delivered within 24hrs after the confirmation.
