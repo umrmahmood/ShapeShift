@@ -13,14 +13,14 @@ const Categories = () => {
     "Fashion & Apparel",
     "Gadgets & Gizmos",
     "Office & Desk Accessories",
-    "Kitchen & Dining",
-    "Outdoor & Garden",
-    "DIY & Hobby",
-    "Educational & Learning",
-    "Sports & Fitness",
-    "Travel & Adventure",
-    "Art & Sculptures",
-    "Custom & Personalized",
+   // "Kitchen & Dining",
+    // "Outdoor & Garden",
+    // "DIY & Hobby",
+    // "Educational & Learning",
+    // "Sports & Fitness",
+    // "Travel & Adventure",
+    // "Art & Sculptures",
+    // "Custom & Personalized",
   ];
 
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
@@ -46,7 +46,7 @@ const Categories = () => {
       setFilteredProducts(filtered);
     }
     setSelectedCategory(category);
-    setShowAllCategories(false); // Close the dropdown when a category is selected
+    setShowAllCategories(false); 
   };
 
   const handleCategoryClick = (category) => {
