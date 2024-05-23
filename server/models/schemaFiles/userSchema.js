@@ -1,4 +1,4 @@
-//  UserSchema file
+//  UserSchema.js
 
 // Importing dependencies
 import mongoose, { Schema } from "mongoose"; // Importing mongoose and Schema from mongoose package.
@@ -16,9 +16,8 @@ const UserSchema = new Schema(
     password: { type: String },
 
     // authentications passes
-    googleUid: { type: String },
-    twitterUid: { type: String },
-    githubUid: { type: String },
+    firebaseId: { type: String },
+    fcmToken: String,
 
     profile: {
       // Sub-document for user profile details.

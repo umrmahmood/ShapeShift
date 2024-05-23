@@ -8,6 +8,8 @@ import "./UserShop.css";
 import UserShopSettings from "./UserShopSettings";
 import ShopListing from "../components/ShopPage/ShopListing";
 import UpdateShop from "../components/ShopPage/UpdateShop";
+import ChatBox from "../components/chat/ChatBox.jsx";
+
 
 const useQuery = () => {
 	const { search } = useLocation();
@@ -190,6 +192,7 @@ const UserShop = () => {
 						<li onClick={() => handleSectionClick("Update Shop")}>
 							Update Shop
 						</li>
+                        <li onClick={() => handleSectionClick("Messages")}>Messages</li>
 					</ul>
 					<div className="rendered-sects">
 						{selectedSection === "Update Images" && (
@@ -205,6 +208,8 @@ const UserShop = () => {
 						{selectedSection === "Update Shop" && (
 							<UpdateShop shopId={shopId} />
 						)}
+                        {selectedSection === "Messages" && <ChatBox />}
+
 					</div>
 				</div>
 			</div>

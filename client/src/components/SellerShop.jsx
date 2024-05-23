@@ -1,3 +1,5 @@
+// sellerShop.jsx
+
 import PublicProfile from "../popups/PublicProfile.jsx"; // Import the PublicProfile component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -6,20 +8,23 @@ import axios from "axios";
 import "../styling/sellerShop.css";
 import usericon from "../assets/usericon.png";
 import ShopItems from "./ShopItems.jsx";
+import SendMessagePop from "../popups/SendMessagePop.jsx";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 const SellerShop = () => {
   const { shopId } = useParams(); // Get shopId from URL parameter
   const [shop, setShop] = useState(null); // State to hold shop data
   const [owner, setOwner] = useState(null); // State to hold owner data
+
   const navigate = useNavigate();
   const [selectedSection, setSelectedSection] = useState("Items");
 
   // Popup state for owner's profile
   const [showOwnerProfile, setShowOwnerProfile] = useState(false);
+  const [showSendMessage, setShowSendMessage] = useState(false);
 
   useEffect(() => {
-    const fetchShop = async () => {
+    const fetchShopData = async () => {
       try {
         const response = await axios.get(
           `http://localhost:5001/api/shop/${shopId}`
@@ -31,17 +36,22 @@ const SellerShop = () => {
           `http://localhost:5001/api/users/profile/${ownerId}`
         );
         setOwner(ownerResponse.data.user);
+        console.log("owner", owner);
       } catch (error) {
         console.error("Error fetching shop data:", error);
         // Handle error or set a loading state
       }
     };
 
-    fetchShop();
+    fetchShopData();
   }, [shopId]);
 
   const handleOwnerAvatarClick = () => {
     setShowOwnerProfile(true); // Open owner profile popup when owner's avatar is clicked
+  };
+
+  const handleSendMessageClick = () => {
+    setShowSendMessage(true); // Show the message popup when the message button is clicked
   };
 
   //console.log("avatar", owner.profile.avatarUrl);
@@ -89,7 +99,7 @@ const SellerShop = () => {
               </div>
 
               <div className="message-button">
-                <button>
+                <button onClick={handleSendMessageClick}>
                   Message{" "}
                   {owner.profile.username.charAt(0).toUpperCase() +
                     owner.profile.username.slice(1)}
@@ -126,6 +136,13 @@ const SellerShop = () => {
           isOpen={true}
           onClose={() => setShowOwnerProfile(false)}
           userId={owner._id}
+        />
+      )}
+      {showSendMessage && owner && (
+        <SendMessagePop
+          isOpen={true}
+          onClose={() => setShowSendMessage(false)}
+          firstRecipientId={owner} // Pass the recipient ID to the message popup
         />
       )}
     </div>
