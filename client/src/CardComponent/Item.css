@@ -1,121 +1,120 @@
 .ImagesContainer {
-    width: 45%;}
+	width: 45%;
+}
 
 .MainContainer {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-    padding: 20px;
-    padding-top: 200px;
-    width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin: 20px;
+	padding: 20px;
+	padding-top: 200px;
+	width: 100%;
 }
 
 .ProductContainer {
-    display: flex;
+	display: flex;
 }
 
 .ProductDescription {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
 .ProductInfo {
-    flex: 1;
+	flex: 1;
 }
 
 .ProductImage {
-    
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
 .additional-images img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
+	width: 100%;
+	height: auto;
+	border-radius: 5px;
 }
-.options{
-    width:60px;
-    height: 60px;
+.options {
+	width: 60px;
+	height: 60px;
 }
 .options img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
+	width: 100%;
+	height: auto;
+	border-radius: 5px;
 }
 
 .ProductImage {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .item-main {
-    width: 400px;
-    height: 400px;
+	width: 400px;
+	height: 400px;
 }
 .MainImageContainer {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .main-image {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
+	width: 100%;
+	height: auto;
+	border-radius: 5px;
 }
 
 .secondary-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; 
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 .secondary-images img {
-    width: calc(33.33% - 5px); 
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
+	width: calc(33.33% - 5px);
+	height: auto;
+	border-radius: 5px;
+	margin-bottom: 10px;
 }
 
 .DescriptionContainer {
-    width: 45%; 
+	width: 45%;
 }
 
-
 .itempage-name {
-    font-size: 24px;
-    margin-bottom: 10px;
+	font-size: 24px;
+	margin-bottom: 10px;
 }
 
 .itempage-para {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 .secondary-image img {
-    max-width: 200px;
-    max-height: 200px;
-    transition: max-width 0.3s, max-height 0.3s; 
-  }
-  
-  .secondary-image img:hover {
-    max-width: 600px; 
-    max-height: 600px; 
-  }
-  .DescriptionContainer {
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  .DescriptionContainer h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .DescriptionContainer p {
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  .DescriptionContainer p:last-child {
-    margin-bottom: 0;
-  }
+	max-width: 200px;
+	max-height: 200px;
+	transition: max-width 0.3s, max-height 0.3s;
+}
+
+.secondary-image img:hover {
+	max-width: 600px;
+	max-height: 600px;
+}
+.DescriptionContainer {
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.DescriptionContainer h2 {
+	font-size: 24px;
+	margin-bottom: 10px;
+}
+
+.DescriptionContainer p {
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+.DescriptionContainer p:last-child {
+	margin-bottom: 0;
+}
