@@ -320,7 +320,7 @@ const UserController = {
         }
       }
 
-      return res.status(201).json({ message: "Image uploaded successfully" });
+      return res.status(201).json({ message: "Image uploaded successfully", avatarUrl: user.profile.avatarUrl });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Internal server error" });
@@ -328,6 +328,43 @@ const UserController = {
   },
 
   getProfileImage: async (req, res) => {},
+
+  //Change Password
+  changePassword: async(req, res) => {
+    const { userId } = req.params;
+    const { currentPassword, newPassword } = req.body;
+
+    try {
+        // Find the user by userId
+        const user = await User.findById(userId);
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Verify the current password
+        const isPasswordValid = await bcryptjs.compare(currentPassword, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: 'Invalid current password' });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcryptjs.hash(newPassword, 10);
+
+        // Update the user's password
+        user.password = hashedPassword;
+        await user.save();
+
+        // Return success response
+        res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+        console.error('Error updating password:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+
+  }
 };
 
 export default UserController;

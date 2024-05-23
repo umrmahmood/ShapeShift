@@ -28,4 +28,7 @@ router.put("/profile/:id", UserController.updateProfile);
 // User logout route
 router.post("/logout", UserController.logout);
 
+//changePassword
+router.put('/password/:userId', UserController.changePassword);
+
 export default router;

@@ -45,7 +45,7 @@ const UserSchema = new Schema(
       pronouns: {
         // Pronouns details.
         type: String, // Data type for pronouns field.
-        enum: ["he/him/his", "she/her/hers", "they/them/theirs", ""], // Enumeration for pronouns.
+        enum: ["Mr.", "Mrs.", "Miss", "Ms.", "Dr.", ""], // Enumeration for pronouns.
         default: "",
       },
       avatarUrl: {

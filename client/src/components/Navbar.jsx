@@ -12,13 +12,14 @@ import Notifications from "../popups/Notifications.jsx";
 
 // Component-specific imports
 import logo from "../assets/SSlogo.png";
+import smallLogo from "../assets/SSlogo-small.png";
 
 // Font Awesome icon imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faShoppingBag,
-  faEarth,
-  faShop,
+	faShoppingBag,
+	faEarth,
+	faShop,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
 
@@ -26,154 +27,213 @@ import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
 import "../styling/navbar.css";
 
 const Navbar = ({ onLoginClick }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
+	// const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Popup states
-  const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
-  const [isMyShopOpen, setIsMyShopOpen] = useState(false);
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+	// Popup states
+	const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
+	const [isMyShopOpen, setIsMyShopOpen] = useState(false);
+	const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+	const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
+	const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
+	//handling scroll
+	const handleScroll = () => {
+		const offset = window.scrollY;
+		if (offset > 100) {
+			setIsScrolled(true);
+		} else {
+			setIsScrolled(false);
+		}
+	};
 
-  let haveShop = false;
+	useEffect(() => {
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
-  if (tokenFromLocalStorage) {
-    const decodedToken = jwtDecode(tokenFromLocalStorage);
+	const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
 
-    // Access the payload to see if the member has a shop
-    haveShop = decodedToken.membership.haveShop;
-  } else {
-    // console.log("Token not found in localStorage");
-  }
+	let haveShop = false;
 
-  const onSellClick = () => {
-    if (haveShop) {
-      navigate("/product-form");
-    } else {
-      navigate("/openshop");
-    }
-  };
+	if (tokenFromLocalStorage) {
+		const decodedToken = jwtDecode(tokenFromLocalStorage);
 
-  // PopUp logic
-  const toggleMyProfile = () => {
-    setIsMyProfileOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
-  };
-  const toggleMyShop = () => {
-    setIsMyShopOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
-  };
-  const toggleLanguage = () => {
-    setIsLanguageOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
-  };
-  const toggleShoppingCart = () => {
-    setIsShoppingCartOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
-  };
-  const toggleNotifications = () => {
-    setIsNotificationsOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
-  };
+		// Access the payload to see if the member has a shop
+		haveShop = decodedToken.membership.haveShop;
+	} else {
+		// console.log("Token not found in localStorage");
+	}
 
-  useEffect(() => {
-    const token = localStorage.getItem("shapeshiftkey");
-    setIsLoggedIn(!!token);
-  }, [tokenFromLocalStorage]);
+	const onSellClick = () => {
+		if (haveShop) {
+			navigate("/product-form");
+		} else {
+			navigate("/openshop");
+		}
+	};
 
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
+	// PopUp logic
+	const toggleMyProfile = () => {
+		setIsMyProfileOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+	};
+	const toggleMyShop = () => {
+		setIsMyShopOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+	};
+	const toggleLanguage = () => {
+		setIsLanguageOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+	};
+	const toggleShoppingCart = () => {
+		setIsShoppingCartOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+	};
+	const toggleNotifications = () => {
+		setIsNotificationsOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+	};
 
-  return (
-    <>
-      <div className="Navbar-container">
-        <div className="nav-logo">
-          <a href="/">
-            <img src={logo} alt="logo" />
-          </a>
-        </div>
-        <div className="nav-search">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearchInputChange}
-            placeholder="Search for anything"
-          />
-        </div>
+	useEffect(() => {
+		const token = localStorage.getItem("shapeshiftkey");
+		setIsLoggedIn(!!token);
+	}, [tokenFromLocalStorage]);
 
-        <div className="nav-icons">
-          <li className="navbar-login-btn">
-            <button
-              onClick={onLoginClick}
-              style={{ border: isLoggedIn ? "none" : "1px solid black" }}
-            >
-              {isLoggedIn ? "" : "Login"}
-            </button>
-          </li>
+	const handleSearchInputChange = (event) => {
+		setSearchQuery(event.target.value);
+	};
 
-          {isLoggedIn && (
-            <>
-              <div className="navbar-conditional-icon">
-                {/* <div className="navbar-login-btn nav-sell-btn"> */}
-                <div className="navbar-sell-btn nav-sell-btn">
-                  <button onClick={onSellClick}>Sell</button>
+	// const toggleMenu = () => {
+    //     setIsMenuOpen(!isMenuOpen);
+    // };
+
+	return (
+		<>
+			<div className={`Navbar-container ${isScrolled ? "small" : ""}`}>
+				{/* <div className="nav-logo">
+					<a href="/">
+          <img src={isScrolled ? smallLogo : logo} alt="Logo"/>
+					</a>
+				</div> */}
+				<div className="nav-logo">
+					<a href="/">
+						<img
+							src={logo}
+							alt="Large Logo"
+							className={`logo-img ${isScrolled ? "hidden" : "visible"}`}
+						/>
+					</a>
+
+					<a href="/">
+						<img
+							src={smallLogo}
+							alt="Small Logo"
+							className={`logo-img ${isScrolled ? "visible" : "hidden"}`}
+						/>
+					</a>
+				</div>
+
+				<div className="nav-search">
+					<input
+						type="text"
+						value={searchQuery}
+						onChange={handleSearchInputChange}
+						placeholder="Search for anything"
+					/>
+				</div>
+				
+				{/* responsive menu
+				<div className="menu-toggle">
+                    <button onClick={toggleMenu}>☰</button>
                 </div>
-                <li>
-                  <div
-                    className="notifications-icon"
-                    onClick={toggleNotifications}
-                  >
-                    <FontAwesomeIcon icon={faBell} />
-                  </div>
-                  <Notifications
-                    isOpen={isNotificationsOpen}
-                    onClose={toggleNotifications}
-                  />
-                </li>
-                <li>
-                  <div className="profile-icon" onClick={toggleMyProfile}>
-                    <FontAwesomeIcon icon={faUser} />
-                  </div>
-                  <MyProfile
-                    isOpen={isMyProfileOpen}
-                    onClose={toggleMyProfile}
-                  />
-                </li>
 
-                {haveShop ? (
-                  <li>
-                    <div className="shop-icon" onClick={toggleMyShop}>
-                      <FontAwesomeIcon icon={faShop} />
-                    </div>
-                    <MyShop isOpen={isMyShopOpen} onClose={toggleMyShop} />
-                  </li>
-                ) : (
-                  ""
-                )}
-              </div>
-            </>
-          )}
+                <div className={`nav-icons ${isMenuOpen ? "show" : ""}`}> */}
+				<div className="nav-icons">
+					<li className="navbar-login-btn">
+						<button
+							onClick={onLoginClick}
+							style={{ border: isLoggedIn ? "none" : "1px solid black" }}
+						>
+							{isLoggedIn ? "" : "Login"}
+						</button>
+					</li>
 
-          <li>
-            <div className="shopping-icon" onClick={toggleShoppingCart}>
-              <FontAwesomeIcon icon={faShoppingBag} />
-            </div>
-            <ShoppingCart
-              isOpen={isShoppingCartOpen}
-              onClose={toggleShoppingCart}
-            />
-          </li>
-          <li>
-            <div className="language-icon" onClick={toggleLanguage}>
-              <FontAwesomeIcon icon={faEarth} />
-            </div>
-            <Language isOpen={isLanguageOpen} onClose={toggleLanguage} />
-          </li>
-        </div>
-      </div>
-    </>
-  );
+					{isLoggedIn && (
+						<>
+							<div className="navbar-conditional-icon">
+								{/* <div className="navbar-login-btn nav-sell-btn"> */}
+								<div className="navbar-sell-btn nav-sell-btn">
+									<button onClick={onSellClick}>Sell</button>
+								</div>
+								<li>
+									<div
+										className="notifications-icon icon-pointer"
+										onClick={toggleNotifications}
+									>
+										<FontAwesomeIcon icon={faBell} />
+									</div>
+									<Notifications
+										isOpen={isNotificationsOpen}
+										onClose={toggleNotifications}
+									/>
+								</li>
+								<li>
+									<div
+										className="profile-icon icon-pointer"
+										onClick={toggleMyProfile}
+									>
+										<FontAwesomeIcon icon={faUser} />
+									</div>
+									<MyProfile
+										isOpen={isMyProfileOpen}
+										onClose={toggleMyProfile}
+									/>
+								</li>
+
+								{haveShop ? (
+									<li>
+										<div
+											className="shop-icon icon-pointer"
+											onClick={toggleMyShop}
+										>
+											<FontAwesomeIcon icon={faShop} />
+										</div>
+										<MyShop isOpen={isMyShopOpen} onClose={toggleMyShop} />
+									</li>
+								) : (
+									""
+								)}
+							</div>
+						</>
+					)}
+
+					<li>
+						<div
+							className="shopping-icon icon-pointer"
+							onClick={toggleShoppingCart}
+						>
+							<FontAwesomeIcon icon={faShoppingBag} />
+						</div>
+						<ShoppingCart
+							isOpen={isShoppingCartOpen}
+							onClose={toggleShoppingCart}
+						/>
+					</li>
+					<li>
+						<div
+							className="language-icon icon-pointer"
+							onClick={toggleLanguage}
+						>
+							<FontAwesomeIcon icon={faEarth} />
+						</div>
+						<Language isOpen={isLanguageOpen} onClose={toggleLanguage} />
+					</li>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Navbar;

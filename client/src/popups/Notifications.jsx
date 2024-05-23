@@ -20,6 +20,7 @@ import {
 const Notifications = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
   const [user, setUser] = useState(null);
+  const [isNavbarSmall, setIsNavbarSmall] = useState(false);
 
   useEffect(() => {
     const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
@@ -56,30 +57,36 @@ const Notifications = ({ isOpen, onClose }) => {
     };
   }, [onClose]);
 
+  // Track scroll position to adjust navbar and popup position
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsNavbarSmall(true);
+      } else {
+        setIsNavbarSmall(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   if (!isOpen) return null; // Don't render if isOpen is false
 
   return (
     <div className="custom-popup-overlay">
-      <div ref={popupRef} className="custom-popup-content">
-        <button className="custom-popup-close-btn" onClick={onClose}>
-          &times;
-        </button>
+      <div ref={popupRef} className={`custom-popup-content ${isOpen ? "open" : ""}`}
+      style={{ top: isNavbarSmall ? "70px" : "120px" }}>
         {/* Content for the profile popup */}
-        <h2>{user.email}</h2>
-        <div className="popup-avatar-container">
-          <img
-            className="popup-avatar"
-            src={user.profile.avatarUrl}
-            alt="users avatar"
-          />
-        </div>
-        <h2>Welcome, {user.profile.username}!</h2>
+        <h2 className="popup-title">Notifications</h2>
         <ul>
           <li>
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
             </div>
-            <div className="text-wrapper">View Profile</div>
+            <div className="text-wrapper">View Notifications</div>
           </li>
           <li>
             <div className="icon-wrapper">

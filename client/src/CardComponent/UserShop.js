@@ -1,139 +1,220 @@
+import React, { useState, useEffect, useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useEffect, useRef } from "react";
-import { jwtDecode } from "jwt-decode";
-import axios from "axios";
 import "./UserShop.css";
-import usericon from "../assets/usericon.png";
 import UserShopSettings from "./UserShopSettings";
 import ShopListing from "../components/ShopPage/ShopListing";
+import UpdateShop from "../components/ShopPage/UpdateShop";
 import ChatBox from "../components/chat/ChatBox.jsx";
-//import MessageApp from "../components/MessageApp.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
+
+
+const useQuery = () => {
+	const { search } = useLocation();
+	return useMemo(() => new URLSearchParams(search), [search]);
+};
+
+const useShopData = (shopId) => {
+	const [shopData, setShopData] = useState({
+		name: "",
+		description: "",
+		location: "",
+		ownerId: "",
+		shopBanner: "",
+		shopAvatar: "",
+	});
+
+	useEffect(() => {
+		const fetchShopData = async () => {
+			const token = localStorage.getItem("shapeshiftkey");
+			if (token) {
+				try {
+					const response = await axios.get(
+						`http://localhost:5001/api/shop/${shopId}`,
+						{
+							headers: { Authorization: `Bearer ${token}` },
+						}
+					);
+					const { name, description, location, owner, bannerUrl, avatarUrl } =
+						response.data.shop;
+					setShopData({
+						name,
+						description,
+						location,
+						ownerId: owner,
+						shopBanner: bannerUrl,
+						shopAvatar: avatarUrl,
+					});
+				} catch (error) {
+					console.error("Error fetching shop data:", error);
+				}
+			}
+		};
+		if (shopId) fetchShopData();
+	}, [shopId]);
+
+	return shopData;
+};
+
+const useUserData = (ownerId) => {
+	const [userData, setUserData] = useState({
+		userName: "",
+		userEmail: "",
+		shopRegDate: "",
+	});
+
+	useEffect(() => {
+		const fetchUserData = async () => {
+			const token = localStorage.getItem("shapeshiftkey");
+			if (token && ownerId) {
+				try {
+					const response = await axios.get(
+						`http://localhost:5001/api/users/profile/${ownerId}`,
+						{
+							headers: { Authorization: `Bearer ${token}` },
+						}
+					);
+					const username = response.data.user.profile.username;
+					const email = response.data.user.email;
+					const regDate =
+						response.data.user.membership.registerDate.split("T")[0];
+					setUserData({
+						userName: username,
+						userEmail: email,
+						shopRegDate: regDate,
+					});
+				} catch (error) {
+					console.error("Error fetching user data:", error);
+				}
+			}
+		};
+		fetchUserData();
+	}, [ownerId]);
+
+	return userData;
+};
 
 const UserShop = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [ownerId, setOwnerId] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [shopRegDate, setShopRegDate] = useState("");
-  const [shopId, setShopId] = useState(null);
-  const [shopAvatar, setShopAvatar] = useState("");
-  const [shopBanner, setShopBanner] = useState("");
-  const [selectedSection, setSelectedSection] = useState("Description");
-  const [recipientId, setRecipientId] = useState("");
-  const scroll = React.useRef();
+	const [selectedSection, setSelectedSection] = useState("Description");
+	const navigate = useNavigate();
+	const query = useQuery();
+	const activeSection = query.get("active");
+	const token = localStorage.getItem("shapeshiftkey");
+	const decodedToken = token ? jwtDecode(token) : null;
+	const shopId = decodedToken?.membership?.shopId;
 
-  // component change dor popup buttons
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const active = React.useMemo(() => new URLSearchParams(search), [search]).get(
-    "active"
-  );
+	const { name, description, location, ownerId, shopBanner, shopAvatar } =
+		useShopData(shopId);
+	const { userName, userEmail, shopRegDate } = useUserData(ownerId);
 
-  useEffect(() => {
-    if (active) setSelectedSection(active);
-    else setSelectedSection("Listings");
-  }, [active]);
+	const [avatarFile, setAvatarFile] = useState(null);
+	useEffect(() => {
+		const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
 
-  //getting shop info
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = localStorage.getItem("shapeshiftkey");
-      if (token) {
-        const decodedToken = jwtDecode(token);
-        const shopIdFromToken = decodedToken?.membership?.shopId;
-        console.log("The shop id is:", shopIdFromToken);
-        if (shopIdFromToken) {
-          try {
-            const response = await axios.get(
-              `http://localhost:5001/api/shop/${shopIdFromToken}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            console.log(response);
-            setName(response.data.shop.name);
-            setDescription(response.data.shop.description);
-            setLocation(response.data.shop.location);
-            setOwnerId(response.data.shop.owner);
-            setShopId(shopIdFromToken);
-            setShopBanner(response.data.shop.bannerUrl);
-            setShopAvatar(response.data.shop.avatarUrl);
-          } catch (error) {
-            console.error("Error fetching shop data:", error);
-          }
-        }
-      }
-    };
+		if (tokenFromLocalStorage) {
+			const decodedToken = jwtDecode(tokenFromLocalStorage);
+			const userId = decodedToken.id;
 
-    fetchData();
-  }, []);
+			axios
+				.get(`/api/users/profile/${userId}`)
+				.then((response) => {
+					const userPic = response.data.user.profile.avatarUrl;
+					setAvatarFile(userPic); // corrected variable name
+				})
+				.catch((error) => {
+					console.error("Error fetching user information:", error);
+				});
+		} else {
+			console.log("Token not found in localStorage");
+		}
+	}, []);
 
-  const handleSectionClick = (section) => {
-    setSelectedSection(section);
-    navigate("/user-shop?active=" + section);
-  };
+	useEffect(() => {
+		setSelectedSection(activeSection || "Listings");
+	}, [activeSection]);
 
-  return (
-    <div className="user-shop-container">
-      <div className="user-shop-banner-container">
-        <img src={shopBanner} alt="shopBanner" />
-      </div>
-      <div className="shop-info-container">
-        <div className="user-shop-image-container">
-          <div className="shop-image">
-            <img src={shopAvatar} alt="ShopAvatar" />
-          </div>
-          <div className="shop-details">
-            <h3>{name}</h3>
-            <p>
-              <span className="user-shop-location">
-                <FontAwesomeIcon icon={faLocationDot} />{" "}
-              </span>
-              {location}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="user-shop-additional-info">
-        <h2>Additional Information</h2>
+	const handleSectionClick = (section) => {
+		setSelectedSection(section);
+		navigate(`/user-shop?active=${section}`);
+	};
 
-        <div className="shop-additional-info-section">
-          <div>
-            <ul>
-              <li onClick={() => handleSectionClick("Description")}>
-                Description
-              </li>
-              <li onClick={() => handleSectionClick("Listings")}>Listings</li>
-              <li onClick={() => handleSectionClick("Orders")}>
-                Orders & Shipping
-              </li>
-              <li onClick={() => handleSectionClick("Settings")}>Settings</li>
-              <li onClick={() => handleSectionClick("Messages")}>Messages</li>
-            </ul>
-          </div>
-          <div className="rendered-sects">
-            {selectedSection === "Settings" && (
-              <UserShopSettings shopId={shopId} />
-            )}
-            {selectedSection === "Description" && <p>{description}</p>}
-            {selectedSection === "Orders" && (
-              <p>
-                Order will be delivered within 24hrs after the confirmation.
-              </p>
-            )}
-            {selectedSection === "Listings" && <ShopListing />}
-            {selectedSection === "Messages" && <ChatBox />}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="user-shop-container">
+			<div className="user-shop-banner-container">
+				<img src={shopBanner} alt="Shop Banner" />
+			</div>
+			<div className="shop-info-container">
+				<div className="user-shop-image-container">
+					<div className="shop-image">
+						<img src={shopAvatar} alt="Shop Avatar" />
+					</div>
+					<div className="shop-details">
+						<h3>{name}</h3>
+						<p>
+							<span className="user-shop-location">
+								<FontAwesomeIcon icon={faLocationDot} /> {location}
+							</span>
+						</p>
+					</div>
+				</div>
+				<div className="owner-shop">
+					<div className="shop-image-owner">
+						<img src={avatarFile} alt="Owner" />
+					</div>
+					<div className="shop-detail-owner">
+						<h3>{userName}</h3>
+						<p>
+							<span className="user-shop-envelope">
+								<FontAwesomeIcon icon={faEnvelope} /> {userEmail}
+							</span>
+							<br />
+							Registered since: {shopRegDate}
+						</p>
+					</div>
+				</div>
+			</div>
+			<div className="user-shop-additional-info">
+				<h2>Additional Information</h2>
+				<div className="shop-additional-info-section">
+					<ul>
+						<li onClick={() => handleSectionClick("Description")}>
+							Description
+						</li>
+						<li onClick={() => handleSectionClick("Listings")}>Listings</li>
+						<li onClick={() => handleSectionClick("Orders")}>
+							Orders & Shipping
+						</li>
+						<li onClick={() => handleSectionClick("Update Images")}>
+							Update Images
+						</li>
+						<li onClick={() => handleSectionClick("Update Shop")}>
+							Update Shop
+						</li>
+                        <li onClick={() => handleSectionClick("Messages")}>Messages</li>
+					</ul>
+					<div className="rendered-sects">
+						{selectedSection === "Update Images" && (
+							<UserShopSettings shopId={shopId} />
+						)}
+						{selectedSection === "Description" && <p>{description}</p>}
+						{selectedSection === "Orders" && (
+							<p>
+								Order will be delivered within 24hrs after the confirmation.
+							</p>
+						)}
+						{selectedSection === "Listings" && <ShopListing />}
+						{selectedSection === "Update Shop" && (
+							<UpdateShop shopId={shopId} />
+						)}
+                        {selectedSection === "Messages" && <ChatBox />}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default UserShop;

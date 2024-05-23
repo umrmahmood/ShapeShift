@@ -123,7 +123,7 @@ const ProductForm = () => {
 				<h1>Tell us about your listing</h1>
 				<form className="product-reg-form">
 					<label>
-						Category:
+						Category
 						<input
 							type="text"
 							name="category"
@@ -133,7 +133,7 @@ const ProductForm = () => {
 					</label>
 
 					<label>
-						Product Name:
+						Product Name
 						<input
 							type="text"
 							name="name"
@@ -144,7 +144,7 @@ const ProductForm = () => {
 					</label>
 
 					<label>
-						Product Description:
+						Product Description
 						<textarea
 							name="description"
 							value={product.description}
@@ -198,7 +198,7 @@ const ProductForm = () => {
 					</div>
 					{product.type === "physical" && (
 						<label>
-							Material:
+							Material
 							<select
 								name="material"
 								value={product.material}
@@ -239,7 +239,7 @@ const ProductForm = () => {
 					)}
 
 					<label>
-						Tags:
+						Tags
 						<input
 							type="text"
 							onKeyDown={handleTagAdd}
@@ -262,7 +262,7 @@ const ProductForm = () => {
 					</label>
 
 					<label>
-						Price:
+						Price
 						<input
 							type="number"
 							name="price"
@@ -274,7 +274,7 @@ const ProductForm = () => {
 					</label>
 
 					<label>
-						Currency:
+						Currency
 						<select
 							name="currency"
 							value={product.currency}
@@ -326,7 +326,7 @@ const ProductForm = () => {
 						</div>
 					</div>
 					<label>
-						Quantity:
+						Quantity
 						<input
 							type="number"
 							name="quantity"

@@ -15,10 +15,9 @@ const router = express.Router(); // Creating a router instance using Express
 
 // Routes for managing shop information
 router
-  .post("/register", authMiddleware.authenticated, ShopController.register)
-  .get("/:shopId", ShopController.getShopInfo); // GET route to fetch shop information
-//   .post("/register", ShopController.register) // POST route to create a new shop
-//   .put("/:shopId", ShopController.updateShop); // PUT route to update shop information
+	.post("/register", authMiddleware.authenticated, ShopController.register)
+	.get("/:shopId", ShopController.getShopInfo) // GET route to fetch shop information
+	.put("/:shopId", ShopController.updateShop); // PUT route to update shop information
 
 // // Routes for managing shop listings (products)
 // router
