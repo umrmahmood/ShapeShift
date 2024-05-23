@@ -76,6 +76,7 @@ const ProductController = {
         currency,
         images: productImagesIds, // Assign the IDs of the image objects
         seller: req.user.membership.shopId,
+        shopOwner: req.user.membership.firebaseId,
         type,
         material,
         dimensions,
