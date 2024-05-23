@@ -92,6 +92,12 @@
 	.overlay{
 		height: 90%
 	}
+
+	.mainexplore-button {
+		width: 5vw;
+		height: 4vh;
+		font-size: 0.7vw;
+	}
 }
 
 @media (max-width: 1400px) {
