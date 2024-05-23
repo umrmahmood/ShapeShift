@@ -259,7 +259,7 @@ const ShopController = {
           tags: file.originalname,
           unique_filename: false,
           transformation: [
-            { gravity: "auto", height: 300, width: 1900, crop: "auto_pad" },
+            { gravity: "auto", height: 300, width: 1900, crop: "fill" },
             { effect: "sharpen" },
             { quality: "auto" },
             { fetch_format: "auto" },

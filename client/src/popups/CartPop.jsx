@@ -2,10 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./CartStyle.css";
+import useShoppingCart from "../hooks/useShoppingCart";
 
 const ShoppingCart = ({ isOpen, onClose }) => {
+  const { removeItem } = useShoppingCart();
+
   const popupRef = useRef(null);
   const [isNavbarSmall, setIsNavbarSmall] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -46,6 +49,15 @@ const ShoppingCart = ({ isOpen, onClose }) => {
     };
   }, []);
 
+  // Function to remove an item from the cart
+  const handleRemoveItem = (itemId) => {
+    // Remove the item from localStorage
+    removeItem(itemId);
+
+    // Update cartItems state to remove the deleted item
+    setCartItems(cartItems.filter((item) => item.id !== itemId));
+  };
+
   if (!isOpen) return null; // Don't render if isOpen is false
 
   return (
@@ -65,6 +77,10 @@ const ShoppingCart = ({ isOpen, onClose }) => {
               </span>
               <span className="currency-wrapper">{item.currency}</span>
               <span className="price-wrapper">{item.price.toFixed(2)}</span>
+              <FontAwesomeIcon
+                icon={faTrash}
+                onClick={() => handleRemoveItem(item.id)} // Call handleRemoveItem instead of removeItem directly
+              />
             </li>
           ))}
           <li>

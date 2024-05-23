@@ -67,6 +67,7 @@
 }
 
 .message-page {
+  padding-top: 150px;
   display: flex;
   height: 100vh;
 }
