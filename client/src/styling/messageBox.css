@@ -1,0 +1,65 @@
+.message-component {
+    display: flex;
+    flex-direction: row;
+    max-height: 500px;
+    overflow: auto; /* Enable scrolling if content exceeds the maximum height */
+  }
+  
+  .message-list {
+    flex: 1; /* Occupy remaining space */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  .message-conversation {
+    flex: 1; /* Occupy remaining space */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message-input {
+    flex-shrink: 0; /* Prevent from shrinking */
+  }
+  
+  
+  .users-list {
+    width: 30%;
+  }
+  
+  .users-list ul {
+    list-style-type: none;
+  }
+  
+  .users-list ul li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .users-list ul li.selected {
+    background-color: lightgray;
+  }
+  
+  .conversation {
+    width: 70%;
+  }
+  
+  
+  
+  .message-list .message {
+    margin-bottom: 10px;
+  }
+  
+ 
+  
+  .message-input input {
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .message-input button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
