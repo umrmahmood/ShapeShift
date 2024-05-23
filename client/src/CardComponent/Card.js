@@ -1,6 +1,7 @@
 import react, { useState, useEffect } from "react";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
+import useShoppingCart from "../hooks/useShoppingCart";
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ const Card = (props) => {
   console.log(props.product);
   const { _id, name, description, price, ratings, images } = props.product;
 
+  const {addItem, subtractItem, removeItem, editItem, items} = useShoppingCart();
   // useEffect(() => {
   //   if (images && images.length > 0) {
   //     const fetchingImage = async () => {
@@ -75,6 +77,24 @@ const Card = (props) => {
       <button className="feature-button" onClick={handleMoreClick}>
         More
       </button>
+      <div></div>
+      <button className="feature-button" onClick={() => addItem(props.product)}>
+        Add
+      </button>
+      <div></div>
+      <button className="feature-button" onClick={() => subtractItem(props.product._id)}>
+        Subtract
+      </button>
+      <div></div>
+      <button className="feature-button" onClick={() => removeItem(props.product._id)}>
+        Remove
+      </button>
+      <div></div>
+      <input
+        type="number"
+        id="editNumberOfItem"
+        onChange={(e) => editItem(props.product._id, e.target.value)}
+      />
     </div>
   );
 };
