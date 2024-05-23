@@ -1,0 +1,32 @@
+.custom-popup-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 999;
+  }
+  
+  .custom-popup-content.open {
+    display: block;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+  
+  .qty-wrapper,
+  .name-wrapper,
+  .currency-wrapper,
+  .price-wrapper {
+    width: 20%;
+  }
+  
+  .icon-wrapper {
+    width: 20px;
+  }
+  

@@ -126,12 +126,11 @@ const ProductController = {
   // Method to fetch a product by ID
   getProductById: async (req, res) => {
     const productId = req.params.productId;
-    console.log(productId);
 
     try {
       // Find product by ID
       const product = await Product.findById(productId);
-      console.log(product);
+
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -247,23 +246,23 @@ const ProductController = {
   //Method to get product based on sellerId (this is to display product for the shop)
   getProductsBySellerId: async (req, res) => {
     const sellerId = req.params.sellerId;
-    console.log(sellerId);
 
     try {
-        // Find products by seller ID
-        const products = await Product.find({ seller: sellerId });
-        console.log(products);
-        if (!products || products.length === 0) {
-            return res.status(404).json({ message: "Products not found for this seller" });
-        }
-        res.status(200).json(products);
-    } catch (error) {
-        // Handle errors
-        console.error(error);
-        res.status(500).json({ message: "Error retrieving products" });
-    }
-},
+      // Find products by seller ID
+      const products = await Product.find({ seller: sellerId });
 
+      if (!products || products.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "Products not found for this seller" });
+      }
+      res.status(200).json(products);
+    } catch (error) {
+      // Handle errors
+      console.error(error);
+      res.status(500).json({ message: "Error retrieving products" });
+    }
+  },
 };
 
 export default ProductController;

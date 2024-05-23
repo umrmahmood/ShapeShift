@@ -22,7 +22,7 @@ import UserProfile from "./components/UserProfile/UserProfile.jsx";
 import ShoppingCartProvider from "./context/ShoppingCartProvider.js";
 import { auth } from "./components/Firebase.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
-
+import MessagePage from "./components/chat/MessagePage.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -68,7 +68,8 @@ function App() {
           <Route path="/shoplisting" element={<ShopListing />} />
           <Route path="/openshop" element={<OpenShop />} />
           <Route path="/product-form" element={<ProductForm />} />
-          <Route path="/myprofile" element={<UserProfile />} /> 
+          <Route path="/myprofile" element={<UserProfile />} />
+          <Route path="/messages" element={<MessagePage />} />
         </Routes>
         <Footer />
       </div>
