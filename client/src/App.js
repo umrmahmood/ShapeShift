@@ -66,7 +66,7 @@ function App() {
           <Route path="/shoplisting" element={<ShopListing />} />
           <Route path="/openshop" element={<OpenShop />} />
           <Route path="/product-form" element={<ProductForm />} />
-          {/* <Route path="/myprofile" element={<UserProfile />} /> */}
+          <Route path="/myprofile" element={<UserProfile />} /> 
         </Routes>
         <Footer />
       </div>

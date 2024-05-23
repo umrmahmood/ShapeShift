@@ -1,83 +1,73 @@
-/* PublicProfile.css */
-
 .public-profile-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Dimming effect */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .public-profile-content {
-  background-color: white;
-  padding: 20px; /* Add padding to the content */
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex; /* Adjust for horizontal layout */
-}
-
-.public-profile-image-container,
-.public-profile-info-container {
-  flex: 1; /* Distribute remaining space equally */
-  padding: 10px; /* Add padding to the containers */
+	background-color: white;
+	padding: 30px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	display: flex;
+	gap: 1.5em;
 }
 
 .public-profile-image-container {
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: auto;
+	display: flex;
+	flex-direction: column;
+	padding: auto;
 }
 
-.profile-picture {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
+.public-profile-picture {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	margin-bottom: 10px;
 }
 
-.public-profile-info-container { /* Add padding to the left */
-  margin-top: 20px;
-  padding: auto;
+.public-profile-info-container {
+	/* Add padding to the left */
+	margin-top: 20px;
+	padding: auto;
 }
 
-
-
-.public-profile-info-container li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px; /* Adjust spacing between list items */
+.public-profile-li {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px; /* Adjust spacing between list items */
+	font-size: 1.5em;
 }
 
-.icon-wrapper {
-  margin-right: 10px; /* Add space between icon and text */
-}
-
-.text-wrapper {
-  font-size: 14px; /* Adjust text size */
+.public-profile-text-wrapper {
+	font-size: 18px; /* Adjust text size */
+	font-family: "proxima-nova";
+	margin-left: 0.5em;
 }
 
 .star-rating {
-  color: gold;
- padding-left: 55px;
+	color: gold;
+	padding-left: 55px;
 }
 
-
-
-.date-text {
-  font-size: 6px; /* Adjust text size */
-  text-align: center;
+.public-profile-date-text {
+	font-size: 16px;
+	text-align: center;
+	font-family: "proxima-nova";
 }
 
-ul {
-  list-style-type: none;
+.public-profile-ul {
+	list-style-type: none;
+	text-align: center;
 }
 
-h2 {
-  text-align: center;
+.public-profile-name {
+	text-align: center;
+	font-size: 2em;
 }
