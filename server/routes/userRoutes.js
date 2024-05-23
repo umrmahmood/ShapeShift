@@ -1,4 +1,4 @@
-//  Route file for defining user-related endpoints.
+// userRoutes.js
 
 // Importing dependencies
 
@@ -27,5 +27,8 @@ router.put("/profile/:id", UserController.updateProfile);
 
 // User logout route
 router.post("/logout", UserController.logout);
+
+//changePassword
+router.put('/password/:userId', UserController.changePassword);
 
 export default router;

@@ -2,7 +2,7 @@ import "../../styling/quoteSummary.css";
 const QuoteSummary = ({ fileName, material, color, resolution, resistance, quantity }) => {
 	return (
 		<div className="quote-container">
-			<h2>Your Quote has been sent successfully!</h2>
+			<h2>Estimated Cost Based on your selection</h2>
 			<div className="quote-item">
 				<div>File Name</div>
 				<div>{fileName}</div>

@@ -1,0 +1,122 @@
+.display-profile-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.profile-page-section{
+	padding-top: 200px;
+}
+
+.display-profile-wrapper {
+	text-align: center;
+	width: 450px;
+	font-size: 20px;
+	background: rgb(224, 226, 223);
+	border-radius: 10px;
+	padding: 1em;
+	padding-top: 4em;
+	margin-top: -4em;
+	font-family: "proxima nova";
+}
+
+.edit-profile-wrapper {
+	width: 600px;
+}
+
+.profile-field {
+	margin-top: 1em;
+}
+
+.profile-title {
+	color: gray;
+	font-family: "proxima nova"
+}
+
+.profile-page-edit button {
+	padding: 3px 18px;
+	border: none;
+	border-radius: 10px;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: "proxima nova";
+	font-size: 1.2em;
+	background: rgb(166, 0, 2);
+	margin-top: 2em;
+}
+
+.profile-page-edit button:hover {
+	background-color: rgb(194, 41, 44);
+}
+
+.edit-avatar-container {
+	position: relative;
+	text-align: center;
+}
+
+.profile-avatar-container {
+	position: relative;
+}
+
+.profile-avatar {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+}
+
+.edit-avatar {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+
+.profile-avatar-container label {
+	cursor: pointer;
+}
+
+.edit-avatar-container label span {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(0, 0, 0, 0.5);
+	color: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.edit-avatar-container label:hover span {
+	opacity: 1;
+}
+
+.profile-heading h2 {
+	font-size: 3em;
+	margin-left: 2em;
+}
+
+.profile-field input[type="date"],
+.profile-salutation select,
+.profile-field textarea {
+	font-size: 16px;
+	padding: 0.5em;
+	font-family: "proxima nova"
+}
+
+.profile-field textarea {
+	width: 300px;
+}
+
+.profile-address {
+	display: flex;
+	gap: 1em;
+	justify-content: center;
+}
+
+.profile-field-set {
+	display: flex;
+	gap: 3.75em;
+	justify-content: center;
+}

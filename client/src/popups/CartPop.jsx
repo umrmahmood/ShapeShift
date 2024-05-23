@@ -20,6 +20,7 @@ import {
 
 const ShoppingCart = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
+  const [isNavbarSmall, setIsNavbarSmall] = useState(false);
 
   // Close the popup when clicking outside of it
   useEffect(() => {
@@ -35,14 +36,29 @@ const ShoppingCart = ({ isOpen, onClose }) => {
     };
   }, [onClose]);
 
+  // Track scroll position to adjust navbar and popup position
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsNavbarSmall(true);
+      } else {
+        setIsNavbarSmall(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   if (!isOpen) return null; // Don't render if isOpen is false
 
   return (
     <div className="custom-popup-overlay">
-      <div ref={popupRef} className="custom-popup-content">
-        <button className="custom-popup-close-btn" onClick={onClose}>
-          &times;
-        </button>
+      <div ref={popupRef} className={`custom-popup-content ${isOpen ? "open" : ""}`}
+       style={{ top: isNavbarSmall ? "70px" : "120px" }}>
+      
         {/* Content for the profile popup */}
         <ul>
           <li>

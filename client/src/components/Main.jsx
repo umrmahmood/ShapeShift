@@ -16,6 +16,7 @@ import "../styling/main.css";
 const Main = () => {
 	return (
 		<>
+		<div className="landing-wrapper">
 			<div className="main-border"></div>
 			<div className="m-0 border-0 bd-example m-0 border-0 overlay">
 				<div
@@ -128,14 +129,18 @@ const Main = () => {
 						<span className="carousel-control-next-icon" aria-hidden="true"></span>
 						<span className="visually-hidden">Next</span>
 					</button>
-				</div>
-			</div>
 
-			<Link to="/home">
+					<Link to="/home">
 				<button className="mainexplore-button">EXPLORE NOW</button>
 			</Link>
+				</div>
+				
+			</div>
+
+			
 
 			<Features />
+			</div>
 		</>
 	);
 };

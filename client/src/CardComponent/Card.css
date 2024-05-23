@@ -1,3 +1,8 @@
+.main-layout{
+    padding-top: 200px;
+}
+
+
 .item-container{
     display: flex;
     justify-content: space-between;
@@ -45,12 +50,11 @@
 .feature-button {
 	background: none;
 	border: none;
-	border-bottom: 2px solid #f4254e;
+	/* border-bottom: 2px solid #f4254e; */
 	line-height: 1.5em; 
     font-family: 'Bebas Neue', sans-serif;
 }
 
 .feature-button:hover {
-	border-bottom: 8px solid #f4254e; 
   cursor: pointer;
 }

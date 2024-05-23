@@ -6,12 +6,14 @@
 .product-reg-form-outter {
 	background: #f0f0f0;
 	margin-bottom: -3em;
+	padding-top: 200px;
 }
 
 .product-reg-form-outter h1 {
 	font-size: 4em;
 	margin: 0em;
 	padding: 1em 0em 0em 4em;
+	color: black;
 }
 
 .product-reg-form {
@@ -19,10 +21,11 @@
 	margin: 2em 15em;
 	flex-direction: column;
 	font-family: "proxima nova";
-	font-size: 1.5em;
+	font-size: 1.4em;
 	background: white;
 	border-radius: 10px;
 	padding: 1em 0em;
+	color: black;
 }
 .product-reg-form label {
 	border-radius: 8px;

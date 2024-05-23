@@ -188,8 +188,8 @@ console.log("decoded token is : " , decodedToken)
 
         </div>
         <div className="DescriptionContainer">
-  <h2>{product.name}</h2>
-  <p>{product.description}</p>
+  <h2 className="itempage-name">{product.name}</h2>
+  <p className="itempage-para">{product.description}</p>
   {product.category && <p>Category: {product.category}</p>}
   {product.price && <p>Price: ${product.price}</p>}
   {product.seller && <p>Seller: {product.seller}</p>}

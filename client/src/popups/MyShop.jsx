@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // CSS import
 import "./PopMenu.css"; // Import the CSS file for styling
@@ -14,14 +14,13 @@ import {
   faArrowUpRightFromSquare,
   faMoneyBillTransfer,
   faGear,
-  faRightFromBracket,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 const MyShop = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
   const [shop, setShop] = useState(null);
-  const navigate = useNavigate();
+  const [isNavbarSmall, setIsNavbarSmall] = useState(false);
 
   useEffect(() => {
     const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
@@ -59,14 +58,29 @@ const MyShop = ({ isOpen, onClose }) => {
     };
   }, [onClose]);
 
+  // Track scroll position to adjust navbar and popup position
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsNavbarSmall(true);
+      } else {
+        setIsNavbarSmall(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   if (!isOpen) return null; // Don't render if isOpen is false
 
   return (
     <div className="custom-popup-overlay">
-      <div ref={popupRef} className="custom-popup-content">
-        <button className="custom-popup-close-btn" onClick={onClose}>
-          &times;
-        </button>
+      <div ref={popupRef} className={`custom-popup-content ${isOpen ? "open" : ""}`}
+       style={{ top: isNavbarSmall ? "70px" : "120px" }}>
+      <h2 className="popup-title">{shop.name}</h2>
         {/* Content for the profile popup */}
         <div className="popup-avatar-container">
           <img
@@ -75,14 +89,14 @@ const MyShop = ({ isOpen, onClose }) => {
             alt="users avatar"
           />
         </div>
-        <h2>{shop.name}</h2>
+        
         <ul>
           <li>
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
             </div>
             <Link
-              className="text-wrapper"
+              className="text-wrapper profile-links"
               to="/user-shop"
               onClick={(e) => onClose()}
             >
@@ -94,7 +108,7 @@ const MyShop = ({ isOpen, onClose }) => {
               <FontAwesomeIcon icon={faStar} />
             </div>
             <Link
-              className="text-wrapper"
+              className="text-wrapper profile-links"
               to="/user-shop?active=Listings"
               onClick={(e) => onClose()}
             >
@@ -106,7 +120,7 @@ const MyShop = ({ isOpen, onClose }) => {
               <FontAwesomeIcon icon={faMoneyBillTransfer} />
             </div>
             <Link
-              className="text-wrapper"
+              className="text-wrapper profile-links"
               to="/user-shop?active=Orders"
               onClick={(e) => onClose()}
             >
@@ -114,10 +128,10 @@ const MyShop = ({ isOpen, onClose }) => {
             </Link>
           </li>
           <li>
-            <div className="icon-wrapper">
+            <div className="icon-wrapper ">
               <FontAwesomeIcon icon={faEnvelope} />
             </div>
-            <Link className="text-wrapper" to="/" onClick={(e) => onClose()}>
+            <Link className="text-wrapper profile-links" to="/" onClick={(e) => onClose()}>
               Messages
             </Link>
           </li>
@@ -126,7 +140,7 @@ const MyShop = ({ isOpen, onClose }) => {
               <FontAwesomeIcon icon={faGear} />
             </div>
             <Link
-              className="text-wrapper"
+              className="text-wrapper profile-links"
               to="/user-shop?active=Settings"
               onClick={(e) => onClose()}
             >
