@@ -36,12 +36,30 @@
 }
 
 .radio-box {
-  transform: scale(2.0);
+  transform: scale(1.5);
   margin-right: 20px;
 }
 
 .payment-details {
   margin-top: 20px;
+
+  
+}
+
+.payment-details p{
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 15px;
+
+  
+}
+.sub-total p{
+
+  font-weight: bold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ font-size: 20px;
+  color: rgb(166, 0, 2);
+ 
+  
 }
 
 .proceed-button {
