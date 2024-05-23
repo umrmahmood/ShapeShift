@@ -1,3 +1,5 @@
+// App.js
+
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,6 +19,8 @@ import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
+import { auth } from "./components/Firebase.jsx";
+import { AuthProvider } from "./components/AuthContext.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,36 +39,38 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Navbar onLoginClick={toggleLogin} />
-        {showLogin && (
-          <div className="main-overlay" onClick={toggleLogin}></div>
-        )}
-        {showLogin && (
-          <div className="login-popup">
-            <Login toggleLogin={toggleLogin} />
-          </div>
-        )}
-      </header>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/config" element={<ConfigComponent />} />
-        <Route path="/item" element={<ItemPage />} />
-        <Route path="/shop/:shopId" element={<SellerShop />} />
-        <Route path="/user-shop" element={<UserShop />} />
-        <Route path="/home" element={<MainPage />} />
-        <Route path="/item/:productId" element={<ItemPage />} />
-        <Route path="/Cart" element={<Cart />} />
-        <Route path="/home" element={<MainPage />} />
-        <Route path="/shoplisting" element={<ShopListing />} />
-        <Route path="/openshop" element={<OpenShop />} />
-        <Route path="/product-form" element={<ProductForm />} />
-        {/* <Route path="/myprofile" element={<UserProfile />} /> */}
-      </Routes>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <header className="App-header">
+          <Navbar onLoginClick={toggleLogin} />
+          {showLogin && (
+            <div className="main-overlay" onClick={toggleLogin}></div>
+          )}
+          {showLogin && (
+            <div className="login-popup">
+              <Login toggleLogin={toggleLogin} />
+            </div>
+          )}
+        </header>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/config" element={<ConfigComponent />} />
+          <Route path="/item" element={<ItemPage />} />
+          <Route path="/shop/:shopId" element={<SellerShop />} />
+          <Route path="/user-shop" element={<UserShop />} />
+          <Route path="/home" element={<MainPage />} />
+          <Route path="/item/:productId" element={<ItemPage />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/home" element={<MainPage />} />
+          <Route path="/shoplisting" element={<ShopListing />} />
+          <Route path="/openshop" element={<OpenShop />} />
+          <Route path="/product-form" element={<ProductForm />} />
+          <Route path="/myprofile" element={<UserProfile />} /> 
+        </Routes>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
 export default App;
