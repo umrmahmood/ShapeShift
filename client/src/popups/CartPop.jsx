@@ -13,15 +13,17 @@ const ShoppingCart = ({ isOpen, onClose }) => {
   const [isNavbarSmall, setIsNavbarSmall] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart items from local storage
+  // Fetch cart items from local storage whenever the popup opens
   useEffect(() => {
-    const storedCartItems = JSON.parse(
-      localStorage.getItem("shoppingCartItems")
-    );
-    if (storedCartItems && Array.isArray(storedCartItems)) {
-      setCartItems(storedCartItems);
+    if (isOpen) {
+      const storedCartItems = JSON.parse(
+        localStorage.getItem("shoppingCartItems")
+      );
+      if (storedCartItems && Array.isArray(storedCartItems)) {
+        setCartItems(storedCartItems);
+      }
     }
-  }, []);
+  }, [isOpen]);
 
   // Close the popup when clicking outside of it
   useEffect(() => {
@@ -67,7 +69,6 @@ const ShoppingCart = ({ isOpen, onClose }) => {
         className={`custom-popup-content ${isOpen ? "open" : ""}`}
         style={{ top: isNavbarSmall ? "70px" : "120px" }}
       >
-        {/* Content for the profile popup */}
         <ul>
           {cartItems.map((item, index) => (
             <li key={index}>
@@ -79,7 +80,7 @@ const ShoppingCart = ({ isOpen, onClose }) => {
               <span className="price-wrapper">{item.price.toFixed(2)}</span>
               <FontAwesomeIcon
                 icon={faTrash}
-                onClick={() => handleRemoveItem(item.id)} // Call handleRemoveItem instead of removeItem directly
+                onClick={() => handleRemoveItem(item.id)}
               />
             </li>
           ))}
