@@ -46,11 +46,17 @@
   border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
   margin-bottom: 10px;
+  
 }
 
+
+
+
+
+
 .item-image {
-  width: 12rem;
-  height: 12rem;
+  width: 6rem;
+  height: 5rem;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 1px 1px 10px #dbd9d9;
@@ -75,7 +81,7 @@
 .delete-button {
   border: none;
   background-color: #fff;
-  margin: 10px;
+
   font-size: 15px;
 }
 
@@ -98,11 +104,13 @@
 }
 
 .quantity-select {
-  padding: 5px;
+  
   border: none;
-  padding: 15px;
+  padding: 5px;
   border-radius: 10px;
-  box-shadow: 1px 1px 10px #c5c4c4;
+  border: 1px solid rgb(193, 188, 188);
+  margin-left: 10px;
+  
 }
 
 .cart-total {
@@ -175,10 +183,22 @@
 
 .item-details{
   margin-left: 10px;
+  
 }
 
+.item-price{
+  color: #a50313;
+  font-size: 15px;
+  
+}
 .emptyCart{
   width: 30%;
   
   
+}
+.cart-item h6 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  color: rgb(166, 0, 2);
+  margin-top: 5px;
 }
