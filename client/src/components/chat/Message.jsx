@@ -6,9 +6,9 @@ import {
   orderBy,
   onSnapshot,
 } from "firebase/firestore";
-import { fireDB } from "../Firebase.jsx";
-import AuthContext from "../AuthContext.jsx";
-import "./chatStyle.css";
+import { fireDB } from "../Firebase";
+import AuthContext from "../AuthContext";
+import "./bubbleStyle.css";
 
 const Message = ({ conversationId }) => {
   const [messages, setMessages] = useState([]);
@@ -34,16 +34,33 @@ const Message = ({ conversationId }) => {
   }, [conversationId]);
 
   return (
-    <div className="message-container">
+    <div className="chat-container">
       {messages.map((message) => (
         <div
           key={message.id}
-          className={`message ${
-            message.senderId === currentUser.uid ? "sent" : "received"
+          className={`bubble ${
+            message.senderId === currentUser.uid ? "right" : "left"
           }`}
         >
-          <p>{message.displayName}</p>
-          <p>{message.message}</p>
+          <p className="sender-name">{message.senderDisplayName}</p>
+          <p className="message-text">{message.message}</p>
+          <p className="timestamp">
+            {new Date(message.timestamp?.toDate()).toLocaleTimeString()}
+          </p>
+          <div
+            className={
+              message.senderId === currentUser.uid
+                ? "right-arrow"
+                : "left-arrow"
+            }
+          ></div>
+          <div
+            className={
+              message.senderId === currentUser.uid
+                ? "right-arrow-overlap"
+                : "left-arrow-overlap"
+            }
+          ></div>
         </div>
       ))}
     </div>
