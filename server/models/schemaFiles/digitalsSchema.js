@@ -15,19 +15,11 @@ const DigitalsSchema = new Schema(
       type: String,
       maxlength: [1000, "Description cannot exceed 1000 characters"],
     },
-
-    // Category reference for the product
-    // category: { type: Schema.Types.ObjectId, ref: "Category" },
-
-    // Price of the product, required and must be a non-negative number
-
-    // Currency of the price, defaults to USD and must be one of the provided options
-
     // Images of the product, stored as an array of strings (URLs)
-    file: { type: String },
+    inquiryFile: { type: String },
     cloudFileId: { type: String },
     // Seller reference for the product, required
-    asker: { type: String },
+    inquiryUser: { type: String },
 
     // Quantity of the product available, defaults to 0
     quantity: { type: Number, default: 0 },
