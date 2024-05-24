@@ -21,6 +21,8 @@ const ShoppingCart = ({ isOpen, onClose }) => {
       );
       if (storedCartItems && Array.isArray(storedCartItems)) {
         setCartItems(storedCartItems);
+      } else {
+        setCartItems([]);
       }
     }
   }, [isOpen]);
@@ -69,36 +71,40 @@ const ShoppingCart = ({ isOpen, onClose }) => {
         className={`custom-popup-content ${isOpen ? "open" : ""}`}
         style={{ top: isNavbarSmall ? "70px" : "120px" }}
       >
-        <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>
-              <span className="qty-wrapper">{item.quantity}</span>
-              <span className="name-wrapper">
-                {item.name.split(" ").slice(0, 2).join(" ")}
-              </span>
-              <span className="currency-wrapper">{item.currency}</span>
-              <span className="price-wrapper">{item.price.toFixed(2)}</span>
-              <FontAwesomeIcon
-                icon={faTrash}
-                onClick={() => handleRemoveItem(item.id)}
-              />
+        {cartItems.length === 0 ? (
+          <div className="empty-cart-message">Cart is empty</div>
+        ) : (
+          <ul>
+            {cartItems.map((item, index) => (
+              <li key={index}>
+                <span className="qty-wrapper">{item.quantity}</span>
+                <span className="name-wrapper">
+                  {item.name.split(" ").slice(0, 2).join(" ")}
+                </span>
+                <span className="currency-wrapper">{item.currency}</span>
+                <span className="price-wrapper">{item.price.toFixed(2)}</span>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  onClick={() => handleRemoveItem(item.id)}
+                />
+              </li>
+            ))}
+            <li>
+              <div className="icon-wrapper">
+                <FontAwesomeIcon icon={faRightFromBracket} />
+              </div>
+              <Link
+                className="text-wrapper"
+                to="/cart"
+                onClick={(e) => {
+                  onClose();
+                }}
+              >
+                Check Out
+              </Link>
             </li>
-          ))}
-          <li>
-            <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faRightFromBracket} />
-            </div>
-            <Link
-              className="text-wrapper"
-              to="/cart"
-              onClick={(e) => {
-                onClose();
-              }}
-            >
-              Check Out
-            </Link>
-          </li>
-        </ul>
+          </ul>
+        )}
       </div>
     </div>
   );
