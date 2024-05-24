@@ -23,6 +23,7 @@ import ShoppingCartProvider from "./context/ShoppingCartProvider.js";
 import { auth } from "./components/Firebase.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
+import DigitalItemPage from "./components/digitals/SingleDigital.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -63,6 +64,7 @@ function App() {
           <Route path="/user-shop" element={<UserShop />} />
           <Route path="/home" element={<MainPage />} />
           <Route path="/item/:productId" element={<ItemPage />} />
+          <Route path="/digital/:productId" element={<DigitalItemPage />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/home" element={<MainPage />} />
           <Route path="/shoplisting" element={<ShopListing />} />

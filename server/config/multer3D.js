@@ -1,5 +1,3 @@
-// Multer config file
-
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import dotenv from "dotenv";
@@ -15,7 +13,7 @@ cloudinary.config({
 });
 
 // Define Multer storage and upload for digital files
-var storage3D = new CloudinaryStorage({
+const storage3D = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     resource_type: "raw", // Set resource_type to "raw" to handle non-image files
@@ -27,5 +25,5 @@ var storage3D = new CloudinaryStorage({
   },
 });
 
-const Parser3D = multer({ storage3D });
+const Parser3D = multer({ storage: storage3D });
 export default Parser3D;
