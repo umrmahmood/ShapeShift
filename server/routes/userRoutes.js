@@ -8,8 +8,6 @@ import UserController from "../controllers/userController.js"; // Importing User
 
 const router = express.Router(); // Creating a new router object
 
-router.get("/firebase/:id", UserController.getUserByFirebaseId);
-
 // User registration route
 router.post("/register", UserController.register);
 // Route for user registration, which calls the register method from UserController

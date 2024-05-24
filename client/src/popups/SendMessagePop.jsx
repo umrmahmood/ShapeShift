@@ -12,24 +12,32 @@ import {
   query,
   where,
   getDocs,
-  getDoc,
 } from "firebase/firestore";
 import AuthContext from "../components/AuthContext.jsx";
 import axios from "axios"; // Import Axios for making HTTP requests
 import "./MessagePopup.css"; // Import the CSS file for styling
 
-const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
+const SendMessagePop = ({
+  firstRecipientId,
+  firstRecipientUsername,
+  isOpen,
+  onClose,
+  scroll,
+}) => {
   const [message, setMessage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const recipient = firstRecipientId;
-  const username = recipient.profile.username;
-  console.log("username", username);
+  const username = firstRecipientUsername;
+  console.log("reci", firstRecipientId);
+  console.log("username", firstRecipientUsername);
+
   const sendMessage = async (event) => {
     event.preventDefault();
 
     if (!recipient.firebaseId) {
-      console.log("no recipi");
+      console.log("Recipient firebaseId is missing");
+      return;
     }
 
     if (message.trim() === "") {
@@ -37,7 +45,7 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
       return;
     }
 
-    const { uid, displayName, photoURL } = auth.currentUser;
+    const { uid, displayName } = auth.currentUser;
     let convId = null;
 
     // Check if conversation already exists
@@ -68,11 +76,10 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
         },
         lastUpdatedAt: serverTimestamp(),
         participants: [
-          { uid, displayName, photoURL },
+          { uid, displayName },
           {
             uid: recipient.firebaseId,
             displayName: username,
-            photoURL,
           },
         ],
         participantIds: [uid, recipient.firebaseId],
@@ -82,8 +89,6 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
       // Use the existing conversation
       convId = existingConversation.id;
     }
-    console.log("id", recipient.firebaseId);
-    console.log("obj", recipient);
 
     const messagesCollectionRef = collection(fireDB, "messages");
 
@@ -149,9 +154,8 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
 };
 
 SendMessagePop.propTypes = {
-  recipient: PropTypes.shape({
-    firebaseId: PropTypes.string.isRequired,
-  }).isRequired,
+  firstRecipientId: PropTypes.string.isRequired,
+  firstRecipientUsername: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   scroll: PropTypes.object.isRequired,

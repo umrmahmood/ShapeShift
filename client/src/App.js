@@ -19,8 +19,6 @@ import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
-import ShoppingCartProvider from "./context/ShoppingCartProvider.js";
-import { auth } from "./components/Firebase.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
 import DigitalItemPage from "./components/digitals/SingleDigital.jsx";

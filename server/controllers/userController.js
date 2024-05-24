@@ -162,24 +162,6 @@ const UserController = {
     }
   },
 
-  getUserByFirebaseId: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const user = await User.findOne(id);
-
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-      // Send user profile in response
-      res.status(200).json({ user });
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-      res
-        .status(500)
-        .json({ message: "An error occurred while fetching the user profile" });
-    }
-  },
-
   // Get user profile by ID
   getProfileById: async (req, res) => {
     try {
