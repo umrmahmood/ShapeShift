@@ -15,7 +15,7 @@ import smallLogo from "../assets/SSlogo-small.png";
 // Font Awesome icon imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBag, faShop } from "@fortawesome/free-solid-svg-icons";
-import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
+import { faUser} from "@fortawesome/free-regular-svg-icons";
 
 // CSS import
 import "../styling/navbar.css";
@@ -106,29 +106,11 @@ const Navbar = ({ onLoginClick }) => {
   return (
     <>
       <div className={`Navbar-container ${isScrolled ? "small" : ""}`}>
-        {/* <div className="nav-logo">
+         <div className="nav-logo">
 					<a href="/">
           <img src={isScrolled ? smallLogo : logo} alt="Logo"/>
 					</a>
-				</div> */}
-        <div className="nav-logo">
-          <a href="/">
-            <img
-              src={logo}
-              alt="Large Logo"
-              className={`logo-img ${isScrolled ? "hidden" : "visible"}`}
-            />
-          </a>
-
-          <a href="/">
-            <img
-              src={smallLogo}
-              alt="Small Logo"
-              className={`logo-img ${isScrolled ? "visible" : "hidden"}`}
-            />
-          </a>
-        </div>
-
+				</div> 
         <div className="nav-search">
           <input
             type="text"
