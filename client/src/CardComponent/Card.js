@@ -114,7 +114,6 @@ const Card = (props) => {
         className="feature-button"
         onClick={() => handleAddToCart(cartItem)}
       >
-
         Add to cart
       </button>
       </div>
