@@ -2,28 +2,62 @@ import React, { useState, useEffect } from "react";
 import "../../CardComponent/Item.css";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
-import SendMessagePop from "../../popups/SendMessagePop.jsx"; // Import the SendMessagePop component
+import SendMessagePop from "../../popups/SendMessagePop.jsx";
 import placeholder from "../../CardComponent/placeholder.jpg";
 import { StlViewer } from "react-stl-viewer";
+import PublicProfile from "../../popups/PublicProfile.jsx";
 
 const DigitalItemPage = () => {
   const [product, setProduct] = useState({});
   const { productId } = useParams();
   const [showSendMessagePopup, setShowSendMessagePopup] = useState(false);
+  const [user, setUser] = useState(null);
+  const [showOwnerProfile, setShowOwnerProfile] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchProduct = async () => {
       try {
         const response = await axios.get(
           `http://localhost:5001/api/digitals/${productId}`
         );
-        setProduct(response.data);
+        if (response.data) {
+          setProduct(response.data);
+          const userId = response.data.inquiryUser;
+          fetchUser(userId);
+        } else {
+          console.error("Product data is empty");
+        }
       } catch (error) {
         console.error("Error fetching product:", error);
       }
     };
-    fetchData();
+
+    const fetchUser = async (userId) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/users/profile/${userId}`
+        );
+        if (response.data && response.data.user) {
+          setUser(response.data.user);
+        } else {
+          console.error("User data is empty");
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    if (productId) {
+      fetchProduct();
+    }
   }, [productId]);
+
+  console.log("Product:", product);
+  console.log("User:", user);
+
+  const handleOwnerAvatarClick = () => {
+    setShowOwnerProfile(true);
+  };
 
   return (
     <>
@@ -49,29 +83,45 @@ const DigitalItemPage = () => {
             <p>Quantity: {product.quantity}</p>
           )}
           {product.material && <p>Material: {product.material}</p>}
-          <div className="message-seller-btn">
-            <button onClick={() => setShowSendMessagePopup(true)}>
-              Message Seller
-            </button>
-          </div>
-          <div className="message-seller-btn">
-            <button>
-              <Link
-                className="text-wrapper profile-links"
-                to={`/shop/${product.seller}`}
+
+          {user && (
+            <div className="owner-shop">
+              <div
+                className="shop-image-owner"
+                onClick={handleOwnerAvatarClick}
               >
-                Visit Shop
-              </Link>
-            </button>
-          </div>
+                <img src={user.profile.avatarUrl} alt="user" />
+              </div>
+              <div className="shop-detail-owner">
+                <h3>
+                  {user.profile.username.charAt(0).toUpperCase() +
+                    user.profile.username.slice(1)}
+                </h3>
+              </div>
+              <div className="message-seller-btn">
+                <button onClick={() => setShowSendMessagePopup(true)}>
+                  Message{" "}
+                  {user.profile.username.charAt(0).toUpperCase() +
+                    user.profile.username.slice(1)}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="shop-owner">
-        {showSendMessagePopup && product && (
+        {showOwnerProfile && user && (
+          <PublicProfile
+            isOpen={true}
+            onClose={() => setShowOwnerProfile(false)}
+            userId={user._id}
+          />
+        )}
+        {showSendMessagePopup && user && (
           <SendMessagePop
             isOpen={true}
             onClose={() => setShowSendMessagePopup(false)}
-            firstRecipientId={{ firebaseId: product.shopOwner }} // Ensure you have firebaseId in owner data
+            firstRecipientId={{ firebaseId: user.firebaseId }}
             scroll={{}}
           />
         )}
