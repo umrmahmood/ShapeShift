@@ -35,3 +35,7 @@
     align-self: flex-end; /* Align button to the right */
   }
   
+  .custom-button {
+    background-color: rgb(166, 0, 2);
+    margin: 0.5rem;
+  }

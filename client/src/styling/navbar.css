@@ -114,54 +114,48 @@ a:hover {
 	font-weight: bold;
 }
 
-/* .navbar-sell-btn button:hover {
-	font-weight: 700;
-} */
+.Navbar-container.small {
+	height: 70px;
+}
 
 .nav-search {
 	align-self: center;
-}
+	position: relative;
+  }
 
-.nav-search input {
+  .nav-search input {
 	width: 600px;
 	font-size: 18px;
 	border-radius: 0px;
 }
 
+.search-result-item.highlighted {
+	background-color: #f0f0f0;
+	cursor: pointer;
+  }
+  
 
-.Navbar-container.small {
-	height: 70px;
-}
-
-/* search button for search bar */
-/* 
-.nav-search-btn{
-    border: none;
-    padding: 0.3em;
-    background: lightgray;
-    border-radius: 10px;
-} 
-
-.nav-search {
-    position: relative;
-}
-
-.nav-search input {
-    width: 600px;
-    padding-right: 30px;
-}
-
-.nav-search::before {
-    content: "\f002"; 
-    font-family: "Font Awesome 5 Free";
-    position: absolute;
-    right: 50px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999; 
-    font-size: 18px;
-    pointer-events: none;
-} */
+  .search-results {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	background-color: white;
+	border: 1px solid #ccc;
+	max-height: 200px;
+	overflow-y: auto;
+	z-index: 1000;
+  }
+  
+  .search-result-item {
+	padding: 10px;
+	cursor: pointer;
+  }
+  
+  .search-result-item:hover {
+	background-color: #f1f1f1;
+  }
+  
 
 /* Responsive styles */
 @media (max-width: 768px) {

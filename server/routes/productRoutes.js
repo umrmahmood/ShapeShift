@@ -12,11 +12,17 @@ import Parser from "../config/multerConfig.js"; // Import the Multer configurati
 const router = express.Router(); // Create a new router instance
 
 // Route for fetching all products and by ID
-router
-  .get("/", ProductController.getAllProducts) // Define a GET request to fetch all products
-  .get("/:productId", ProductController.getProductById) // Define a GET request to fetch a specific product by ID
-  .get("/listings/:sellerId", ProductController.getProductsBySellerId); //get request for All the products by a specific seller.
+// Route for fetching all products
+router.get("/", ProductController.getAllProducts);
 
+// Route for searching products
+router.get("/search", ProductController.searchProducts);
+
+// Route for fetching products by seller ID
+router.get("/listings/:sellerId", ProductController.getProductsBySellerId);
+
+// Route for fetching a specific product by ID
+router.get("/:productId", ProductController.getProductById);
 // Routes for creating, updating, and deleting products
 router
   // Apply authenticated middleware only to the routes below

@@ -147,7 +147,7 @@ const SellerShop = () => {
         <SendMessagePop
           isOpen={true}
           onClose={() => setShowSendMessagePopup(false)}
-          firstRecipientId={{ firebaseId: owner.firebaseId }} // Ensure you have firebaseId in owner data
+          firstRecipientId={{ firebaseId: owner }} // Ensure you have firebaseId in owner data
           scroll={{}}
         />
       )}

@@ -264,6 +264,20 @@ const ProductController = {
       res.status(500).json({ message: "Error retrieving products" });
     }
   },
+
+  searchProducts: async (req, res) => {
+    try {
+      const { q } = req.query;
+      const regex = new RegExp(q, "i"); // Case-insensitive search regex
+
+      const products = await Product.find({ name: { $regex: regex } });
+
+      res.json(products);
+    } catch (error) {
+      console.error("Error searching products:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
 };
 
 export default ProductController;
