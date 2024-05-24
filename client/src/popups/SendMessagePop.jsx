@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { auth, fireDB } from "../components/Firebase.jsx";
 import {
@@ -11,21 +11,29 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
 import AuthContext from "../components/AuthContext.jsx";
 import "./MessagePopup.css"; // Import the CSS file for styling
 
 const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
   const [message, setMessage] = useState("");
-  const [messageSent, setMessageSent] = useState(false); // State to track if message was sent
+  const [messageSent, setMessageSent] = useState(false);
+  const [recipientDisplayName, setRecipientDisplayName] = useState(""); // State to store recipient's display name
   const { currentUser } = useContext(AuthContext);
 
-  if (!isOpen) {
-    return null;
-  }
+  useEffect(() => {
+    const fetchRecipientData = async () => {
+      const recipientDocRef = doc(fireDB, "users", firstRecipientId.firebaseId);
+      const recipientDocSnapshot = await getDoc(recipientDocRef);
+      if (recipientDocSnapshot.exists()) {
+        const recipientData = recipientDocSnapshot.data();
+        setRecipientDisplayName(recipientData.displayName);
+      }
+    };
 
-  const recipientId = firstRecipientId.firebaseId;
-  console.log("receiver end", recipientId);
+    fetchRecipientData();
+  }, [firstRecipientId]);
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -48,7 +56,7 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
     );
 
     const existingConversation = existingConversationSnapshot.docs.find((doc) =>
-      doc.data().participantIds.includes(recipientId)
+      doc.data().participantIds.includes(firstRecipientId.firebaseId)
     );
 
     if (!existingConversation) {
@@ -66,9 +74,13 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
         lastUpdatedAt: serverTimestamp(),
         participants: [
           { uid, displayName, photoURL },
-          { uid: recipientId, displayName, photoURL },
+          {
+            uid: firstRecipientId.firebaseId,
+            displayName: recipientDisplayName,
+            photoURL,
+          },
         ],
-        participantIds: [uid, recipientId],
+        participantIds: [uid, firstRecipientId.firebaseId],
       });
       convId = newConversationRef.id;
     } else {
@@ -82,7 +94,8 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
       conversationId: convId,
       message,
       senderId: uid,
-      recipientId,
+      senderDisplayName: displayName,
+      recipientId: firstRecipientId.firebaseId,
       status: "sent",
       timestamp: serverTimestamp(),
     });
@@ -95,7 +108,7 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
     });
 
     setMessage("");
-    setMessageSent(true); // Set messageSent to true when message is sent
+    setMessageSent(true);
     if (scroll && scroll.current) {
       scroll.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -111,11 +124,11 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
           <div>
             <h2>Message Sent</h2>
             <p>Message was successfully sent.</p>
-            <p>Click outside the this window to close.</p>
+            <p>Click outside this window to close.</p>
           </div>
         ) : (
           <div>
-            <h2>Send Message</h2>
+            <h2>Send Message to {recipientDisplayName}</h2>
             <form onSubmit={sendMessage} className="send-message">
               <label htmlFor="messageInput" hidden>
                 Enter Message

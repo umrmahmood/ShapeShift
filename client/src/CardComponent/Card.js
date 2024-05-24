@@ -78,19 +78,7 @@ const Card = (props) => {
   const cartItem = props.product;
 
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [itemAddedToCart, setItemAddedToCart] = useState(false); // Track if item has been added to the cart
-
-  useEffect(() => {
-    // Automatically close the cart after 3 seconds if the item has been added
-    let timeout;
-    if (isCartOpen && itemAddedToCart) {
-      timeout = setTimeout(() => {
-        setIsCartOpen(false);
-        setItemAddedToCart(false); // Reset the flag
-      }, 2000);
-    }
-    return () => clearTimeout(timeout); // Cleanup the timeout on unmount or state change
-  }, [isCartOpen, itemAddedToCart]);
+  const [itemAddedToCart, setItemAddedToCart] = useState(false);
 
   const handleMoreClick = () => {
     navigate(`/item/${_id}`);
@@ -99,8 +87,18 @@ const Card = (props) => {
   const handleAddToCart = () => {
     addItem(cartItem);
     setItemAddedToCart(true); // Mark that the item has been added to the cart
-    setIsCartOpen(true); // Open the cart after the item has been added to the cart
   };
+
+  useEffect(() => {
+    let timeout;
+    if (itemAddedToCart) {
+      setIsCartOpen(true); // Open the cart after the item has been added to the cart
+    }
+    timeout = setTimeout(() => {
+      setIsCartOpen(false);
+      setItemAddedToCart(false); // Reset the flag
+    }, 2000);
+  }, [itemAddedToCart]);
 
   return (
     <div className="cardMain">
