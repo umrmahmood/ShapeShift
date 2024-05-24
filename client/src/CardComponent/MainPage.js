@@ -7,10 +7,9 @@ import axios from "axios";
 import placeholder from "./placeholder.jpg";
 import { useNavigate } from "react-router-dom";
 
-
 const MainPage = () => {
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -23,23 +22,23 @@ const MainPage = () => {
       });
   }, []);
 
-  const handleMoreClick =(_id) => {
+  const handleMoreClick = (_id) => {
     navigate(`/item/${_id}`);
-};
+  };
 
-const renderCardBlock = (startIndex) => {
+  const renderCardBlock = (startIndex) => {
     return (
-        <div className="card-block">
-            {products.slice(startIndex, startIndex + 4).map((product) => (
+      <div className="card-block">
+        {products.slice(startIndex, startIndex + 4).map((product) => (
           <Card
             key={product._id}
             product={product}
-            onMoreClick={() => handleMoreClick(product._id)} 
-            />
-            ))}
-        </div>
-    )
-}
+            onMoreClick={() => handleMoreClick(product._id)}
+          />
+        ))}
+      </div>
+    );
+  };
   return (
     <div className="main-layout">
       <Categories />

@@ -1,3 +1,4 @@
+// Import the necessary dependencies
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { auth, fireDB } from "../components/Firebase.jsx";
@@ -11,38 +12,40 @@ import {
   query,
   where,
   getDocs,
-  getDoc,
 } from "firebase/firestore";
 import AuthContext from "../components/AuthContext.jsx";
+import axios from "axios"; // Import Axios for making HTTP requests
 import "./MessagePopup.css"; // Import the CSS file for styling
 
-const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
+const SendMessagePop = ({
+  firstRecipientId,
+  firstRecipientUsername,
+  isOpen,
+  onClose,
+  scroll,
+}) => {
   const [message, setMessage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
-  const [recipientDisplayName, setRecipientDisplayName] = useState(""); // State to store recipient's display name
   const { currentUser } = useContext(AuthContext);
-
-  useEffect(() => {
-    const fetchRecipientData = async () => {
-      const recipientDocRef = doc(fireDB, "users", firstRecipientId.firebaseId);
-      const recipientDocSnapshot = await getDoc(recipientDocRef);
-      if (recipientDocSnapshot.exists()) {
-        const recipientData = recipientDocSnapshot.data();
-        setRecipientDisplayName(recipientData.displayName);
-      }
-    };
-
-    fetchRecipientData();
-  }, [firstRecipientId]);
+  const recipient = firstRecipientId;
+  const username = firstRecipientUsername;
+  console.log("reci", firstRecipientId);
+  console.log("username", firstRecipientUsername);
 
   const sendMessage = async (event) => {
     event.preventDefault();
+
+    if (!recipient.firebaseId) {
+      console.log("Recipient firebaseId is missing");
+      return;
+    }
+
     if (message.trim() === "") {
       alert("Enter a valid message");
       return;
     }
 
-    const { uid, displayName, photoURL } = auth.currentUser;
+    const { uid, displayName } = auth.currentUser;
     let convId = null;
 
     // Check if conversation already exists
@@ -56,7 +59,7 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
     );
 
     const existingConversation = existingConversationSnapshot.docs.find((doc) =>
-      doc.data().participantIds.includes(firstRecipientId.firebaseId)
+      doc.data().participantIds.includes(recipient.firebaseId)
     );
 
     if (!existingConversation) {
@@ -73,14 +76,13 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
         },
         lastUpdatedAt: serverTimestamp(),
         participants: [
-          { uid, displayName, photoURL },
+          { uid, displayName },
           {
-            uid: firstRecipientId.firebaseId,
-            displayName: recipientDisplayName,
-            photoURL,
+            uid: recipient.firebaseId,
+            displayName: username,
           },
         ],
-        participantIds: [uid, firstRecipientId.firebaseId],
+        participantIds: [uid, recipient.firebaseId],
       });
       convId = newConversationRef.id;
     } else {
@@ -95,7 +97,7 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
       message,
       senderId: uid,
       senderDisplayName: displayName,
-      recipientId: firstRecipientId.firebaseId,
+      recipientId: recipient.firebaseId,
       status: "sent",
       timestamp: serverTimestamp(),
     });
@@ -128,7 +130,7 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
           </div>
         ) : (
           <div>
-            <h2>Send Message to {recipientDisplayName}</h2>
+            <h2>Send Message to {username}</h2>
             <form onSubmit={sendMessage} className="send-message">
               <label htmlFor="messageInput" hidden>
                 Enter Message
@@ -152,9 +154,8 @@ const SendMessagePop = ({ firstRecipientId, isOpen, onClose, scroll }) => {
 };
 
 SendMessagePop.propTypes = {
-  firstRecipientId: PropTypes.shape({
-    firebaseId: PropTypes.string.isRequired,
-  }).isRequired,
+  firstRecipientId: PropTypes.string.isRequired,
+  firstRecipientUsername: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   scroll: PropTypes.object.isRequired,

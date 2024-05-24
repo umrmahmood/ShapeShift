@@ -18,6 +18,8 @@ const SellerShop = () => {
   const { shopId } = useParams(); // Get shopId from URL parameter
   const [shop, setShop] = useState(null); // State to hold shop data
   const [owner, setOwner] = useState(null); // State to hold owner data
+  const [ownerProfile, setOwnerProfile] = useState(null); // State to hold owner data
+
   const navigate = useNavigate();
   const query = useQuery();
   const activeSection = query.get("active");
@@ -40,6 +42,9 @@ const SellerShop = () => {
           `http://localhost:5001/api/users/profile/${ownerId}`
         );
         setOwner(ownerResponse.data.user);
+        setOwnerProfile(ownerResponse.data.user.profile);
+        console.log("Owner", owner);
+        console.log("Profile", ownerProfile);
       } catch (error) {
         console.error("Error fetching shop data:", error);
         // Handle error or set a loading state
@@ -147,7 +152,8 @@ const SellerShop = () => {
         <SendMessagePop
           isOpen={true}
           onClose={() => setShowSendMessagePopup(false)}
-          firstRecipientId={{ firebaseId: owner.firebaseId }} // Ensure you have firebaseId in owner data
+          firstRecipientId={owner} // Pass as a string
+          firstRecipientUsername={ownerProfile.username} // Pass as a string
           scroll={{}}
         />
       )}

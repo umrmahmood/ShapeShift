@@ -16,7 +16,7 @@
   
   .bubble.right {
     align-self: flex-end;
-    background-color: #0B93F6;
+    background-color: #ff8080;
     color: white;
   }
   
@@ -51,7 +51,7 @@
   }
   
   .right-arrow {
-    background-color: #0B93F6;
+    background-color: #ff8080;
     border-bottom-left-radius: 16px 14px;
     right: -7px;
   }
