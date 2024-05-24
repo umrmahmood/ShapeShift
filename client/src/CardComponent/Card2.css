@@ -1,4 +1,4 @@
-/* .main-layout{
+.main-layout{
     padding-top: 200px;
 }
 
@@ -10,26 +10,31 @@
 }
 
 .cardMain {
-    border: 1px solid rgb(166,0,2);
     border-radius: 5px;
     padding: 20px;
     margin: 20px;
     width: 300px;
 }
 
-.cardMain img {
-    max-width: 100%; 
-    height: auto; 
-    height: auto;
-    border-radius: 5px;
+
+.card-image-container{
+    height: 250px;
+    width: 250px;
+}
+
+.card-image-container img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover; 
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+   
 }
 
 .cardMain h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-top: 10px;
-    display: flex;
-    justify-self: left;
 }
 
 .cardMain p {
@@ -43,19 +48,24 @@
 }
 
 .cardMain h3 {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'proxima-nova';
     font-size: 1rem;
     color: rgb(166, 0, 2);
     margin-top: 5px;
 }
 
+.card-description-container{
+    background: rgb(224,226,223);
+}
+
 .feature-button {
 	background: none;
 	border: none;
+	/* border-bottom: 2px solid #f4254e; */
 	line-height: 1.5em; 
     font-family: 'Bebas Neue', sans-serif;
 }
 
 .feature-button:hover {
   cursor: pointer;
-} */
+}

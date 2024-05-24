@@ -1,0 +1,105 @@
+.category {
+	/* margin-top: -1em; */
+    display: flex;
+    flex-direction: column;
+}
+
+.advert{
+width:1700px;
+align-self: center;
+
+height: 250px;
+}
+
+.category-grid ul {
+	display: flex;
+	gap: 6em;
+	list-style: none;
+    border-bottom: 2px solid rgb(224,226,223);
+    line-height: 4em;
+}
+
+.category-grid {
+	display: flex;
+	justify-content: center;
+}
+
+.category-link {
+	color: black;
+	text-decoration: none;
+	font-family: "Bebas Neue", sans-serif;
+	letter-spacing: 0.1rem;
+	font-size: 1.4rem;
+    padding: 10px 15px;
+}
+
+.category-link.active {
+	background: rgb(224,226,223);
+	color: rgb(166, 0, 2);
+    border-radius: 8px;
+}
+
+
+
+
+.category-image {
+	width: 50px;
+	height: 50px;
+}
+
+/* CSS */
+.select-container {
+	margin-bottom: 1rem;
+	margin: 2em 14em;
+}
+
+.select-container select {
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+.display-product {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+    margin-top: 1em;
+   
+}
+
+.filer-container {
+	display: flex;
+	justify-content: end;
+	margin-right: 20px;
+}
+
+@media screen and (min-width: 768px) {
+	.display-product {
+		justify-content: center;
+	}
+}
+
+.scroll-button {
+	color: rgb(0, 0, 0);
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.scroll-button:hover {
+	opacity: 0.3;
+	background-color: rgb(166, 0, 2);
+	color: white;
+}
+
+.category-grid-container {
+	display: flex;
+	overflow-x: hidden;
+	width: 100%;
+	margin: 0 auto;
+	transition: transform 0.5s ease;
+}
+
+
+

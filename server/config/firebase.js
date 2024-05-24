@@ -5,7 +5,7 @@ import admin from "firebase-admin";
 
 
 // Importing the service account credentials from a JSON file
-import serviceAccount from "./firebaseAdminSdk.json" assert { type: "json" };
+import serviceAccount from "./firebaseAdminsdk.json" assert { type: "json" };
 
 
 // Checking if the Firebase Admin SDK has been initialized already
