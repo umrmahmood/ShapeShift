@@ -41,8 +41,6 @@ const DigitalsSchema = new Schema(
         "PVB",
         "HIPS",
         "PVA",
-        "PC",
-        "PEI",
         "PEEK",
         "PEKK",
         "PVDF",
@@ -50,7 +48,13 @@ const DigitalsSchema = new Schema(
         "Resins",
         "Ceramics",
         "Silicone",
-        "Metals",
+        "Flexible",
+        "Metal Filled",
+        "Carbon Fiber Filled",
+        "Wood Filled",
+        "Polycarbonate",
+        "Polypropylene",
+
       ],
     },
     color: {
@@ -71,9 +75,9 @@ const DigitalsSchema = new Schema(
 
     resolution: {
       type: String,
-      enum: ["detailed", "medium", "draft"],
+      enum: ["Detailed", "Medium", "Draft"],
     },
-    resistanz: {
+    resistance: {
       type: String,
       enum: ["20%", "60%", "80%"],
     },

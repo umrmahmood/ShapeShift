@@ -24,6 +24,7 @@ import { auth } from "./components/Firebase.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
 import DigitalItemPage from "./components/digitals/SingleDigital.jsx";
+import DigitalListings from "./components/digitals/DigitalListings.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -72,6 +73,7 @@ function App() {
           <Route path="/product-form" element={<ProductForm />} />
           <Route path="/myprofile" element={<UserProfile />} />
           <Route path="/messages" element={<MessagePage />} />
+          <Route path="/digital/" element={<DigitalListings />} />
         </Routes>
         <Footer />
       </div>

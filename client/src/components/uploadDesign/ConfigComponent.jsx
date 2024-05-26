@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Resolution from "./Resolution";
 import Resistance from "./Resistance";
 import QuoteSummary from "./QuoteSummary";
@@ -70,7 +71,9 @@ const Popup = ({
 	resistance,
 	quantity,
 	onClose,
+	description,
 }) => {
+	const [isPosting, setIsPosting] = useState(false);
 	const estimatedCost = calculateCost(
 		material,
 		color,
@@ -78,6 +81,37 @@ const Popup = ({
 		resistance,
 		quantity
 	);
+
+	const handlePostRequest = async () => {
+		setIsPosting(true);
+		const formData = new FormData();
+		formData.append("file", file);
+		formData.append("name", fileName);
+		formData.append("material", material);
+		formData.append("color", color);
+		formData.append("resolution", resolution);
+		formData.append("resistance", resistance);
+		formData.append("quantity", quantity);
+		formData.append("description", description);
+
+		try {
+			const token = localStorage.getItem("shapeshiftkey");
+			await axios.post("/api/digitals/create", formData, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+					"Content-Type": "multipart/form-data",
+				},
+			});
+			alert("Digital product created successfully!");
+			onClose();
+		} catch (error) {
+			console.error("Error creating digital product:", error);
+			alert("Failed to create digital product. Please try again.");
+		} finally {
+			setIsPosting(false);
+		}
+	};
+
 	return (
 		<div className="quote-popup-container">
 			<div className="quote-popup" onClick={(e) => e.stopPropagation()}>
@@ -94,7 +128,7 @@ const Popup = ({
 				<div className="file-content">
 					<div>
 						<a href={URL.createObjectURL(file)} download={fileName}>
-							Download .Stl File
+							Download {fileName}.stl File
 						</a>
 					</div>
 				</div>
@@ -102,7 +136,13 @@ const Popup = ({
 					<button className="quote-popup-close-btn" onClick={onClose}>
 						Close
 					</button>
+					<button className="quote-popup-post-btn config-input" onClick={handlePostRequest} disabled={isPosting}>
+						Post Your Request
+					</button>
 				</div>
+				{isPosting && (
+					<p className="config-file-posting">Your digital product is getting posted. Please wait<span className="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>
+				)}
 			</div>
 		</div>
 	);
@@ -113,8 +153,9 @@ const ConfigComponent = () => {
 	const [selectedColor, setSelectedColor] = useState("");
 	const [selectedResolution, setSelectedResolution] = useState("");
 	const [selectedResistance, setSelectedResistance] = useState("");
+	const [name, setName] = useState("");
+	const [description, setDescription] = useState("");
 	const [quantity, setQuantity] = useState("");
-	const [fileName, setFileName] = useState("");
 	const [file, setFile] = useState(null);
 	const [showPopup, setShowPopup] = useState(false);
 	const [showValidationPopup, setShowValidationPopup] = useState(false);
@@ -158,8 +199,15 @@ const ConfigComponent = () => {
 		setQuantity(newQuantity);
 	};
 
-	const handleFileChange = (file, name) => {
-		setFileName(name);
+	const handleNameChange = (event) => {
+		setName(event.target.value);
+	};
+
+	const handleDescriptionChange = (event) => {
+		setDescription(event.target.value);
+	};
+
+	const handleFileChange = (file) => {
 		setFile(file);
 	};
 
@@ -170,8 +218,9 @@ const ConfigComponent = () => {
 		setSelectedResistance("");
 		setSelectedMaterial("ABS");
 		setQuantity("");
-		setFileName("");
 		setFile(null);
+		setName("");
+		setDescription("");
 	};
 
 	const handleCloseValidationPopup = () => {
@@ -224,8 +273,34 @@ const ConfigComponent = () => {
 						<div className="upload-file">
 							<UploadFile onFileChange={handleFileChange} />
 							<div className="config-quantity">
+								Name
+								<input
+									className="config-input"
+									type="text"
+									id="nameInput"
+									placeholder="Prod. Name"
+									value={name}
+									onChange={handleNameChange}
+									style={{ width: "100px" }}
+								/>
+							</div>
+
+							<div className="config-quantity">
+								Description
+								<textarea
+									className="config-description"
+									name="description"
+									value={description}
+									onChange={handleDescriptionChange}
+									maxLength={1000}
+									placeholder="max 1000 characters"
+								/>
+							</div>
+
+							<div className="config-quantity">
 								Quantity
 								<input
+									className="config-input2"
 									type="number"
 									id="quantityInput"
 									placeholder="Enter qty"
@@ -238,7 +313,7 @@ const ConfigComponent = () => {
 					</div>
 				</div>
 
-				<div className="button-quote">
+					<div className="button-quote">
 					{!showPopup ? (
 						<button onClick={handleSendQuote}>Request Quote</button>
 					) : null}
@@ -246,7 +321,8 @@ const ConfigComponent = () => {
 
 				{showPopup && (
 					<Popup
-						fileName={fileName}
+						fileName={name}
+						description={description}
 						file={file}
 						quantity={quantity}
 						material={selectedMaterial}

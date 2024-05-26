@@ -109,6 +109,7 @@ import axios from "axios";
 import "./categories2.css";
 import Card from "./Card";
 import advert from "../../src/assets/advertise7.jpg";
+import shopAdvert from "../../src/assets/banner 6.jpg";
 
 const Categories = () => {
 	const categories = [
@@ -211,12 +212,48 @@ const Categories = () => {
 					)}
 				</ul>
 			</div>
-			<div className="advert"> <img src={advert} alt={advert} /></div>
+			<div className="advert">
+				{" "}
+				<img src={advert} alt={advert} />
+			</div>
 
 			{/* Render the filtered products */}
-			<div className="display-product">
+			{/* <div className="display-product">
 				{filteredProducts.map((product) => (
 					<Card key={product._id} product={product} />
+				))}
+			</div> */}
+
+			{/* <div className="product-grid">
+				{filteredProducts.map((product) => (
+					<>
+						<div className="product-car">
+						<Card  key={product._id} product={product} />
+					</div>
+					
+					</>
+				
+				))}
+				<div className="banner-between">
+				
+				</div>
+			</div> */}
+
+			<div className="product-grid">
+				{filteredProducts.slice(0, 10).map((product) => (
+					<div className="product-card" key={product._id}>
+						<Card product={product} />
+					</div>
+				))}
+				<div className="banner-between">
+					<a href="http://localhost:3000/shop/664f16043fe685a58d193514">
+						<img src={shopAdvert} alt={advert} />
+					</a>
+				</div>
+				{filteredProducts.slice(10).map((product) => (
+					<div className="product-card" key={product._id}>
+						<Card product={product} />
+					</div>
 				))}
 			</div>
 		</div>
