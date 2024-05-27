@@ -1,130 +1,125 @@
-.ImagesContainer {
-	width: 45%;
+/* Main containers */
+.MainContainer,
+.FirstMainContainer,
+.SecondMainContainer,
+.ThirdMainContainer,
+.FourthMainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    padding: 20px;
+    width: 100%;
 }
 
 .MainContainer {
-	display: flex;
-	justify-content: space-between;
-	margin: 20px;
-	padding: 20px;
-	padding-top: 200px;
-	width: 100%;
+    padding-top: 150px; /* Only apply padding-top to .MainContainer */
 }
 
+.FirstMainContainer .left,
+.FirstMainContainer .right,
+.SecondMainContainer .left,
+.SecondMainContainer .right,
+.ThirdMainContainer .left,
+.ThirdMainContainer .right {
+    flex: 1;
+    min-width: 300px; /* Adjust this value as needed to prevent items from becoming too narrow */
+    margin: 10px; /* Adjust spacing between left and right */
+}
+
+.FourthMainContainer {
+    width: 100%; /* Make the FourthMainContainer full width */
+    flex-direction: column; /* Ensure it stacks in a column */
+}
+
+.FourthMainContainer .ShopItems {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Product Container */
 .ProductContainer {
-	display: flex;
+    display: flex;
 }
 
 .ProductDescription {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .ProductInfo {
-	flex: 1;
+    flex: 1;
 }
 
 .ProductImage {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .additional-images img {
-	width: 100%;
-	height: auto;
-	border-radius: 5px;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
+
 .options {
-	width: 60px;
-	height: 60px;
+    width: 60px;
+    height: 60px;
 }
+
 .options img {
-	width: 100%;
-	height: auto;
-	border-radius: 5px;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
 
 .ProductImage {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .item-main {
-	width: 400px;
-	height: 400px;
-}
-.MainImageContainer {
-	margin-bottom: 20px;
-}
-
-.main-image {
-	width: 100%;
-	height: auto;
-	border-radius: 5px;
-}
-
-.secondary-images {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
-}
-
-.secondary-images img {
-	width: calc(33.33% - 5px);
-	height: auto;
-	border-radius: 5px;
-	margin-bottom: 10px;
+    width: 400px;
+    height: 400px;
 }
 
 .DescriptionContainer {
-	width: 45%;
+    width: 45%;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .itempage-name {
-	font-size: 24px;
-	margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .itempage-para {
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
-.secondary-image img {
-    max-width: 200px;
-    max-height: 200px;
-    transition: max-width 0.3s, max-height 0.3s; 
-  }
-  
-  .secondary-image img:hover {
-    max-width: 600px; 
-    max-height: 600px; 
-  }
-  .DescriptionContainer {
-    padding: 20px;
-    margin-top: 20px;
-  }
-  
-  .DescriptionContainer h2 {
+
+.DescriptionContainer h2 {
     font-size: 24px;
     margin-bottom: 10px;
-  }
-  
-  .DescriptionContainer p {
+}
+
+.DescriptionContainer p {
     font-size: 16px;
     margin-bottom: 5px;
-  }
-  
-  .DescriptionContainer p:last-child {
+}
+
+.DescriptionContainer p:last-child {
     margin-bottom: 0;
-  }
-  .image-container {
+}
+
+.image-container {
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: space-between;
-  }
-  
-  
+}
+
 .admin-buttons-container {
     display: flex;
     align-items: center;
@@ -138,13 +133,11 @@
     background: transparent;
     padding: 5px 20px;
     font-size: 1em;
-    border-radius: 5px; 
-    width:80px;
-    border:1px, rgb(166, 0, 2);
-    border-color:  rgb(166, 0, 2);
+    border-radius: 5px;
+    width: 80px;
+    border: 1px solid rgb(166, 0, 2);
+    border-color: rgb(166, 0, 2);
 }
-
-
 
 .admin-buttons:hover {
     color: white;
@@ -152,9 +145,7 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
-
-/* Edit.css */
-
+/* Modal */
 .modal {
     display: flex;
     justify-content: center;
@@ -167,9 +158,9 @@
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -177,9 +168,9 @@
     width: 80%;
     max-width: 600px;
     position: relative;
-  }
-  
-  .close-button {
+}
+
+.close-button {
     position: absolute;
     top: 10px;
     right: 25px;
@@ -187,38 +178,53 @@
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
-  }
-  
-  .close-button:hover,
-  .close-button:focus {
+}
+
+.close-button:hover,
+.close-button:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  
-	max-width: 200px;
-	max-height: 200px;
-	transition: max-width 0.3s, max-height 0.3s;
 }
 
-.secondary-image img:hover {
-	max-width: 600px;
-	max-height: 600px;
-}
-.DescriptionContainer {
-	padding: 20px;
-	margin-top: 20px;
+.max-img {
+    max-width: 200px;
+    max-height: 200px;
+    transition: max-width 0.3s, max-height 0.3s;
 }
 
-.DescriptionContainer h2 {
-	font-size: 24px;
-	margin-bottom: 10px;
+.MainImageContainer {
+    width: 25vw; /* Fixed size square container */
+    height: 25vw; /* Fixed size square container */
+    display: flex;
+    justify-content: center; /* Center image horizontally */
+    align-items: center; /* Center image vertically */
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensure images fit inside container */
 }
 
-.DescriptionContainer p {
-	font-size: 16px;
-	margin-bottom: 5px;
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio and cover container */
 }
 
-.DescriptionContainer p:last-child {
-	margin-bottom: 0;
+.secondary-images {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    max-width: calc(100% - 25vw); /* Ensure secondary images fit within remaining width */
+}
+
+.secondary-image {
+    width: calc(25% - 10px); /* About 1/6 width of the main image with gap */
+    height: calc(25% - 10px); /* Fixed size square container */
+    overflow: hidden; /* Ensure images fit inside container */
+    border-radius: 5px;
+}
+
+.secondary-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio and cover container */
 }
