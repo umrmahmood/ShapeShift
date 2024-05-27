@@ -1,7 +1,7 @@
 // src/components/Cart.js
 import React from 'react';
 import '../styling/Cart.css';
-import Payment from './Payment';
+import PaymentBlock from './PaymentBlock';
 import emptyCart from '../assets/empty_cart.png';
 import useShoppingCart from '../hooks/useShoppingCart';
 import useFetchImages from '../hooks/useFetchImages';
@@ -61,7 +61,7 @@ const Cart = () => {
           {/* Add any additional buttons if needed */}
         </div>
       </div>
-      <Payment cartItems={cartItems} />
+      <PaymentBlock cartItems={cartItems} />
     </div>
   );
 };

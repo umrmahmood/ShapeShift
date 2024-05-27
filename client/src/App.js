@@ -23,6 +23,10 @@ import ShoppingCartProvider from "./context/ShoppingCartProvider.js";
 import { auth } from "./components/Firebase.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
+import KlarnaComponent from "./components/Payment/KlarnaComponent.jsx";
+import PayPalComponent from "./components/Payment/PayPalComponent.jsx";
+import VisaComponent from "./components/Payment/VisaComponent.jsx";
+import Payment from "./components/Payment/index.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -70,6 +74,10 @@ function App() {
           <Route path="/product-form" element={<ProductForm />} />
           <Route path="/myprofile" element={<UserProfile />} />
           <Route path="/messages" element={<MessagePage />} />
+          {/* <Route path="/payment/visa" element={<VisaComponent />} />
+          <Route path="/payment/klarna" element={<KlarnaComponent />} />
+          <Route path="/payment/paypal" element={<PayPalComponent />} /> */}
+          <Route path="/payment" element={<Payment />} />
         </Routes>
         <Footer />
       </div>
