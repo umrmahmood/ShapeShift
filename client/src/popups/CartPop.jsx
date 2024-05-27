@@ -97,12 +97,12 @@ const ShoppingCart = ({ isOpen, onClose }) => {
               {cartItems.map((item, index) => (
                 <li className="popup-cart-items-list" key={index}>
                   <div>{item.quantity}</div>
-                  <span className="fixed-width">
+                  <div className="fixed-width">
                     {item.name.split(" ").slice(0, 2).join(" ")}
-                  </span>
-                  <span>
+                  </div>
+                  <div>
                     {item.price.toFixed(2)} {item.currency}
-                  </span>
+                  </div>
                   <div className="popup-cart-trash">
                     <FontAwesomeIcon
                       icon={faTrash}
