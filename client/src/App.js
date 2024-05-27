@@ -9,7 +9,6 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import ItemPage from "./CardComponent/ItemPage";
 import ConfigComponent from "./components/uploadDesign/ConfigComponent.jsx";
-// import Printer from "./components/Printer";
 import OpenShop from "./components/openShop/OpenShop.jsx";
 import Login from "../src/components/loginandSignup/Login.jsx";
 import ProductForm from "./components/productReg/ProductForm";
@@ -21,9 +20,14 @@ import ShopListing from "./components/ShopPage/ShopListing.jsx";
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
+import KlarnaComponent from "./components/Payment/KlarnaComponent.jsx";
+import PayPalComponent from "./components/Payment/PayPalComponent.jsx";
+import VisaComponent from "./components/Payment/VisaComponent.jsx";
+import Payment from "./components/Payment/index.jsx";
 import DigitalItemPage from "./components/digitals/SingleDigital.jsx";
 import DigitalListings from "./components/digitals/DigitalListings.jsx";
-import SearchResultPage from "./components/SearchResultPage.jsx"; // Import the SearchResultPage component
+import SearchResultPage from "./components/SearchResultPage.jsx";
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -72,6 +76,10 @@ function App() {
           <Route path="/product-form" element={<ProductForm />} />
           <Route path="/myprofile" element={<UserProfile />} />
           <Route path="/messages" element={<MessagePage />} />
+          {/* <Route path="/payment/visa" element={<VisaComponent />} />
+          <Route path="/payment/klarna" element={<KlarnaComponent />} />
+          <Route path="/payment/paypal" element={<PayPalComponent />} /> */}
+          <Route path="/payment" element={<Payment />} />
           <Route path="/digital/" element={<DigitalListings />} />
           <Route path="/search" element={<SearchResultPage />} />
         </Routes>

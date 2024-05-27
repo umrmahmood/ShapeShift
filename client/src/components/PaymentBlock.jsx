@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../styling/Payment.css";
 import visa from "../assets/visa1.png"; 
 import mastercard from "../assets/master-card.png";
@@ -9,7 +10,7 @@ import useShoppingCart from '../hooks/useShoppingCart';
 
 const Payment = ({ cartItems }) => {
   const [paymentMethod, setPaymentMethod] = useState('');
-
+  const navigate = useNavigate();
   const getItemTotal = () => {
     return cartItems.reduce((total, item) => total + (parseFloat(item.price) * item.quantity), 0).toFixed(2);
   };
@@ -34,11 +35,12 @@ const Payment = ({ cartItems }) => {
 
   const proceedHandler = () => {
     console.log(paymentMethod);
+    navigate('/payment', {state:{payment: paymentMethod}});
   };
 
   return (
     <div className="payment-container">
-      <h2 className="payment-head">How you'll pay</h2>
+      <h2 className="payment-head">How will you pay</h2>
       <div className="payment-options">
         <div className="payment-option">
           <input
