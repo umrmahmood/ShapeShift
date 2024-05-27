@@ -40,7 +40,7 @@ const Payment = ({ cartItems }) => {
 
   return (
     <div className="payment-container">
-      <h2 className="payment-head">How you'll pay</h2>
+      <h2 className="payment-head">How will you pay</h2>
       <div className="payment-options">
         <div className="payment-option">
           <input
