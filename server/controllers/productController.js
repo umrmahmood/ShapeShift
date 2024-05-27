@@ -32,7 +32,7 @@ const ProductController = {
           tags: file.originalname,
           unique_filename: false,
           transformation: [
-            { width: 1000, crop: "scale" },
+            { width: 1000, height: 1000, crop: "fill", gravity: "auto" },
             { quality: "auto" },
             { fetch_format: "auto" },
           ],
