@@ -71,10 +71,10 @@ const ShopItems = ({ shopId }) => {
                 Price: {listing.price} {listing.currency}
               </p>
               <p>Material: {listing.material.join(", ")}</p>
-              <div className="shoplisting-btns">
+              {/* <div className="shoplisting-btns">
                 <button>Edit</button>
                 <button>Delete</button>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
