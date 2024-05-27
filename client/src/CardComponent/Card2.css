@@ -1,0 +1,74 @@
+.main-layout{
+    padding-top: 200px;
+}
+
+
+.item-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.cardMain {
+    border-radius: 5px;
+    padding: 16px;
+    margin: 16px;
+    width: 300px;  
+}
+
+
+.card-image-container{
+    height: 250px;
+    width: 250px;
+    cursor: pointer;
+}
+
+.card-image-container img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover; 
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+   
+}
+
+.cardMain h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+}
+
+.card-para-wrapper{
+    padding-left: 1em;
+}
+
+
+.cardMain h3 {
+    font-family: 'proxima-nova';
+    font-size: 1.1rem;
+    color: rgb(166, 0, 2);
+    margin-top: 5px;
+}
+
+.card-description-container{
+    background: rgb(224,226,223);
+    /* background: #f0f0f0; */
+    padding-top: 1em;
+    width: 250px;
+}
+
+.feature-button {
+	border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    background: rgb(0, 0, 0);
+    /* background: rgb(166, 0, 2); */
+    font-size: 1.3em;
+    color: white;
+    width: 100%;
+    margin-top: 0.5em;
+    padding-top: 3px;
+}
+
+.feature-button:hover {
+  cursor: pointer;
+}
+

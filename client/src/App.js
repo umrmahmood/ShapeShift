@@ -9,7 +9,6 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import ItemPage from "./CardComponent/ItemPage";
 import ConfigComponent from "./components/uploadDesign/ConfigComponent.jsx";
-// import Printer from "./components/Printer";
 import OpenShop from "./components/openShop/OpenShop.jsx";
 import Login from "../src/components/loginandSignup/Login.jsx";
 import ProductForm from "./components/productReg/ProductForm";
@@ -19,14 +18,16 @@ import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
-import ShoppingCartProvider from "./context/ShoppingCartProvider.js";
-import { auth } from "./components/Firebase.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
 import KlarnaComponent from "./components/Payment/KlarnaComponent.jsx";
 import PayPalComponent from "./components/Payment/PayPalComponent.jsx";
 import VisaComponent from "./components/Payment/VisaComponent.jsx";
 import Payment from "./components/Payment/index.jsx";
+import DigitalItemPage from "./components/digitals/SingleDigital.jsx";
+import DigitalListings from "./components/digitals/DigitalListings.jsx";
+import SearchResultPage from "./components/SearchResultPage.jsx";
+
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -67,6 +68,7 @@ function App() {
           <Route path="/user-shop" element={<UserShop />} />
           <Route path="/home" element={<MainPage />} />
           <Route path="/item/:productId" element={<ItemPage />} />
+          <Route path="/digital/:productId" element={<DigitalItemPage />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/home" element={<MainPage />} />
           <Route path="/shoplisting" element={<ShopListing />} />
@@ -78,6 +80,8 @@ function App() {
           <Route path="/payment/klarna" element={<KlarnaComponent />} />
           <Route path="/payment/paypal" element={<PayPalComponent />} /> */}
           <Route path="/payment" element={<Payment />} />
+          <Route path="/digital/" element={<DigitalListings />} />
+          <Route path="/search" element={<SearchResultPage />} />
         </Routes>
         <Footer />
       </div>

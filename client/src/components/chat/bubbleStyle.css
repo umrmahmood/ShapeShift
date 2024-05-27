@@ -1,0 +1,84 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .bubble {
+    position: relative;
+    padding: 10px 20px;
+    margin-bottom: 12px;
+    max-width: 60%;
+    border-radius: 20px;
+    word-wrap: break-word;
+    line-height: 24px;
+  }
+  
+  .bubble.right {
+    align-self: flex-end;
+    background-color: #ff8080;
+    color: white;
+  }
+  
+  .bubble.left {
+    align-self: flex-start;
+    background-color: #E5E5EA;
+    color: black;
+  }
+  
+  .sender-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    z-index: 999;
+    color: #000;
+  }
+  
+  .message-text {
+    margin: 0;
+  }
+  
+  .timestamp {
+    font-size: 0.75em;
+    text-align: right;
+    margin-top: 5px;
+  }
+  
+  .right-arrow, .left-arrow {
+    position: absolute;
+    width: 20px;
+    height: 25px;
+    bottom: 0;
+  }
+  
+  .right-arrow {
+    background-color: #ff8080;
+    border-bottom-left-radius: 16px 14px;
+    right: -7px;
+  }
+  
+  .right-arrow-overlap {
+    position: absolute;
+    width: 26px;
+    height: 35px;
+    bottom: -6px;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    right: -26px;
+  }
+  
+  .left-arrow {
+    background-color: #E5E5EA;
+    border-bottom-right-radius: 16px 14px;
+    left: -7px;
+  }
+  
+  .left-arrow-overlap {
+    position: absolute;
+    width: 26px;
+    height: 35px;
+    bottom: -6px;
+    background-color: white;
+    border-bottom-right-radius: 10px;
+    left: -26px;
+  }
+  

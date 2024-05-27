@@ -35,7 +35,7 @@ const ProductSchema = new Schema(
 
     // Seller reference for the product, required
     seller: { type: String },
-
+    shopOwner: { type: String },
     // Quantity of the product available, defaults to 0
     quantity: { type: Number, default: 0 },
 

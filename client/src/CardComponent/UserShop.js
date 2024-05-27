@@ -3,7 +3,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot} from "@fortawesome/free-solid-svg-icons";
 import "./UserShop.css";
 import UserShopSettings from "./UserShopSettings";
 import ShopListing from "../components/ShopPage/ShopListing";
@@ -158,7 +158,7 @@ const UserShop = () => {
             <div className="message-seller-btn">
               <button>
                 <Link
-                  className="text-wrapper profile-links"
+                  className="profile-links"
                   to={`/shop/${shopId}`}
                 >
                   View Public Profile

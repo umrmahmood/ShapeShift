@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { auth, fireDB } from "../Firebase.jsx";
 import {
   addDoc,
@@ -7,6 +7,7 @@ import {
   serverTimestamp,
   updateDoc,
   setDoc,
+  getDoc,
   query,
   where,
   getDocs,
@@ -17,6 +18,21 @@ import "./chatStyle.css";
 const SendMessage = ({ scroll, recipientId, conversationId }) => {
   const [message, setMessage] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const [recipientDisplayName, setRecipientDisplayName] = useState(""); // State to store recipient's display name
+
+  // Fetch recipient's display name
+  useEffect(() => {
+    const fetchRecipientDisplayName = async () => {
+      const recipientDocRef = doc(fireDB, "users", recipientId);
+      const recipientDocSnapshot = await getDoc(recipientDocRef);
+      if (recipientDocSnapshot.exists()) {
+        const recipientData = recipientDocSnapshot.data();
+        setRecipientDisplayName(recipientData.displayName);
+      }
+    };
+
+    fetchRecipientDisplayName();
+  }, [recipientId]);
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -58,7 +74,7 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
           lastUpdatedAt: serverTimestamp(),
           participants: [
             { uid, displayName, photoURL },
-            { uid: recipientId, displayName, photoURL },
+            { uid: recipientId, displayName: recipientDisplayName, photoURL }, // Use recipient's display name here
           ],
           participantIds: [uid, recipientId],
         });
@@ -75,6 +91,7 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
       conversationId: convId,
       message,
       senderId: uid,
+      senderDisplayName: displayName,
       recipientId,
       status: "sent",
       timestamp: serverTimestamp(),
@@ -103,11 +120,13 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
         name="messageInput"
         type="text"
         className="form-input__input"
-        placeholder="Type message..."
+        placeholder={`Message ${recipientDisplayName}`} // Display recipient's display name in placeholder
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit">Send</button>
+      <button className="custom-button" type="submit">
+        Send
+      </button>
     </form>
   );
 };

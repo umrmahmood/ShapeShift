@@ -1,0 +1,125 @@
+.category {
+	margin-top: -1em;
+	display: flex;
+	flex-direction: column;
+}
+
+.advert {
+	/* width: 1700px;  */
+	width: 90vw;
+	align-self: center;
+	height: 250px;
+}
+
+.category-grid ul {
+	display: flex;
+	gap: 5em;
+	list-style: none;
+	border-bottom: 2px solid rgb(224, 226, 223);
+}
+
+.category-grid ul li{
+	padding-bottom: 0.5em;
+}
+
+.category-grid {
+	display: flex;
+	justify-content: center;
+}
+
+.category-link {
+	color: black;
+	text-decoration: none;
+	font-family: "Bebas Neue", sans-serif;
+	letter-spacing: 0.1rem;
+	font-size: 1.4rem;
+	padding: 10px 15px;
+}
+
+.category-link.active {
+	background: rgb(224, 226, 223);
+	color: rgb(166, 0, 2);
+	border-radius: 8px;
+}
+
+.category-image {
+	width: 50px;
+	height: 50px;
+}
+
+/* CSS */
+.select-container {
+	margin-bottom: 1rem;
+	margin: 2em 14em;
+}
+
+.select-container select {
+	padding: 0.5rem;
+	font-size: 1rem;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+
+
+  .product-grid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 16px;
+	/* margin: 16px 30px; */
+	margin: 2em 6em
+  }
+  
+  /* .product-card {
+	background-color: #f8f8f8; 
+	 padding: 16px; 
+	border: 1px solid #ddd; 
+	border-radius: 8px;  
+  } */
+  
+  .banner-between {
+	grid-column: span 2;
+	padding: 16px;
+	/* border: 1px solid #ddd; */
+	border-radius: 8px;
+	margin-left: 15px;
+  }
+  
+  /* cards after the 10th one start after the banner */
+  .product-grid .product-card:nth-child(n + 12) {
+	grid-column: span 1;
+  }
+  
+
+.filer-container {
+	display: flex;
+	justify-content: end;
+	margin-right: 20px;
+}
+
+@media screen and (min-width: 768px) {
+	.display-product {
+		justify-content: center;
+	}
+}
+
+.scroll-button {
+	color: rgb(0, 0, 0);
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.scroll-button:hover {
+	opacity: 0.3;
+	background-color: rgb(166, 0, 2);
+	color: white;
+}
+
+.category-grid-container {
+	display: flex;
+	overflow-x: hidden;
+	width: 100%;
+	margin: 0 auto;
+	transition: transform 0.5s ease;
+}

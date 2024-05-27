@@ -1,6 +1,5 @@
-
 .user-shop-container {
-	padding-top: 200px;
+	padding-top: 150px;
 }
 
 .user-shop-banner-container img {
@@ -62,55 +61,55 @@
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
-  border: 1px solid gray;
+	border: 1px solid gray;
 }
 
-.user-shop-envelope{
-  color: gray;
-  margin-right: 5px;
+.user-shop-envelope {
+	color: gray;
+	margin-right: 5px;
 }
-
-
-
 
 /* Additional information */
 .user-shop-additional-info {
-  display: flex;
+	display: flex;
 	margin: 2em 10em;
-  flex-direction: column;
-  
+	flex-direction: column;
 }
 
-.shop-additional-info-section{
-display: flex;
-gap: 1em;
+.user-shop-additional-info ul {
+	min-width: 180px;
 }
 
-.rendered-sects{
-  margin-top: 2em;
+.shop-additional-info-section {
+	display: flex;
+	gap: 1em;
+}
+
+.rendered-sects {
+	margin-top: 2em;
 }
 
 .user-shop-additional-info ul {
 	color: #666666;
 	list-style-type: none;
-  border-right: 2px solid lightgrey; 
-  padding-right: 1em; 
-  font-family: 'proxima-nova';
+	border-right: 2px solid lightgrey;
+	padding-right: 1em;
+	font-family: "proxima-nova";
 }
 
 .user-shop-additional-info li {
-cursor: pointer;
-margin-top: 2.5em;
+	cursor: pointer;
+	margin-top: 2.5em;
 }
 
 .user-shop-additional-info li:hover {
- color: darkgrey;
-  }
+	color: darkgrey;
+}
 
-  .message-seller-btn button{
+.message-seller-btn button {
 	padding: 4px 10px;
 	border-radius: 5px;
 	font-family: "proxima-nova";
-	background: rgb(224,226,223);
+	background: rgb(224, 226, 223);
 	border: 1px solid rgba(27, 31, 35, 0.15);
 }

@@ -33,9 +33,10 @@
 
 .send-message button {
   padding: 0.5rem 1rem;
+  margin: 0.5rem;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
+  background-color: rgb(166, 0, 2);
   color: #fff;
   cursor: pointer;
 }
@@ -43,13 +44,11 @@
 .message-container {
   display: flex;
   flex-direction: column;
-  padding: 10px;
 }
 
 .message {
-  max-width: 60%;
+  max-width: 100%;
   margin: 5px 0;
-  padding: 10px;
   border-radius: 10px;
   word-wrap: break-word;
 }

@@ -1,4 +1,4 @@
-.main-layout{
+/* .main-layout{
     padding-top: 200px;
 }
 
@@ -52,7 +52,6 @@
 .feature-button {
 	background: none;
 	border: none;
-	/* border-bottom: 2px solid #f4254e; */
 	line-height: 1.5em; 
     font-family: 'Bebas Neue', sans-serif;
 }
@@ -60,13 +59,12 @@
 .feature-button:hover {
   cursor: pointer;
 }
-
+//move the following to card2.css
 .notification {
    position: fixed;
     bottom: 50px;
     right: 100px;
 font-weight: bold;
-
     background-color: #cccbcb; /* Green */
     color: rgb(33, 33, 33);
     padding: 15px;
@@ -79,3 +77,6 @@ font-weight: bold;
     opacity: 0;
   }
   
+
+} */
+

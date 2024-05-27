@@ -1,41 +1,33 @@
-// React and related imports
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
-// Nav Icon Popup's
 import MyProfile from "../popups/MyProfile.jsx";
 import MyShop from "../popups/MyShop.jsx";
 import ShoppingCart from "../popups/CartPop.jsx";
 
-// Component-specific imports
 import logo from "../assets/SSlogo.png";
 import smallLogo from "../assets/SSlogo-small.png";
 
-// Font Awesome icon imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBag, faShop } from "@fortawesome/free-solid-svg-icons";
-import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 
-// CSS import
 import "../styling/navbar.css";
 
 const Navbar = ({ onLoginClick }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1); // New state for highlighted suggestion
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Popup states
   const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
   const [isMyShopOpen, setIsMyShopOpen] = useState(false);
-  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
 
   const navigate = useNavigate();
 
-  //handling scroll
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 100) {
@@ -53,16 +45,11 @@ const Navbar = ({ onLoginClick }) => {
   }, []);
 
   const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
-
   let haveShop = false;
 
   if (tokenFromLocalStorage) {
     const decodedToken = jwtDecode(tokenFromLocalStorage);
-
-    // Access the payload to see if the member has a shop
     haveShop = decodedToken.membership.haveShop;
-  } else {
-    // console.log("Token not found in localStorage");
   }
 
   const onSellClick = () => {
@@ -73,21 +60,16 @@ const Navbar = ({ onLoginClick }) => {
     }
   };
 
-  // PopUp logic
   const toggleMyProfile = () => {
-    setIsMyProfileOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+    setIsMyProfileOpen((prev) => !prev);
   };
+
   const toggleMyShop = () => {
-    setIsMyShopOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+    setIsMyShopOpen((prev) => !prev);
   };
-  const toggleLanguage = () => {
-    setIsLanguageOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
-  };
+
   const toggleShoppingCart = () => {
-    setIsShoppingCartOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
-  };
-  const toggleNotifications = () => {
-    setIsNotificationsOpen((prev) => !prev); // Toggles the state of isMyProfileOpen
+    setIsShoppingCartOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -95,55 +77,85 @@ const Navbar = ({ onLoginClick }) => {
     setIsLoggedIn(!!token);
   }, [tokenFromLocalStorage]);
 
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setHighlightedIndex(-1); // Reset highlighted index when search query changes
+
+    if (query.trim() !== "") {
+      axios
+        .get(`/api/products/search?q=${encodeURIComponent(query)}`)
+        .then((response) => {
+          setSearchResults(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching search results:", error);
+          setSearchResults([]);
+        });
+    } else {
+      setSearchResults([]);
+    }
   };
 
-  // const toggleMenu = () => {
-  //     setIsMenuOpen(!isMenuOpen);
-  // };
+  const handleSearchKeyPress = (e) => {
+    if (e.key === "Enter") {
+      if (highlightedIndex >= 0) {
+        handleSuggestionClick(searchResults[highlightedIndex]);
+      } else if (searchQuery.trim() !== "") {
+        navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+        setSearchQuery("");
+        setSearchResults([]);
+      }
+    } else if (e.key === "ArrowDown") {
+      setHighlightedIndex((prevIndex) =>
+        prevIndex < searchResults.length - 1 ? prevIndex + 1 : 0
+      );
+    } else if (e.key === "ArrowUp") {
+      setHighlightedIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : searchResults.length - 1
+      );
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    const query = suggestion.name;
+    setSearchQuery(""); // Clear the search input
+    setSearchResults([]); // Clear the search results
+    navigate(`/search?q=${encodeURIComponent(query)}`);
+  };
 
   return (
     <>
       <div className={`Navbar-container ${isScrolled ? "small" : ""}`}>
-        {/* <div className="nav-logo">
-					<a href="/">
-          <img src={isScrolled ? smallLogo : logo} alt="Logo"/>
-					</a>
-				</div> */}
         <div className="nav-logo">
           <a href="/">
-            <img
-              src={logo}
-              alt="Large Logo"
-              className={`logo-img ${isScrolled ? "hidden" : "visible"}`}
-            />
-          </a>
-
-          <a href="/">
-            <img
-              src={smallLogo}
-              alt="Small Logo"
-              className={`logo-img ${isScrolled ? "visible" : "hidden"}`}
-            />
+            <img src={isScrolled ? smallLogo : logo} alt="Logo" />
           </a>
         </div>
-
         <div className="nav-search">
           <input
             type="text"
             value={searchQuery}
-            onChange={handleSearchInputChange}
-            placeholder="Search for anything"
+            onChange={handleSearchChange}
+            onKeyDown={handleSearchKeyPress} // Use onKeyDown to capture arrow keys
+            placeholder="Search..."
           />
-        </div>
-
-        {/* responsive menu
-				<div className="menu-toggle">
-                    <button onClick={toggleMenu}>☰</button>
+          {searchResults.length > 0 && (
+            <div className="search-results">
+              {searchResults.map((result, index) => (
+                <div
+                  key={result._id}
+                  className={`search-result-item ${
+                    index === highlightedIndex ? "highlighted" : ""
+                  }`}
+                  onClick={() => handleSuggestionClick(result)}
+                >
+                  {result.name}
                 </div>
-
-                <div className={`nav-icons ${isMenuOpen ? "show" : ""}`}> */}
+              ))}
+            </div>
+          )}
+        </div>
         <div className="nav-icons">
           <li className="navbar-login-btn">
             <button
@@ -157,7 +169,6 @@ const Navbar = ({ onLoginClick }) => {
           {isLoggedIn && (
             <>
               <div className="navbar-conditional-icon">
-                {/* <div className="navbar-login-btn nav-sell-btn"> */}
                 <div className="navbar-sell-btn nav-sell-btn">
                   <button onClick={onSellClick}>Sell</button>
                 </div>
@@ -174,7 +185,7 @@ const Navbar = ({ onLoginClick }) => {
                   />
                 </li>
 
-                {haveShop ? (
+                {haveShop && (
                   <li>
                     <div
                       className="shop-icon icon-pointer"
@@ -184,8 +195,6 @@ const Navbar = ({ onLoginClick }) => {
                     </div>
                     <MyShop isOpen={isMyShopOpen} onClose={toggleMyShop} />
                   </li>
-                ) : (
-                  ""
                 )}
               </div>
             </>

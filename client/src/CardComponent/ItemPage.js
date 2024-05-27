@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import placeholder from "./placeholder.jpg";
 import "./Item.css";
 import axios from "axios";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import EditProductModal from "./EditProductModal";
+import SendMessagePop from "../popups/SendMessagePop.jsx"; // Import the SendMessagePop component
 
 const ItemPage = () => {
   const [mainImage, setMainImage] = useState(null);
@@ -16,30 +17,35 @@ const ItemPage = () => {
   const { productId } = useParams();
   const token = localStorage.getItem("shapeshiftkey");
   const decodedToken = token ? jwtDecode(token) : null;
+  const [showSendMessagePopup, setShowSendMessagePopup] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/products/${productId}`);
+        const response = await axios.get(
+          `http://localhost:5001/api/products/${productId}`
+        );
         setProduct(response.data);
         if (response.data.images && response.data.images.length > 0) {
           setMainImage(response.data.images[0]);
           const secondaryImages = response.data.images.slice(1);
-          const secondaryImageUrls = await Promise.all(secondaryImages.map(async (imageUrl) => {
-            try {
-              const response = await fetch(`/api/images/${imageUrl}`);
-              if (response.ok) {
-                const data = await response.json();
-                return data.url;
-              } else {
-                throw new Error("Failed to fetch image");
+          const secondaryImageUrls = await Promise.all(
+            secondaryImages.map(async (imageUrl) => {
+              try {
+                const response = await fetch(`/api/images/${imageUrl}`);
+                if (response.ok) {
+                  const data = await response.json();
+                  return data.url;
+                } else {
+                  throw new Error("Failed to fetch image");
+                }
+              } catch (error) {
+                console.error(error);
+                return null;
               }
-            } catch (error) {
-              console.error(error);
-              return null;
-            }
-          }));
-          setSecondaryImage(secondaryImageUrls.filter(url => url !== null));
+            })
+          );
+          setSecondaryImage(secondaryImageUrls.filter((url) => url !== null));
         }
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -71,7 +77,9 @@ const ItemPage = () => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/products/${productId}`);
+        const response = await axios.get(
+          `http://localhost:5001/api/products/${productId}`
+        );
         setCurrentUser(response.data);
       } catch (error) {
         console.error("Error fetching current user:", error);
@@ -89,8 +97,8 @@ const ItemPage = () => {
       try {
         await axios.delete(`http://localhost:5001/api/products/${productId}`, {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
       } catch (error) {
         console.error("Error deleting item:", error);
@@ -108,12 +116,16 @@ const ItemPage = () => {
 
   const handleSave = async (updatedProduct) => {
     try {
-      const response = await axios.put(`http://localhost:5001/api/products/${productId}`, updatedProduct, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json" 
+      const response = await axios.put(
+        `http://localhost:5001/api/products/${productId}`,
+        updatedProduct,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       setProduct(response.data);
       handleEditClose();
     } catch (error) {
@@ -126,7 +138,12 @@ const ItemPage = () => {
       <div className="MainContainer">
         <div className="ImagesContainer">
           <div className="MainImageContainer">
-            <img className="main-image" src={imageUrl || placeholder} alt={product.name} style={{ maxWidth: "600px", maxHeight: "600px" }} />
+            <img
+              className="main-image"
+              src={imageUrl || placeholder}
+              alt={product.name}
+              style={{ maxWidth: "600px", maxHeight: "600px" }}
+            />
           </div>
           <div className="secondary-image">
             {secondaryImage.map((image, index) => (
@@ -152,27 +169,55 @@ const ItemPage = () => {
           <p>{product.description}</p>
           {product.category && <p>Category: {product.category}</p>}
           {product.price && <p>Price: ${product.price}</p>}
-          {product.seller && <p>Seller: {product.seller}</p>}
           {product.designer && <p>Designer: {product.designer}</p>}
-          {product.quantity !== undefined && <p>Quantity: {product.quantity}</p>}
+          {product.quantity !== undefined && (
+            <p>Quantity: {product.quantity}</p>
+          )}
           {product.material && <p>Material: {product.material}</p>}
+          <div className="message-seller-btn">
+            <button onClick={() => setShowSendMessagePopup(true)}>
+              Message Seller
+            </button>
+          </div>
+          <div className="message-seller-btn">
+            <button>
+              <Link
+                className="text-wrapper profile-links"
+                to={`/shop/${product.seller}`}
+              >
+                Visit Shop
+              </Link>
+            </button>
+          </div>
         </div>
       </div>
       <div className="shop-owner">
         {decodedToken && decodedToken.membership.shopId === product.seller && (
           <div className="admin-buttons-container">
-            <button className="admin-buttons" onClick={handleEditOpen}>Edit</button>
-            <button className="admin-buttons" onClick={handleDelete}>Delete</button>
+            <button className="admin-buttons" onClick={handleEditOpen}>
+              Edit
+            </button>
+            <button className="admin-buttons" onClick={handleDelete}>
+              Delete
+            </button>
           </div>
+        )}
+        {showSendMessagePopup && product && (
+          <SendMessagePop
+            isOpen={true}
+            onClose={() => setShowSendMessagePopup(false)}
+            firstRecipientId={{ firebaseId: product.shopOwner }} // Ensure you have firebaseId in owner data
+            scroll={{}}
+          />
         )}
       </div>
       {isEditModalOpen && (
-       <EditProductModal
-       product={product}
-       token={token}
-       onClose={handleEditClose}
-       onSave={handleSave}
-     />
+        <EditProductModal
+          product={product}
+          token={token}
+          onClose={handleEditClose}
+          onSave={handleSave}
+        />
       )}
     </>
   );

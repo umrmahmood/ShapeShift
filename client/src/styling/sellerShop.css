@@ -1,5 +1,5 @@
 .seller-shop-container {
-  padding-top: 200px;
+  padding-top: 150px;
 }
 
 .seller-shop-banner-container img {
@@ -93,6 +93,7 @@
   border-right: 2px solid lightgrey;
   padding-right: 1em;
   font-family: 'proxima-nova';
+  min-width: 150px;
 }
 
 .seller-shop-additional-info li {
