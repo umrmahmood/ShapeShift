@@ -84,12 +84,12 @@ const Payment = ({ cartItems }) => {
       </div>
 
       <div className="payment-details">
-        <p>Item Total: <span className="price">€{getItemTotal()}</span></p>
-        <p>Shipping Cost: <span className="price">€{getShippingCost()}</span></p>
-        <p>Tax (20%): <span className="price">€{getTax()}</span></p>
+        <p>Item Total: <span className="price">€  {getItemTotal()}</span></p>
+        <p>Shipping Cost: <span className="price">€  {getShippingCost()}</span></p>
+        <p>Tax (20%): <span className="price">€  {getTax()}</span></p>
         <hr />
         <div className="sub-total">
-        <p >Sub Total ({cartItems.length} items): <span className="total-price">€{getTotalPrice()}</span></p>
+        <p >Sub Total ({cartItems.length} items): <span className="total-price">€  {getTotalPrice()}</span></p>
         </div>
         <button
           className="proceed-button"

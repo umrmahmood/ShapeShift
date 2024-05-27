@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../Payment/Bank.css';
 
+
 const VisaComponent = () => {
   const [paymentForm, setPaymentForm] = useState({
     name: '',

@@ -19,6 +19,7 @@
 }
 
 .items-list {
+  margin-top: 100px;
   padding: 30px;
   display: grid;
   gap: 20px;
@@ -32,11 +33,13 @@
   text-align: center;
   font-size: 30px;
   font-weight: bold;
+  font-family: "proxima-nova";
 }
 
 .no-items span {
 
   color: #a50313;
+  font-family: "proxima-nova";
 }
 
 .cart-item {
@@ -68,6 +71,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 2px;
+  padding-top: 15px;
  
 }
 
@@ -78,12 +82,12 @@
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
-
 .delete-button {
-  border: none;
-  background-color: #fff;
-
-  font-size: 15px;
+  border: 1px solid rgb(213, 210, 210);
+  
+margin-right:  10px;
+  font-size: 12px;
+  
 }
 
 .delete-button:hover {
@@ -107,11 +111,16 @@
 .quantity-select {
   
   border: none;
-  padding: 5px;
-  border-radius: 10px;
+  padding: 1px;
+  border-radius: 8px;
   border: 1px solid rgb(193, 188, 188);
   margin-left: 10px;
+  font-size: 13px;
   
+}
+
+.quantity-options-txt{
+font-size: 14px;
 }
 
 .cart-total {

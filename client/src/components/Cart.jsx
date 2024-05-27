@@ -29,11 +29,11 @@ const Cart = () => {
                 <div className="item-details">
                   <h5>{item.name}</h5>
                   {/*<p>Quantity: {item.quantity}</p>*/}
-                  <h5 className="item-price">Price {(item.price * item.quantity).toFixed(2)}</h5>
+                  <h5 className="item-price">Price € {(item.price * item.quantity).toFixed(2)}</h5>
                   <div className="quantity-controls">
                     <div className="quantity-options">
                       <button className="delete-button" onClick={() => removeItem(item.id)}>Remove</button>
-                      <label htmlFor={`quantity-${index}`}>Qty:</label>
+                      <label className='quantity-options-txt' htmlFor={`quantity-${index}`}>Qty:</label>
                       <select
                         id={`quantity-${index}`}
                         className="quantity-select"
