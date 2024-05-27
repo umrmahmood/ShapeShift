@@ -6,11 +6,20 @@ import { useParams, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import EditProductModal from "./EditProductModal";
 import SendMessagePop from "../popups/SendMessagePop.jsx"; // Import the SendMessagePop component
+import useShoppingCart from "../hooks/useShoppingCart.js";
+import ShoppingCart from "../popups/CartPop.jsx";
+import Card from "../CardComponent/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faLocationDot,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 
 const ItemPage = () => {
   const [mainImage, setMainImage] = useState(null);
-  const [secondaryImage, setSecondaryImage] = useState([]);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [secondaryImages, setSecondaryImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null); // Track the selected image
   const [product, setProduct] = useState({});
   const [currentUser, setCurrentUser] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -18,6 +27,44 @@ const ItemPage = () => {
   const token = localStorage.getItem("shapeshiftkey");
   const decodedToken = token ? jwtDecode(token) : null;
   const [showSendMessagePopup, setShowSendMessagePopup] = useState(false);
+  const [shop, setShop] = useState(null); // State to hold shop data
+  const [owner, setOwner] = useState(null); // State to hold owner data
+  const [shopProducts, setShopProducts] = useState([]); // State to hold products from the same shop
+
+  // page related declarations
+  const shopId = product?.seller;
+  const ownerId = shop?.owner;
+  const material = product?.material;
+  const quantity = product?.quantity;
+  const shopName = shop?.name;
+  const productName = product?.name;
+  const price = product?.price;
+
+  const { addItem } = useShoppingCart();
+
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [itemAddedToCart, setItemAddedToCart] = useState(false);
+
+  const handleAddToCart = () => {
+    const itemWithQuantity = {
+      productId: product._id,
+      quantity: product.quantity,
+    };
+    addItem(itemWithQuantity);
+    setItemAddedToCart(true); // Mark that the item has been added to the cart
+  };
+
+  useEffect(() => {
+    let timeout;
+    if (itemAddedToCart) {
+      setIsCartOpen(true); // Open the cart after the item has been added to the cart
+    }
+    timeout = setTimeout(() => {
+      setIsCartOpen(false);
+      setItemAddedToCart(false); // Reset the flag
+    }, 2000);
+    return () => clearTimeout(timeout); // Clear timeout on unmount
+  }, [itemAddedToCart]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,25 +74,26 @@ const ItemPage = () => {
         );
         setProduct(response.data);
         if (response.data.images && response.data.images.length > 0) {
-          setMainImage(response.data.images[0]);
-          const secondaryImages = response.data.images.slice(1);
+          const primaryImageId = response.data.images[0];
+          const primaryImageResponse = await axios.get(
+            `/api/images/${primaryImageId}`
+          );
+          setMainImage(primaryImageResponse.data.url);
+
+          const secondaryImageIds = response.data.images.slice(0, 5); // Include the initial image in secondary images
           const secondaryImageUrls = await Promise.all(
-            secondaryImages.map(async (imageUrl) => {
+            secondaryImageIds.map(async (imageId) => {
               try {
-                const response = await fetch(`/api/images/${imageUrl}`);
-                if (response.ok) {
-                  const data = await response.json();
-                  return data.url;
-                } else {
-                  throw new Error("Failed to fetch image");
-                }
+                const imageResponse = await axios.get(`/api/images/${imageId}`);
+                return imageResponse.data.url;
               } catch (error) {
-                console.error(error);
+                console.error("Error fetching image URL:", error);
                 return null;
               }
             })
           );
-          setSecondaryImage(secondaryImageUrls.filter((url) => url !== null));
+          setSecondaryImages(secondaryImageUrls.filter((url) => url !== null));
+          setSelectedImage(primaryImageResponse.data.url); // Set the selected image initially
         }
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -55,41 +103,46 @@ const ItemPage = () => {
   }, [productId]);
 
   useEffect(() => {
-    if (product.images && product.images.length > 0) {
-      const fetchingImage = async () => {
-        const imageUrl = product.images[0];
-        try {
-          const response = await fetch(`/api/images/${imageUrl}`);
-          if (response.ok) {
-            const data = await response.json();
-            setImageUrl(data.url);
-          } else {
-            throw new Error("Failed to fetch image");
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
-      fetchingImage();
-    }
-  }, [product.images]);
-
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
+    const fetchShop = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/products/${productId}`
+          `http://localhost:5001/api/shop/${shopId}`
         );
-        setCurrentUser(response.data);
+        setShop(response.data.shop);
+        const shopProductsResponse = await axios.get(
+          `http://localhost:5001/api/shop/${shopId}/products`
+        );
+        setShopProducts(shopProductsResponse.data.products);
       } catch (error) {
-        console.error("Error fetching current user:", error);
+        console.error("Error fetching shop data:", error);
+        // Handle error or set a loading state
       }
     };
+    fetchShop();
+  }, [shopId]);
 
-    if (token) {
-      fetchCurrentUser();
-    }
-  }, [token]);
+  useEffect(() => {
+    const fetchOwner = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/users/profile/${ownerId}`
+        );
+        setOwner(response.data.user);
+      } catch (error) {
+        console.error("Error fetching shop data:", error);
+        // Handle error or set a loading state
+      }
+    };
+    fetchOwner();
+  }, [ownerId]);
+
+  const handleEditOpen = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setIsEditModalOpen(false);
+  };
 
   const handleDelete = async () => {
     const confirmDelete = window.confirm("Item will be deleted. Are you sure?");
@@ -104,14 +157,6 @@ const ItemPage = () => {
         console.error("Error deleting item:", error);
       }
     }
-  };
-
-  const handleEditOpen = () => {
-    setIsEditModalOpen(true);
-  };
-
-  const handleEditClose = () => {
-    setIsEditModalOpen(false);
   };
 
   const handleSave = async (updatedProduct) => {
@@ -133,53 +178,163 @@ const ItemPage = () => {
     }
   };
 
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl); // Update selected image
+  };
+
   return (
     <>
-      <div className="MainContainer">
-        <div className="ImagesContainer">
+      <div className="FirstMainContainer">
+        <div className="ImagesContainer left">
           <div className="MainImageContainer">
             <img
               className="main-image"
-              src={imageUrl || placeholder}
+              src={selectedImage || mainImage || placeholder} // Render selected image or fallback to mainImage or placeholder
               alt={product.name}
               style={{ maxWidth: "600px", maxHeight: "600px" }}
             />
           </div>
-          <div className="secondary-image">
-            {secondaryImage.map((image, index) => (
+          <div className="secondary-images">
+            {secondaryImages.map((image, index) => (
               <img
                 key={index}
                 className="secondary-image"
                 src={image}
                 alt={product.name}
-                onMouseEnter={(e) => {
-                  e.target.style.maxWidth = "600px";
-                  e.target.style.maxHeight = "600px";
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.maxWidth = "200px";
-                  e.target.style.maxHeight = "200px";
-                }}
+                onClick={() => handleImageClick(image)} // Handle image click
               />
             ))}
           </div>
         </div>
-        <div className="DescriptionContainer">
-          <h2>{product.name}</h2>
+        <div className="FirstDescriptionContainer right">
+          <ul>
+            <li>
+              <div className="shop-owner">
+                {decodedToken &&
+                  decodedToken.membership.shopId === product.seller && (
+                    <div className="admin-buttons-container">
+                      <button
+                        className="admin-buttons"
+                        onClick={handleEditOpen}
+                      >
+                        Edit
+                      </button>
+                      <button className="admin-buttons" onClick={handleDelete}>
+                        Delete
+                      </button>
+                    </div>
+                  )}
+              </div>
+            </li>
+            <li>
+              <p>Price: ${price}</p>
+              <p>VAT included (where applicable), plus shipping</p>
+            </li>
+            <li>
+              <h2>{productName}</h2>
+            </li>
+            <li>
+              <p>{shopName}</p>
+              <div className="star-rating">
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+              </div>
+            </li>
+            <li>
+              <div className="quantity-dropdown">
+                <label htmlFor="quantity">Quantity:</label>
+                <select
+                  id="quantity"
+                  value={quantity || 1}
+                  onChange={(e) =>
+                    setProduct({
+                      ...product,
+                      quantity: parseInt(e.target.value),
+                    })
+                  }
+                >
+                  {[...Array(10).keys()].map((num) => (
+                    <option key={num + 1} value={num + 1}>
+                      {num + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </li>
+            <li>
+              <p>Material: {material}</p>
+            </li>
+            <li>
+              <button>Buy Now</button>
+            </li>
+            <li>
+              <button onClick={handleAddToCart}>Add to Cart</button>
+            </li>
+            <li>
+              <button>Add to favorites</button>
+            </li>
+            <li>
+              <button>Report this item</button>
+            </li>
+            <li>
+              <p>
+                {shopName}. This seller consistently earned 5-star reviews,
+                shipped on time, and replied quickly to any messages they
+                received.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="SecondMainContainer">
+        <div className="MainDescriptionContainer left">
           <p>{product.description}</p>
-          {product.category && <p>Category: {product.category}</p>}
-          {product.price && <p>Price: ${product.price}</p>}
-          {product.designer && <p>Designer: {product.designer}</p>}
-          {product.quantity !== undefined && (
-            <p>Quantity: {product.quantity}</p>
-          )}
-          {product.material && <p>Material: {product.material}</p>}
-          <div className="message-seller-btn">
+        </div>
+        <div className="Contact right">
+          <div className="owner-shop">
+            {owner ? (
+              <>
+                <div className="shop-image-owner">
+                  <img
+                    src={owner.profile.avatarUrl || placeholder}
+                    alt="Owner"
+                  />
+                </div>
+                <div className="shop-detail-owner">
+                  <h3>
+                    {owner.profile.username &&
+                      owner.profile.username.charAt(0).toUpperCase() +
+                        owner.profile.username.slice(1)}
+                  </h3>
+                </div>
+              </>
+            ) : (
+              <div className="shop-detail-owner">
+                <p>Loading owner data...</p>
+              </div>
+            )}
             <button onClick={() => setShowSendMessagePopup(true)}>
               Message Seller
             </button>
           </div>
-          <div className="message-seller-btn">
+
+          <div className="owner-shop">
+            {shop ? (
+              <>
+                <div className="shop-image-owner">
+                  <img src={shop.avatarUrl || placeholder} alt="Shop" />
+                </div>
+                <div className="shop-detail-owner">
+                  <h3>{shop.name || "Shop Name"}</h3>
+                </div>
+              </>
+            ) : (
+              <div className="shop-detail-owner">
+                <p>Loading shop data...</p>
+              </div>
+            )}
             <button>
               <Link
                 className="text-wrapper profile-links"
@@ -191,25 +346,18 @@ const ItemPage = () => {
           </div>
         </div>
       </div>
-      <div className="shop-owner">
-        {decodedToken && decodedToken.membership.shopId === product.seller && (
-          <div className="admin-buttons-container">
-            <button className="admin-buttons" onClick={handleEditOpen}>
-              Edit
-            </button>
-            <button className="admin-buttons" onClick={handleDelete}>
-              Delete
-            </button>
-          </div>
-        )}
-        {showSendMessagePopup && product && (
-          <SendMessagePop
-            isOpen={true}
-            onClose={() => setShowSendMessagePopup(false)}
-            firstRecipientId={{ firebaseId: product.shopOwner }} // Ensure you have firebaseId in owner data
-            scroll={{}}
-          />
-        )}
+      <div className="ThirdMainContainer">
+        <div className="Reviews left"></div>
+        <div className="ReviewImages right"></div>
+      </div>
+      <div className="FourthMainContainer">
+        <div className="ShopItems full product-grid">
+          {shopProducts.map((product) => (
+            <div className="product-card" key={product._id}>
+              <Card product={product} />
+            </div>
+          ))}
+        </div>
       </div>
       {isEditModalOpen && (
         <EditProductModal
@@ -219,6 +367,15 @@ const ItemPage = () => {
           onSave={handleSave}
         />
       )}
+      {showSendMessagePopup && product && (
+        <SendMessagePop
+          isOpen={true}
+          onClose={() => setShowSendMessagePopup(false)}
+          firstRecipientId={{ firebaseId: product.shopOwner }} // Ensure you have firebaseId in owner data
+          scroll={{}}
+        />
+      )}
+      <ShoppingCart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
 };
