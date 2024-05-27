@@ -7,9 +7,9 @@ import PayPalComponent from './PayPalComponent';
 import '../Payment/Bank.css';
 const Payment = () => {
     const location = useLocation();
-    useEffect(() => {
-        console.log('the payment is,  ', location.state?.payment);
-    },[])
+    // useEffect(() => {
+    //     console.log('the payment is,  ', location.state?.payment);
+    // },[])
 
     if(location.state?.payment === 'Bank1' ){
         return <VisaComponent/>
