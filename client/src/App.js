@@ -19,12 +19,11 @@ import MainPage from "./CardComponent/MainPage";
 import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
-import ShoppingCartProvider from "./context/ShoppingCartProvider.js";
-import { auth } from "./components/Firebase.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
 import DigitalItemPage from "./components/digitals/SingleDigital.jsx";
 import DigitalListings from "./components/digitals/DigitalListings.jsx";
+import SearchResultPage from "./components/SearchResultPage.jsx"; // Import the SearchResultPage component
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -74,6 +73,7 @@ function App() {
           <Route path="/myprofile" element={<UserProfile />} />
           <Route path="/messages" element={<MessagePage />} />
           <Route path="/digital/" element={<DigitalListings />} />
+          <Route path="/search" element={<SearchResultPage />} />
         </Routes>
         <Footer />
       </div>

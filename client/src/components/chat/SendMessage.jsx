@@ -124,7 +124,9 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button type="submit">Send</button>
+      <button className="custom-button" type="submit">
+        Send
+      </button>
     </form>
   );
 };
