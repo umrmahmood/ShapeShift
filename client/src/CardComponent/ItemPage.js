@@ -10,11 +10,7 @@ import useShoppingCart from "../hooks/useShoppingCart.js";
 import ShoppingCart from "../popups/CartPop.jsx";
 import Card from "../CardComponent/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEnvelope,
-  faLocationDot,
-  faStar,
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const ItemPage = () => {
   const [mainImage, setMainImage] = useState(null);
@@ -35,7 +31,6 @@ const ItemPage = () => {
   const shopId = product?.seller;
   const ownerId = shop?.owner;
   const material = product?.material;
-  const quantity = product?.quantity;
   const shopName = shop?.name;
   const productName = product?.name;
   const price = product?.price;
@@ -46,11 +41,7 @@ const ItemPage = () => {
   const [itemAddedToCart, setItemAddedToCart] = useState(false);
 
   const handleAddToCart = () => {
-    const itemWithQuantity = {
-      productId: product._id,
-      quantity: product.quantity,
-    };
-    addItem(itemWithQuantity);
+    addItem(product); // Always add one item to the cart
     setItemAddedToCart(true); // Mark that the item has been added to the cart
   };
 
@@ -101,6 +92,7 @@ const ItemPage = () => {
     };
     fetchData();
   }, [productId]);
+  console.log("products", product);
 
   useEffect(() => {
     const fetchShop = async () => {
@@ -120,6 +112,7 @@ const ItemPage = () => {
     };
     fetchShop();
   }, [shopId]);
+  console.log("shop", shop);
 
   useEffect(() => {
     const fetchOwner = async () => {
@@ -135,6 +128,7 @@ const ItemPage = () => {
     };
     fetchOwner();
   }, [ownerId]);
+  console.log("owner", owner);
 
   const handleEditOpen = () => {
     setIsEditModalOpen(true);
@@ -243,34 +237,18 @@ const ItemPage = () => {
               </div>
             </li>
             <li>
-              <div className="quantity-dropdown">
-                <label htmlFor="quantity">Quantity:</label>
-                <select
-                  id="quantity"
-                  value={quantity || 1}
-                  onChange={(e) =>
-                    setProduct({
-                      ...product,
-                      quantity: parseInt(e.target.value),
-                    })
-                  }
-                >
-                  {[...Array(10).keys()].map((num) => (
-                    <option key={num + 1} value={num + 1}>
-                      {num + 1}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </li>
-            <li>
               <p>Material: {material}</p>
             </li>
             <li>
               <button>Buy Now</button>
             </li>
             <li>
-              <button onClick={handleAddToCart}>Add to Cart</button>
+              <button
+                className="feature-button"
+                onClick={() => handleAddToCart(product)}
+              >
+                Add to cart
+              </button>
             </li>
             <li>
               <button>Add to favorites</button>
@@ -358,7 +336,12 @@ const ItemPage = () => {
             </div>
           ))}
         </div>
+        <ShoppingCart
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
+        />
       </div>
+
       {isEditModalOpen && (
         <EditProductModal
           product={product}
@@ -375,7 +358,6 @@ const ItemPage = () => {
           scroll={{}}
         />
       )}
-      <ShoppingCart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
 };
