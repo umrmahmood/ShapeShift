@@ -1,0 +1,18 @@
+.search-result-page{
+    padding-top: 150px;
+}
+
+.card-block {
+    margin: 2em 12em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.no-search-results {
+    margin: 2em 10em;
+    text-align: center;
+}
+
+.no-search-results img {
+   width: 800px;
+}

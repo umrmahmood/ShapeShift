@@ -4,6 +4,7 @@ import DigitalCard from "../../components/digitals/DigitalCard.jsx"
 import "../../CardComponent/categories2.css";
 import "../../components/digitals/digitalListings.css";
 import digitalBanner from "../../assets/digitaladvert.jpg";
+import { Link } from "react-router-dom";
 const DigitalListings = () => {
   const [products, setProducts] = useState([]);
 
