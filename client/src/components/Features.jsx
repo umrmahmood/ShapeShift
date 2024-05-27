@@ -51,7 +51,7 @@ const Features = () => {
 						</div>
 					</Link>
 
-					{!haveShop ? (
+					{/* {!haveShop ? (
 						<Link className="features-link" to="/openshop">
 							<div className="feat-card">
 								<h3>Register Your shop today</h3>
@@ -65,7 +65,7 @@ const Features = () => {
 								</div>
 							</div>
 						</Link>
-					) : (
+					) : ( */}
 						<Link className="features-link" to="/digital">
 							<div className="feat-card">
 								<h3>Check out innovative 3D Designs</h3>
@@ -79,7 +79,7 @@ const Features = () => {
 								</div>
 							</div>
 						</Link>
-					)}
+					{/* )} */}
 				</div>
 			</div>
 		</>
