@@ -1,0 +1,61 @@
+.digital-listing-card-outter{
+    display: flex;
+    flex-direction: column; 
+}
+
+.digital-listing-container{
+    margin-top: 200px;
+}
+
+.digital-listing-image-container{
+    border: 1px solid rgb(224,226,223);
+}
+
+.digital-listing-description-container{
+    background: rgb(224,226,223);
+    padding: 1.5em;
+    width: 330px;
+    height: 220px;
+}
+
+.digital-listing-specs-container {
+    display: flex;
+    background: rgb(0, 0, 0);
+    color: white;
+    justify-content: space-between;
+    padding: 1em 2em;
+    text-align: center;
+    margin-top: -0.5em;
+}
+
+.digital-listing-specs{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-family: "proxima-nova";
+}
+
+.digital-listing-specs-icons img{
+    width: 50px;
+    border-radius: 10%;
+    filter: invert(1);
+}
+
+.digital-file-heading{
+    background-color: darkred;
+    color: white;
+    font-size: 1.2em;
+    padding: 0.5em;
+}
+
+.digital-lisitng-product-grid{
+    display: flex;
+    gap: 6em;
+    margin: 2em 8em;
+    flex-wrap: wrap;
+}
+
+
+.digital-listing-banner{
+text-align: center;
+}

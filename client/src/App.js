@@ -22,6 +22,7 @@ import UserProfile from "./components/UserProfile/UserProfile.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
 import DigitalItemPage from "./components/digitals/SingleDigital.jsx";
+import DigitalListings from "./components/digitals/DigitalListings.jsx";
 import SearchResultPage from "./components/SearchResultPage.jsx"; // Import the SearchResultPage component
 
 function ScrollToTop() {
@@ -71,6 +72,7 @@ function App() {
           <Route path="/product-form" element={<ProductForm />} />
           <Route path="/myprofile" element={<UserProfile />} />
           <Route path="/messages" element={<MessagePage />} />
+          <Route path="/digital/" element={<DigitalListings />} />
           <Route path="/search" element={<SearchResultPage />} />
         </Routes>
         <Footer />

@@ -6,7 +6,7 @@
 .config-container {
 	display: flex;
 	margin: 0em 3em;
-	padding-top: 200px;
+	padding-top: 150px;
 }
 
 .left-div {
@@ -18,7 +18,7 @@
 	flex: 1;
 	position: sticky;
 	top: 6em;
-	height: 55vh;
+	height: 70vh;
 	overflow-y: auto;
 	margin-top: 11em;
 }
@@ -46,12 +46,18 @@
 	text-align: center;
 }
 
-.quote-popup-close-btn {
+.quote-popup-close-btn, .quote-popup-post-btn {
 	padding: 4px 10px;
 	border-radius: 5px;
 	font-family: "proxima-nova";
 	background: rgb(224,226,223);
 	border: 1px solid rgba(27, 31, 35, 0.15);
+}
+
+.quote-popup-close-btn:hover, .quote-popup-post-btn:hover {
+
+	background: #f0f0f0
+	
 }
 
 .upload-file {
@@ -87,6 +93,23 @@
 	font-family: "proxima nova";
 	border: 1px solid lightgray;
 	font-size: 0.8em;
+}
+
+.config-input {
+	margin-left: 2.8em;
+}
+
+.config-input2 {
+	margin-left: 1.5em;
+	padding-left: 0.4em;
+	border-radius: 5px;
+}
+
+.config-description{
+	font-size: 0.8em;
+	padding-left: 0.4em;
+	width: 230px;
+	border-radius: 5px;
 }
 
 .file-content {
@@ -150,3 +173,33 @@
 
   }
   
+  .config-file-posting{
+	text-align: center;
+	color: gray;
+	font-family: "proxima-nova";
+	margin-top: 1em;
+  }
+
+  @keyframes dot-blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.loading-dots span {
+    animation: dot-blink 1.4s infinite both;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}

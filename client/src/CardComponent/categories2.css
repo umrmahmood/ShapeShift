@@ -1,22 +1,25 @@
 .category {
-	/* margin-top: -1em; */
-    display: flex;
-    flex-direction: column;
+	margin-top: -1em;
+	display: flex;
+	flex-direction: column;
 }
 
-.advert{
-width:1700px;
-align-self: center;
-
-height: 250px;
+.advert {
+	/* width: 1700px;  */
+	width: 90vw;
+	align-self: center;
+	height: 250px;
 }
 
 .category-grid ul {
 	display: flex;
-	gap: 6em;
+	gap: 5em;
 	list-style: none;
-    border-bottom: 2px solid rgb(224,226,223);
-    line-height: 4em;
+	border-bottom: 2px solid rgb(224, 226, 223);
+}
+
+.category-grid ul li{
+	padding-bottom: 0.5em;
 }
 
 .category-grid {
@@ -30,17 +33,14 @@ height: 250px;
 	font-family: "Bebas Neue", sans-serif;
 	letter-spacing: 0.1rem;
 	font-size: 1.4rem;
-    padding: 10px 15px;
+	padding: 10px 15px;
 }
 
 .category-link.active {
-	background: rgb(224,226,223);
+	background: rgb(224, 226, 223);
 	color: rgb(166, 0, 2);
-    border-radius: 8px;
+	border-radius: 8px;
 }
-
-
-
 
 .category-image {
 	width: 50px;
@@ -60,13 +60,36 @@ height: 250px;
 	border-radius: 4px;
 }
 
-.display-product {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
-    margin-top: 1em;
-   
-}
+
+
+  .product-grid {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 16px;
+	/* margin: 16px 30px; */
+	margin: 2em 6em
+  }
+  
+  /* .product-card {
+	background-color: #f8f8f8; 
+	 padding: 16px; 
+	border: 1px solid #ddd; 
+	border-radius: 8px;  
+  } */
+  
+  .banner-between {
+	grid-column: span 2;
+	padding: 16px;
+	/* border: 1px solid #ddd; */
+	border-radius: 8px;
+	margin-left: 15px;
+  }
+  
+  /* cards after the 10th one start after the banner */
+  .product-grid .product-card:nth-child(n + 12) {
+	grid-column: span 1;
+  }
+  
 
 .filer-container {
 	display: flex;
@@ -100,6 +123,3 @@ height: 250px;
 	margin: 0 auto;
 	transition: transform 0.5s ease;
 }
-
-
-

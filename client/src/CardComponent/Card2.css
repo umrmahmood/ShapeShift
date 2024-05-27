@@ -11,15 +11,16 @@
 
 .cardMain {
     border-radius: 5px;
-    padding: 20px;
-    margin: 20px;
-    width: 300px;
+    padding: 16px;
+    margin: 16px;
+    width: 300px;  
 }
 
 
 .card-image-container{
     height: 250px;
     width: 250px;
+    cursor: pointer;
 }
 
 .card-image-container img{
@@ -33,39 +34,41 @@
 
 .cardMain h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    margin-top: 10px;
+    font-size: 1.8rem;
 }
 
-.cardMain p {
-    font-size: 1rem;
-    color: rgba(0, 0, 0, 0.8);
+.card-para-wrapper{
+    padding-left: 1em;
 }
 
-.cardMain .rating {
-    color: rgba(0, 0, 0, 0.6);
-    margin-top: 5px;
-}
 
 .cardMain h3 {
     font-family: 'proxima-nova';
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: rgb(166, 0, 2);
     margin-top: 5px;
 }
 
 .card-description-container{
     background: rgb(224,226,223);
+    /* background: #f0f0f0; */
+    padding-top: 1em;
+    width: 250px;
 }
 
 .feature-button {
-	background: none;
 	border: none;
-	/* border-bottom: 2px solid #f4254e; */
-	line-height: 1.5em; 
     font-family: 'Bebas Neue', sans-serif;
+    background: rgb(0, 0, 0);
+    /* background: rgb(166, 0, 2); */
+    font-size: 1.3em;
+    color: white;
+    width: 100%;
+    margin-top: 0.5em;
+    padding-top: 3px;
 }
 
 .feature-button:hover {
   cursor: pointer;
 }
+

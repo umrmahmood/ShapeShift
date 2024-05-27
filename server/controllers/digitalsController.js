@@ -27,7 +27,7 @@ const DigitalsController = {
         material,
         color,
         resolution,
-        resistanz,
+        resistance,
         tags,
         quantity,
       } = req.body;
@@ -41,7 +41,7 @@ const DigitalsController = {
         material,
         color,
         resolution,
-        resistanz,
+        resistance,
         tags,
         quantity,
       });

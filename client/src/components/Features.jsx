@@ -66,7 +66,7 @@ const Features = () => {
 							</div>
 						</Link>
 					) : (
-						<Link className="features-link" to="/">
+						<Link className="features-link" to="/digital">
 							<div className="feat-card">
 								<h3>Check out innovative 3D Designs</h3>
 								<div className="feat-card-inner">
