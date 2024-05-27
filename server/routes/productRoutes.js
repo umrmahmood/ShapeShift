@@ -19,6 +19,11 @@ router.get("/", ProductController.getAllProducts);
 router.get("/search", ProductController.searchProducts);
 
 // Route for fetching products by seller ID
+router.get(
+  "/random/:shopId/random-products",
+  ProductController.getRandomProductsByShopId
+);
+
 router.get("/listings/:sellerId", ProductController.getProductsBySellerId);
 
 // Route for fetching a specific product by ID

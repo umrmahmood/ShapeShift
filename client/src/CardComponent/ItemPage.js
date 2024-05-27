@@ -101,10 +101,6 @@ const ItemPage = () => {
           `http://localhost:5001/api/shop/${shopId}`
         );
         setShop(response.data.shop);
-        const shopProductsResponse = await axios.get(
-          `http://localhost:5001/api/shop/${shopId}/products`
-        );
-        setShopProducts(shopProductsResponse.data.products);
       } catch (error) {
         console.error("Error fetching shop data:", error);
         // Handle error or set a loading state
@@ -113,6 +109,23 @@ const ItemPage = () => {
     fetchShop();
   }, [shopId]);
   console.log("shop", shop);
+
+  useEffect(() => {
+    const fetchRandomShopProducts = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/products/random/${shopId}/random-products`
+        );
+        setShopProducts(response.data.products);
+      } catch (error) {
+        console.error("Error fetching random shop products:", error);
+      }
+    };
+    if (shopId) {
+      fetchRandomShopProducts();
+    }
+  }, [shopId]);
+  console.log("shopproducts", shopProducts);
 
   useEffect(() => {
     const fetchOwner = async () => {
@@ -329,6 +342,7 @@ const ItemPage = () => {
         <div className="ReviewImages right"></div>
       </div>
       <div className="FourthMainContainer">
+        <h2>Shop's other Items</h2>
         <div className="ShopItems full product-grid">
           {shopProducts.map((product) => (
             <div className="product-card" key={product._id}>
