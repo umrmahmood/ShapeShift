@@ -1,4 +1,6 @@
-
+.MainContainer {
+  padding-top: 150px; /* Only apply padding-top to .MainContainer */
+}
 
 /* Main containers */
 .MainContainer,

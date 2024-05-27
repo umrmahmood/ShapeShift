@@ -111,6 +111,22 @@ const ProductController = {
     }
   },
 
+  // In ProductController.js
+  getRandomProductsByShopId: async (req, res) => {
+    const shopId = req.params.shopId;
+    try {
+      // Query the database to fetch random products associated with the shop ID
+      const randomProducts = await Product.aggregate([
+        { $match: { seller: shopId } }, // Match products belonging to the shop
+        { $sample: { size: 5 } }, // Retrieve a random sample of 5 products
+      ]);
+      res.status(200).json({ products: randomProducts });
+    } catch (error) {
+      console.error("Error fetching random shop products:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
   // Method to fetch all products
   getAllProducts: async (req, res) => {
     try {
