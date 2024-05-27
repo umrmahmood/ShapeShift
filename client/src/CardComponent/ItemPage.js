@@ -10,7 +10,14 @@ import useShoppingCart from "../hooks/useShoppingCart.js";
 import ShoppingCart from "../popups/CartPop.jsx";
 import Card from "../CardComponent/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faShippingFast,
+  faUndo,
+  faDollarSign,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import ThirdMainContainer from "../components/FakeReviews.jsx";
 
 const ItemPage = () => {
   const [mainImage, setMainImage] = useState(null);
@@ -34,6 +41,7 @@ const ItemPage = () => {
   const shopName = shop?.name;
   const productName = product?.name;
   const price = product?.price;
+  const location = shop?.location;
 
   const { addItem } = useShoppingCart();
 
@@ -189,6 +197,8 @@ const ItemPage = () => {
     setSelectedImage(imageUrl); // Update selected image
   };
 
+  const randomNumber = Math.floor(Math.random() * (230 - 55 + 1)) + 55;
+
   return (
     <>
       <div className="FirstMainContainer">
@@ -338,8 +348,27 @@ const ItemPage = () => {
         </div>
       </div>
       <div className="ThirdMainContainer">
-        <div className="Reviews left"></div>
-        <div className="ReviewImages right"></div>
+        <div className="left">
+          <h3>{randomNumber} reviews</h3>
+          <ThirdMainContainer />
+        </div>
+        <div className="right">
+          <h2>Shipping and return policies</h2>
+          <p>
+            <FontAwesomeIcon icon={faShippingFast} /> Order today to get by Jun
+            5-25
+          </p>
+          <p>
+            <FontAwesomeIcon icon={faUndo} /> Returns & exchanges accepted
+            within 14 days
+          </p>
+          <p>
+            <FontAwesomeIcon icon={faDollarSign} /> Cost to ship: US$15.00
+          </p>
+          <p>
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> Ships from: {location}
+          </p>
+        </div>
       </div>
       <div className="FourthMainContainer">
         <h2>Shop's other Items</h2>
