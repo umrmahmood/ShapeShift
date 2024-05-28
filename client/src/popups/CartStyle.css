@@ -64,7 +64,11 @@
 	font-size: 16px;
 }
 
-.fixed-width {
+.fixed-width-name {
+	width: 140px;
+}
+
+.fixed-width-price{
 	width: 100px;
 }
 
@@ -85,11 +89,15 @@
 	border-top-left-radius: 20px;
 	border-top-right-radius: 20px;
 	margin-left: 30px;
-	padding: 2px 6px;
+	padding: 5px 10px;
 	color: white;
 	font-size: 16px;
 }
 
 .popup-checkout-cart-btn:hover {
 	color: rgb(166, 0, 2);
+}
+
+.popup-checkout-cart{
+	text-align: center;
 }
