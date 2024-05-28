@@ -95,41 +95,55 @@ const ItemPage = () => {
 	}, [productId]);
 	console.log("products", product);
 
-	useEffect(() => {
-		const fetchShop = async () => {
-			try {
-				const response = await axios.get(
-					`http://localhost:5001/api/shop/${shopId}`
-				);
-				setShop(response.data.shop);
-				const shopProductsResponse = await axios.get(
-					`http://localhost:5001/api/shop/${shopId}/products`
-				);
-				setShopProducts(shopProductsResponse.data.products);
-			} catch (error) {
-				console.error("Error fetching shop data:", error);
-				// Handle error or set a loading state
-			}
-		};
-		fetchShop();
-	}, [shopId]);
-	console.log("shop", shop);
 
-	useEffect(() => {
-		const fetchOwner = async () => {
-			try {
-				const response = await axios.get(
-					`http://localhost:5001/api/users/profile/${ownerId}`
-				);
-				setOwner(response.data.user);
-			} catch (error) {
-				console.error("Error fetching shop data:", error);
-				// Handle error or set a loading state
-			}
-		};
-		fetchOwner();
-	}, [ownerId]);
-	console.log("owner", owner);
+  useEffect(() => {
+    const fetchShop = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/shop/${shopId}`
+        );
+        setShop(response.data.shop);
+      } catch (error) {
+        console.error("Error fetching shop data:", error);
+        // Handle error or set a loading state
+      }
+    };
+    fetchShop();
+  }, [shopId]);
+  console.log("shop", shop);
+
+  useEffect(() => {
+    const fetchRandomShopProducts = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/products/random/${shopId}/random-products`
+        );
+        setShopProducts(response.data.products);
+      } catch (error) {
+        console.error("Error fetching random shop products:", error);
+      }
+    };
+    if (shopId) {
+      fetchRandomShopProducts();
+    }
+  }, [shopId]);
+  console.log("shopproducts", shopProducts);
+
+  useEffect(() => {
+    const fetchOwner = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5001/api/users/profile/${ownerId}`
+        );
+        setOwner(response.data.user);
+      } catch (error) {
+        console.error("Error fetching shop data:", error);
+        // Handle error or set a loading state
+      }
+    };
+    fetchOwner();
+  }, [ownerId]);
+  console.log("owner", owner);
 
 	const handleEditOpen = () => {
 		setIsEditModalOpen(true);
@@ -247,10 +261,12 @@ const ItemPage = () => {
               <p>Material: {material}</p>
             </li> */}
 
+
 							<div className="item-page-other-butons">
 								<div className="item-page-buy-now">
 									<button>Buy it now</button>
 								</div>
+
 
 								<div className="item-page-add-cart">
 									<button onClick={() => handleAddToCart(product)}>
