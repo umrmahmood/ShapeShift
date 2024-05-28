@@ -72,6 +72,7 @@ function ThirdMainContainer() {
         )}
         {currentComments.length > 0 && (
           <button
+          className="item-page-pagination-next"
             onClick={() => paginate(currentPage + 1)}
             disabled={indexOfLastComment >= comments.length}
           >

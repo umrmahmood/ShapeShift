@@ -22,4 +22,19 @@
   .date {
     margin-left: 10px;
   }
+
+  .pagination{
+    display: flex;
+  }
+  .pagination button{
+    font-family: "proima-nova";
+    padding: 1px 6px;
+    background: rgb(226, 224, 223);
+    border: 1px solid gray;
+    border-radius: 2px;
+  }
+
+  .item-page-pagination-next{
+    margin-left: 1em;
+  }
   
