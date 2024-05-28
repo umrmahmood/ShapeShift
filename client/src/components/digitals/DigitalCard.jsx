@@ -36,7 +36,7 @@ const DigitalCard = ({ product }) => {
       </div>
 
       <div className="digital-listing-description-container">
-        <div onClick={handleMoreClick}><h3>{product.name}</h3></div>
+        <div className="digital-card-heading-main"onClick={handleMoreClick}><h3>{product.name}</h3></div>
 
         <p>{product.description}</p>
       </div>

@@ -83,8 +83,8 @@ const DigitalItemPage = () => {
   return (
     <>
       <div className="item-page-outter">
-        <div className="item-page-first-container">
-          <div className="item-page-imagesContainer">
+        <div className="item-page-first-container digitial-item-img-cont">
+          <div className="item-page-imagesContainer digitial-item-img-stl">
             {product?.inquiryFile ? (
               <StlViewer
                 style={{ width: "600px", height: "600px" }}
@@ -118,7 +118,7 @@ const DigitalItemPage = () => {
                 {product?.material && <p>Material: {product.material}</p>}
               </li>
               <div className="item-page-other-butons">
-                <div>
+                <div className="item-page-btn">
                   <button onClick={() => setShowSendMessagePopup(true)}>
                     Message {userName}
                   </button>
@@ -148,7 +148,7 @@ const DigitalItemPage = () => {
           </div>
         </div>
         <div className="item-page-second-container">
-          <div className="item-page-product-description">
+          <div className="item-page-product-description digital-prod-des">
             <h2>Product description</h2>
             <p>{product?.description}</p>
           </div>
@@ -168,7 +168,7 @@ const DigitalItemPage = () => {
             )}
           </div>
         </div>
-        <div className="ThirdMainContainer">
+        <div className="item-page-review-container">
           <div className="full">
             <h3>{randomNumber} reviews</h3>
             <ThirdMainContainer />
@@ -176,7 +176,7 @@ const DigitalItemPage = () => {
         </div>
         <div className="FourthMainContainer">
           <h2 className="item-page-otheritems-head">Other Digital Items</h2>
-          <div className="ShopItems full product-grid">
+          <div className="item-page-items-from-same digital-other-prod">
             {digitalProducts.map((product) => (
               <div className="product-card" key={product._id}>
                 <DigitalCard product={product} />

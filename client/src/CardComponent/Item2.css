@@ -188,7 +188,7 @@
 
 .item-page-contact {
     display: flex;
-    gap: 10em; 
+    gap: 6em; 
     /* background: #f0f0f0;
     padding: 1em; */
 }
@@ -220,9 +220,14 @@
 
 .item-page-review-container{
     display: flex;
-    margin: 4em 9em;
+    margin: 4em 10em;
     color: black;
-    gap: 16em;
+    gap: 18em;
+    background: #f0f0f0;
+    padding: 1em;
+    justify-content: space-between;
+    margin-right: 8em;
+    padding-right: 2em;
 }
 
 .item-page-left-review{
@@ -231,4 +236,33 @@
 
 .item-page-reviews-head{
     margin-left: 0.5em;
+}
+
+.FourthMainContainer{
+    margin-left: 2em;
+}
+
+.item-page-items-from-same{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin-left: 8em;
+}
+
+.digital-other-prod{
+    gap:1em;
+    margin-top: 2em;
+}
+
+.digitial-item-img-cont{
+    gap: 14em;
+    margin-left: 10em;
+}
+
+.digitial-item-img-stl{
+    border: 1px solid #f0f0f0;
+}
+
+.digital-prod-des{
+    margin-left: -12em;
 }
