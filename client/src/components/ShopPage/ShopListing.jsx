@@ -104,7 +104,7 @@ const ShopListing = () => {
 	return (
 		<>
 			<div className="shoplisting-container">
-				<h2>Listings</h2>
+				<h2 className="shoplisting-container-heading">Listings</h2>
 				<div className="shoplisting-bar">
 					<div className="shoplisting-btns">
 						<button>Renew</button>
@@ -125,7 +125,7 @@ const ShopListing = () => {
 							</div>
 							<div className="card-description-container">
 								<div className="card-para-wrapper">
-									<h2>{listing.name}</h2>
+									<h2 className="card-shoplisting-head">{listing.name}</h2>
 									{/* <p>{listing.description}</p> */}
 									<h3>
 										Price: {listing.price} {listing.currency}

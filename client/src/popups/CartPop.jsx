@@ -97,13 +97,13 @@ const ShoppingCart = ({ isOpen, onClose }) => {
               {cartItems.map((item, index) => (
                 <li className="popup-cart-items-list" key={index}>
                   <div>{item.quantity}</div>
-                  <div className="fixed-width">
+                  <div className="fixed-width-name">
                     {item.name.split(" ").slice(0, 2).join(" ")}
                   </div>
-                  <div>
+                  <div className="fixed-width-price">
                     {item.price.toFixed(2)} {item.currency}
                   </div>
-                  <div className="popup-cart-trash">
+                  <div className="popup-cart-trash fixed-width-trashcan">
                     <FontAwesomeIcon
                       icon={faTrash}
                       onClick={() => handleRemoveItem(item.id)}
@@ -111,7 +111,7 @@ const ShoppingCart = ({ isOpen, onClose }) => {
                   </div>
                 </li>
               ))}
-              <li>
+              <div className="popup-checkout-cart">
                 <Link
                   className="popup-checkout-cart-btn"
                   to="/cart"
@@ -122,7 +122,7 @@ const ShoppingCart = ({ isOpen, onClose }) => {
                   <FontAwesomeIcon icon={faRightFromBracket} /> View cart and
                   check out
                 </Link>
-              </li>
+              </div>
             </ul>
           </>
         )}

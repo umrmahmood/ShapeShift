@@ -364,7 +364,9 @@ const ItemPage = () => {
 					<div className="ReviewImages"></div>
 				</div>
 				<div className="FourthMainContainer">
+        <h2 className="item-page-otheritems-head">Items from the same shop</h2>
 					<div className="ShopItems full product-grid">
+            
 						{shopProducts.map((product) => (
 							<div className="product-card" key={product._id}>
 								<Card product={product} />

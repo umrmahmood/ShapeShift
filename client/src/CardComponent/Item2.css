@@ -206,5 +206,11 @@
     font-family: "proima-nova";
     color: black;
     font-size: 1.1em;
-    
+
+}
+
+.item-page-otheritems-head{
+    display: inline-block;
+    width: 300px;
+    margin-left: 4.7em;
 }
