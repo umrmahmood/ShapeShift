@@ -199,7 +199,6 @@
     background: rgb(226, 224, 223);
     border: 1px solid gray;
     border-radius: 2px;
-
 }
 
 .item-page-material{
@@ -209,8 +208,27 @@
 
 }
 
+.shipping-return-icons-wrapper{
+    margin-top: 3em;
+}
+
 .item-page-otheritems-head{
     display: inline-block;
     width: 300px;
-    margin-left: 4.7em;
+    margin-left: 4em;
+}
+
+.item-page-review-container{
+    display: flex;
+    margin: 4em 9em;
+    color: black;
+    gap: 16em;
+}
+
+.item-page-left-review{
+    width: 600px;
+}
+
+.item-page-reviews-head{
+    margin-left: 0.5em;
 }
