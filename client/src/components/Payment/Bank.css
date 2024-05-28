@@ -1,48 +1,280 @@
 /* components/KlarnaComponent.css */
+
 .klarna-form {
-  
   max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .klarna-form h2 {
-    text-align: center;
+  margin-top: 200px;
+margin-left: 35%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(224, 226, 223);
+}
+
+.klarna-form h2 {
+  text-align: center;
     margin-bottom: 20px;
-  }
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.klarna-form div {
+  margin-bottom: 15px;
+  font-family: "Proxima nova";
+}
+
+.klarna-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.klarna-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.klarna-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.klarna-form button:hover {
+  background-color: #45a049;
+}
+
+
+/*paypal*/
+
+/* components/KlarnaComponent.css */
+.paypal-form-container {
+  margin-top: 200px;
+  display: flex;
+  gap: 2rem; /* Adjust the gap between the two sections as needed */
+  justify-content: center; /* Center the forms horizontally */
+  align-items: flex-start; /* Align the forms to the top */
+  font-family: 'Proxima Nova';
+
+}
+
+.paypal-form{
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(224, 226, 223);
+}
+.payPal-additional-info {
+  width: 35rem; /* Adjust width as needed */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(224, 226, 223);
+  padding: 15px;
+}
+
+
+.paypal-form h2, .payPal-additional-info h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.paypal-form div, .payPal-additional-info div {
+  margin-bottom: 15px;
   
-  .klarna-form div {
-    margin-bottom: 15px;
-  }
+}
+
+.paypal-form label, .payPal-additional-info label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.paypal-form input, .payPal-additional-info input, .payPal-additional-info select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.paypal-form button, .payPal-additional-info button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.paypal-form button:hover, .payPal-additional-info button:hover {
+  background-color: #45a049;
+}
+
+.payPal-side-by-side {
+  display: flex;
+  gap: 1rem; /* Adjust gap as needed */
+  align-items: center; /* Ensure items are vertically aligned */
+}
+
+.payPal-country{
+  display: flex;
+  width: 250px;
+}
+
+.paypal-phone{
+  margin-left: 5px;
+}
+
+.paypal-pin{
+  margin-left: 90px;
+}
+
+
   
-  .klarna-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .klarna-form input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  .klarna-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .klarna-form button:hover {
-    background-color: #45a049;
-  }
-  
+
+.payPal-side-by-side label {
+  margin-right: 1rem; /* Space between label and input */
+}
+
+#country {
+  width: 10rem;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.side-by-side > div {
+  flex: 1;
+}
+
+.payPal-submit-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.payPal-submit-button:hover {
+  background-color: #0056b3;
+}
+
+
+/*visa form*/
+
+/* components/KlarnaComponent.css */
+/* components/KlarnaComponent.css */
+/* components/VisaComponent.css */
+/* components/VisaComponent.css */
+.visa-form {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.visa-form .payment-details
+ {
+  width: 25rem; /* Adjust width as needed */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(224, 226, 223);
+  margin-top: 200px;
+  padding: 15px;
+}
+
+.visa-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.visa-form div {
+  margin-bottom: 15px;
+  font-family: 'Proxima Nova';
+}
+
+.visa-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.visa-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.visa-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.visa-form button:hover {
+  background-color: #45a049;
+}
+
+
+.visa-form .additional-info {
+  width: 35rem; /* Adjust width as needed */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgb(224, 226, 223);
+  margin-top: 200px;
+  padding: 15px;
+}
+
+.side-by-side {
+  display: flex;
+  gap: 1rem; /* Adjust gap as needed */
+  align-items: center; /* Ensure items are vertically aligned */
+}
+
+.side-by-side > div {
+  flex: 1;
+}
+
+.side-by-side label {
+  margin-right: 0.5rem; /* Space between label and input */
+}
+
+#country{
+
+  width: 10rem;
+  height: 30px;
+  border:1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}

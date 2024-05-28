@@ -1,3 +1,4 @@
+
 .MainContainer {
   padding-top: 150px; /* Only apply padding-top to .MainContainer */
 }
@@ -232,3 +233,4 @@
     height: 100%;
     object-fit: cover; /* Maintain aspect ratio and cover container */
 }
+

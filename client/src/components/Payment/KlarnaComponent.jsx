@@ -29,41 +29,32 @@ const KlarnaComponent = () => {
       <h2>Klarna Payment Details</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Name on Card:</label>
+          <label htmlFor="name">Branch:</label>
           <input
             type="text"
             id="name"
             name="name"
+            placeholder='Branch Name'
             value={form.name}
             onChange={handleChange}
             required
           />
         </div>
+        
         <div>
-          <label htmlFor="cardNumber">Card Number:</label>
-          <input
-            type="text"
-            id="cardNumber"
-            name="cardNumber"
-            value={form.cardNumber}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="expirationDate">Expiration Date:</label>
+          <label htmlFor="expirationDate">Account Number:</label>
           <input
             type="text"
             id="expirationDate"
             name="expirationDate"
             value={form.expirationDate}
             onChange={handleChange}
-            placeholder="MM/YY"
+            placeholder="IBAN"
             required
           />
         </div>
         <div>
-          <label htmlFor="cvv">CVV:</label>
+          <label htmlFor="cvv">Pin:</label>
           <input
             type="text"
             id="cvv"
@@ -71,6 +62,7 @@ const KlarnaComponent = () => {
             value={form.cvv}
             onChange={handleChange}
             required
+            placeholder='Pin No:'
           />
         </div>
         <button type="submit">Submit Payment</button>

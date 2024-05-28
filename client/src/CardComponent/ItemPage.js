@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import placeholder from "./placeholder.jpg";
-import "./Item.css";
+import "../CardComponent/Item2.css";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -16,6 +16,8 @@ import {
   faUndo,
   faDollarSign,
   faMapMarkerAlt,
+  faHeart,
+  faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import ThirdMainContainer from "../components/FakeReviews.jsx";
 
@@ -42,6 +44,7 @@ const ItemPage = () => {
   const productName = product?.name;
   const price = product?.price;
   const location = shop?.location;
+  const currency = product?.currency;
 
   const { addItem } = useShoppingCart();
 
@@ -201,206 +204,223 @@ const ItemPage = () => {
 
   return (
     <>
-      <div className="FirstMainContainer">
-        <div className="ImagesContainer left">
-          <div className="MainImageContainer">
-            <img
-              className="main-image"
-              src={selectedImage || mainImage || placeholder} // Render selected image or fallback to mainImage or placeholder
-              alt={product.name}
-              style={{ maxWidth: "600px", maxHeight: "600px" }}
-            />
-          </div>
-          <div className="secondary-images">
-            {secondaryImages.map((image, index) => (
+      <div className="item-page-outter">
+        <div className="item-page-first-container">
+          <div className="item-page-imagesContainer">
+            <div className="item-page-mainImageContainer">
               <img
-                key={index}
-                className="secondary-image"
-                src={image}
+                className="main-image"
+                src={selectedImage || mainImage || placeholder} // Render selected image or fallback to mainImage or placeholder
                 alt={product.name}
-                onClick={() => handleImageClick(image)} // Handle image click
               />
+            </div>
+            <div className="item-page-secondary-images">
+              {secondaryImages.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={product.name}
+                  onClick={() => handleImageClick(image)} // Handle image click
+                />
+              ))}
+            </div>
+          </div>
+          <div className="item-page-description-container">
+            <ul>
+              <li>
+                <div>
+                  {decodedToken &&
+                    decodedToken.membership.shopId === product.seller && (
+                      <div className="item-page-admin-buttons-container">
+                        <button
+                          className="item-page-admin-buttons"
+                          onClick={handleEditOpen}
+                        >
+                          Edit Product
+                        </button>
+                        <button
+                          className="item-page-admin-buttons"
+                          onClick={handleDelete}
+                        >
+                          Delete Product
+                        </button>
+                      </div>
+                    )}
+                </div>
+              </li>
+              <li>
+                <div className="item-page-price">
+                  {price} {currency}
+                </div>
+                <div className="item-page-vat">
+                  VAT included (where applicable), plus shipping.
+                </div>
+              </li>
+              <li>
+                <h2 className="item-page-product-heading">{productName}</h2>
+              </li>
+              <li>
+                <p className="item-page-shopname">{shopName}</p>
+                <div className="item-page-star-rating">
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon icon={faStar} />
+                </div>
+              </li>
+              {/* <li>
+		  <p>Material: {material}</p>
+		</li> */}
+
+              <div className="item-page-other-butons">
+                <div className="item-page-buy-now">
+                  <button>Buy it now</button>
+                </div>
+
+                <div className="item-page-add-cart">
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add to cart
+                  </button>
+                </div>
+                <div className="item-page-add-to-fav">
+                  <div className="item-page-fav-icon">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </div>
+                  <button>
+                    <div>Add to favorites</div>
+                  </button>
+                </div>
+                <div className="item-page-add-to-fav">
+                  <div className="item-page-fav-icon item-page-report">
+                    <FontAwesomeIcon icon={faFlag} />
+                  </div>
+                  <button>Report this item</button>
+                </div>
+              </div>
+              <li>
+                <div className="item-page-seller-review">
+                  {shopName}. This seller consistently earned 5-star reviews,
+                  shipped on time, and replied quickly to any messages they
+                  received.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="item-page-second-container">
+          <div className="item-page-product-description">
+            <h2>Product description</h2>
+            <div className="item-page-material">Material: {material}</div>
+            <p>{product.description}</p>
+          </div>
+          <div className="item-page-contact">
+            <div className="owner-shop item-page-btn">
+              {owner ? (
+                <>
+                  <div className="shop-image-owner">
+                    <img
+                      src={owner.profile.avatarUrl || placeholder}
+                      alt="Owner"
+                    />
+                  </div>
+                  <div className="shop-detail-owner">
+                    <h3>
+                      {owner.profile.username &&
+                        owner.profile.username.charAt(0).toUpperCase() +
+                          owner.profile.username.slice(1)}
+                    </h3>
+                  </div>
+                </>
+              ) : (
+                <div className="shop-detail-owner">
+                  <p>Loading owner data...</p>
+                </div>
+              )}
+              <button onClick={() => setShowSendMessagePopup(true)}>
+                Message Seller
+              </button>
+            </div>
+
+            <div className="owner-shop item-page-btn">
+              {shop ? (
+                <>
+                  <div className="shop-image-owner">
+                    <img src={shop.avatarUrl || placeholder} alt="Shop" />
+                  </div>
+                  <div className="shop-detail-owner">
+                    <h3>{shop.name || "Shop Name"}</h3>
+                  </div>
+                </>
+              ) : (
+                <div className="shop-detail-owner">
+                  <p>Loading shop data...</p>
+                </div>
+              )}
+              <button>
+                <Link className="profile-links" to={`/shop/${product.seller}`}>
+                  Visit Shop
+                </Link>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="ThirdMainContainer">
+          <div className="left">
+            <h3>{randomNumber} reviews</h3>
+            <ThirdMainContainer />
+          </div>
+          <div className="right">
+            <h2>Shipping and return policies</h2>
+            <p>
+              <FontAwesomeIcon icon={faShippingFast} /> Order today to get by
+              Jun 5-25
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faUndo} /> Returns & exchanges accepted
+              within 14 days
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faDollarSign} /> Cost to ship: US$15.00
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faMapMarkerAlt} /> Ships from: {location}
+            </p>
+          </div>
+        </div>
+        <div className="FourthMainContainer">
+          <h2 className="item-page-otheritems-head">
+            Items from the same shop
+          </h2>
+          <div className="ShopItems full product-grid">
+            {shopProducts.map((product) => (
+              <div className="product-card" key={product._id}>
+                <Card product={product} />
+              </div>
             ))}
           </div>
+          <ShoppingCart
+            isOpen={isCartOpen}
+            onClose={() => setIsCartOpen(false)}
+          />
         </div>
-        <div className="FirstDescriptionContainer right">
-          <ul>
-            <li>
-              <div className="shop-owner">
-                {decodedToken &&
-                  decodedToken.membership.shopId === product.seller && (
-                    <div className="admin-buttons-container">
-                      <button
-                        className="admin-buttons"
-                        onClick={handleEditOpen}
-                      >
-                        Edit
-                      </button>
-                      <button className="admin-buttons" onClick={handleDelete}>
-                        Delete
-                      </button>
-                    </div>
-                  )}
-              </div>
-            </li>
-            <li>
-              <p>Price: ${price}</p>
-              <p>VAT included (where applicable), plus shipping</p>
-            </li>
-            <li>
-              <h2>{productName}</h2>
-            </li>
-            <li>
-              <p>{shopName}</p>
-              <div className="star-rating">
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-                <FontAwesomeIcon icon={faStar} />
-              </div>
-            </li>
-            <li>
-              <p>Material: {material}</p>
-            </li>
-            <li>
-              <button>Buy Now</button>
-            </li>
-            <li>
-              <button
-                className="feature-button"
-                onClick={() => handleAddToCart(product)}
-              >
-                Add to cart
-              </button>
-            </li>
-            <li>
-              <button>Add to favorites</button>
-            </li>
-            <li>
-              <button>Report this item</button>
-            </li>
-            <li>
-              <p>
-                {shopName}. This seller consistently earned 5-star reviews,
-                shipped on time, and replied quickly to any messages they
-                received.
-              </p>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="SecondMainContainer">
-        <div className="MainDescriptionContainer left">
-          <p>{product.description}</p>
-        </div>
-        <div className="Contact right">
-          <div className="owner-shop">
-            {owner ? (
-              <>
-                <div className="shop-image-owner">
-                  <img
-                    src={owner.profile.avatarUrl || placeholder}
-                    alt="Owner"
-                  />
-                </div>
-                <div className="shop-detail-owner">
-                  <h3>
-                    {owner.profile.username &&
-                      owner.profile.username.charAt(0).toUpperCase() +
-                        owner.profile.username.slice(1)}
-                  </h3>
-                </div>
-              </>
-            ) : (
-              <div className="shop-detail-owner">
-                <p>Loading owner data...</p>
-              </div>
-            )}
-            <button onClick={() => setShowSendMessagePopup(true)}>
-              Message Seller
-            </button>
-          </div>
 
-          <div className="owner-shop">
-            {shop ? (
-              <>
-                <div className="shop-image-owner">
-                  <img src={shop.avatarUrl || placeholder} alt="Shop" />
-                </div>
-                <div className="shop-detail-owner">
-                  <h3>{shop.name || "Shop Name"}</h3>
-                </div>
-              </>
-            ) : (
-              <div className="shop-detail-owner">
-                <p>Loading shop data...</p>
-              </div>
-            )}
-            <button>
-              <Link
-                className="text-wrapper profile-links"
-                to={`/shop/${product.seller}`}
-              >
-                Visit Shop
-              </Link>
-            </button>
-          </div>
-        </div>
+        {isEditModalOpen && (
+          <EditProductModal
+            product={product}
+            token={token}
+            onClose={handleEditClose}
+            onSave={handleSave}
+          />
+        )}
+        {showSendMessagePopup && product && (
+          <SendMessagePop
+            isOpen={true}
+            onClose={() => setShowSendMessagePopup(false)}
+            firstRecipientId={{ firebaseId: product.shopOwner }} // Ensure you have firebaseId in owner data
+            scroll={{}}
+          />
+        )}
       </div>
-      <div className="ThirdMainContainer">
-        <div className="left">
-          <h3>{randomNumber} reviews</h3>
-          <ThirdMainContainer />
-        </div>
-        <div className="right">
-          <h2>Shipping and return policies</h2>
-          <p>
-            <FontAwesomeIcon icon={faShippingFast} /> Order today to get by Jun
-            5-25
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faUndo} /> Returns & exchanges accepted
-            within 14 days
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faDollarSign} /> Cost to ship: US$15.00
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faMapMarkerAlt} /> Ships from: {location}
-          </p>
-        </div>
-      </div>
-      <div className="FourthMainContainer">
-        <h2>Shop's other Items</h2>
-        <div className="ShopItems full product-grid">
-          {shopProducts.map((product) => (
-            <div className="product-card" key={product._id}>
-              <Card product={product} />
-            </div>
-          ))}
-        </div>
-        <ShoppingCart
-          isOpen={isCartOpen}
-          onClose={() => setIsCartOpen(false)}
-        />
-      </div>
-
-      {isEditModalOpen && (
-        <EditProductModal
-          product={product}
-          token={token}
-          onClose={handleEditClose}
-          onSave={handleSave}
-        />
-      )}
-      {showSendMessagePopup && product && (
-        <SendMessagePop
-          isOpen={true}
-          onClose={() => setShowSendMessagePopup(false)}
-          firstRecipientId={{ firebaseId: product.shopOwner }} // Ensure you have firebaseId in owner data
-          scroll={{}}
-        />
-      )}
     </>
   );
 };
