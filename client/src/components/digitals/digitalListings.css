@@ -59,3 +59,7 @@
 .digital-listing-banner{
 text-align: center;
 }
+
+.digital-card-heading-main{
+    cursor: pointer;
+}

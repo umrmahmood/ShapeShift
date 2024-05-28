@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import placeholder from "./placeholder.jpg";
 import "../CardComponent/Item2.css";
+// import "../CardComponent/Item.css";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -270,10 +271,6 @@ const ItemPage = () => {
                   <FontAwesomeIcon icon={faStar} />
                 </div>
               </li>
-              {/* <li>
-		  <p>Material: {material}</p>
-		</li> */}
-
               <div className="item-page-other-butons">
                 <div className="item-page-buy-now">
                   <button>Buy it now</button>
@@ -366,12 +363,12 @@ const ItemPage = () => {
             </div>
           </div>
         </div>
-        <div className="ThirdMainContainer">
-          <div className="left">
-            <h3>{randomNumber} reviews</h3>
+        <div className="item-page-review-container">
+          <div className="item-page-left-review">
+            <h3 className="item-page-reviews-head">{randomNumber} reviews</h3>
             <ThirdMainContainer />
           </div>
-          <div className="right">
+          <div className="shipping-return-icons-wrapper">
             <h2>Shipping and return policies</h2>
             <p>
               <FontAwesomeIcon icon={faShippingFast} /> Order today to get by
@@ -393,7 +390,7 @@ const ItemPage = () => {
           <h2 className="item-page-otheritems-head">
             Items from the same shop
           </h2>
-          <div className="ShopItems full product-grid">
+          <div className="item-page-items-from-same">
             {shopProducts.map((product) => (
               <div className="product-card" key={product._id}>
                 <Card product={product} />
