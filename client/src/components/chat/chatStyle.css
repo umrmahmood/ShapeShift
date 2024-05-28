@@ -11,13 +11,15 @@
 }
 
 .messages {
-  flex: 3; /* Three quarters width */
+  flex: 2;
+  /* Three quarters width */
   padding: 1rem;
   overflow-y: auto;
 }
 
 .send-message {
-  flex: 1; /* Three quarters width */
+  flex: 1;
+  /* Three quarters width */
   padding: 0.5rem;
   border-top: 1px solid #ddd;
   display: flex;
@@ -55,13 +57,15 @@
 
 .sent {
   align-self: flex-end;
-  background-color: #add8e6; /* Light blue */
+  background-color: #add8e6;
+  /* Light blue */
   color: #000;
 }
 
 .received {
   align-self: flex-start;
-  background-color: #90ee90; /* Light green */
+  background-color: #90ee90;
+  /* Light green */
   color: #000;
 }
 

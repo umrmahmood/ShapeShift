@@ -18,7 +18,6 @@ const DigitalCard = ({ product }) => {
     <div className="digital-listing-card-outter">
       <div
         className="digital-listing-image-container"
-        onClick={handleMoreClick}
       >
         {product.inquiryFile ? (
           <StlViewer
@@ -37,7 +36,8 @@ const DigitalCard = ({ product }) => {
       </div>
 
       <div className="digital-listing-description-container">
-        <h3>{product.name}</h3>
+        <div onClick={handleMoreClick}><h3>{product.name}</h3></div>
+
         <p>{product.description}</p>
       </div>
       <h3 className="digital-file-heading">Required Specs</h3>
