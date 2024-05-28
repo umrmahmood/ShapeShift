@@ -45,6 +45,8 @@ const ItemPage = () => {
   const price = product?.price;
   const location = shop?.location;
   const currency = product?.currency;
+  const firebaseId = owner?.firebaseId;
+  const userName = owner?.profile.username;
 
   const { addItem } = useShoppingCart();
 
@@ -416,7 +418,8 @@ const ItemPage = () => {
           <SendMessagePop
             isOpen={true}
             onClose={() => setShowSendMessagePopup(false)}
-            firstRecipientId={{ firebaseId: product.shopOwner }} // Ensure you have firebaseId in owner data
+            firstRecipientId={{ firebaseId: firebaseId }} // Ensure you have firebaseId in owner data
+            firstRecipientUsername={userName} // Pass as a string
             scroll={{}}
           />
         )}

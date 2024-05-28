@@ -64,6 +64,19 @@ const DigitalsController = {
     }
   },
 
+  // In ProductController.js
+  getRandomDigitals: async (req, res) => {
+    try {
+      const randomDigitals = await Digitals.aggregate([
+        { $sample: { size: 5 } },
+      ]);
+      res.status(200).json(randomDigitals);
+    } catch (error) {
+      console.error("Error fetching random digital products:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  },
+
   getDigitalProductById: async (req, res) => {
     const digitalId = req.params.digitalId;
     try {

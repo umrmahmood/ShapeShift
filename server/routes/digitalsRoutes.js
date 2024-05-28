@@ -12,9 +12,10 @@ import authMiddleware from "../middleware/authMiddleware.js"; // Import the auth
 const router = express.Router(); // Create a new router instance
 
 // Route for fetching all digital products and by ID
-router
-  .get("/", DigitalsController.getAllDigitalProducts) // Define a GET request to fetch all digital products
-  .get("/:digitalId", DigitalsController.getDigitalProductById); // Define a GET request to fetch a specific digital product by ID
+// Routes for fetching digital products
+router.get("/random-products", DigitalsController.getRandomDigitals); // This route should be declared before the dynamic :digitalId route
+router.get("/", DigitalsController.getAllDigitalProducts);
+router.get("/:digitalId", DigitalsController.getDigitalProductById);
 
 // Routes for creating, updating, and deleting digital products
 router

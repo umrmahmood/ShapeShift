@@ -57,6 +57,7 @@ const UserChats = ({ selectChat }) => {
       {chats.map((chat) => (
         <div
           key={chat.id}
+          className="chat-item"
           onClick={() => selectChat(chat.id, chat.otherUserId)}
         >
           {chat.otherUserName}
