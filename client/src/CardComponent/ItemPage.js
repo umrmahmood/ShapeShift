@@ -21,6 +21,7 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import ThirdMainContainer from "../components/FakeReviews.jsx";
+import PublicProfile from "../popups/PublicProfile.jsx";
 
 const ItemPage = () => {
   const [mainImage, setMainImage] = useState(null);
@@ -36,6 +37,7 @@ const ItemPage = () => {
   const [shop, setShop] = useState(null); // State to hold shop data
   const [owner, setOwner] = useState(null); // State to hold owner data
   const [shopProducts, setShopProducts] = useState([]); // State to hold products from the same shop
+  const [showOwnerProfile, setShowOwnerProfile] = useState(false);
 
   // page related declarations
   const shopId = product?.seller;
@@ -199,6 +201,10 @@ const ItemPage = () => {
     }
   };
 
+  const handleOwnerAvatarClick = () => {
+    setShowOwnerProfile(true); // Open owner profile popup when owner's avatar is clicked
+  };
+
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl); // Update selected image
   };
@@ -316,7 +322,10 @@ const ItemPage = () => {
             <div className="owner-shop item-page-btn">
               {owner ? (
                 <>
-                  <div className="shop-image-owner">
+                  <div
+                    className="shop-image-owner"
+                    onClick={handleOwnerAvatarClick}
+                  >
                     <img
                       src={owner.profile.avatarUrl || placeholder}
                       alt="Owner"
@@ -341,25 +350,23 @@ const ItemPage = () => {
             </div>
 
             <div className="owner-shop item-page-btn">
-              {shop ? (
-                <>
-                  <div className="shop-image-owner">
-                    <img src={shop.avatarUrl || placeholder} alt="Shop" />
-                  </div>
+              <Link className="profile-links" to={`/shop/${product.seller}`}>
+                {shop ? (
+                  <>
+                    <div className="shop-image-owner">
+                      <img src={shop.avatarUrl || placeholder} alt="Shop" />
+                    </div>
+                    <div className="shop-detail-owner">
+                      <h3>{shop.name || "Shop Name"}</h3>
+                    </div>
+                  </>
+                ) : (
                   <div className="shop-detail-owner">
-                    <h3>{shop.name || "Shop Name"}</h3>
+                    <p>Loading shop data...</p>
                   </div>
-                </>
-              ) : (
-                <div className="shop-detail-owner">
-                  <p>Loading shop data...</p>
-                </div>
-              )}
-              <button>
-                <Link className="profile-links" to={`/shop/${product.seller}`}>
-                  Visit Shop
-                </Link>
-              </button>
+                )}
+                <button>Visit Shop</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -409,6 +416,13 @@ const ItemPage = () => {
             token={token}
             onClose={handleEditClose}
             onSave={handleSave}
+          />
+        )}
+        {showOwnerProfile && owner && (
+          <PublicProfile
+            isOpen={true}
+            onClose={() => setShowOwnerProfile(false)}
+            userId={owner._id}
           />
         )}
         {showSendMessagePopup && product && (
