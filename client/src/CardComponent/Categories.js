@@ -108,7 +108,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./categories2.css";
 import Card from "./Card";
-import advert from "../../src/assets/advertise7.jpg";
+import advert from "../../src/assets/market-place-banner-wide.jpg";
 import shopAdvert from "../../src/assets/banner 6.jpg";
 
 const Categories = () => {
