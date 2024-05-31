@@ -1,99 +1,87 @@
 .payment-container {
-  padding: 30px;
-  width: 30%;
-  margin-left: 20px;
-  border: 1px solid rgba(173, 171, 171, 0.673);
-  border-radius: 05px;
-  background-color: white;
-
+	padding: 30px;
+	width: 30%;
+	margin-left: 20px;
+	border: 1px solid rgba(173, 171, 171, 0.673);
+	border-radius: 05px;
+	background-color: white;
 }
 
 .payment-options {
-  display: grid;
-  gap: 10px;
+	display: grid;
+	gap: 10px;
 }
 
 .payment-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .payment-option img {
-  width: 50px;
-  height: 50px;
-  
+	width: 50px;
+	height: 50px;
 }
 
 .klrna-icon {
-  width: 70px;
-  height: 40px;
-  margin-left: 20px;
+	width: 70px;
+	height: 40px;
+	margin-left: 20px;
 }
 
 .paypal-icon {
-  margin-left: 20px;
+	margin-left: 20px;
 }
 
 .radio-box {
-  transform: scale(1.5);
-  margin-right: 20px;
+	transform: scale(1.5);
+	margin-right: 20px;
 }
 
 .payment-details {
-  margin-top: 20px;
-
-  
+	margin-top: 20px;
 }
 
-.payment-details p{
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 15px;
-
-  
+.payment-details p {
+	font-family: "proxima-nova";
+	font-size: 18px;
 }
-.sub-total p{
-
-  font-weight: bold;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
- font-size: 20px;
-  color: rgb(166, 0, 2);
- 
-  
+.sub-total p {
+	font-weight: bold;
+	font-family: "proxima-nova";
+	font-size: 20px;
+	color: rgb(166, 0, 2);
 }
 
 .proceed-button {
-  background-color: black;
-  color: #ffff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  margin-top: 20px;
-  width: 100%;
-  font-weight: bold;
-  font-size: 20px;
-  
-
+	background-color: black;
+	color: #ffff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 30px;
+	cursor: pointer;
+	margin-top: 20px;
+	width: 100%;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 .proceed-button:hover {
-  background-color: #464646;
-  transition: 0.1s ease-in-out;
+	background-color: #464646;
+	transition: 0.1s ease-in-out;
 }
 
 .price {
-  float: right;
+	float: right;
 }
 
 .total-price {
-  font-weight: bold;
-  float: right;
+	font-weight: bold;
+	float: right;
 }
 
-.payment-head{
-  text-align: left;
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 25px;
-  
+.payment-head {
+	text-align: left;
+	font-family: "Bebas Neue", sans-serif;
+	font-size: 28px;
 }

@@ -166,7 +166,10 @@
 
 .payment-details {
   margin-top: 20px;
+  font-family: "proxima-nova";
 }
+
+
 
 .proceed-button {
   background-color: #4681f4;
@@ -190,14 +193,13 @@
 
 .item-price{
   color: #a50313;
-  font-size: 15px;
-  
+  font-size: 18px;
 }
+
 .emptyCart{
   width: 30%;
-  
-  
 }
+
 .cart-item h6 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1rem;

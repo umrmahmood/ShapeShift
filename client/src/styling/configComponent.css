@@ -55,9 +55,7 @@
 }
 
 .quote-popup-close-btn:hover, .quote-popup-post-btn:hover {
-
 	background: #f0f0f0
-	
 }
 
 .upload-file {
@@ -67,6 +65,7 @@
 .button-quote {
 	display: flex;
 	justify-content: center;
+	margin-bottom: 20px;
 }
 
 .button-quote button {

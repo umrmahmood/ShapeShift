@@ -4,11 +4,15 @@
 	flex-direction: column;
 }
 
+
 .advert {
 	/* width: 1700px;  */
-	width: 90vw;
-	align-self: center;
 	height: 250px;
+}
+
+.advert img{
+	width: 100%;
+	height: 100%;
 }
 
 .category-grid ul {
