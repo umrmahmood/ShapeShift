@@ -21,23 +21,26 @@ import {
 	faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import ThirdMainContainer from "../components/FakeReviews.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import PublicProfile from "../popups/PublicProfile.jsx";
 
 const ItemPage = () => {
-	const [mainImage, setMainImage] = useState(null);
-	const [secondaryImages, setSecondaryImages] = useState([]);
-	const [selectedImage, setSelectedImage] = useState(null); // Track the selected image
-	const [product, setProduct] = useState({});
-	const [currentUser, setCurrentUser] = useState(null);
-	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-	const { productId } = useParams();
-	const token = localStorage.getItem("shapeshiftkey");
-	const decodedToken = token ? jwtDecode(token) : null;
-	const [showSendMessagePopup, setShowSendMessagePopup] = useState(false);
-	const [shop, setShop] = useState(null); // State to hold shop data
-	const [owner, setOwner] = useState(null); // State to hold owner data
-	const [shopProducts, setShopProducts] = useState([]); // State to hold products from the same shop
-	const navigate = useNavigate();
+  const [mainImage, setMainImage] = useState(null);
+  const [secondaryImages, setSecondaryImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null); // Track the selected image
+  const [product, setProduct] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const { productId } = useParams();
+  const token = localStorage.getItem("shapeshiftkey");
+  const decodedToken = token ? jwtDecode(token) : null;
+  const [showSendMessagePopup, setShowSendMessagePopup] = useState(false);
+  const [shop, setShop] = useState(null); // State to hold shop data
+  const [owner, setOwner] = useState(null); // State to hold owner data
+  const [shopProducts, setShopProducts] = useState([]); // State to hold products from the same shop
+  const [showOwnerProfile, setShowOwnerProfile] = useState(false);
+
+  const navigate = useNavigate();
 
 	// page related declarations
 	const shopId = product?.seller;
@@ -202,9 +205,15 @@ const ItemPage = () => {
 		}
 	};
 
-	const handleImageClick = (imageUrl) => {
-		setSelectedImage(imageUrl); // Update selected image
-	};
+
+  const handleOwnerAvatarClick = () => {
+    setShowOwnerProfile(true); // Open owner profile popup when owner's avatar is clicked
+  };
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl); // Update selected image
+  };
+
 
 	const randomNumber = Math.floor(Math.random() * (230 - 55 + 1)) + 55;
 
@@ -339,7 +348,7 @@ const ItemPage = () => {
 							{owner ? (
 								<>
 									<div>
-										<div className="item-page-shop-image-owner">
+										<div className="item-page-shop-image-owner" onClick={handleOwnerAvatarClick}>
 											<img
 												src={owner.profile.avatarUrl || placeholder}
 												alt="Owner"
@@ -360,6 +369,7 @@ const ItemPage = () => {
 						</div>
 
 						<div className="owner-shop item-page-btn">
+              <Link className="profile-links" to={`/shop/${product.seller}`}>
 							{shop ? (
 								<>
 									<div className="item-page-shop-image-owner">
@@ -378,6 +388,7 @@ const ItemPage = () => {
 									Visit {shop?.name || "Shop"}
 								</button>
 							</div>
+              </Link>
 						</div>
 					</div>
 				</div>
@@ -429,6 +440,13 @@ const ItemPage = () => {
 						onSave={handleSave}
 					/>
 				)}
+        {showOwnerProfile && owner && (
+          <PublicProfile
+            isOpen={true}
+            onClose={() => setShowOwnerProfile(false)}
+            userId={owner._id}
+          />
+        )}
 				{showSendMessagePopup && product && (
 					<SendMessagePop
 						isOpen={true}
