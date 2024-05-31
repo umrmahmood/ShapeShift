@@ -1,268 +1,296 @@
 .item-page-outter {
-    margin: 2em 8em;
-    padding-top: 200px;
+	margin: 2em 8em;
+	padding-top: 200px;
 }
 
-.item-page-first-container{
-    display: flex;
+.item-page-first-container {
+	display: flex;
 }
 
-.item-page-imagesContainer{
-    display: flex;
-    flex-wrap: wrap;
+.item-page-imagesContainer {
+	display: flex;
+	flex-wrap: wrap;
 }
 
-.item-page-mainImageContainer{
-    width: 600px;
-    height: 500px;   
+.item-page-mainImageContainer {
+	width: 600px;
+	height: 500px;
 }
 
-.item-page-mainImageContainer img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-   
+.item-page-mainImageContainer img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 8px;
 }
 
-.item-page-secondary-images{
-    display: flex;
-    width: 600px;
-    justify-content: space-between;
-    margin-top: 0.5em;
-   
+.item-page-secondary-images {
+	display: flex;
+	width: 600px;
+	justify-content: space-between;
+	margin-top: 0.5em;
 }
 
-.item-page-secondary-images img{
-   width: 100px;
-   height: 100px;
-   object-fit: cover;
-   border-radius: 8px;
-   border: 1px solid rgb(226, 224, 223);
-   cursor: pointer;
+.item-page-secondary-images img {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 8px;
+	border: 1px solid rgb(226, 224, 223);
+	cursor: pointer;
 }
 
-.item-page-imagesContainer{
-  
-    justify-content: center;
-    /* width: 800px; */
-
+.item-page-imagesContainer {
+	justify-content: center;
+	/* width: 800px; */
 }
 
-.item-page-description-container{
-   
-    display: flex;
+.item-page-description-container {
+	display: flex;
 }
 
-.item-page-description-container ul{
-   list-style: none;
+.item-page-description-container ul {
+	list-style: none;
 }
 
-.item-page-admin-buttons-container{
-    display: flex;
-    justify-content: space-evenly;
+.item-page-admin-buttons-container {
+	display: flex;
+	justify-content: space-evenly;
 }
 
-.item-page-admin-buttons{
-    font-family: "proima-nova";
-    padding: 1px 6px;
-    background: rgb(226, 224, 223);
-    border: 1px solid gray;
-    border-radius: 2px;
+.item-page-admin-buttons {
+	font-family: "proima-nova";
+	padding: 1px 6px;
+	background: rgb(226, 224, 223);
+	border: 1px solid gray;
+	border-radius: 2px;
 }
 
 .item-page-admin-buttons:hover {
-    background: #f0f0f0;
+	background: #f0f0f0;
 }
 
-.item-page-price{
-    color: rgb(166,0,2);
-    font-size: 1.7em;
-    font-weight: bold;
-    margin-top: 0.5em;
+.item-page-price {
+	color: rgb(166, 0, 2);
+	font-size: 1.7em;
+	font-weight: bold;
+	margin-top: 0.5em;
 }
 
-.item-page-vat{
-    font-family: "proima-nova";
-    color: gray;
+.item-page-vat {
+	font-family: "proima-nova";
+	color: gray;
 }
 
-.item-page-product-heading{
-    margin-top: 0.5em;
-    font-size: 3em;
-
+.item-page-product-heading {
+	margin-top: 0.5em;
+	font-size: 3em;
 }
 
-.item-page-shopname{
-    margin-top: -1em;
+.item-page-shopname {
+	margin-top: -1em;
 }
 
-.item-page-star-rating{
-    color: gold;
-    margin-top: -1.5em;
+.item-page-star-rating {
+	color: gold;
+	margin-top: -1.5em;
 }
 
-.item-page-other-butons{
-    display: flex;
-    margin-top: 2em;
-   flex-direction: column;
-   align-items: center;
-   
-   
+.item-page-other-butons {
+	display: flex;
+	margin-top: 2em;
+	flex-direction: column;
+	align-items: center;
 }
 
-.item-page-other-butons div{
-    margin-top: 0.5em;
+.item-page-other-butons div {
+	margin-top: 0.5em;
 }
 
-.item-page-buy-now button{
-    padding: 0.5em 10em;
-    font-family: "proima-nova";
-    font-weight: bold;
-    background: white;
-    border-radius: 24px;
+.item-page-buy-now button {
+	padding: 0.5em 10em;
+	font-family: "proima-nova";
+	font-weight: bold;
+	background: white;
+	border-radius: 24px;
 }
 
-.item-page-add-cart button{
-    padding: 0.5em 10em;
-    font-family: "proima-nova";
-    font-weight: bold;
-    background: rgb(0, 0, 0);
-    border-radius: 24px;
-    color: white;
-    border: 1px solid black;
+.item-page-add-cart button {
+	padding: 0.5em 10em;
+	font-family: "proima-nova";
+	font-weight: bold;
+	background: rgb(0, 0, 0);
+	border-radius: 24px;
+	color: white;
+	border: 1px solid black;
 }
 
-.item-page-add-to-fav{
-    display: flex;
-    gap: 0.3em;
+.item-page-add-to-fav {
+	display: flex;
+	gap: 0.3em;
 }
 
-.item-page-add-to-fav:hover{
-    padding: 0.1em 8em;
-    background: rgb(226, 224, 223);
-    border-radius: 24px;
-   
+.item-page-add-to-fav:hover {
+	padding: 0.1em 8em;
+	background: rgb(226, 224, 223);
+	border-radius: 24px;
 }
 
-.item-page-add-to-fav button{
-    border: none;
-    background: none;
-    font-family: "proima-nova";
-    color: black;
-    font-size: 1.1em;
-
+.item-page-add-to-fav button {
+	border: none;
+	background: none;
+	font-family: "proima-nova";
+	color: black;
+	font-size: 1.1em;
 }
 
-.item-page-fav-icon{
-    color: rgb(166,0,2);
-    font-size: 1.2em;
+.item-page-fav-icon {
+	color: rgb(166, 0, 2);
+	font-size: 1.2em;
 }
 
-.item-page-report{
-    color: black;
+.item-page-report {
+	color: black;
 }
 
-.item-page-seller-review{
-    margin-top: 1em;
-    color: gray;
-    font-family: "proima-nova";
+.item-page-seller-review {
+	margin-top: 1em;
+	color: gray;
+	font-family: "proima-nova";
 }
 
-
-.item-page-second-container{
-    display: flex;
-    justify-content: space-evenly;
-    gap:16em;
-    margin-top: 2em;
-   
-    
+.item-page-second-container {
+	display: flex;
+	justify-content: space-evenly;
+	gap: 16em;
 }
 
-.item-page-product-description{
-   width: 600px;
-   align-self: center;
-   padding-left: 3.5em;
-   padding-top: 1em;
+.item-page-second-cont-headings {
+	display: flex;
+	gap: 36em;
+	margin-top: 5em;
+	margin-left: 12em;
+}
+
+.item-page-product-description {
+	width: 600px;
+	align-self: center;
+	padding-left: 3.5em;
+	padding-top: 1em;
+	text-align: justify;
 }
 
 .item-page-contact {
-    display: flex;
-    gap: 6em; 
-    /* background: #f0f0f0;
+	display: flex;
+	gap: 6em;
+	/* background: #f0f0f0;
     padding: 1em; */
 }
 
-.item-page-btn button{
-    font-family: "proima-nova";
-    padding: 1px 6px;
-    background: rgb(226, 224, 223);
-    border: 1px solid gray;
-    border-radius: 2px;
+.item-page-shop-image-owner {
+	width: 100px;
+	height: 100px;
+	border-radius: 8px;
+	object-fit: cover;
 }
 
-.item-page-material{
-    font-family: "proima-nova";
-    color: black;
-    font-size: 1.1em;
-
+.item-page-shop-image-owner img {
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	align-self: center;
 }
 
-.shipping-return-icons-wrapper{
-    margin-top: 3em;
+.owner-shop {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.item-page-otheritems-head{
-    display: inline-block;
-    width: 300px;
-    margin-left: 4em;
+.item-page-profile-links {
+	text-decoration: none;
+	color: black;
 }
 
-.item-page-review-container{
-    display: flex;
-    margin: 4em 10em;
-    color: black;
-    gap: 18em;
-    background: #f0f0f0;
-    padding: 1em;
-    justify-content: space-between;
-    margin-right: 8em;
-    padding-right: 2em;
+.item-page-profile-links:hover {
+	text-decoration: none;
+	color: white;
 }
 
-.item-page-left-review{
-    width: 600px;
+.item-page-btn button {
+	font-family: "proima-nova";
+	padding: 1px 8px;
+	background: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+	border-radius: 24px;
 }
 
-.item-page-reviews-head{
-    margin-left: 0.5em;
+.item-page-btn button:hover {
+	background: black;
+	color: rgb(255, 255, 255);
 }
 
-.FourthMainContainer{
-    margin-left: 2em;
+.item-page-material {
+	font-family: "proima-nova";
+	color: black;
+	font-size: 1.1em;
 }
 
-.item-page-items-from-same{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: left;
-    margin-left: 8em;
+.shipping-return-icons-wrapper {
+	margin-top: 3em;
 }
 
-.digital-other-prod{
-    gap:1em;
-    margin-top: 2em;
+.item-page-otheritems-head {
+	display: inline-block;
+	width: 300px;
+	margin-left: 4em;
 }
 
-.digitial-item-img-cont{
-    gap: 14em;
-    margin-left: 10em;
+.item-page-review-container {
+	display: flex;
+	margin: 4em 10em;
+	color: black;
+	gap: 18em;
+	background: #f0f0f0;
+	padding: 1em;
+	justify-content: space-between;
+	margin-right: 8em;
+	padding-right: 2em;
 }
 
-.digitial-item-img-stl{
-    border: 1px solid #f0f0f0;
+.item-page-left-review {
+	width: 600px;
 }
 
-.digital-prod-des{
-    margin-left: -12em;
+.item-page-reviews-head {
+	margin-left: 0.5em;
+}
+
+.FourthMainContainer {
+	margin-left: 2em;
+}
+
+.item-page-items-from-same {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: left;
+	margin-left: 8em;
+}
+
+.digital-other-prod {
+	gap: 3.5em;
+	margin-top: 2em;
+}
+
+.digitial-item-img-cont {
+	gap: 14em;
+	margin-left: 10em;
+}
+
+.digitial-item-img-stl {
+	border: 1px solid #f0f0f0;
+}
+
+.digital-prod-des {
+	margin-left: -12em;
 }

@@ -23,12 +23,28 @@ const ProductForm = () => {
   });
 
   const [showPopup, setShowPopup] = useState(false);
+  const [isPosting, setIsPosting] = useState(false);
+  const [showValidationPopup, setShowValidationPopup] = useState(false);
 
   const onClickHandler = async (event) => {
     event.preventDefault();
+    setIsPosting(true);
+
+    // Basic validation check
+    const requiredFields = ['name', 'category', 'price', 'image'];
+    const missingFields = requiredFields.filter(field => !product[field]);
+
+    // Check for required fields and if product type is physical, check for material
+    if (missingFields.length > 0 || (product.type === 'physical' && !product.material)) {
+      setShowValidationPopup(true);
+      setIsPosting(false);
+      return;
+    }
+
     try {
       const token = localStorage.getItem("shapeshiftkey");
       const formData = new FormData();
+      
       formData.append("name", product.name);
       formData.append("description", product.description);
       formData.append("category", product.category);
@@ -45,7 +61,7 @@ const ProductForm = () => {
       product.tags.forEach((tag) => {
         formData.append("tags", tag);
       });
-
+    
       await axios.post("http://localhost:5001/api/products/create", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -66,9 +82,12 @@ const ProductForm = () => {
         material: "",
         tags: [],
       });
+    
       setShowPopup(true);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsPosting(false);
     }
   };
 
@@ -79,6 +98,10 @@ const ProductForm = () => {
 
   const handleImageUpload = (e, index) => {
     const file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
     const imageUrl = URL.createObjectURL(file);
 
     const updatedImages = [...product.images];
@@ -117,6 +140,11 @@ const ProductForm = () => {
   const handleClick = () => {
     navigate("/user-shop");
   };
+
+  const handleCloseValidationPopup = () => {
+    setShowValidationPopup(false);
+  };
+
   return (
     <>
       <div className="product-reg-form-outter">
@@ -347,6 +375,15 @@ const ProductForm = () => {
         </div>
       </div>
 
+      {isPosting && (
+        <p className="config-file-posting">
+          Your product is getting posted. Please wait
+          <span className="loading-dots">
+            <span>.</span><span>.</span><span>.</span>
+          </span>
+        </p>
+      )}
+
       {showPopup && (
         <div className="reg-popup">
           <div className="reg-popup-content">
@@ -355,6 +392,16 @@ const ProductForm = () => {
               <button onClick={handlePopupClose}>Add More Items</button>
               <button onClick={handleClick}>Go to My Shop</button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showValidationPopup && (
+        <div className="validation-popup">
+          <div className="validation-popup-content">
+            <h2>Missing Fields</h2>
+            <p>Please fill in all required fields and upload image before submitting.</p>
+            <button onClick={handleCloseValidationPopup}>Close</button>
           </div>
         </div>
       )}
