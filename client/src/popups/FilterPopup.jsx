@@ -3,11 +3,22 @@ import PropTypes from "prop-types";
 import "./PopMenu.css"; // Reuse the CSS file for styling
 import "./FilterPopup.css"; // Add specific styles for filter popup
 
-const FilterPopup = ({ isOpen, onClose }) => {
+const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
   const popupRef = useRef(null);
-  const [location, setLocation] = useState("Anywhere");
-  const [priceRange, setPriceRange] = useState("Any price");
-  const [material, setMaterial] = useState("All");
+  const [location, setLocation] = useState(
+    activeFilters.location || "Anywhere"
+  );
+  const [priceRange, setPriceRange] = useState(
+    activeFilters.priceRange || "Any price"
+  );
+  const [material, setMaterial] = useState(activeFilters.material || "All");
+  const [type, setType] = useState(activeFilters.type || "All");
+  const [minPrice, setMinPrice] = useState(activeFilters.minPrice || "");
+  const [maxPrice, setMaxPrice] = useState(activeFilters.maxPrice || "");
+  const [freeShipping, setFreeShipping] = useState(
+    activeFilters.freeShipping || false
+  );
+  const [onSale, setOnSale] = useState(activeFilters.onSale || false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -25,11 +36,76 @@ const FilterPopup = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleFilter = () => {
-    // Implement the filter logic here
-    console.log("Location:", location);
-    console.log("Price Range:", priceRange);
-    console.log("Material:", material);
+    onApplyFilters({
+      location,
+      priceRange,
+      material,
+      type,
+      minPrice,
+      maxPrice,
+      freeShipping,
+      onSale,
+    });
     onClose();
+  };
+
+  const handleClearFilters = () => {
+    setLocation("Anywhere");
+    setPriceRange("Any price");
+    setMaterial("All");
+    setType("All");
+    setMinPrice("");
+    setMaxPrice("");
+    setFreeShipping(false);
+    setOnSale(false);
+    onApplyFilters({
+      location: "Anywhere",
+      priceRange: "Any price",
+      material: "All",
+      type: "All",
+      minPrice: "",
+      maxPrice: "",
+      freeShipping: false,
+      onSale: false,
+    });
+    onClose();
+  };
+
+  const handleRemoveFilter = (filterKey) => {
+    switch (filterKey) {
+      case "location":
+        setLocation("Anywhere");
+        break;
+      case "priceRange":
+        setPriceRange("Any price");
+        setMinPrice("");
+        setMaxPrice("");
+        break;
+      case "material":
+        setMaterial("All");
+        break;
+      case "type":
+        setType("All");
+        break;
+      case "freeShipping":
+        setFreeShipping(false);
+        break;
+      case "onSale":
+        setOnSale(false);
+        break;
+      default:
+        break;
+    }
+    onApplyFilters({
+      location,
+      priceRange,
+      material,
+      type,
+      minPrice,
+      maxPrice,
+      freeShipping,
+      onSale,
+    });
   };
 
   return (
@@ -52,13 +128,18 @@ const FilterPopup = ({ isOpen, onClose }) => {
             <option value="Custom">Custom</option>
           </select>
           {location === "Custom" && (
-            <>
-              <input
-                type="text"
-                placeholder="Enter location"
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </>
+            <input
+              type="text"
+              placeholder="Enter location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            />
+          )}
+          {location !== "Anywhere" && (
+            <div className="filter-tag">
+              Location: {location}{" "}
+              <button onClick={() => handleRemoveFilter("location")}>x</button>
+            </div>
           )}
         </div>
         <div className="filter-section">
@@ -79,15 +160,25 @@ const FilterPopup = ({ isOpen, onClose }) => {
               <input
                 type="number"
                 placeholder="Enter minimum price"
-                onChange={(e) => setPriceRange(e.target.value)}
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
               />
               to
               <input
                 type="number"
                 placeholder="Enter maximum price"
-                onChange={(e) => setPriceRange(e.target.value)}
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
               />
             </>
+          )}
+          {priceRange !== "Any price" && (
+            <div className="filter-tag">
+              Price: {priceRange}{" "}
+              <button onClick={() => handleRemoveFilter("priceRange")}>
+                x
+              </button>
+            </div>
           )}
         </div>
         <div className="filter-section">
@@ -97,19 +188,83 @@ const FilterPopup = ({ isOpen, onClose }) => {
             onChange={(e) => setMaterial(e.target.value)}
           >
             <option value="All">All</option>
-            <option value="Physical items">Physical items</option>
-            <option value="Digital downloads">Digital downloads</option>
+            <option value="PLA">PLA</option>
+            <option value="ABS">ABS</option>
+            <option value="PETG">PETG</option>
+            <option value="TPU">TPU</option>
+            <option value="TPE">TPE</option>
+            <option value="TPC">TPC</option>
+            <option value="Nylon">Nylon</option>
+            <option value="ASA">ASA</option>
+            <option value="PVB">PVB</option>
+            <option value="HIPS">HIPS</option>
+            <option value="PVA">PVA</option>
+            <option value="PC">PC</option>
+            <option value="PEI">PEI</option>
+            <option value="PEEK">PEEK</option>
+            <option value="PEKK">PEKK</option>
+            <option value="PVDF">PVDF</option>
+            <option value="PPSU">PPSU</option>
+            <option value="Resins">Resins</option>
+            <option value="Ceramics">Ceramics</option>
+            <option value="Silicone">Silicone</option>
+            <option value="Metals">Metals</option>
           </select>
+          {material !== "All" && (
+            <div className="filter-tag">
+              Material: {material}{" "}
+              <button onClick={() => handleRemoveFilter("material")}>x</button>
+            </div>
+          )}
         </div>
         <div className="filter-section">
-          <input type="checkbox" id="freeShipping" />
+          <label>Type</label>
+          <select value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="All">All</option>
+            <option value="Physical">Physical</option>
+            <option value="Digital">Digital</option>
+          </select>
+          {type !== "All" && (
+            <div className="filter-tag">
+              Type: {type}{" "}
+              <button onClick={() => handleRemoveFilter("type")}>x</button>
+            </div>
+          )}
+        </div>
+        <div className="filter-section">
+          <input
+            type="checkbox"
+            id="freeShipping"
+            checked={freeShipping}
+            onChange={(e) => setFreeShipping(e.target.checked)}
+          />
           <label htmlFor="freeShipping">FREE shipping</label>
+          {freeShipping && (
+            <div className="filter-tag">
+              Free Shipping{" "}
+              <button onClick={() => handleRemoveFilter("freeShipping")}>
+                x
+              </button>
+            </div>
+          )}
         </div>
         <div className="filter-section">
-          <input type="checkbox" id="onSale" />
+          <input
+            type="checkbox"
+            id="onSale"
+            checked={onSale}
+            onChange={(e) => setOnSale(e.target.checked)}
+          />
           <label htmlFor="onSale">On sale</label>
+          {onSale && (
+            <div className="filter-tag">
+              On Sale{" "}
+              <button onClick={() => handleRemoveFilter("onSale")}>x</button>
+            </div>
+          )}
         </div>
         <button onClick={handleFilter}>Apply Filters</button>
+        <button onClick={handleClearFilters}>Clear Filters</button>
       </div>
     </div>
   );
@@ -118,6 +273,8 @@ const FilterPopup = ({ isOpen, onClose }) => {
 FilterPopup.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  onApplyFilters: PropTypes.func.isRequired,
+  activeFilters: PropTypes.object.isRequired,
 };
 
 export default FilterPopup;

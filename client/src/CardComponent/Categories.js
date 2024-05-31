@@ -102,14 +102,13 @@
 //   );
 // };
 
-// export default Categories;
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./categories2.css";
 import Card from "./Card";
 import advert from "../../src/assets/market-place-banner-wide.jpg";
 import shopAdvert from "../../src/assets/banner 6.jpg";
-import FilterPopup from "../popups/FilterPopup.jsx"; // Import the new FilterPopup component
+import FilterPopup from "../popups/FilterPopup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
@@ -128,7 +127,8 @@ const Categories = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false); // State for the filter popup
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeFilters, setActiveFilters] = useState({});
 
   useEffect(() => {
     axios
@@ -139,6 +139,10 @@ const Categories = () => {
       })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
+
+  useEffect(() => {
+    applyActiveFilters(activeFilters);
+  }, [activeFilters, products]);
 
   const filterByCategory = (category) => {
     if (category === "All Items") {
@@ -163,6 +167,68 @@ const Categories = () => {
 
   const toggleFilterPopup = () => {
     setIsFilterOpen(!isFilterOpen);
+  };
+
+  const applyFilters = (filters) => {
+    setActiveFilters(filters);
+  };
+
+  const applyActiveFilters = (filters) => {
+    let filtered = [...products];
+    if (filters) {
+      if (filters.location && filters.location !== "Anywhere") {
+        filtered = filtered.filter(
+          (product) =>
+            product.location.toLowerCase() === filters.location.toLowerCase()
+        );
+      }
+      if (filters.priceRange && filters.priceRange !== "Any price") {
+        if (filters.priceRange === "Under 25") {
+          filtered = filtered.filter((product) => product.price < 25);
+        } else if (filters.priceRange === "25 to 50") {
+          filtered = filtered.filter(
+            (product) => product.price >= 25 && product.price <= 50
+          );
+        } else if (filters.priceRange === "50 to 100") {
+          filtered = filtered.filter(
+            (product) => product.price >= 50 && product.price <= 100
+          );
+        } else if (filters.priceRange === "Over 100") {
+          filtered = filtered.filter((product) => product.price > 100);
+        } else if (filters.priceRange === "Custom") {
+          filtered = filtered.filter(
+            (product) =>
+              product.price >= (filters.minPrice || 0) &&
+              product.price <= (filters.maxPrice || Number.MAX_VALUE)
+          );
+        }
+      }
+      if (filters.material && filters.material !== "All") {
+        filtered = filtered.filter(
+          (product) =>
+            Array.isArray(product.material) &&
+            product.material.some(
+              (mat) => mat.toLowerCase() === filters.material.toLowerCase()
+            )
+        );
+      }
+      if (filters.type && filters.type !== "All") {
+        filtered = filtered.filter(
+          (product) => product.type.toLowerCase() === filters.type.toLowerCase()
+        );
+      }
+      if (filters.freeShipping) {
+        filtered = filtered.filter((product) => product.freeShipping);
+      }
+      if (filters.onSale) {
+        filtered = filtered.filter((product) => product.onSale);
+      }
+    }
+    setFilteredProducts(filtered);
+  };
+
+  const clearFilters = () => {
+    setActiveFilters({});
   };
 
   return (
@@ -210,9 +276,13 @@ const Categories = () => {
         ))}
       </div>
       {isFilterOpen && (
-        <FilterPopup isOpen={isFilterOpen} onClose={toggleFilterPopup} />
-      )}{" "}
-      {/* Render the filter popup */}
+        <FilterPopup
+          isOpen={isFilterOpen}
+          onClose={toggleFilterPopup}
+          onApplyFilters={applyFilters}
+          activeFilters={activeFilters}
+        />
+      )}
     </div>
   );
 };
