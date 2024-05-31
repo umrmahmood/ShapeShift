@@ -17,7 +17,17 @@ const ProductSchema = new Schema(
     },
 
     // Category reference for the product
-    // category: { type: Schema.Types.ObjectId, ref: "Category" },
+    category: {
+      type: String,
+      enum: [
+        "transportation",
+        "homedeco",
+        "jewelry",
+        "accessory",
+        "tools",
+        "toys",
+      ],
+    },
 
     // Price of the product, required and must be a non-negative number
     price: { type: Number, required: true, min: 0 },
