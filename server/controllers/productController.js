@@ -294,6 +294,26 @@ const ProductController = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
+
+  getProductsByCategory: async (req, res) => {
+    const category = req.params.category;
+
+    try {
+        // Find products by category
+        const products = await Product.find({ category });
+
+        if (!products || products.length === 0) {
+            return res
+                .status(404)
+                .json({ message: "Products not found for this category" });
+        }
+        res.status(200).json(products);
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ message: "Error retrieving products" });
+    }
+},
 };
 
 export default ProductController;

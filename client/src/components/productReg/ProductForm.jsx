@@ -6,6 +6,8 @@ import axios from "axios";
 import "../../styling/popupwindowshop.css";
 import { useNavigate } from "react-router-dom";
 
+const categories = ["Transportation", "Home deco", "Jewelry", "Accessories", "Tools", "Toys"];
+
 const ProductForm = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState({
@@ -31,7 +33,7 @@ const ProductForm = () => {
     setIsPosting(true);
 
     // Basic validation check
-    const requiredFields = ['name', 'category', 'price', 'image'];
+    const requiredFields = ['name', 'category', 'price'];
     const missingFields = requiredFields.filter(field => !product[field]);
 
     // Check for required fields and if product type is physical, check for material
@@ -145,20 +147,28 @@ const ProductForm = () => {
     setShowValidationPopup(false);
   };
 
+  const handleCategorySelect = (category) => {
+    setProduct({ ...product, category });
+  };
+
   return (
     <>
       <div className="product-reg-form-outter">
         <h1>Tell us about your listing</h1>
         <form className="product-reg-form">
-          <label>
-            Category
-            <input
-              type="text"
-              name="category"
-              value={product.category}
-              onChange={handleChange}
-            />
-          </label>
+          <label>Category</label>
+          <div className="category-buttons">
+            {categories.map((cat) => (
+              <button
+                type="button"
+                key={cat}
+                className={`category-button ${product.category === cat ? 'selected' : ''}`}
+                onClick={() => handleCategorySelect(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
 
           <label>
             Product Name
@@ -410,3 +420,4 @@ const ProductForm = () => {
 };
 
 export default ProductForm;
+

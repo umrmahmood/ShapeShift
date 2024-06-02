@@ -20,12 +20,12 @@ const ProductSchema = new Schema(
     category: {
       type: String,
       enum: [
-        "transportation",
-        "homedeco",
-        "jewelry",
-        "accessory",
-        "tools",
-        "toys",
+        "Transportation",
+        "Home deco",
+        "Jewelry",
+        "Accessories",
+        "Tools",
+        "Toys",
       ],
     },
 

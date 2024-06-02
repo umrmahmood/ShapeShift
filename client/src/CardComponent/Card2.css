@@ -72,3 +72,15 @@
 .feature-button:hover {
     cursor: pointer;
 }
+
+.hamburger-button{
+    border: none;
+    background: none;
+    padding: 0.5em 1em;
+}
+
+.hamburger-button:hover{
+    color: rgb(166, 0, 2);
+    background: rgb(224,226,223);
+    border-radius: 8px;
+}
