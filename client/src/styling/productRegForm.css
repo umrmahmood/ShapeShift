@@ -159,3 +159,23 @@
 	object-fit: cover; 
 	/* object-fit: contain;  */
 }
+
+.category-button {
+	border: 1px solid #ccc;
+	background-color: white;
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 0.9em;
+  }
+  
+  .category-button.selected {
+	background-color: rgb(224,226,223);
+  }
+
+  .category-buttons{
+	display: flex;
+	justify-content: center;
+	gap:20px;
+	
+  }

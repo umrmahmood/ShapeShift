@@ -128,10 +128,10 @@
 .item-page-add-to-fav {
 	display: flex;
 	gap: 0.3em;
+	padding: 0.1em 8em;
 }
 
 .item-page-add-to-fav:hover {
-	padding: 0.1em 8em;
 	background: rgb(226, 224, 223);
 	border-radius: 24px;
 }
@@ -199,6 +199,7 @@
 	height: 100%;
 	border-radius: 8px;
 	align-self: center;
+	cursor: pointer;
 }
 
 .owner-shop {

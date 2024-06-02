@@ -18,6 +18,9 @@ router.get("/", ProductController.getAllProducts);
 // Route for searching products
 router.get("/search", ProductController.searchProducts);
 
+// Route for searching products by category
+router.get('/category/:category', ProductController.getProductsByCategory)
+
 // Route for fetching products by seller ID
 router.get(
   "/random/:shopId/random-products",
