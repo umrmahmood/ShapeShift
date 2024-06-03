@@ -1,0 +1,41 @@
+.team-outter-container {
+    margin: 12em 12em ;
+}
+
+/* .team-card-img-container {
+    width: 250px;
+    height: 250px;
+    
+}
+
+.team-card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+} */
+
+.team-card-bg {
+    width: 200px;
+    height: 200px; /* shorter height to show image height difference */
+    background-color: rgb(202, 202, 202);
+    position: relative;
+    border-radius: 50%; 
+    overflow: hidden;
+}
+
+.team-card-img-container {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    top: -20px; /* adjust to move the image container up */
+    left: -30px;
+    z-index: 1;
+   
+}
+
+.team-card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+     border-radius: 50%;
+    }

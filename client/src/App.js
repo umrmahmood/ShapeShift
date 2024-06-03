@@ -27,6 +27,7 @@ import Payment from "./components/Payment/index.jsx";
 import DigitalItemPage from "./components/digitals/SingleDigital.jsx";
 import DigitalListings from "./components/digitals/DigitalListings.jsx";
 import SearchResultPage from "./components/SearchResultPage.jsx";
+import OurTeam from "./components/OurTeam/OurTeam.jsx";
 
 
 function ScrollToTop() {
@@ -82,6 +83,7 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/digital/" element={<DigitalListings />} />
           <Route path="/search" element={<SearchResultPage />} />
+          {/* <Route path="/team" element={<OurTeam />} /> */}
         </Routes>
         <Footer />
       </div>
