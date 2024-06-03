@@ -29,7 +29,6 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
         setRecipientDisplayName(recipientData.displayName);
       }
     };
-
     fetchRecipientDisplayName();
   }, [recipientId]);
 
@@ -68,8 +67,7 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
       alert("Enter a valid message");
       return;
     }
-
-    const { uid, displayName, photoURL } = auth.currentUser;
+    const { uid, displayName } = auth.currentUser;
     let convId = conversationId;
 
     if (!conversationId) {
@@ -77,11 +75,9 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
         collection(fireDB, "conversations"),
         where("participantIds", "array-contains", uid)
       );
-
       const existingConversationSnapshot = await getDocs(
         existingConversationQuery
       );
-
       const existingConversation = existingConversationSnapshot.docs.find(
         (doc) => doc.data().participantIds.includes(recipientId)
       );
@@ -99,19 +95,18 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
           },
           lastUpdatedAt: serverTimestamp(),
           participants: [
-            { uid, displayName, photoURL },
-            { uid: recipientId, displayName: recipientDisplayName, photoURL },
+            { uid, displayName },
+            { uid: recipientId, displayName: recipientDisplayName },
           ],
           participantIds: [uid, recipientId],
+          readStatus: { [uid]: true, [recipientId]: false },
         });
         convId = newConversationRef.id;
       } else {
         convId = existingConversation.id;
       }
     }
-
     const messagesCollectionRef = collection(fireDB, "messages");
-
     await addDoc(messagesCollectionRef, {
       conversationId: convId,
       message,
@@ -129,6 +124,8 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
       lastUpdatedAt: serverTimestamp(),
       [`readStatus.${recipientId}`]: false,
     });
+
+    console.log("Message sent:", message);
 
     setMessage("");
     if (scroll && scroll.current) {
@@ -156,5 +153,4 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
     </form>
   );
 };
-
 export default SendMessage;
