@@ -6,216 +6,236 @@ import axios from "axios";
 import MyProfile from "../popups/MyProfile.jsx";
 import MyShop from "../popups/MyShop.jsx";
 import ShoppingCart from "../popups/CartPop.jsx";
+import MenuItems from "../popups/MenuItems.jsx";
 
 import logo from "../assets/SSlogo.png";
 import smallLogo from "../assets/SSlogo-small.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBag, faShop } from "@fortawesome/free-solid-svg-icons";
+import {
+	faShoppingBag,
+	faShop,
+	faBars,
+} from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "../styling/navbar.css";
 
 const Navbar = ({ onLoginClick }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [highlightedIndex, setHighlightedIndex] = useState(-1); // New state for highlighted suggestion
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
-  const [isMyShopOpen, setIsMyShopOpen] = useState(false);
-  const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [searchResults, setSearchResults] = useState([]);
+	const [highlightedIndex, setHighlightedIndex] = useState(-1); // New state for highlighted suggestion
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
+	const [isMyProfileOpen, setIsMyProfileOpen] = useState(false);
+	const [isMyShopOpen, setIsMyShopOpen] = useState(false);
+	const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
+	const [menuItems, setMenuItems] = useState(false);
 
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const handleScroll = () => {
-    const offset = window.scrollY;
-    if (offset > 100) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  };
+	const handleScroll = () => {
+		const offset = window.scrollY;
+		if (offset > 100) {
+			setIsScrolled(true);
+		} else {
+			setIsScrolled(false);
+		}
+	};
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+	useEffect(() => {
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
-  const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
-  let haveShop = false;
+	const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
+	let haveShop = false;
 
-  if (tokenFromLocalStorage) {
-    const decodedToken = jwtDecode(tokenFromLocalStorage);
-    haveShop = decodedToken.membership.haveShop;
-  }
+	if (tokenFromLocalStorage) {
+		const decodedToken = jwtDecode(tokenFromLocalStorage);
+		haveShop = decodedToken.membership.haveShop;
+	}
 
-  const onSellClick = () => {
-    if (haveShop) {
-      navigate("/product-form");
-    } else {
-      navigate("/openshop");
-    }
-  };
+	const onSellClick = () => {
+		if (haveShop) {
+			navigate("/product-form");
+		} else {
+			navigate("/openshop");
+		}
+	};
 
-  const toggleMyProfile = () => {
-    setIsMyProfileOpen((prev) => !prev);
-  };
+	const toggleMyProfile = () => {
+		setIsMyProfileOpen((prev) => !prev);
+	};
 
-  const toggleMyShop = () => {
-    setIsMyShopOpen((prev) => !prev);
-  };
+	const toggleMenuItems = () => {
+		setMenuItems((prev) => !prev);
+	};
 
-  const toggleShoppingCart = () => {
-    setIsShoppingCartOpen((prev) => !prev);
-  };
+	const toggleMyShop = () => {
+		setIsMyShopOpen((prev) => !prev);
+	};
 
-  useEffect(() => {
-    const token = localStorage.getItem("shapeshiftkey");
-    setIsLoggedIn(!!token);
-  }, [tokenFromLocalStorage]);
+	const toggleShoppingCart = () => {
+		setIsShoppingCartOpen((prev) => !prev);
+	};
 
-  const handleSearchChange = (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    setHighlightedIndex(-1); // Reset highlighted index when search query changes
+	useEffect(() => {
+		const token = localStorage.getItem("shapeshiftkey");
+		setIsLoggedIn(!!token);
+	}, [tokenFromLocalStorage]);
 
-    if (query.trim() !== "") {
-      axios
-        .get(`/api/products/search?q=${encodeURIComponent(query)}`)
-        .then((response) => {
-          setSearchResults(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching search results:", error);
-          setSearchResults([]);
-        });
-    } else {
-      setSearchResults([]);
-    }
-  };
+	const handleSearchChange = (e) => {
+		const query = e.target.value;
+		setSearchQuery(query);
+		setHighlightedIndex(-1); // Reset highlighted index when search query changes
 
-  const handleSearchKeyPress = (e) => {
-    if (e.key === "Enter") {
-      if (highlightedIndex >= 0) {
-        handleSuggestionClick(searchResults[highlightedIndex]);
-      } else if (searchQuery.trim() !== "") {
-        navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-        setSearchQuery("");
-        setSearchResults([]);
-      }
-    } else if (e.key === "ArrowDown") {
-      setHighlightedIndex((prevIndex) =>
-        prevIndex < searchResults.length - 1 ? prevIndex + 1 : 0
-      );
-    } else if (e.key === "ArrowUp") {
-      setHighlightedIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : searchResults.length - 1
-      );
-    }
-  };
+		if (query.trim() !== "") {
+			axios
+				.get(`/api/products/search?q=${encodeURIComponent(query)}`)
+				.then((response) => {
+					setSearchResults(response.data);
+				})
+				.catch((error) => {
+					console.error("Error fetching search results:", error);
+					setSearchResults([]);
+				});
+		} else {
+			setSearchResults([]);
+		}
+	};
 
-  const handleSuggestionClick = (suggestion) => {
-    const query = suggestion.name;
-    setSearchQuery(""); // Clear the search input
-    setSearchResults([]); // Clear the search results
-    navigate(`/search?q=${encodeURIComponent(query)}`);
-  };
+	const handleSearchKeyPress = (e) => {
+		if (e.key === "Enter") {
+			if (highlightedIndex >= 0) {
+				handleSuggestionClick(searchResults[highlightedIndex]);
+			} else if (searchQuery.trim() !== "") {
+				navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+				setSearchQuery("");
+				setSearchResults([]);
+			}
+		} else if (e.key === "ArrowDown") {
+			setHighlightedIndex((prevIndex) =>
+				prevIndex < searchResults.length - 1 ? prevIndex + 1 : 0
+			);
+		} else if (e.key === "ArrowUp") {
+			setHighlightedIndex((prevIndex) =>
+				prevIndex > 0 ? prevIndex - 1 : searchResults.length - 1
+			);
+		}
+	};
 
-  return (
-    <>
-      <div className={`Navbar-container ${isScrolled ? "small" : ""}`}>
-        <div className="nav-logo">
-          <a href="/">
-            <img src={isScrolled ? smallLogo : logo} alt="Logo" />
-          </a>
-        </div>
-        <div className="nav-search">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            onKeyDown={handleSearchKeyPress} // Use onKeyDown to capture arrow keys
-            placeholder="Search..."
-          />
-          {searchResults.length > 0 && (
-            <div className="search-results">
-              {searchResults.map((result, index) => (
-                <div
-                  key={result._id}
-                  className={`search-result-item ${
-                    index === highlightedIndex ? "highlighted" : ""
-                  }`}
-                  onClick={() => handleSuggestionClick(result)}
-                >
-                  {result.name}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-        <div className="nav-icons">
-          <li className="navbar-login-btn">
-            <button
-              onClick={onLoginClick}
-              style={{ border: isLoggedIn ? "none" : "1px solid black" }}
-            >
-              {isLoggedIn ? "" : "Login"}
-            </button>
-          </li>
+	const handleSuggestionClick = (suggestion) => {
+		const query = suggestion.name;
+		setSearchQuery(""); // Clear the search input
+		setSearchResults([]); // Clear the search results
+		navigate(`/search?q=${encodeURIComponent(query)}`);
+	};
 
-          {isLoggedIn && (
-            <>
-              <div className="navbar-conditional-icon">
-                <div className="navbar-sell-btn nav-sell-btn">
-                  <button onClick={onSellClick}>Sell</button>
-                </div>
-                <li>
-                  <div
-                    className="profile-icon icon-pointer"
-                    onClick={toggleMyProfile}
-                  >
-                    <FontAwesomeIcon icon={faUser} />
-                  </div>
-                  <MyProfile
-                    isOpen={isMyProfileOpen}
-                    onClose={toggleMyProfile}
-                  />
-                </li>
+	return (
+		<>
+			<div className={`Navbar-container ${isScrolled ? "small" : ""}`}>
+				<div className="nav-logo">
+					<a href="/">
+						<img src={isScrolled ? smallLogo : logo} alt="Logo" />
+					</a>
+				</div>
+				<div className="nav-search">
+					<input
+						type="text"
+						value={searchQuery}
+						onChange={handleSearchChange}
+						onKeyDown={handleSearchKeyPress} // Use onKeyDown to capture arrow keys
+						placeholder="Search..."
+					/>
+					{searchResults.length > 0 && (
+						<div className="search-results">
+							{searchResults.map((result, index) => (
+								<div
+									key={result._id}
+									className={`search-result-item ${
+										index === highlightedIndex ? "highlighted" : ""
+									}`}
+									onClick={() => handleSuggestionClick(result)}
+								>
+									{result.name}
+								</div>
+							))}
+						</div>
+					)}
+				</div>
+				<div className="nav-icons">
+					<li className="navbar-login-btn">
+						<button
+							onClick={onLoginClick}
+							style={{ border: isLoggedIn ? "none" : "1px solid black" }}
+						>
+							{isLoggedIn ? "" : "Login"}
+						</button>
+					</li>
+		
 
-                {haveShop && (
-                  <li>
-                    <div
-                      className="shop-icon icon-pointer"
-                      onClick={toggleMyShop}
-                    >
-                      <FontAwesomeIcon icon={faShop} />
-                    </div>
-                    <MyShop isOpen={isMyShopOpen} onClose={toggleMyShop} />
-                  </li>
-                )}
-              </div>
-            </>
-          )}
+					{isLoggedIn && (
+						<>
+							<div className="navbar-conditional-icon">
+								<div className="navbar-sell-btn nav-sell-btn">
+									<button onClick={onSellClick}>Sell</button>
+								</div>
+								<li>
+									<div
+										className="profile-icon icon-pointer"
+										onClick={toggleMyProfile}
+									>
+										<FontAwesomeIcon icon={faUser} />
+									</div>
+									<MyProfile
+										isOpen={isMyProfileOpen}
+										onClose={toggleMyProfile}
+									/>
+								</li>
 
+								{haveShop && (
+									<li>
+										<div
+											className="shop-icon icon-pointer"
+											onClick={toggleMyShop}
+										>
+											<FontAwesomeIcon icon={faShop} />
+										</div>
+										<MyShop isOpen={isMyShopOpen} onClose={toggleMyShop} />
+									</li>
+								)}
+							</div>
+						</>
+					)}
+
+					<li>
+						<div
+							className="shopping-icon icon-pointer"
+							onClick={toggleShoppingCart}
+						>
+							<FontAwesomeIcon icon={faShoppingBag} />
+						</div>
+						<ShoppingCart
+							isOpen={isShoppingCartOpen}
+							onClose={toggleShoppingCart}
+						/>
+					</li>
           <li>
-            <div
-              className="shopping-icon icon-pointer"
-              onClick={toggleShoppingCart}
-            >
-              <FontAwesomeIcon icon={faShoppingBag} />
-            </div>
-            <ShoppingCart
-              isOpen={isShoppingCartOpen}
-              onClose={toggleShoppingCart}
-            />
-          </li>
-        </div>
-      </div>
-    </>
-  );
+						<div
+							className="profile-icon icon-pointer"
+							onClick={toggleMenuItems}
+						>
+							<FontAwesomeIcon icon={faBars} />
+						</div>
+						<MenuItems isOpen={menuItems} onClose={toggleMenuItems} />
+					</li>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Navbar;
