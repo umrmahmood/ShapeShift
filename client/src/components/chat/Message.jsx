@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import {
   collection,
   query,
   where,
   orderBy,
   onSnapshot,
+  updateDoc,
+  doc,
 } from "firebase/firestore";
 import { fireDB } from "../Firebase";
 import AuthContext from "../AuthContext";
@@ -13,6 +15,7 @@ import "./bubbleStyle.css";
 const Message = ({ conversationId }) => {
   const [messages, setMessages] = useState([]);
   const { currentUser } = useContext(AuthContext);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const messagesRef = collection(fireDB, "messages");
@@ -28,10 +31,25 @@ const Message = ({ conversationId }) => {
         ...doc.data(),
       }));
       setMessages(messageList);
+
+      // Scroll to the most recent message
+      if (scrollRef.current) {
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
+      }
     });
 
     return () => unsubscribe();
   }, [conversationId]);
+
+  useEffect(() => {
+    const updateReadStatus = async () => {
+      const conversationRef = doc(fireDB, "conversations", conversationId);
+      await updateDoc(conversationRef, {
+        [`readStatus.${currentUser.uid}`]: true,
+      });
+    };
+    updateReadStatus();
+  }, [conversationId, messages, currentUser.uid]);
 
   return (
     <div className="chat-container">
@@ -46,6 +64,13 @@ const Message = ({ conversationId }) => {
           <p className="message-text">{message.message}</p>
           <p className="timestamp">
             {new Date(message.timestamp?.toDate()).toLocaleTimeString()}
+          </p>
+          <p className="status">
+            {message.senderId === currentUser.uid
+              ? message.readBy?.length > 1
+                ? "Read"
+                : "Sent"
+              : ""}
           </p>
           <div
             className={
@@ -63,6 +88,7 @@ const Message = ({ conversationId }) => {
           ></div>
         </div>
       ))}
+      <div ref={scrollRef}></div>
     </div>
   );
 };
