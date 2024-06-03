@@ -1,41 +1,78 @@
 .team-outter-container {
-    margin: 12em 12em ;
+	margin: 12em 12em;
 }
 
-/* .team-card-img-container {
-    width: 250px;
-    height: 250px;
-    
+.team-card-outermost-wrapper {
+	display: flex;
+	gap: 4em;
+	justify-content: center;
+	margin-top: 2em;
 }
-
-.team-card-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-} */
+.team-card-outer {
+	width: 300px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
 
 .team-card-bg {
-    width: 200px;
-    height: 200px; /* shorter height to show image height difference */
-    background-color: rgb(202, 202, 202);
-    position: relative;
-    border-radius: 50%; 
-    overflow: hidden;
+	width: 200px;
+	height: 200px;
+	background-color: rgb(224, 226, 223);
+	position: relative;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 .team-card-img-container {
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    top: -20px; /* adjust to move the image container up */
-    left: -30px;
-    z-index: 1;
-   
+	width: 250px;
+	height: 250px;
+	position: absolute;
+	top: -10px;
+	left: -35px;
+	z-index: 1;
 }
 
 .team-card-img-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-     border-radius: 50%;
-    }
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	border-radius: 50%;
+}
+
+.team-card-description {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.team-card-icons {
+	list-style: none;
+	display: flex;
+	gap: 2em;
+}
+
+.team-card-icons li a {
+	color: rgb(151, 151, 151);
+}
+
+.paul-adj {
+	top: 10px;
+	left: -20px;
+}
+
+.nadia-adj {
+	left: -20px;
+}
+
+.meet-team-para {
+	color: darkred;
+	text-align: center;
+	font-size: 2.2em;
+	font-family: "Bebas Neue", sans-serif;
+}
+
+.meet-team-head {
+	text-align: center;
+	margin-left: -10px;
+}

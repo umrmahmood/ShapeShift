@@ -83,7 +83,7 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/digital/" element={<DigitalListings />} />
           <Route path="/search" element={<SearchResultPage />} />
-          {/* <Route path="/team" element={<OurTeam />} /> */}
+          <Route path="/team" element={<OurTeam />} />
         </Routes>
         <Footer />
       </div>

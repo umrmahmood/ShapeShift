@@ -1,5 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faPlus,
+	faPeopleGroup,
+	faCube,
+	faShop,
+	faHouse,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { useNavigate, Link } from "react-router-dom";
 
@@ -52,6 +60,9 @@ const MenuItems = ({ isOpen, onClose }) => {
 			>
 				<ul className="profile-popup-ul">
 					<li>
+						<div className="icon-wrapper">
+							<FontAwesomeIcon icon={faHouse} />
+						</div>
 						<Link
 							className="text-wrapper profile-links"
 							to="/"
@@ -64,6 +75,9 @@ const MenuItems = ({ isOpen, onClose }) => {
 					</li>
 
 					<li>
+						<div className="icon-wrapper">
+							<FontAwesomeIcon icon={faShop} />
+						</div>
 						<Link
 							className="text-wrapper profile-links"
 							to="/home"
@@ -75,6 +89,9 @@ const MenuItems = ({ isOpen, onClose }) => {
 						</Link>
 					</li>
 					<li>
+						<div className="icon-wrapper">
+							<FontAwesomeIcon icon={faCube} />
+						</div>
 						<Link
 							className="text-wrapper profile-links"
 							to="/digital"
@@ -86,6 +103,9 @@ const MenuItems = ({ isOpen, onClose }) => {
 						</Link>
 					</li>
 					<li>
+						<div className="icon-wrapper">
+							<FontAwesomeIcon icon={faPlus} />
+						</div>
 						<Link
 							className="text-wrapper profile-links"
 							to="/config"
@@ -96,15 +116,18 @@ const MenuItems = ({ isOpen, onClose }) => {
 							Post Inquiry
 						</Link>
 					</li>
-                    <li>
+					<li>
+						<div className="icon-wrapper">
+							<FontAwesomeIcon icon={faPeopleGroup} />
+						</div>
 						<Link
 							className="text-wrapper profile-links"
-							to="/"
+							to="/team"
 							onClick={(e) => {
 								onClose();
 							}}
 						>
-							Contact
+							Our Team
 						</Link>
 					</li>
 				</ul>
