@@ -35,8 +35,8 @@ const SendMessagePop = ({
   const sendMessage = async (event) => {
     event.preventDefault();
 
-    if (!recipient.firebaseId) {
-      console.log("Recipient firebaseId is missing");
+    if (!recipient) {
+      console.log("Recipient is missing");
       return;
     }
 
@@ -83,6 +83,7 @@ const SendMessagePop = ({
           },
         ],
         participantIds: [uid, recipient.firebaseId],
+        readStatus: { [uid]: true, [recipient.firebaseId]: false },
       });
       convId = newConversationRef.id;
     } else {
@@ -100,6 +101,7 @@ const SendMessagePop = ({
       recipientId: recipient.firebaseId,
       status: "sent",
       timestamp: serverTimestamp(),
+      readBy: [uid], // Initialize with sender's uid
     });
 
     // Update last message in conversation document
@@ -107,6 +109,7 @@ const SendMessagePop = ({
     await updateDoc(conversationRef, {
       lastMessage: { message, senderId: uid, timestamp: serverTimestamp() },
       lastUpdatedAt: serverTimestamp(),
+      [`readStatus.${recipient.firebaseId}`]: false,
     });
 
     setMessage("");
