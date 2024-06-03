@@ -1,17 +1,28 @@
 // MessagePage.jsx
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
-import { fireDB } from "../Firebase.jsx";
-import AuthContext from "../AuthContext.jsx";
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  where,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
+import { fireDB } from "../Firebase";
+import AuthContext from "../AuthContext";
 import "./chatStyle.css";
-import UserChats from "./UserChats.jsx";
-import Message from "./Message.jsx";
-import SendMessage from "./SendMessage.jsx";
+import UserChats from "./UserChats";
+import Message from "./Message";
+import SendMessage from "./SendMessage";
 
 const MessagePage = () => {
   const [selectedConversation, setSelectedConversation] = useState(null);
   const [otherUserId, setOtherUserId] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [otherUserTyping, setOtherUserTyping] = useState(false);
+  const [lastOnline, setLastOnline] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { currentUser } = useContext(AuthContext);
   const scrollRef = useRef(null);
 
@@ -55,6 +66,22 @@ const MessagePage = () => {
     fetchChats();
   }, [currentUser]);
 
+  useEffect(() => {
+    if (otherUserId) {
+      const otherUserStatusRef = doc(fireDB, "users", otherUserId);
+
+      const unsubscribe = onSnapshot(otherUserStatusRef, (doc) => {
+        const data = doc.data();
+        if (data) {
+          setOtherUserTyping(data.typing);
+          setLastOnline(data.lastOnline);
+        }
+      });
+
+      return () => unsubscribe();
+    }
+  }, [otherUserId]);
+
   const selectChat = (conversationId, otherUserId) => {
     setSelectedConversation(conversationId);
     setOtherUserId(otherUserId);
@@ -76,6 +103,13 @@ const MessagePage = () => {
       <div className="message-area">
         {selectedConversation ? (
           <>
+            <div className="typing-status">
+              {otherUserTyping
+                ? `${otherUserId} is typing...`
+                : `Last online: ${new Date(
+                    lastOnline?.toDate()
+                  ).toLocaleString()}`}
+            </div>
             <div className="message-display">
               <Message conversationId={selectedConversation} />
               <div ref={scrollRef}></div>
