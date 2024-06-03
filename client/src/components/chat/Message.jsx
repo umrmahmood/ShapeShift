@@ -92,20 +92,22 @@ const Message = ({ conversationId, scrollRef }) => {
         >
           <p className="sender-name">{message.senderDisplayName}</p>
           <p className="message-text">{message.message}</p>
-          <p className="timestamp">
-            {new Date(message.timestamp?.toDate()).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-            })}
-          </p>
-          <p className="status">
-            {message.senderId === currentUser.uid
-              ? message.readBy.includes(message.recipientId)
-                ? "Read"
-                : "Sent"
-              : ""}
-          </p>
+          <div className="timestamp-status-wrapper">
+            <p className="timestamp">
+              {new Date(message.timestamp?.toDate()).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
+            </p>
+            <p className="status">
+              {message.senderId === currentUser.uid
+                ? message.readBy.includes(message.recipientId)
+                  ? "Read"
+                  : "Sent"
+                : ""}
+            </p>
+          </div>
           <div
             className={
               message.senderId === currentUser.uid

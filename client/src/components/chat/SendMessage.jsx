@@ -22,15 +22,22 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
 
   useEffect(() => {
     const fetchRecipientDisplayName = async () => {
-      const recipientDocRef = doc(fireDB, "users", recipientId);
-      const recipientDocSnapshot = await getDoc(recipientDocRef);
-      if (recipientDocSnapshot.exists()) {
-        const recipientData = recipientDocSnapshot.data();
-        setRecipientDisplayName(recipientData.displayName);
+      if (conversationId) {
+        const conversationDocRef = doc(fireDB, "conversations", conversationId);
+        const conversationDocSnapshot = await getDoc(conversationDocRef);
+        if (conversationDocSnapshot.exists()) {
+          const conversationData = conversationDocSnapshot.data();
+          const participant = conversationData.participants.find(
+            (participant) => participant.uid === recipientId
+          );
+          if (participant) {
+            setRecipientDisplayName(participant.displayName);
+          }
+        }
       }
     };
     fetchRecipientDisplayName();
-  }, [recipientId]);
+  }, [conversationId, recipientId]);
 
   useEffect(() => {
     const userTypingRef = doc(fireDB, "users", currentUser.uid);
