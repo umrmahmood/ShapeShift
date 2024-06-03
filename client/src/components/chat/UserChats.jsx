@@ -1,11 +1,20 @@
 import React, { useEffect, useState, useContext } from "react";
-import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  where,
+  doc,
+  onSnapshot,
+} from "firebase/firestore";
 import { fireDB } from "../Firebase.jsx";
 import AuthContext from "../AuthContext.jsx";
 import "./chatStyle.css";
 
 const UserChats = ({ selectChat }) => {
   const [chats, setChats] = useState([]);
+  const [selectedChatId, setSelectedChatId] = useState(null);
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -31,12 +40,32 @@ const UserChats = ({ selectChat }) => {
               (participant) => participant.uid !== uid
             );
 
+            const otherUserDocRef = doc(fireDB, "users", otherUser.uid);
+
+            let otherUserStatus = "offline"; // default to offline
+
+            onSnapshot(otherUserDocRef, (docSnapshot) => {
+              if (docSnapshot.exists()) {
+                otherUserStatus = docSnapshot.data().typing
+                  ? "online"
+                  : "offline";
+                setChats((prevChats) =>
+                  prevChats.map((chat) =>
+                    chat.otherUserId === otherUser.uid
+                      ? { ...chat, otherUserStatus }
+                      : chat
+                  )
+                );
+              }
+            });
+
             return {
               id: conversation.id,
               text: conversation.lastMessage.message,
               otherUserId: otherUser.uid,
               otherUserName: otherUser.displayName || "unknown",
               createdAt: conversation.lastUpdatedAt,
+              otherUserStatus,
             };
           })
         );
@@ -57,9 +86,15 @@ const UserChats = ({ selectChat }) => {
       {chats.map((chat) => (
         <div
           key={chat.id}
-          className="chat-item"
-          onClick={() => selectChat(chat.id, chat.otherUserId)}
+          className={`chat-item ${
+            chat.id === selectedChatId ? "selected" : ""
+          }`}
+          onClick={() => {
+            setSelectedChatId(chat.id);
+            selectChat(chat.id, chat.otherUserId);
+          }}
         >
+          <div className={`status-light ${chat.otherUserStatus}`}></div>
           {chat.otherUserName}
         </div>
       ))}

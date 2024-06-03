@@ -95,6 +95,27 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.chat-item.selected {
+  background-color: #e0e0e0; /* Highlight color */
+}
+
+.status-light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-light.online {
+  background-color: green;
+}
+
+.status-light.offline {
+  background-color: red;
 }
 
 .chat-item:hover {
@@ -122,4 +143,10 @@
   padding: 20px;
   font-size: 18px;
   text-align: center;
+}
+
+.status-text {
+  color: #888; /* Grey color */
+  font-size: 0.9em; /* Smaller font size */
+  padding-left: 10px; /* Add padding */
 }

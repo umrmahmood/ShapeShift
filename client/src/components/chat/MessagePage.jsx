@@ -1,4 +1,3 @@
-// MessagePage.jsx
 import React, { useState, useEffect, useContext, useRef } from "react";
 import {
   collection,
@@ -49,11 +48,7 @@ const MessagePage = () => {
             );
             setSelectedConversation(firstConversation.id);
             setOtherUserId(otherUser.uid);
-            // Fetch the other user's name
-            const otherUserDoc = await getDoc(
-              doc(fireDB, "users", otherUser.uid)
-            );
-            setOtherUserName(otherUserDoc.data().displayName);
+            setOtherUserName(otherUser.displayName); // Fetch the other user's name from the conversation
           } else {
             setSelectedConversation(null);
             setOtherUserId(null);
@@ -69,29 +64,41 @@ const MessagePage = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (otherUserId) {
-      const otherUserStatusRef = doc(fireDB, "users", otherUserId);
+    if (selectedConversation && otherUserId) {
+      const conversationRef = doc(
+        fireDB,
+        "conversations",
+        selectedConversation
+      );
 
-      const unsubscribe = onSnapshot(otherUserStatusRef, (doc) => {
+      const unsubscribe = onSnapshot(conversationRef, (doc) => {
         const data = doc.data();
         if (data) {
-          setOtherUserTyping(data.typing);
-          setLastOnline(data.lastOnline);
-          setOtherUserName(data.displayName); // ensure we update the user's display name if it changes
+          const otherUser = data.participants.find(
+            (participant) => participant.uid === otherUserId
+          );
+          setOtherUserTyping(otherUser.typing);
+          setLastOnline(otherUser.lastOnline);
+          setOtherUserName(otherUser.displayName); // Ensure we update the user's display name if it changes
         }
       });
 
       return () => unsubscribe();
     }
-  }, [otherUserId]);
+  }, [selectedConversation, otherUserId]);
 
   const selectChat = (conversationId, otherUserId) => {
     setSelectedConversation(conversationId);
     setOtherUserId(otherUserId);
-    // Fetch the other user's name
+    // Fetch the other user's name from the selected conversation
     const fetchOtherUserName = async () => {
-      const otherUserDoc = await getDoc(doc(fireDB, "users", otherUserId));
-      setOtherUserName(otherUserDoc.data().displayName);
+      const conversationDoc = await getDoc(
+        doc(fireDB, "conversations", conversationId)
+      );
+      const otherUser = conversationDoc
+        .data()
+        .participants.find((participant) => participant.uid === otherUserId);
+      setOtherUserName(otherUser.displayName);
     };
     fetchOtherUserName();
   };
@@ -150,7 +157,7 @@ const MessagePage = () => {
               />
               <div ref={scrollRef}></div>
             </div>
-            <div className="typing-status">
+            <div className="typing-status status-text">
               {otherUserTyping
                 ? `${otherUserName} is typing...`
                 : formatLastOnline(lastOnline)}
