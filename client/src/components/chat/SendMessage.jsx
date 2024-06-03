@@ -13,12 +13,15 @@ import {
   getDocs,
 } from "firebase/firestore";
 import AuthContext from "../AuthContext";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import "./chatStyle.css";
 
 const SendMessage = ({ scroll, recipientId, conversationId }) => {
   const [message, setMessage] = useState("");
-  const { currentUser } = useContext(AuthContext);
   const [recipientDisplayName, setRecipientDisplayName] = useState("");
+  const [username, setUsername] = useState("");
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchRecipientDisplayName = async () => {
@@ -40,27 +43,44 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
   }, [conversationId, recipientId]);
 
   useEffect(() => {
-    const userTypingRef = doc(fireDB, "users", currentUser.uid);
-
-    const updateTypingStatus = async (typing) => {
+    const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
+    if (tokenFromLocalStorage) {
+      const decodedToken = jwtDecode(tokenFromLocalStorage);
       try {
+        setUsername(decodedToken.userName);
+      } catch (error) {
+        console.error("Error fetching user information:", error);
+      }
+    } else {
+      console.log("Token not found in localStorage");
+    }
+  }, []);
+
+  useEffect(() => {
+    const userTypingRef = doc(fireDB, "users", currentUser.uid);
+    const updateTypingStatus = async (typing) => {
+      const userDoc = await getDoc(userTypingRef);
+      if (!userDoc.exists()) {
+        await setDoc(userTypingRef, {
+          uid: currentUser.uid,
+          displayName: username, // use fetched username
+          typing: typing,
+          lastOnline: serverTimestamp(),
+        });
+      } else {
         await updateDoc(userTypingRef, {
           typing: typing,
           lastOnline: serverTimestamp(),
         });
-      } catch (error) {
-        console.error("Error updating typing status:", error);
       }
     };
-
     if (message) {
       updateTypingStatus(true);
     } else {
       updateTypingStatus(false);
     }
-
     return () => updateTypingStatus(false);
-  }, [message, currentUser.uid]);
+  }, [message, currentUser.uid, username]);
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -68,9 +88,8 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
       alert("Enter a valid message");
       return;
     }
-    const { uid, displayName } = auth.currentUser;
+    const { uid } = auth.currentUser;
     let convId = conversationId;
-
     if (!conversationId) {
       const existingConversationQuery = query(
         collection(fireDB, "conversations"),
@@ -82,7 +101,6 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
       const existingConversation = existingConversationSnapshot.docs.find(
         (doc) => doc.data().participantIds.includes(recipientId)
       );
-
       if (!existingConversation) {
         const newConversationRef = doc(collection(fireDB, "conversations"));
         await setDoc(newConversationRef, {
@@ -96,7 +114,7 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
           },
           lastUpdatedAt: serverTimestamp(),
           participants: [
-            { uid, displayName },
+            { uid, displayName: username },
             { uid: recipientId, displayName: recipientDisplayName },
           ],
           participantIds: [uid, recipientId],
@@ -112,22 +130,19 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
       conversationId: convId,
       message,
       senderId: uid,
-      senderDisplayName: displayName,
+      senderDisplayName: username, // use fetched username
       recipientId,
       status: "sent",
       timestamp: serverTimestamp(),
       readBy: [uid], // Initialize with sender's uid
     });
-
     const conversationRef = doc(fireDB, "conversations", convId);
     await updateDoc(conversationRef, {
       lastMessage: { message, senderId: uid, timestamp: serverTimestamp() },
       lastUpdatedAt: serverTimestamp(),
       [`readStatus.${recipientId}`]: false,
     });
-
     console.log("Message sent:", message);
-
     setMessage("");
     if (scroll && scroll.current) {
       scroll.current.scrollIntoView({ behavior: "smooth" });
@@ -154,4 +169,5 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
     </form>
   );
 };
+
 export default SendMessage;

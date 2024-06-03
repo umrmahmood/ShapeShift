@@ -48,7 +48,7 @@ const MessagePage = () => {
             );
             setSelectedConversation(firstConversation.id);
             setOtherUserId(otherUser.uid);
-            setOtherUserName(otherUser.displayName);
+            setOtherUserName(otherUser.displayName); // Use displayName from conversation
           } else {
             setSelectedConversation(null);
             setOtherUserId(null);
@@ -64,46 +64,29 @@ const MessagePage = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    if (selectedConversation && otherUserId) {
-      const conversationRef = doc(
-        fireDB,
-        "conversations",
-        selectedConversation
-      );
+    if (otherUserId) {
+      const otherUserStatusRef = doc(fireDB, "users", otherUserId);
 
-      const unsubscribe = onSnapshot(conversationRef, (doc) => {
+      const unsubscribe = onSnapshot(otherUserStatusRef, (doc) => {
         const data = doc.data();
         if (data) {
-          const otherUser = data.participants.find(
-            (participant) => participant.uid === otherUserId
-          );
-          setOtherUserTyping(otherUser.typing);
-          setLastOnline(otherUser.lastOnline); // Ensure lastOnline is set correctly
-          setOtherUserName(otherUser.displayName);
+          setOtherUserTyping(data.typing);
+          setLastOnline(data.lastOnline);
         }
       });
 
       return () => unsubscribe();
     }
-  }, [selectedConversation, otherUserId]);
+  }, [otherUserId]);
 
-  const selectChat = (conversationId, otherUserId) => {
+  const selectChat = (conversationId, otherUser) => {
     setSelectedConversation(conversationId);
-    setOtherUserId(otherUserId);
-    const fetchOtherUserName = async () => {
-      const conversationDoc = await getDoc(
-        doc(fireDB, "conversations", conversationId)
-      );
-      const otherUser = conversationDoc
-        .data()
-        .participants.find((participant) => participant.uid === otherUserId);
-      setOtherUserName(otherUser.displayName);
-    };
-    fetchOtherUserName();
+    setOtherUserId(otherUser.uid);
+    setOtherUserName(otherUser.displayName); // Use displayName from conversation
   };
 
   const formatLastOnline = (lastOnline) => {
-    if (!lastOnline || !(lastOnline instanceof Date)) {
+    if (!lastOnline) {
       return `${otherUserName} was last active a long time ago`;
     }
 
@@ -117,7 +100,7 @@ const MessagePage = () => {
       const minutes = date.getMinutes().toString().padStart(2, "0");
       const ampm = hours >= 12 ? "PM" : "AM";
       hours = hours % 12;
-      hours = hours ? hours : 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
       return `${hours}:${minutes} ${ampm}`;
     };
 

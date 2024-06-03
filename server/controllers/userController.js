@@ -110,6 +110,7 @@ const UserController = {
         membership: user.membership,
         shopId: user.membership.shopId,
         firebaseId: user.firebaseId,
+        userName: user.profile.username,
       };
 
       // Generate JWT token with payload
@@ -149,6 +150,7 @@ const UserController = {
         membership: user.membership,
         shopId: user.membership.shopId,
         firebaseId: user.firebaseId,
+        userName: user.profile.username,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "3h",

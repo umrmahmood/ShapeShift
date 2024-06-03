@@ -1,5 +1,3 @@
-// UserChats.jsx
-
 import React, { useEffect, useState, useContext } from "react";
 import {
   collection,
@@ -45,15 +43,15 @@ const UserChats = ({ selectChat }) => {
             const otherUserDocRef = doc(fireDB, "users", otherUser.uid);
             let otherUserStatus = "offline"; // default to offline
 
-            onSnapshot(otherUserDocRef, (docSnapshot) => {
+            const unsubscribe = onSnapshot(otherUserDocRef, (docSnapshot) => {
               if (docSnapshot.exists()) {
                 otherUserStatus = docSnapshot.data().online
                   ? "online"
                   : "offline";
                 setChats((prevChats) =>
                   prevChats.map((chat) =>
-                    chat.otherUserId === otherUser.uid
-                      ? { ...chat, otherUserStatus }
+                    chat.id === conversation.id
+                      ? { ...chat, otherUserStatus } // Update only the relevant chat
                       : chat
                   )
                 );
@@ -67,6 +65,7 @@ const UserChats = ({ selectChat }) => {
               otherUserName: otherUser.displayName || "unknown",
               createdAt: conversation.lastUpdatedAt,
               otherUserStatus,
+              unsubscribe, // Store the unsubscribe function
             };
           })
         );
@@ -76,7 +75,14 @@ const UserChats = ({ selectChat }) => {
     };
 
     fetchChats();
-  }, [currentUser]);
+
+    // Cleanup function to unsubscribe from all snapshot listeners
+    return () => {
+      chats.forEach((chat) => {
+        chat.unsubscribe(); // Call the stored unsubscribe function
+      });
+    };
+  }, [currentUser]); // Only useEffect depends on currentUser
 
   if (!currentUser) {
     return <div>Please log in to see your chats.</div>;
@@ -92,7 +98,10 @@ const UserChats = ({ selectChat }) => {
           }`}
           onClick={() => {
             setSelectedChatId(chat.id);
-            selectChat(chat.id, chat.otherUserId);
+            selectChat(chat.id, {
+              uid: chat.otherUserId,
+              displayName: chat.otherUserName,
+            });
           }}
         >
           <div className={`status-light ${chat.otherUserStatus}`}></div>
