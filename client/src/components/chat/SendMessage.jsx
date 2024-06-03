@@ -43,19 +43,13 @@ const SendMessage = ({ scroll, recipientId, conversationId }) => {
     const userTypingRef = doc(fireDB, "users", currentUser.uid);
 
     const updateTypingStatus = async (typing) => {
-      const userDoc = await getDoc(userTypingRef);
-      if (!userDoc.exists()) {
-        await setDoc(userTypingRef, {
-          uid: currentUser.uid,
-          displayName: currentUser.displayName,
-          typing: typing,
-          lastOnline: serverTimestamp(),
-        });
-      } else {
+      try {
         await updateDoc(userTypingRef, {
           typing: typing,
           lastOnline: serverTimestamp(),
         });
+      } catch (error) {
+        console.error("Error updating typing status:", error);
       }
     };
 

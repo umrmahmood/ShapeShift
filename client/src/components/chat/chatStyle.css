@@ -100,7 +100,7 @@
 }
 
 .chat-item.selected {
-  background-color: #e0e0e0; /* Highlight color */
+  background-color: #ff8080; /* Highlight color */
 }
 
 .status-light {
