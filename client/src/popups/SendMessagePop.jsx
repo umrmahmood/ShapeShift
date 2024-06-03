@@ -1,4 +1,3 @@
-// Import the necessary dependencies
 import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { auth, fireDB } from "../components/Firebase.jsx";
@@ -12,9 +11,10 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
 import AuthContext from "../components/AuthContext.jsx";
-import axios from "axios"; // Import Axios for making HTTP requests
+import { jwtDecode } from "jwt-decode"; // Import jwtDecode to decode JWT tokens
 import "./MessagePopup.css"; // Import the CSS file for styling
 
 const SendMessagePop = ({
@@ -27,10 +27,22 @@ const SendMessagePop = ({
   const [message, setMessage] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const { currentUser } = useContext(AuthContext);
+  const [username, setUsername] = useState("");
   const recipient = firstRecipientId;
-  const username = firstRecipientUsername;
-  console.log("reci", firstRecipientId);
-  console.log("username", firstRecipientUsername);
+
+  useEffect(() => {
+    const tokenFromLocalStorage = localStorage.getItem("shapeshiftkey");
+    if (tokenFromLocalStorage) {
+      const decodedToken = jwtDecode(tokenFromLocalStorage);
+      try {
+        setUsername(decodedToken.userName);
+      } catch (error) {
+        console.error("Error fetching user information:", error);
+      }
+    } else {
+      console.log("Token not found in localStorage");
+    }
+  }, []);
 
   const sendMessage = async (event) => {
     event.preventDefault();
@@ -45,7 +57,7 @@ const SendMessagePop = ({
       return;
     }
 
-    const { uid, displayName } = auth.currentUser;
+    const { uid } = auth.currentUser;
     let convId = null;
 
     // Check if conversation already exists
@@ -76,10 +88,10 @@ const SendMessagePop = ({
         },
         lastUpdatedAt: serverTimestamp(),
         participants: [
-          { uid, displayName },
+          { uid, displayName: username },
           {
             uid: recipient.firebaseId,
-            displayName: username,
+            displayName: firstRecipientUsername,
           },
         ],
         participantIds: [uid, recipient.firebaseId],
@@ -97,7 +109,7 @@ const SendMessagePop = ({
       conversationId: convId,
       message,
       senderId: uid,
-      senderDisplayName: displayName,
+      senderDisplayName: username,
       recipientId: recipient.firebaseId,
       status: "sent",
       timestamp: serverTimestamp(),
@@ -133,7 +145,7 @@ const SendMessagePop = ({
           </div>
         ) : (
           <div>
-            <h2>Send Message to {username}</h2>
+            <h2>Send Message to {firstRecipientUsername}</h2>
             <form onSubmit={sendMessage} className="send-message">
               <label htmlFor="messageInput" hidden>
                 Enter Message
