@@ -48,7 +48,7 @@ const MessagePage = () => {
             );
             setSelectedConversation(firstConversation.id);
             setOtherUserId(otherUser.uid);
-            setOtherUserName(otherUser.displayName); // Fetch the other user's name from the conversation
+            setOtherUserName(otherUser.displayName);
           } else {
             setSelectedConversation(null);
             setOtherUserId(null);
@@ -78,8 +78,8 @@ const MessagePage = () => {
             (participant) => participant.uid === otherUserId
           );
           setOtherUserTyping(otherUser.typing);
-          setLastOnline(otherUser.lastOnline);
-          setOtherUserName(otherUser.displayName); // Ensure we update the user's display name if it changes
+          setLastOnline(otherUser.lastOnline); // Ensure lastOnline is set correctly
+          setOtherUserName(otherUser.displayName);
         }
       });
 
@@ -90,7 +90,6 @@ const MessagePage = () => {
   const selectChat = (conversationId, otherUserId) => {
     setSelectedConversation(conversationId);
     setOtherUserId(otherUserId);
-    // Fetch the other user's name from the selected conversation
     const fetchOtherUserName = async () => {
       const conversationDoc = await getDoc(
         doc(fireDB, "conversations", conversationId)
@@ -104,7 +103,7 @@ const MessagePage = () => {
   };
 
   const formatLastOnline = (lastOnline) => {
-    if (!lastOnline) {
+    if (!lastOnline || !(lastOnline instanceof Date)) {
       return `${otherUserName} was last active a long time ago`;
     }
 
@@ -118,7 +117,7 @@ const MessagePage = () => {
       const minutes = date.getMinutes().toString().padStart(2, "0");
       const ampm = hours >= 12 ? "PM" : "AM";
       hours = hours % 12;
-      hours = hours ? hours : 12; // the hour '0' should be '12'
+      hours = hours ? hours : 12;
       return `${hours}:${minutes} ${ampm}`;
     };
 

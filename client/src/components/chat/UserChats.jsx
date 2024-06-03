@@ -1,3 +1,5 @@
+// UserChats.jsx
+
 import React, { useEffect, useState, useContext } from "react";
 import {
   collection,
@@ -41,12 +43,11 @@ const UserChats = ({ selectChat }) => {
             );
 
             const otherUserDocRef = doc(fireDB, "users", otherUser.uid);
-
             let otherUserStatus = "offline"; // default to offline
 
             onSnapshot(otherUserDocRef, (docSnapshot) => {
               if (docSnapshot.exists()) {
-                otherUserStatus = docSnapshot.data().typing
+                otherUserStatus = docSnapshot.data().online
                   ? "online"
                   : "offline";
                 setChats((prevChats) =>
