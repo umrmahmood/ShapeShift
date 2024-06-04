@@ -100,18 +100,53 @@ a:hover {
 	color: rgb(166, 0, 2);
 }
 
-.navbar-sell-btn button {
+/* .navbar-sell-btn button {
 	border: none;
-	/* background: rgb(166, 0, 2);
-	color: white;
-	border-radius: 5px;
-	padding: 1px 8px; */
 	color: rgb(166, 0, 2);
 	background: none;
 	font-family: "proxoma nova";
-	/* font-family: "Bebas Neue", sans-serif; */
 	font-size: 22px;
 	font-weight: bold;
+} */
+
+/* .navbar-sell-btn button {
+	border: none;
+	color: rgb(0, 0, 0);
+	background: none;
+	font-family: "proxoma nova";
+	font-size: 22px;
+	font-weight: bold;
+} */
+
+
+ /* .navbar-sell-btn button {
+	border: none;
+	background: rgb(166, 0, 2);
+	color: white;
+	border-radius: 3px;
+	padding: 2px 10px; 
+	font-family: "Bebas Neue", sans-serif; 
+	font-size: 20px;
+}
+
+.navbar-sell-btn button:hover {
+	background: rgb(238, 13, 13);
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}  */
+
+.navbar-sell-btn button {
+	font-family: "proxoma nova";
+	background: transparent;
+	border: 1px solid black;
+	padding: 1px 10px;
+	font-size: 0.8em;
+	margin-bottom: 4px;
+}
+
+.navbar-sell-btn button:hover {
+	color: white;
+	background: black;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
 }
 
 .Navbar-container.small {

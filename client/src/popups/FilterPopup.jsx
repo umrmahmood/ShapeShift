@@ -3,6 +3,14 @@ import PropTypes from "prop-types";
 import "./PopMenu.css"; // Reuse the CSS file for styling
 import "./FilterPopup.css"; // Add specific styles for filter popup
 
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faXmark,
+	
+	
+} from "@fortawesome/free-solid-svg-icons";
+
 const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
 	const popupRef = useRef(null);
 	const [location, setLocation] = useState(
@@ -140,7 +148,7 @@ const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
 					{location !== "Anywhere" && (
 						<div className="filter-tag">
 							Location: {location}{" "}
-							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("location")}>x</button>
+							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("location")}><FontAwesomeIcon icon={faXmark} /></button>
 						</div>
 					)}
 				</div>
@@ -178,7 +186,7 @@ const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
 						<div className="filter-tag">
 							Price: {priceRange}{" "}
 							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("priceRange")}>
-								x
+							<FontAwesomeIcon icon={faXmark} />
 							</button>
 						</div>
 					)}
@@ -215,7 +223,7 @@ const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
 					{material !== "All" && (
 						<div className="filter-tag">
 							Material: {material}{" "}
-							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("material")}>x</button>
+							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("material")}><FontAwesomeIcon icon={faXmark} /></button>
 						</div>
 					)}
 				</div>
@@ -229,7 +237,8 @@ const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
 					{type !== "All" && (
 						<div className="filter-tag">
 							Type: {type}{" "}
-							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("type")}>x</button>
+
+							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("type")}><FontAwesomeIcon icon={faXmark} /></button>
 						</div>
 					)}
 				</div>
@@ -245,7 +254,7 @@ const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
 						<div className="filter-tag">
 							Free Shipping{" "}
 							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("freeShipping")}>
-								x
+							<FontAwesomeIcon icon={faXmark} />
 							</button>
 						</div>
 					)}
@@ -261,7 +270,7 @@ const FilterPopup = ({ isOpen, onClose, onApplyFilters, activeFilters }) => {
 					{onSale && (
 						<div className="filter-tag">
 							On Sale{" "}
-							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("onSale")}>x</button>
+							<button className="filter-cancel-btn" onClick={() => handleRemoveFilter("onSale")}><FontAwesomeIcon icon={faXmark} /></button>
 						</div>
 					)}
 				</div>
