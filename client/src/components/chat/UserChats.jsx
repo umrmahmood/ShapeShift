@@ -1,15 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   collection,
-  getDocs,
   query,
-  orderBy,
   where,
-  doc,
+  orderBy,
   onSnapshot,
+  updateDoc,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 import { fireDB } from "../Firebase.jsx";
 import AuthContext from "../AuthContext.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import "./chatStyle.css";
 
 const UserChats = ({ selectChat }) => {
@@ -18,71 +21,70 @@ const UserChats = ({ selectChat }) => {
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchChats = async () => {
-      if (currentUser) {
-        const { uid } = currentUser;
+    if (!currentUser) return;
 
-        const conversationsQuery = query(
-          collection(fireDB, "conversations"),
-          where("participantIds", "array-contains", uid),
-          orderBy("lastUpdatedAt", "desc")
+    const { uid } = currentUser;
+
+    const conversationsQuery = query(
+      collection(fireDB, "conversations"),
+      where("participantIds", "array-contains", uid),
+      orderBy("lastUpdatedAt", "desc")
+    );
+
+    const unsubscribe = onSnapshot(conversationsQuery, (snapshot) => {
+      const conversationList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      const chatPromises = conversationList.map(async (conversation) => {
+        const otherUser = conversation.participants.find(
+          (participant) => participant.uid !== uid
         );
 
-        const conversationsSnapshot = await getDocs(conversationsQuery);
-        const conversationList = conversationsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const otherUserDocRef = doc(fireDB, "users", otherUser.uid);
+        const otherUserSnapshot = await getDoc(otherUserDocRef);
+        const otherUserStatus = otherUserSnapshot.exists()
+          ? otherUserSnapshot.data().online
+            ? "online"
+            : "offline"
+          : "offline";
 
-        const chatList = await Promise.all(
-          conversationList.map(async (conversation) => {
-            const otherUser = conversation.participants.find(
-              (participant) => participant.uid !== uid
-            );
-
-            const otherUserDocRef = doc(fireDB, "users", otherUser.uid);
-            let otherUserStatus = "offline"; // default to offline
-
-            const unsubscribe = onSnapshot(otherUserDocRef, (docSnapshot) => {
-              if (docSnapshot.exists()) {
-                otherUserStatus = docSnapshot.data().online
-                  ? "online"
-                  : "offline";
-                setChats((prevChats) =>
-                  prevChats.map((chat) =>
-                    chat.id === conversation.id
-                      ? { ...chat, otherUserStatus } // Update only the relevant chat
-                      : chat
-                  )
-                );
-              }
-            });
-
-            return {
-              id: conversation.id,
-              text: conversation.lastMessage.message,
-              otherUserId: otherUser.uid,
-              otherUserName: otherUser.displayName || "unknown",
-              createdAt: conversation.lastUpdatedAt,
-              otherUserStatus,
-              unsubscribe, // Store the unsubscribe function
-            };
-          })
-        );
-
-        setChats(chatList);
-      }
-    };
-
-    fetchChats();
-
-    // Cleanup function to unsubscribe from all snapshot listeners
-    return () => {
-      chats.forEach((chat) => {
-        if (chat.unsubscribe) chat.unsubscribe(); // Call the stored unsubscribe function
+        return {
+          id: conversation.id,
+          text: conversation.lastMessage.message,
+          otherUserId: otherUser.uid,
+          otherUserName: otherUser.displayName || "unknown",
+          createdAt: conversation.lastUpdatedAt,
+          otherUserStatus,
+          unread: !conversation.readStatus[uid],
+        };
       });
-    };
-  }, [currentUser]); // Only useEffect depends on currentUser
+
+      Promise.all(chatPromises).then((chatList) => setChats(chatList));
+    });
+
+    return () => unsubscribe();
+  }, [currentUser]);
+
+  const handleSelectChat = async (chat) => {
+    setSelectedChatId(chat.id);
+    selectChat(chat.id, {
+      uid: chat.otherUserId,
+      displayName: chat.otherUserName,
+    });
+
+    if (chat.unread) {
+      const conversationRef = doc(fireDB, "conversations", chat.id);
+      await updateDoc(conversationRef, {
+        [`readStatus.${currentUser.uid}`]: true,
+      });
+
+      setChats((prevChats) =>
+        prevChats.map((c) => (c.id === chat.id ? { ...c, unread: false } : c))
+      );
+    }
+  };
 
   if (!currentUser) {
     return <div>Please log in to see your chats.</div>;
@@ -96,16 +98,13 @@ const UserChats = ({ selectChat }) => {
           className={`chat-item ${
             chat.id === selectedChatId ? "selected" : ""
           }`}
-          onClick={() => {
-            setSelectedChatId(chat.id);
-            selectChat(chat.id, {
-              uid: chat.otherUserId,
-              displayName: chat.otherUserName,
-            });
-          }}
+          onClick={() => handleSelectChat(chat)}
         >
           <div className={`status-light ${chat.otherUserStatus}`}></div>
           {chat.otherUserName}
+          {chat.unread && (
+            <FontAwesomeIcon icon={faEnvelope} className="unread-icon" />
+          )}
         </div>
       ))}
     </div>
