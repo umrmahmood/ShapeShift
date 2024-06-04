@@ -79,7 +79,7 @@ const UserChats = ({ selectChat }) => {
     // Cleanup function to unsubscribe from all snapshot listeners
     return () => {
       chats.forEach((chat) => {
-        chat.unsubscribe(); // Call the stored unsubscribe function
+        if (chat.unsubscribe) chat.unsubscribe(); // Call the stored unsubscribe function
       });
     };
   }, [currentUser]); // Only useEffect depends on currentUser

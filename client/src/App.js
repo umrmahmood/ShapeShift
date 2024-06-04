@@ -29,7 +29,6 @@ import DigitalListings from "./components/digitals/DigitalListings.jsx";
 import SearchResultPage from "./components/SearchResultPage.jsx";
 import OurTeam from "./components/OurTeam/OurTeam.jsx";
 
-
 function ScrollToTop() {
   const { pathname } = useLocation();
 
