@@ -10,44 +10,43 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const userRef = doc(fireDB, "users", user.uid);
+    const updateOnlineStatus = async (isOnline) => {
+      if (currentUser) {
+        const userRef = doc(fireDB, "users", currentUser.uid);
         await setDoc(
           userRef,
-          { online: true, lastOnline: serverTimestamp() },
+          { online: isOnline, lastOnline: serverTimestamp() },
           { merge: true }
         );
+      }
+    };
 
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === "hidden") {
+        await updateOnlineStatus(false);
+      } else {
+        await updateOnlineStatus(true);
+      }
+    };
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
         setCurrentUser(user);
+        await updateOnlineStatus(true);
 
-        window.addEventListener("beforeunload", async () => {
-          await setDoc(
-            userRef,
-            { online: false, lastOnline: serverTimestamp() },
-            { merge: true }
-          );
-        });
-
-        const idleCallback = async () => {
-          await setDoc(
-            userRef,
-            { online: false, lastOnline: serverTimestamp() },
-            { merge: true }
-          );
-        };
-
-        document.addEventListener("visibilitychange", idleCallback);
+        window.addEventListener("beforeunload", () =>
+          updateOnlineStatus(false)
+        );
+        document.addEventListener("visibilitychange", handleVisibilityChange);
 
         return () => {
-          document.removeEventListener("visibilitychange", idleCallback);
-          window.removeEventListener("beforeunload", async () => {
-            await setDoc(
-              userRef,
-              { online: false, lastOnline: serverTimestamp() },
-              { merge: true }
-            );
-          });
+          window.removeEventListener("beforeunload", () =>
+            updateOnlineStatus(false)
+          );
+          document.removeEventListener(
+            "visibilitychange",
+            handleVisibilityChange
+          );
         };
       } else {
         setCurrentUser(null);
@@ -55,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [currentUser]);
 
   return (
     <AuthContext.Provider value={{ currentUser }}>

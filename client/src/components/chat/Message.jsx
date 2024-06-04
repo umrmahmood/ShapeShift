@@ -45,7 +45,6 @@ const Message = ({ conversationId, scrollRef }) => {
         const readStatus = conversationDoc.data().readStatus || {};
 
         if (!readStatus[currentUser.uid]) {
-          console.log(`Updating read status for user ${currentUser.uid}`);
           await updateDoc(conversationRef, {
             [`readStatus.${currentUser.uid}`]: true,
           });
