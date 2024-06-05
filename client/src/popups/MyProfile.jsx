@@ -1,8 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import NotificationContext from "../components/NotificationContext.jsx";
 
 // CSS import
 import "./PopMenu.css";
@@ -21,8 +22,9 @@ import {
 const MyProfile = ({ isOpen, onClose }) => {
   const popupRef = useRef(null);
   const [user, setUser] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isNavbarSmall, setIsNavbarSmall] = useState(false);
+  const { unreadMessages, markMessagesAsRead } =
+    useContext(NotificationContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,7 +51,6 @@ const MyProfile = ({ isOpen, onClose }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("shapeshiftkey");
-    setIsLoggedIn(false);
     navigate("/");
   };
 
@@ -135,7 +136,14 @@ const MyProfile = ({ isOpen, onClose }) => {
           </li>
           <li>
             <div className="icon-wrapper">
-              <FontAwesomeIcon icon={faEnvelope} />
+              {unreadMessages > 0 ? (
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="unread-icon-profile"
+                />
+              ) : (
+                <FontAwesomeIcon icon={faEnvelope} />
+              )}{" "}
             </div>
             <Link
               className="text-wrapper profile-links"
@@ -165,9 +173,6 @@ const MyProfile = ({ isOpen, onClose }) => {
             <div className="icon-wrapper">
               <FontAwesomeIcon icon={faRightFromBracket} />
             </div>
-            {/* <div className="text-wrapper">
-              <button onClick={handleLogout}>Sign Out</button>
-            </div> */}
             <Link
               className="text-wrapper profile-links"
               to="/"
