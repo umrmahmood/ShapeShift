@@ -36,6 +36,7 @@ const Navbar = ({ onLoginClick }) => {
   const [menuItems, setMenuItems] = useState(false);
   const [showEnvelopeIcon, setShowEnvelopeIcon] = useState(true);
   const { unreadMessages } = useContext(NotificationContext);
+  const [isNavbarSmall, setIsNavbarSmall] = useState(false);
 
   const navigate = useNavigate();
 
@@ -43,8 +44,10 @@ const Navbar = ({ onLoginClick }) => {
     const offset = window.scrollY;
     if (offset > 100) {
       setIsScrolled(true);
+      setIsNavbarSmall(true);
     } else {
       setIsScrolled(false);
+      setIsNavbarSmall(false);
     }
   };
 
@@ -198,6 +201,7 @@ const Navbar = ({ onLoginClick }) => {
                       <FontAwesomeIcon
                         icon={faCommentDots}
                         className="unread-icon-navbar"
+                        style={{ top: isNavbarSmall ? "35px" : "75px" }}
                       />
                     )}
                   </div>

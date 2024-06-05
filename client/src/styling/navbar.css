@@ -239,8 +239,7 @@ a:hover {
 }
 
 .unread-icon-navbar {
-	position: absolute;
-	bottom: +55px; /* Adjust this value as needed */
+	position: absolute; /* Adjust this value as needed */
 	right: +175px;  /* Adjust this value as needed */
 	color: rgb(166, 0, 2);
 	font-size: 1em;
