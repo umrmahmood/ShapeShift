@@ -142,3 +142,7 @@
 .custom-popup-content ul li:nth-child(6) {
   animation-delay: 0.8s;
 }
+
+.unread-icon-profile {
+  color: red;
+}

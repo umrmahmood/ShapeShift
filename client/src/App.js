@@ -19,6 +19,7 @@ import Cart from "./components/Cart.jsx";
 import ShopListing from "./components/ShopPage/ShopListing.jsx";
 import UserProfile from "./components/UserProfile/UserProfile.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
+import { NotificationProvider } from "./components/NotificationContext.jsx";
 import MessagePage from "./components/chat/MessagePage.jsx";
 import KlarnaComponent from "./components/Payment/KlarnaComponent.jsx";
 import PayPalComponent from "./components/Payment/PayPalComponent.jsx";
@@ -47,45 +48,47 @@ function App() {
 
   return (
     <AuthProvider>
-      <div className="App">
-        <header className="App-header">
-          <Navbar onLoginClick={toggleLogin} />
-          {showLogin && (
-            <div className="main-overlay" onClick={toggleLogin}></div>
-          )}
-          {showLogin && (
-            <div className="login-popup">
-              <Login toggleLogin={toggleLogin} />
-            </div>
-          )}
-        </header>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/config" element={<ConfigComponent />} />
-          <Route path="/item" element={<ItemPage />} />
-          <Route path="/shop/:shopId" element={<SellerShop />} />
-          <Route path="/user-shop" element={<UserShop />} />
-          <Route path="/home" element={<MainPage />} />
-          <Route path="/item/:productId" element={<ItemPage />} />
-          <Route path="/digital/:productId" element={<DigitalItemPage />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/home" element={<MainPage />} />
-          <Route path="/shoplisting" element={<ShopListing />} />
-          <Route path="/openshop" element={<OpenShop />} />
-          <Route path="/product-form" element={<ProductForm />} />
-          <Route path="/myprofile" element={<UserProfile />} />
-          <Route path="/messages" element={<MessagePage />} />
-          {/* <Route path="/payment/visa" element={<VisaComponent />} />
+      <NotificationProvider>
+        <div className="App">
+          <header className="App-header">
+            <Navbar onLoginClick={toggleLogin} />
+            {showLogin && (
+              <div className="main-overlay" onClick={toggleLogin}></div>
+            )}
+            {showLogin && (
+              <div className="login-popup">
+                <Login toggleLogin={toggleLogin} />
+              </div>
+            )}
+          </header>
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/config" element={<ConfigComponent />} />
+            <Route path="/item" element={<ItemPage />} />
+            <Route path="/shop/:shopId" element={<SellerShop />} />
+            <Route path="/user-shop" element={<UserShop />} />
+            <Route path="/home" element={<MainPage />} />
+            <Route path="/item/:productId" element={<ItemPage />} />
+            <Route path="/digital/:productId" element={<DigitalItemPage />} />
+            <Route path="/Cart" element={<Cart />} />
+            <Route path="/home" element={<MainPage />} />
+            <Route path="/shoplisting" element={<ShopListing />} />
+            <Route path="/openshop" element={<OpenShop />} />
+            <Route path="/product-form" element={<ProductForm />} />
+            <Route path="/myprofile" element={<UserProfile />} />
+            <Route path="/messages" element={<MessagePage />} />
+            {/* <Route path="/payment/visa" element={<VisaComponent />} />
           <Route path="/payment/klarna" element={<KlarnaComponent />} />
           <Route path="/payment/paypal" element={<PayPalComponent />} /> */}
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/digital/" element={<DigitalListings />} />
-          <Route path="/search" element={<SearchResultPage />} />
-          <Route path="/team" element={<OurTeam />} />
-        </Routes>
-        <Footer />
-      </div>
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/digital/" element={<DigitalListings />} />
+            <Route path="/search" element={<SearchResultPage />} />
+            <Route path="/team" element={<OurTeam />} />
+          </Routes>
+          <Footer />
+        </div>
+      </NotificationProvider>
     </AuthProvider>
   );
 }
