@@ -2,13 +2,16 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+  justify-self: center;
+  max-width: 94%;
+  margin-left: 3em;
 }
 
 .bubble {
   position: relative;
   padding: 10px 20px;
   margin-bottom: 12px;
-  max-width: 80%;
+  max-width: 45em;
   border-radius: 20px;
   word-wrap: break-word;
   line-height: 24px;
@@ -41,22 +44,26 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 4px; /* Adjust as needed */
+  margin-top: 4px;
+  /* Adjust as needed */
 }
 
 .timestamp {
   font-size: 0.75em;
   margin: 0;
-  line-height: 1; /* Adjust line-height */
+  line-height: 1;
+  /* Adjust line-height */
 }
 
 .status {
   font-size: 0.75em;
   margin: 0;
-  line-height: 1; /* Adjust line-height */
+  line-height: 1;
+  /* Adjust line-height */
 }
 
-.right-arrow, .left-arrow {
+.right-arrow,
+.left-arrow {
   position: absolute;
   width: 20px;
   height: 25px;

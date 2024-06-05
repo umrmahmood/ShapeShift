@@ -1,9 +1,3 @@
-.chat-box {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-}
-
 .messages-wrapper {
   flex: 1;
   display: flex;
@@ -100,7 +94,8 @@
 }
 
 .chat-item.selected {
-  background-color: #ff8080; /* Highlight color */
+  background-color: #ff8080;
+  /* Highlight color */
 }
 
 .status-light {
@@ -131,6 +126,7 @@
 
 .message-display {
   flex: 6;
+
   overflow-y: auto;
   padding: 10px;
 }
@@ -146,9 +142,12 @@
 }
 
 .status-text {
-  color: #888; /* Grey color */
-  font-size: 0.9em; /* Smaller font size */
-  padding-left: 10px; /* Add padding */
+  color: #888;
+  /* Grey color */
+  font-size: 0.9em;
+  /* Smaller font size */
+  padding-left: 10px;
+  /* Add padding */
 }
 
 .unread-count-bubble {
